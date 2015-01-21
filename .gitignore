@@ -4,9 +4,6 @@
 # Keys
 *.jks
 
-# Local Properties
-android/src/main/assets/tba.properties
-
 # Built application files
 *.apk
 *.ap_
