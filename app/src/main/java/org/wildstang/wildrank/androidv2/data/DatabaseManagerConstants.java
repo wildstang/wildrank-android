@@ -10,5 +10,5 @@ public class DatabaseManagerConstants {
 
     public static final String MATCH_TYPE = "match";
     public static final String MATCH_LIST_VIEW = "match_view";
-    public static final String MATCH_KEY = "match_key";
+    public static final String MATCH_KEY = "key";
 }

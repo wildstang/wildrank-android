@@ -1,6 +1,7 @@
 package org.wildstang.wildrank.androidv2.data;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.couchbase.lite.CouchbaseLiteException;
 import com.couchbase.lite.Database;
@@ -8,6 +9,7 @@ import com.couchbase.lite.Emitter;
 import com.couchbase.lite.LiveQuery;
 import com.couchbase.lite.Manager;
 import com.couchbase.lite.Mapper;
+import com.couchbase.lite.Query;
 
 import java.io.IOException;
 import java.util.Map;
@@ -37,11 +39,18 @@ public class DatabaseManager {
         matchView.setMap(new Mapper() {
             @Override
             public void map(Map<String, Object> document, Emitter emitter) {
-                if (document.get(DatabaseManagerConstants.DOC_TYPE).equals(DatabaseManagerConstants.MATCH_TYPE)) {
-                    emitter.emit(document.get(DatabaseManagerConstants.MATCH_KEY), null);
+                Log.d("wildrank", "mapping!");
+
+                Object docType = document.get(DatabaseManagerConstants.DOC_TYPE);
+                if (docType != null) {
+                    Log.d("wildrank", "type not null! " + docType.toString());
+                    if (docType.toString().equals(DatabaseManagerConstants.MATCH_TYPE)) {
+                        Log.d("wildrank", "emitting! " + document.get(DatabaseManagerConstants.MATCH_KEY));
+                        emitter.emit(/*document.get(DatabaseManagerConstants.MATCH_KEY)*/document.get("match_number"), null);
+                    }
                 }
             }
-        }, "1");
+        }, "7");
     }
 
     public Manager getManager() {
@@ -52,8 +61,10 @@ public class DatabaseManager {
      * Matches
      */
 
-    public LiveQuery getAllMatches() {
-        return database.getView(DatabaseManagerConstants.MATCH_LIST_VIEW).createQuery().toLiveQuery();
+    public Query getAllMatches() {
+        Query query = database.getView(DatabaseManagerConstants.MATCH_LIST_VIEW).createQuery();
+        query.setDescending(false);
+        return query;
     }
 
     public Database getDatabase() {

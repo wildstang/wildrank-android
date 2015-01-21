@@ -1,6 +1,7 @@
 package org.wildstang.wildrank.androidv2.adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,14 +40,20 @@ public class MatchListAdapter extends ArrayAdapter<QueryRow> {
             holder = new ViewHolder();
             holder.matchNumber = (TextView) convertView.findViewById(R.id.match_number);
             holder.redTeams = (TextView) convertView.findViewById(R.id.red_alliance);
-            holder.redTeams = (TextView) convertView.findViewById(R.id.blue_alliance);
+            holder.blueTeams = (TextView) convertView.findViewById(R.id.blue_alliance);
+            convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
 
         QueryRow row = getItem(position);
 
-        Map<String, Object> properties = row.getDocumentProperties();
+        Map<String, Object> properties = row.getDocument().getProperties();
+
+        Log.d("wildrank", "key: " + row.getKey());
+        Log.d("wildrank", "properties: " + properties.toString());
+        Log.d("wildrank", "properties are null? " + (properties == null));
+        Log.d("wildrank", "matchnum is null? " + (properties.get("match_number") == null));
 
         holder.matchNumber.setText(properties.get("match_number").toString());
 

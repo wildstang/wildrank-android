@@ -2,6 +2,7 @@ package org.wildstang.wildrank.androidv2.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,8 @@ import android.widget.Toast;
 
 import com.couchbase.lite.Document;
 import com.couchbase.lite.LiveQuery;
+import com.couchbase.lite.Query;
+import com.couchbase.lite.QueryEnumerator;
 import com.couchbase.lite.QueryRow;
 
 import org.wildstang.wildrank.androidv2.R;
@@ -72,11 +75,11 @@ public class MatchScoutingMainFragment extends Fragment implements View.OnClickL
 
     private void setUpListAndBeginLiveQuery() throws Exception {
         if (liveQuery == null) {
-            liveQuery = DatabaseManager.getInstance(getActivity()).getAllMatches();
+            Query query = DatabaseManager.getInstance(getActivity()).getAllMatches();
 
             adapter = new MatchListAdapter(getActivity(), new ArrayList<QueryRow>());
 
-            liveQuery.addChangeListener(new LiveQuery.ChangeListener() {
+            /*liveQuery.addChangeListener(new LiveQuery.ChangeListener() {
                 @Override
                 public void changed(final LiveQuery.ChangeEvent changeEvent) {
                     getActivity().runOnUiThread(new Runnable() {
@@ -92,14 +95,18 @@ public class MatchScoutingMainFragment extends Fragment implements View.OnClickL
                 }
             });
 
-            liveQuery.start();
+            liveQuery.start();*/
 
-            /*List<QueryRow> queryRows = new ArrayList<>();
-            for (Iterator<QueryRow> it = liveQuery.getRows(); it.hasNext();) {
+            QueryEnumerator enumerator = query.run();
+
+            Log.d("wildrank", "match query count: " + enumerator.getCount());
+
+            List<QueryRow> queryRows = new ArrayList<>();
+            for (Iterator<QueryRow> it = enumerator; it.hasNext(); ) {
                 queryRows.add(it.next());
             }
             adapter = new MatchListAdapter(getActivity(), queryRows);
-            list.setAdapter(adapter);*/
+            list.setAdapter(adapter);
         }
     }
 
@@ -113,7 +120,7 @@ public class MatchScoutingMainFragment extends Fragment implements View.OnClickL
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        if(id == R.id.begin_scouting) {
+        if (id == R.id.begin_scouting) {
             // Launch the scouting activity
         }
     }

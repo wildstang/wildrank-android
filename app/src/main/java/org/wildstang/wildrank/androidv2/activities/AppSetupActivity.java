@@ -13,12 +13,14 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.couchbase.lite.Context;
+import com.couchbase.lite.CouchbaseLiteException;
 import com.couchbase.lite.Database;
 import com.couchbase.lite.Document;
 import com.couchbase.lite.Manager;
 import com.couchbase.lite.Query;
 import com.couchbase.lite.QueryEnumerator;
 import com.couchbase.lite.QueryRow;
+import com.couchbase.lite.UnsavedRevision;
 import com.couchbase.lite.android.AndroidContext;
 
 import org.wildstang.wildrank.androidv2.R;
@@ -113,12 +115,21 @@ public class AppSetupActivity extends ActionBarActivity implements View.OnClickL
                 Query query = externalDatabase.createAllDocumentsQuery();
                 query.setAllDocsMode(Query.AllDocsMode.ALL_DOCS);
                 QueryEnumerator result = query.run();
+                Log.d("wildrank", "QueryEnumerator length: " + result.getCount());
                 for (Iterator<QueryRow> it = result; it.hasNext(); ) {
                     QueryRow row = it.next();
                     Document existingDoc = row.getDocument();
+                    Log.d("wildrank", "Document contents: " + existingDoc.getProperties().toString());
                     Document doc = internalDatabase.getDocument(existingDoc.getId());
+                    UnsavedRevision revision = doc.createRevision();
                     Map<String, Object> existingProperties = existingDoc.getProperties();
-                    doc.putProperties(existingProperties);
+                    try {
+                        revision.setProperties(existingProperties);
+                        revision.save();
+                    } catch (CouchbaseLiteException e) {
+                        Log.d("Wildrank", "Error writing document");
+                        e.printStackTrace();
+                    }
                 }
             } catch (Exception e) {
                 e.printStackTrace();

@@ -6,6 +6,6 @@ package org.wildstang.wildrank.androidv2;
 public class Utilities {
 
     public static String getExternalRootDirectory() {
-        return "/storage/usbdisk0/WildRank";
+        return "/storage/usbdisk0/WildRank/cblite";
     }
 }

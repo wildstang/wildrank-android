@@ -5,11 +5,16 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.couchbase.lite.Query;
+import com.couchbase.lite.QueryEnumerator;
+
 import org.wildstang.wildrank.androidv2.R;
 import org.wildstang.wildrank.androidv2.activities.AppSetupActivity;
+import org.wildstang.wildrank.androidv2.data.DatabaseManager;
 import org.wildstang.wildrank.androidv2.fragments.MatchScoutingMainFragment;
 
 
@@ -25,6 +30,13 @@ public class HomeActivity extends ActionBarActivity {
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
 
         PreferenceManager.setDefaultValues(this, R.xml.preferences, true);
+
+        try {
+            QueryEnumerator query = DatabaseManager.getInstance(this).getDatabase().createAllDocumentsQuery().run();
+            Log.d("wildrank", "Query count: " + query.getCount());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         boolean isAppConfigured = PreferenceManager.getDefaultSharedPreferences(this).getBoolean(PREF_IS_APP_CONFIGURED, false);
 
