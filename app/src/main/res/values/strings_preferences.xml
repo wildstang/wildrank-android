@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="preference_configured_team_title">Set team</string>
+    <string name="preference_configured_team_summary">Set which team this tablet will be scouting for</string>
+    <string name="preference_configured_team_dialog_title">Select a team</string>
+
+    <string-array name="preference_configured_team_entries">
+        <item>Red 1</item>
+        <item>Red 2</item>
+        <item>Red 3</item>
+        <item>Blue 1</item>
+        <item>Blue 2</item>
+        <item>Blue 3</item>
+    </string-array>
+    <string-array name="preference_configured_team_values">
+        <item>red_1</item>
+        <item>red_2</item>
+        <item>red_3</item>
+        <item>blue_1</item>
+        <item>blue_2</item>
+        <item>blue_3</item>
+    </string-array>
+</resources>

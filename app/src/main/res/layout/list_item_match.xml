@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+
+    <TextView
+        android:id="@+id/match_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:textAppearance="?android:attr/textAppearanceListItem" />
+
+    <TextView
+        android:id="@+id/red_alliance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/match_number"
+        android:layout_alignParentTop="true"
+        android:textColor="@color/red"
+        android:textAppearance="?android:attr/textAppearanceListItemSmall"  />
+
+    <TextView
+        android:id="@+id/blue_alliance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/match_number"
+        android:layout_below="@id/red_alliance"
+        android:layout_alignParentBottom="true"
+        android:textColor="@color/blue"
+        android:textAppearance="?android:attr/textAppearanceListItemSmall"  />
+
+
+</RelativeLayout>
