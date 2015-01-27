@@ -20,7 +20,6 @@ import org.wildstang.wildrank.androidv2.R;
  */
 public class WhiteboardFragment extends Fragment
 {
-    Thread t;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {

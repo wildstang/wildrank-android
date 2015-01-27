@@ -16,6 +16,7 @@ import org.wildstang.wildrank.androidv2.R;
 import org.wildstang.wildrank.androidv2.activities.AppSetupActivity;
 import org.wildstang.wildrank.androidv2.data.DatabaseManager;
 import org.wildstang.wildrank.androidv2.fragments.MatchScoutingMainFragment;
+import org.wildstang.wildrank.androidv2.fragments.WhiteboardFragment;
 
 
 public class HomeActivity extends ActionBarActivity {
@@ -28,6 +29,8 @@ public class HomeActivity extends ActionBarActivity {
         setContentView(R.layout.activity_home);
 
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
+
+        //getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new WhiteboardFragment()).commit();
 
         PreferenceManager.setDefaultValues(this, R.xml.preferences, true);
 
@@ -52,6 +55,7 @@ public class HomeActivity extends ActionBarActivity {
             startActivity(new Intent(this, AppSetupActivity.class));
             finish();
         }
+
     }
 
 
