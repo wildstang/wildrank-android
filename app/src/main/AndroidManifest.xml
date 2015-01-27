@@ -11,6 +11,7 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name=".activities.HomeActivity"
+            android:theme="@style/AppThemeNoActionBar"
             android:label="@string/app_name"
             android:screenOrientation="landscape" >
             <intent-filter>
@@ -19,14 +20,21 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".activities.AppSetupActivity"
+            android:theme="@style/AppThemeNoActionBar"
             android:label="@string/title_activity_app_setup"
             android:screenOrientation="landscape" />
+
+        <activity
+            android:name=".activities.ScoutMatchActivity"
+            android:theme="@style/AppThemeNoActionBar"
+            android:label="@string/title_activity_scout_match" />
+
         <activity
             android:name=".activities.SettingsActivity"
-            android:label="@string/title_activity_settings" >
-        </activity>
+            android:label="@string/title_activity_settings" />
     </application>
 
 </manifest>

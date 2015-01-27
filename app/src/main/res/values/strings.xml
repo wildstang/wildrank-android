@@ -7,5 +7,9 @@
     <string name="title_activity_app_setup">AppSetupActivity</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_settings">SettingsActivity</string>
+    <string name="title_activity_scout_match">Scout Match</string>
+
+    <string name="being_scouting">Begin scouting</string>
+    <string name="rescout_match">Rescout match</string>
 
 </resources>
