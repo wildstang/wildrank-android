@@ -37,6 +37,7 @@ public class WhiteboardView extends View
     double scale;
     int ogheight;
     List<Magnet> magnets = new ArrayList<>();
+    List<Button> buttons = new ArrayList<>();
     boolean magnetheld = false;
     int currentmagnet = 0;
 
@@ -66,6 +67,9 @@ public class WhiteboardView extends View
         litter = Bitmap.createScaledBitmap(litter, (int) (scale * litter.getWidth()), (int)(scale * litter.getHeight()), false);
         //robot = Bitmap.createScaledBitmap(robot, 120, 120, false);
         //robotMagnet = Bitmap.createScaledBitmap(robot, 120, 120, false);
+        int width = ((getWidth() / 6) + field.getWidth());
+        int buttonWidth = getWidth() - (width + 20);
+        buttons.add(new Button(width + 10, 10, buttonWidth, 2*buttonWidth/3 + 10, "Clear!"));
         this.setOnTouchListener(new OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event)
@@ -76,60 +80,33 @@ public class WhiteboardView extends View
                 int action = event.getActionMasked();
                 switch (action) {
                     case MotionEvent.ACTION_DOWN:
-                        if (y >= 10 && y <= 10 + tote.getHeight())
+                        if (y >= 10 && y <= 10 + tote.getHeight() && x >= 10 && x <= tote.getWidth() + 10)
                         {
-                            if (x >= 10 && x <= tote.getWidth() + 10)
-                            {
-                                currentmagnet = magnets.size();
-                                magnets.add(new Magnet(x, y, toteMagnet));
-                                magnetheld = true;
-                            }
-                            else
-                            {
-                                magnetheld = false;
-                            }
+                            currentmagnet = magnets.size();
+                            magnets.add(new Magnet(x, y, toteMagnet));
+                            magnetheld = true;
                         }
-                        else if (y >= 20 + tote.getHeight() && y <= 20 + tote.getHeight() + bin.getHeight())
+                        else if (y >= 20 + tote.getHeight() && y <= 20 + tote.getHeight() + bin.getHeight() && x >= 10 && x <= bin.getWidth() + 10)
                         {
-                            if (x >= 10 && x <= bin.getWidth() + 10)
-                            {
-                                currentmagnet = magnets.size();
-                                magnets.add(new Magnet(x, y, binMagnet));
-                                magnetheld = true;
-                            }
-                            else
-                            {
-                                magnetheld = false;
-                            }
+                            currentmagnet = magnets.size();
+                            magnets.add(new Magnet(x, y, binMagnet));
+                            magnetheld = true;
                         }
-                        else if (y >= 30 + tote.getHeight() + bin.getHeight() && y <= 30 + tote.getHeight() + bin.getHeight() + coop.getHeight())
+                        else if (y >= 30 + tote.getHeight() + bin.getHeight() && y <= 30 + tote.getHeight() + bin.getHeight() + coop.getHeight() && x >= 10 && x <= coop.getWidth() + 10)
                         {
-                            if (x >= 10 && x <= coop.getWidth() + 10)
-                            {
-                                currentmagnet = magnets.size();
-                                magnets.add(new Magnet(x, y, coopMagnet));
-                                magnetheld = true;
-                            }
-                            else
-                            {
-                                magnetheld = false;
-                            }
+                             currentmagnet = magnets.size();
+                             magnets.add(new Magnet(x, y, coopMagnet));
+                             magnetheld = true;
                         }
-                        else if (y >= 40 + tote.getHeight() + bin.getHeight() + coop.getHeight() && y <= 40 + tote.getHeight() + bin.getHeight() + coop.getHeight() + litter.getHeight())
+                        else if (y >= 40 + tote.getHeight() + bin.getHeight() + coop.getHeight() && y <= 40 + tote.getHeight() + bin.getHeight() + coop.getHeight() + litter.getHeight() && x >= 10 && x <= litter.getWidth() + 10)
                         {
-                            if (x >= 10 && x <= litter.getWidth() + 10)
-                            {
-                                currentmagnet = magnets.size();
-                                magnets.add(new Magnet(x, y, litterMagnet));
-                                magnetheld = true;
-                            }
-                            else
-                            {
-                                magnetheld = false;
-                            }
+                            currentmagnet = magnets.size();
+                            magnets.add(new Magnet(x, y, litterMagnet));
+                            magnetheld = true;
                         }
                         else
                         {
+                            System.out.println("Not touching a button!");
                             magnetheld = false;
                             for(int i = 0; i < magnets.size(); i++)
                             {
@@ -146,6 +123,18 @@ public class WhiteboardView extends View
                                     System.out.println("YDifference:" + (y - magnet.y) + ", " + magnet.img.getHeight());
                                 }
                             }
+                            for(int i = 0; i < buttons.size(); i++)
+                            {
+                                Button button = buttons.get(i);
+                                if(x >= button.x && x <= button.x + button.width && y >= button.y && y <= button.y + button.height)
+                                {
+                                    buttons.get(i).pushed = true;
+                                }
+                                else
+                                {
+                                    buttons.get(i).pushed = false;
+                                }
+                            }
                         }
                         return true;
                     case MotionEvent.ACTION_MOVE:
@@ -155,6 +144,18 @@ public class WhiteboardView extends View
                         }
                         return true;
                     case MotionEvent.ACTION_UP:
+                        for(int i = 0; i < buttons.size(); i++)
+                        {
+                            Button button = buttons.get(i);
+                            if(x >= button.x && x <= button.x + button.width && y >= button.y && y <= button.y + button.height && button.pushed)
+                            {
+                                if(button.name.equals("Clear!"))
+                                {
+                                    magnets = new ArrayList<>();
+                                }
+                            }
+                            buttons.get(i).pushed = false;
+                        }
                         break;
                 }
                 return false;
@@ -172,13 +173,16 @@ public class WhiteboardView extends View
         }
         Paint paint = new Paint();
         paint.setColor(Color.WHITE);
-        canvas.drawRect(0, 0, getWidth() / 4, getHeight(), paint);
-        canvas.drawRect(7 * getWidth() / 8, 0, getWidth(), getHeight(), paint);
-        canvas.drawBitmap(field, getWidth() / 4, 0, null);
+        canvas.drawRect(0, 0, getWidth() / 6, getHeight(), paint);
+        canvas.drawBitmap(field, getWidth() / 6, 0, null);
         canvas.drawBitmap(tote, 10, 10, null);
         canvas.drawBitmap(bin, 10, 20 + tote.getHeight(), null);
         canvas.drawBitmap(coop, 10, 40 + tote.getHeight() + bin.getHeight(), null);
         canvas.drawBitmap(litter, 10, 50 + tote.getHeight() + bin.getHeight() + coop.getHeight(), null);
+        for(int i = 0; i < buttons.size(); i++)
+        {
+            buttons.get(i).draw(canvas);
+        }
         for(int i = 0; i < magnets.size(); i++)
         {
             magnets.get(i).draw(canvas);
@@ -206,6 +210,39 @@ public class WhiteboardView extends View
         public void draw(Canvas c)
         {
             c.drawBitmap(img, x, y, null);
+        }
+    }
+
+    public class Button
+    {
+        int x, y, width, height;
+        String name;
+        boolean pushed;
+
+        public Button(int x, int y, int width, int height, String name)
+        {
+            this.x = x;
+            this.y = y;
+            this.width = width;
+            this.height = height;
+            this.name = name;
+            pushed = false;
+        }
+
+        public void draw(Canvas c)
+        {
+            Paint paint = new Paint();
+            if(pushed)
+            {
+                paint.setColor(Color.DKGRAY);
+            }
+            else
+            {
+                paint.setColor(Color.LTGRAY);
+            }
+            c.drawRect(x, y, x + width, y + height, paint);
+            paint.setColor(Color.BLACK);
+            c.drawText(name, x + width/3, y + height/3, paint);
         }
     }
 }

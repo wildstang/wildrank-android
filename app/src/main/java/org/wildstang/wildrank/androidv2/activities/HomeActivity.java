@@ -30,9 +30,9 @@ public class HomeActivity extends ActionBarActivity {
 
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
 
-        //getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new WhiteboardFragment()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new WhiteboardFragment()).commit();
 
-        PreferenceManager.setDefaultValues(this, R.xml.preferences, true);
+       /* PreferenceManager.setDefaultValues(this, R.xml.preferences, true);
 
         try {
             QueryEnumerator query = DatabaseManager.getInstance(this).getDatabase().createAllDocumentsQuery().run();
@@ -43,18 +43,18 @@ public class HomeActivity extends ActionBarActivity {
 
         boolean isAppConfigured = PreferenceManager.getDefaultSharedPreferences(this).getBoolean(PREF_IS_APP_CONFIGURED, false);
 
-        if (isAppConfigured) {
+        if (isAppConfigured) {*/
            /* The app has been set up! Go ahead and display stuff.
             *
             */
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new MatchScoutingMainFragment()).commit();
-        } else {
+            /*getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new MatchScoutingMainFragment()).commit();
+        } else {*/
             /* The app hasn't been setup yet. Launch the setup activity and finish this one.
              * After setup is finished, we will relaunch this one.
              */
-            startActivity(new Intent(this, AppSetupActivity.class));
+           /* startActivity(new Intent(this, AppSetupActivity.class));
             finish();
-        }
+        }*/
 
     }
 
