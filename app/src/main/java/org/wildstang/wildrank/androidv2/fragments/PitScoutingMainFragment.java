@@ -26,6 +26,7 @@ import com.couchbase.lite.QueryRow;
 import org.wildstang.wildrank.androidv2.R;
 import org.wildstang.wildrank.androidv2.Utilities;
 import org.wildstang.wildrank.androidv2.activities.ScoutMatchActivity;
+import org.wildstang.wildrank.androidv2.activities.ScoutPitActivity;
 import org.wildstang.wildrank.androidv2.adapters.MatchListAdapter;
 import org.wildstang.wildrank.androidv2.adapters.TeamListAdapter;
 import org.wildstang.wildrank.androidv2.data.DatabaseManager;
@@ -108,11 +109,11 @@ public class PitScoutingMainFragment extends Fragment implements View.OnClickLis
     }
 
     private void onTeamSelected(Document matchDocument) {
-        selectedTeamKey = (String) matchDocument.getProperty("team_key");
+        selectedTeamKey = (String) matchDocument.getProperty("key");
         Log.d("wildrank", "match key is null? " + (selectedTeamKey == null));
 
         int teamNumber = (Integer) matchDocument.getProperty("team_number");
-        this.teamNumber.setText("Match " + teamNumber);
+        this.teamNumber.setText("Team " + teamNumber);
 
         beginScouting.setEnabled(true);
         try {
@@ -131,29 +132,22 @@ public class PitScoutingMainFragment extends Fragment implements View.OnClickLis
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        if (id == R.id.begin_scouting) {/*
+        if (id == R.id.begin_scouting) {
             // Launch the scouting activity
-            String allianceColor;
-            String assignedTeamType = PreferenceManager.getDefaultSharedPreferences(getActivity()).getString("assignedTeams", "red_1");
-            if (assignedTeamType.contains("red")) {
-                allianceColor = ScoutMatchActivity.EXTRA_ALLIANCE_COLOR_RED;
-            } else {
-                allianceColor = ScoutMatchActivity.EXTRA_ALLIANCE_COLOR_BLUE;
-            }
-            final Intent intent = ScoutMatchActivity.createIntent(getActivity(), selectedMatchKey, selectedTeamToScout, allianceColor);
-            boolean isMatchScouted;
+            final Intent intent = ScoutPitActivity.createIntent(getActivity(), selectedTeamKey);
+            boolean isTeamScouted;
             try {
-                isMatchScouted = DatabaseManager.getInstance(getActivity()).isMatchScouted(selectedMatchKey, selectedTeamToScout);
+                isTeamScouted = DatabaseManager.getInstance(getActivity()).isTeamPitScouted(selectedTeamKey);
             } catch (Exception e) {
                 e.printStackTrace();
-                Toast.makeText(getActivity(), "Error determining if match is scouted already.", Toast.LENGTH_SHORT).show();
-                isMatchScouted = false;
+                Toast.makeText(getActivity(), "Error determining if team is scouted already.", Toast.LENGTH_SHORT).show();
+                isTeamScouted = false;
             }
-            if (isMatchScouted) {
+            if (isTeamScouted) {
                 // Prompt to overwrite data
                 new AlertDialog.Builder(getActivity())
-                        .setTitle("Rescouting match")
-                        .setMessage("Existing match data will be overwritten if you continue.")
+                        .setTitle("Rescouting team")
+                        .setMessage("Existing team data will be overwritten if you continue.")
                         .setPositiveButton("Continue", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -170,7 +164,7 @@ public class PitScoutingMainFragment extends Fragment implements View.OnClickLis
                 // Begin scouting as normal!
                 startActivity(intent);
 
-            }*/
+            }
         }
     }
 }

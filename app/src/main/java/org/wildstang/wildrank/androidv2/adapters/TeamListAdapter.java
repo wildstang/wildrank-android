@@ -34,7 +34,7 @@ public class TeamListAdapter extends ArrayAdapter<QueryRow> {
         ViewHolder holder;
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater.from(getContext()));
-            convertView = inflater.inflate(R.layout.list_item_match, null, false);
+            convertView = inflater.inflate(R.layout.list_item_team, null, false);
             holder = new ViewHolder();
             holder.teamNumber = (TextView) convertView.findViewById(R.id.team_number);
             convertView.setTag(holder);

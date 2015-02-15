@@ -24,23 +24,6 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Match Number:"
-                android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
-                android:paddingRight="16dp"
-                android:textColor="@color/white" />
-
-            <TextView
-                android:id="@+id/match_number"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="21"
-                android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
-                android:layout_marginRight="32dp"
-                android:textColor="@color/white" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:text="Team Number:"
                 android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
                 android:paddingRight="16dp"
@@ -48,23 +31,6 @@
 
             <TextView
                 android:id="@+id/team_number"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="21"
-                android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
-                android:layout_marginRight="32dp"
-                android:textColor="@color/white" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Alliance:"
-                android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
-                android:paddingRight="16dp"
-                android:textColor="@color/white" />
-
-            <TextView
-                android:id="@+id/alliance"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="21"

@@ -8,19 +8,17 @@ import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.couchbase.lite.Document;
 
 import org.wildstang.wildrank.androidv2.R;
 import org.wildstang.wildrank.androidv2.UserHelper;
 import org.wildstang.wildrank.androidv2.Utilities;
 import org.wildstang.wildrank.androidv2.adapters.MatchScoutFragmentPagerAdapter;
+import org.wildstang.wildrank.androidv2.adapters.PitScoutFragmentPagerAdapter;
 import org.wildstang.wildrank.androidv2.data.DatabaseManager;
-import org.wildstang.wildrank.androidv2.data.MatchResultsModel;
+import org.wildstang.wildrank.androidv2.data.PitResultsModel;
 import org.wildstang.wildrank.androidv2.fragments.ScoutingFragment;
 import org.wildstang.wildrank.androidv2.views.SlidingTabs;
 
@@ -31,28 +29,20 @@ import java.util.Map;
 /**
  * Created by Nathan on 1/22/2015.
  */
-public class ScoutMatchActivity extends ActionBarActivity {
+public class ScoutPitActivity extends ActionBarActivity {
 
-    public static final String EXTRA_MATCH_KEY = "match_key";
     public static final String EXTRA_TEAM_KEY = "team_key";
-    public static final String EXTRA_ALLIANCE_COLOR = "alliance_color";
-    public static final String EXTRA_ALLIANCE_COLOR_RED = "red";
-    public static final String EXTRA_ALLIANCE_COLOR_BLUE = "blue";
 
     private ViewPager pager;
-    private MatchScoutFragmentPagerAdapter adapter;
+    private PitScoutFragmentPagerAdapter adapter;
     private SlidingTabs tabs;
     private Toolbar toolbar;
 
     private String teamKey;
-    private String matchKey;
-    private String allianceColor;
 
-    public static Intent createIntent(Context context, String matchKey, String teamKey, String allianceColor) {
-        Intent i = new Intent(context, ScoutMatchActivity.class);
-        i.putExtra(EXTRA_MATCH_KEY, matchKey);
+    public static Intent createIntent(Context context, String teamKey) {
+        Intent i = new Intent(context, ScoutPitActivity.class);
         i.putExtra(EXTRA_TEAM_KEY, teamKey);
-        i.putExtra(EXTRA_ALLIANCE_COLOR, allianceColor);
         return i;
     }
 
@@ -61,30 +51,18 @@ public class ScoutMatchActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
 
         Bundle extras = getIntent().getExtras();
-        matchKey = extras.getString(EXTRA_MATCH_KEY);
         teamKey = extras.getString(EXTRA_TEAM_KEY);
-        allianceColor = extras.getString(EXTRA_ALLIANCE_COLOR);
 
-        setContentView(R.layout.activity_scout_match);
+        setContentView(R.layout.activity_scout_pit);
 
-        ((TextView) findViewById(R.id.match_number)).setText("" + Utilities.matchNumberFromMatchKey(matchKey));
         ((TextView) findViewById(R.id.team_number)).setText("" + Utilities.teamNumberFromTeamKey(teamKey));
-
-        TextView alliance = (TextView) findViewById(R.id.alliance);
-        if (allianceColor.equals(EXTRA_ALLIANCE_COLOR_RED)) {
-            alliance.setText("Red");
-            alliance.setTextColor(getResources().getColor(R.color.red));
-        } else {
-            alliance.setText("Blue");
-            alliance.setTextColor(getResources().getColor(R.color.blue));
-        }
 
         findViewById(android.R.id.content).setKeepScreenOn(true);
 
         pager = (ViewPager) findViewById(R.id.view_pager);
         pager.setOffscreenPageLimit(10);
 
-        adapter = new MatchScoutFragmentPagerAdapter(getSupportFragmentManager());
+        adapter = new PitScoutFragmentPagerAdapter(getSupportFragmentManager());
         pager.setAdapter(adapter);
 
         tabs = (SlidingTabs) findViewById(R.id.tabs);
@@ -103,14 +81,14 @@ public class ScoutMatchActivity extends ActionBarActivity {
         }
 
         try {
-            MatchResultsModel results = new MatchResultsModel(UserHelper.getLoggedInUsersAsArray(this), matchKey, teamKey, data);
-            DatabaseManager.getInstance(this).saveMatchResults(results);
-            Document doc = DatabaseManager.getInstance(this).getMatchResults(matchKey, teamKey);
-            Log.d("wildrank", doc.getProperties().toString());
-            Toast.makeText(this, "Pit results saved successfully.", Toast.LENGTH_SHORT).show();
+            PitResultsModel results = new PitResultsModel(UserHelper.getLoggedInUsersAsArray(this), teamKey, data);
+            DatabaseManager.getInstance(this).savePitResults(results);
+            //Document doc = DatabaseManager.getInstance(this).ge(matchKey, teamKey);
+            //Log.d("wildrank", doc.getProperties().toString());
+            Toast.makeText(this, "Match results saved successfully.", Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
             e.printStackTrace();
-            Toast.makeText(this, "Error saving pit results! Check LogCat.", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Error saving match results! Check LogCat.", Toast.LENGTH_LONG).show();
         }
 
         finish();
@@ -126,7 +104,7 @@ public class ScoutMatchActivity extends ActionBarActivity {
             builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    ScoutMatchActivity.this.finish();
+                    ScoutPitActivity.this.finish();
                 }
             });
             builder.setNegativeButton("No", new DialogInterface.OnClickListener() {

@@ -20,19 +20,20 @@ import android.widget.ListView;
 import org.wildstang.wildrank.androidv2.R;
 import org.wildstang.wildrank.androidv2.UserHelper;
 import org.wildstang.wildrank.androidv2.fragments.MatchScoutingMainFragment;
+import org.wildstang.wildrank.androidv2.fragments.PitScoutingMainFragment;
 
 
 public class HomeActivity extends ActionBarActivity {
 
     public static final String PREF_IS_APP_CONFIGURED = "is_app_configured";
 
-    private static final String[] MODE_NAMES = {"Match Scouting"};
+    private static final String[] MODE_NAMES = {"Match Scouting", "Pit Scouting"};
 
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle drawerToggle;
     private ListView navigationDrawerList;
 
-    private int currentPosition = 0;
+    private int currentPosition = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +53,7 @@ public class HomeActivity extends ActionBarActivity {
             *
             */
             if (isLoggedIn) {
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new MatchScoutingMainFragment()).commit();
+                switchToModeForPosition(0);
             } else {
                 startActivity(new Intent(this, UserLoginActivity.class));
                 finish();
@@ -139,7 +140,12 @@ public class HomeActivity extends ActionBarActivity {
             case 0:
                 //Match scouting
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new MatchScoutingMainFragment()).commit();
+                getSupportActionBar().setTitle(MODE_NAMES[0]);
                 break;
+            case 1:
+                // Pit scouting
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PitScoutingMainFragment()).commit();
+                getSupportActionBar().setTitle(MODE_NAMES[1]);
             default:
                 break;
         }
