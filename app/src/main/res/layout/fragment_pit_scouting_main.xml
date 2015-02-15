@@ -1,0 +1,43 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    tools:context="org.wildstang.wildrank.androidv2.fragments.MatchScoutingMainFragment">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <ListView
+            android:id="@+id/match_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="2">
+
+        <TextView
+            android:id="@+id/team_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Team 111"
+            android:textSize="120sp"
+            android:layout_centerInParent="true"/>
+
+        <Button
+            android:id="@id/begin_scouting"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Begin Scouting"
+            android:layout_alignParentBottom="true"
+            android:textSize="40sp" />
+
+    </RelativeLayout>
+
+
+</LinearLayout>

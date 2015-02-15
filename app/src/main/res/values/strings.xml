@@ -11,5 +11,8 @@
 
     <string name="being_scouting">Begin scouting</string>
     <string name="rescout_match">Rescout match</string>
+    <string name="rescout_team">Rescout team</string>
+    <string name="drawer_open">Drawer Open</string>
+    <string name="drawer_close">Drawer Open</string>
 
 </resources>

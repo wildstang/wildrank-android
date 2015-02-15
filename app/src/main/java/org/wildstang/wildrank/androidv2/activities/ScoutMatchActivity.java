@@ -16,9 +16,11 @@ import android.widget.Toast;
 import com.couchbase.lite.Document;
 
 import org.wildstang.wildrank.androidv2.R;
+import org.wildstang.wildrank.androidv2.UserHelper;
 import org.wildstang.wildrank.androidv2.Utilities;
 import org.wildstang.wildrank.androidv2.adapters.MatchScoutFragmentPagerAdapter;
 import org.wildstang.wildrank.androidv2.data.DatabaseManager;
+import org.wildstang.wildrank.androidv2.data.MatchResultsModel;
 import org.wildstang.wildrank.androidv2.fragments.ScoutingFragment;
 import org.wildstang.wildrank.androidv2.views.SlidingTabs;
 
@@ -101,7 +103,8 @@ public class ScoutMatchActivity extends ActionBarActivity {
         }
 
         try {
-            DatabaseManager.getInstance(this).saveMatchResults(matchKey, teamKey, data);
+            MatchResultsModel results = new MatchResultsModel(UserHelper.getLoggedInUsersAsArray(this), matchKey, teamKey, data);
+            DatabaseManager.getInstance(this).saveMatchResults(results);
             Document doc = DatabaseManager.getInstance(this).getMatchResults(matchKey, teamKey);
             Log.d("wildrank", doc.getProperties().toString());
             Toast.makeText(this, "Match results saved successfully.", Toast.LENGTH_SHORT).show();

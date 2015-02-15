@@ -22,19 +22,21 @@
         </activity>
 
         <activity
+            android:name=".activities.UserLoginActivity"
+            android:theme="@style/AppThemeNoActionBar"
+            android:screenOrientation="landscape" />
+
+        <activity
             android:name=".activities.AppSetupActivity"
             android:theme="@style/AppThemeNoActionBar"
-            android:label="@string/title_activity_app_setup"
             android:screenOrientation="landscape" />
 
         <activity
             android:name=".activities.ScoutMatchActivity"
-            android:theme="@style/AppThemeNoActionBar"
-            android:label="@string/title_activity_scout_match" />
+            android:theme="@style/AppThemeNoActionBar" />
 
         <activity
-            android:name=".activities.SettingsActivity"
-            android:label="@string/title_activity_settings" />
+            android:name=".activities.SettingsActivity" />
     </application>
 
 </manifest>

@@ -1,23 +1,57 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HomeActivity">
+    android:orientation="vertical"
+    android:fitsSystemWindows="true">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:background="@color/blue"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:contentInsetStart="72dp" />
-
-    <FrameLayout
-        android:id="@+id/fragment_container"
-        android:layout_width="match_parent"
+    <LinearLayout
         android:layout_height="match_parent"
-        android:layout_below="@id/toolbar" />
+        android:layout_width="match_parent"
+        android:orientation="vertical">
 
-</RelativeLayout>
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/blue"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:contentInsetStart="72dp" />
+
+        <FrameLayout
+            android:id="@+id/fragment_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/toolbar" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="300dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:orientation="vertical">
+
+        <org.wildstang.wildrank.androidv2.views.SixteenNineAspectRatioLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/tiedye">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:text="WildRank"
+                android:textColor="@color/white"
+                android:textSize="24sp"
+                android:layout_margin="16dp"/>
+        </org.wildstang.wildrank.androidv2.views.SixteenNineAspectRatioLayout>
+
+        <ListView
+            android:background="@color/white"
+            android:id="@+id/navigation_drawer_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+</android.support.v4.widget.DrawerLayout>
