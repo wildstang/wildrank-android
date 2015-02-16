@@ -15,7 +15,7 @@ public class PitScoutingFragment extends ScoutingFragment implements View.OnClic
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_scout_post_match, container, false);
+        View view = inflater.inflate(R.layout.fragment_scout_pit, container, false);
         view.findViewById(R.id.finish).setOnClickListener(this);
         return view;
     }
