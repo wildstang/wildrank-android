@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <org.wildstang.wildrank.androidv2.views.SerializableCheckboxView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/drive"
+        app:key="auto-drive"
+        app:label="Drives"/>
+
+    <org.wildstang.wildrank.androidv2.views.SerializableCounterView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/drive"
+        android:id="@+id/totes"
+        app:key="auto-totes"
+        app:label="Totes Moved"
+        app:values="@array/auto_totes"/>
+
+    <org.wildstang.wildrank.androidv2.views.SerializableSpinnerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/totes"
+        android:id="@+id/bins"
+        app:key="auto-bins"
+        app:label="Bins Moved"
+        app:values="@array/auto_bins"/>
+
+    <org.wildstang.wildrank.androidv2.views.SerializableSpinnerView
+        android:layout_width="match_parent"
+        android:layout_below="@id/bins"
+        android:layout_height="match_parent"
+        android:id="@+id/stacked"
+        app:key="auto-stacked"
+        app:label="Totes Stacked"
+        app:values="@array/auto_totes"/>
+
+    <org.wildstang.wildrank.androidv2.views.SerializableSpinnerView
+        android:layout_width="match_parent"
+        android:layout_below="@id/stacked"
+        android:layout_height="match_parent"
+        android:id="@+id/taken"
+        app:key="auto-taken"
+        app:label="Bins Taken from Step"
+        app:values="@array/auto_step"/>
+
+    <Button
+        android:id="@+id/finish"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="Finish"/>
+
+</RelativeLayout>
