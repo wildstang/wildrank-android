@@ -54,7 +54,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/lost_comm"
             app:key="post_match-lost_comm"
-            app:label="DQ"/>
+            app:label="Lost Comm"/>
 
         <org.wildstang.wildrank.androidv2.views.SerializableCheckboxView
             android:layout_width="match_parent"
