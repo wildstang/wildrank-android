@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
@@ -71,6 +72,15 @@ public class ScoutPitActivity extends ActionBarActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        String team = PreferenceManager.getDefaultSharedPreferences(this).getString("assignedTeam", "red_1");
+
+        if (team.contains("red")) {
+            toolbar.setBackgroundColor(getResources().getColor(R.color.material_red));
+
+        } else {
+            toolbar.setBackgroundColor(getResources().getColor(R.color.material_blue));
+        }
     }
 
     public void finishScouting() {

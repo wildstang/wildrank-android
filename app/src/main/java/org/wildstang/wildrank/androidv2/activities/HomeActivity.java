@@ -34,15 +34,30 @@ public class HomeActivity extends ActionBarActivity {
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle drawerToggle;
     private ListView navigationDrawerList;
+    private Toolbar toolbar;
 
     private int currentPosition = -1;
+
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+        String team = PreferenceManager.getDefaultSharedPreferences(this).getString("assignedTeam", "red_1");
+
+        if (team.contains("red")) {
+            toolbar.setBackgroundColor(getResources().getColor(R.color.material_red));
+
+        } else {
+            toolbar.setBackgroundColor(getResources().getColor(R.color.material_blue));
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         PreferenceManager.setDefaultValues(this, R.xml.preferences, true);
