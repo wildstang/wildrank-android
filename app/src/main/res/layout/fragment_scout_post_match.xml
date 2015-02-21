@@ -116,14 +116,6 @@
         <org.wildstang.wildrank.androidv2.views.SerializableSpinnerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/defense_rating"
-            app:key="post_match-defense_rating"
-            app:label="Defense Rating"
-            app:values="@array/rankings"/>
-
-        <org.wildstang.wildrank.androidv2.views.SerializableSpinnerView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:id="@+id/driver_skill"
             app:key="post_match-driver_skill"
             app:label="Driver Skill"

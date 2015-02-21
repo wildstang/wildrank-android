@@ -3,6 +3,7 @@ package org.wildstang.wildrank.androidv2.activities;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.widget.DrawerLayout;
@@ -86,6 +87,7 @@ public class HomeActivity extends ActionBarActivity {
 
         String team = PreferenceManager.getDefaultSharedPreferences(this).getString("assignedTeam", "red_1");
 
+        toolbar.setTitleTextColor(Color.WHITE);
         if (team.contains("red")) {
             toolbar.setBackgroundColor(getResources().getColor(R.color.material_red));
 

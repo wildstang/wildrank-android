@@ -77,9 +77,10 @@ public class ScoutPitActivity extends ActionBarActivity {
 
         if (team.contains("red")) {
             toolbar.setBackgroundColor(getResources().getColor(R.color.material_red));
-
+            tabs.setBackgroundColor(getResources().getColor(R.color.material_red));
         } else {
             toolbar.setBackgroundColor(getResources().getColor(R.color.material_blue));
+            tabs.setBackgroundColor(getResources().getColor(R.color.material_blue));
         }
     }
 
