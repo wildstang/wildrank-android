@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:layout_width="fill_parent"
+                  android:layout_height="fill_parent"
+                  android:layout_alignParentTop="true"
+                  android:layout_above="@+id/center">
+
+    <org.wildstang.wildrank.androidv2.views.SerializableNoteView
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:id="@+id/one"
+        android:layout_height="fill_parent"/>
+
+    <View
+        android:layout_width="3dp"
+        android:layout_height="match_parent"
+        android:id="@+id/left"
+        android:background="@android:color/darker_gray"/>
+
+    <org.wildstang.wildrank.androidv2.views.SerializableNoteView
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:id="@+id/two"
+        android:layout_height="fill_parent"/>
+
+    <View
+        android:layout_width="3dp"
+        android:layout_height="match_parent"
+        android:id="@+id/right"
+        android:background="@android:color/darker_gray"/>
+
+    <org.wildstang.wildrank.androidv2.views.SerializableNoteView
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:id="@+id/three"
+        android:layout_height="fill_parent"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:id="@+id/center"
+        android:background="@android:color/darker_gray"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:layout_width="fill_parent"
+                  android:layout_height="fill_parent"
+                  android:layout_alignParentBottom="true"
+                  android:layout_below="@id/center">
+
+        <org.wildstang.wildrank.androidv2.views.SerializableNoteView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:id="@+id/four"
+            android:layout_height="fill_parent"/>
+
+        <View
+            android:layout_width="3dp"
+            android:layout_height="match_parent"
+            android:background="@android:color/darker_gray"/>
+
+        <org.wildstang.wildrank.androidv2.views.SerializableNoteView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:id="@+id/five"
+            android:layout_height="fill_parent"/>
+
+        <View
+            android:layout_width="3dp"
+            android:layout_height="match_parent"
+            android:background="@android:color/darker_gray"/>
+
+        <org.wildstang.wildrank.androidv2.views.SerializableNoteView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:id="@+id/six"
+            android:layout_height="fill_parent"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

@@ -7,6 +7,7 @@ import android.widget.Toast;
 import com.couchbase.lite.Document;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -30,6 +31,26 @@ public class Utilities {
         Map<String, Object> alliances = (Map<String, Object>) properties.get("alliances");
         Map<String, Object> blueAlliance = (Map<String, Object>) alliances.get("blue");
         return ((ArrayList<Object>) blueAlliance.get("teams")).toArray();
+    }
+
+    public static Object[] getTeamsFromMatchDocument(Document matchDocument)
+    {
+        Map<String, Object> properties = matchDocument.getProperties();
+        Map<String, Object> alliances = (Map<String, Object>) properties.get("alliances");
+        Map<String, Object> blueAlliance = (Map<String, Object>) alliances.get("blue");
+        Map<String, Object> redAlliance = (Map<String, Object>) alliances.get("red");
+        Object[] blueTeams = ((ArrayList<Object>) blueAlliance.get("teams")).toArray();
+        Object[] redTeams = ((ArrayList<Object>) redAlliance.get("teams")).toArray();
+        List<Object> teams = new ArrayList<>();
+        for(int i = 0; i < blueTeams.length; i++)
+        {
+            teams.add(blueTeams[i]);
+        }
+        for(int i = 0; i < redTeams.length; i++)
+        {
+            teams.add(redTeams[i]);
+        }
+        return teams.toArray();
     }
 
     public static int matchNumberFromMatchKey(String matchKey) {
