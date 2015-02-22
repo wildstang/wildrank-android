@@ -57,6 +57,13 @@
             app:values="@array/drives"
             app:label="Drivetrain"/>
 
+        <org.wildstang.wildrank.androidv2.views.SerializableCheckboxView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/swag"
+            app:key="pit-swag"
+            app:label="Does Have Swag?"/>
+
     </LinearLayout>
 
     <LinearLayout

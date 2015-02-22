@@ -44,7 +44,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Pre-Existing"
-            android:id="@+id/pre-existing"
+            android:id="@+id/preexisting"
             android:layout_alignBottom="@+id/plus"
             android:layout_toRightOf="@id/plus"/>
 
@@ -54,8 +54,8 @@
             android:layout_height="wrap_content"
             android:inputType="number"
             android:ems="2"
-            android:id="@+id/pre-existing_count"
-            android:layout_toRightOf="@id/pre-existing"/>
+            android:id="@+id/preexisting_count"
+            android:layout_toRightOf="@id/preexisting"/>
 
         <CheckBox
             android:layout_width="wrap_content"
