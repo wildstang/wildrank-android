@@ -125,41 +125,52 @@ public class NotesActivity extends ActionBarActivity
         finish();
     }
 
+    public void promptSave()
+    {
+        if(!sixMode)
+        {
+            //go to 6 mode
+        }
+        else
+        {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Save");
+            builder.setMessage("Would you like to save before exiting?");
+            builder.setPositiveButton("Yes", new DialogInterface.OnClickListener()
+            {
+                @Override
+                public void onClick(DialogInterface dialog, int which)
+                {
+                    finishScouting();
+                }
+            });
+            builder.setNegativeButton("No", new DialogInterface.OnClickListener()
+            {
+                @Override
+                public void onClick(DialogInterface dialog, int which)
+                {
+                    NotesActivity.this.finish();
+                }
+            });
+            builder.show();
+        }
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {
         int id = item.getItemId();
         if (id == android.R.id.home)
         {
-            if(!sixMode)
-            {
-                //go to 6 mode
-            }
-            else
-            {
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setTitle("Save");
-                builder.setMessage("Would you like to save before exiting?");
-                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener()
-                {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which)
-                    {
-                        finishScouting();
-                    }
-                });
-                builder.setNegativeButton("No", new DialogInterface.OnClickListener()
-                {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which)
-                    {
-                        NotesActivity.this.finish();
-                    }
-                });
-                builder.show();
-            }
+            promptSave();
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed()
+    {
+        promptSave();
     }
 }
