@@ -176,13 +176,15 @@ public class NotesMainFragment extends Fragment implements View.OnClickListener 
         StringBuilder teams = new StringBuilder();
         for(int i = 0; i < selectedTeams.length; i++)
         {
+            String newTeam = selectedTeams[i].replace("frc", "");
+            selectedTeams[i] = newTeam;
             if(i != selectedTeams.length - 1)
             {
-                teams.append(selectedTeams[i].replace("frc", "") + ", ");
+                teams.append(newTeam + ", ");
             }
             else
             {
-                teams.append(selectedTeams[i].replace("frc", ""));
+                teams.append(newTeam);
             }
         }
         selectedTeamsString = teams.toString();

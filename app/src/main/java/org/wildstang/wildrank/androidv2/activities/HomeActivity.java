@@ -147,10 +147,12 @@ public class HomeActivity extends ActionBarActivity {
                 // Pit scouting
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PitScoutingMainFragment()).commit();
                 getSupportActionBar().setTitle(MODE_NAMES[1]);
+                break;
             case 2:
                 // Notes
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new NotesMainFragment()).commit();
                 getSupportActionBar().setTitle(MODE_NAMES[2]);
+                break;
             default:
                 break;
         }
