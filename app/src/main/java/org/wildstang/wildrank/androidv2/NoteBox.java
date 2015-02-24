@@ -6,6 +6,8 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import org.wildstang.wildrank.androidv2.activities.NotesActivity;
+
 /**
  * Created by Liam on 2/21/2015.
  */

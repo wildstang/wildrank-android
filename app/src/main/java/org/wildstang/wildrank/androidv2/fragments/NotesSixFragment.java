@@ -21,6 +21,7 @@ public class NotesSixFragment extends Fragment
 {
     public List<NoteBox> boxes = new ArrayList<>();
     String[] teams;
+    int i;
 
     public NotesSixFragment(String[] teams)
     {
