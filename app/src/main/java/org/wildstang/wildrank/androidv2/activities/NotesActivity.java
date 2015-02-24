@@ -11,24 +11,18 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.TextView;
 
 import com.couchbase.lite.CouchbaseLiteException;
-import com.couchbase.lite.Database;
-import com.couchbase.lite.Document;
-import com.couchbase.lite.UnsavedRevision;
 
 import org.wildstang.wildrank.androidv2.R;
 import org.wildstang.wildrank.androidv2.Utilities;
 import org.wildstang.wildrank.androidv2.data.DatabaseManager;
+import org.wildstang.wildrank.androidv2.fragments.NotesFragment;
 import org.wildstang.wildrank.androidv2.fragments.NotesSixFragment;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by Liam on 2/21/2015.
@@ -43,6 +37,7 @@ public class NotesActivity extends ActionBarActivity
     private String[] notes;
 
     private NotesSixFragment sixFrag;
+    private NotesFragment frag;
 
     public static Intent createIntent(Context context, String matchKey, String teamKeys, String[] teams)
     {
@@ -85,42 +80,25 @@ public class NotesActivity extends ActionBarActivity
         ((TextView) findViewById(R.id.team_numbers)).setText("" + Utilities.teamNumberFromTeamKey(teamKeys));
 
         sixFrag = new NotesSixFragment(teams);
+        frag = new NotesFragment();
 
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
-        ft.add(R.id.space, sixFrag, "myFragmentTag");
+        ft.add(R.id.space, sixFrag);
         ft.commit();
     }
     
     public void finishScouting()
     {
-        Database database = null;
         try
         {
-            database = DatabaseManager.getInstance(this).getDatabase();
+            DatabaseManager.getInstance(this).saveNotes(teams, notes);
         } catch (CouchbaseLiteException e)
         {
             e.printStackTrace();
         } catch (IOException e)
         {
             e.printStackTrace();
-        }
-
-        for (int i = 0; i < teams.length; i++)
-        {
-            Map<String, Object> map = new HashMap<>();
-            map.put("note", sixFrag.boxes.get(i).getNote());
-
-            Document document = database.getDocument("user:" + teams[i]);
-            UnsavedRevision revision = document.createRevision();
-            revision.setProperties(map);
-            try
-            {
-                revision.save();
-            } catch (CouchbaseLiteException e)
-            {
-                e.printStackTrace();
-            }
         }
         finish();
     }
@@ -129,7 +107,10 @@ public class NotesActivity extends ActionBarActivity
     {
         if(!sixMode)
         {
-            //go to 6 mode
+            FragmentManager fm = getSupportFragmentManager();
+            FragmentTransaction ft = fm.beginTransaction();
+            ft.add(R.id.space, sixFrag);
+            ft.commit();
         }
         else
         {

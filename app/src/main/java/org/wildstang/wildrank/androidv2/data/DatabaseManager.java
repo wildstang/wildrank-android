@@ -206,12 +206,28 @@ public class DatabaseManager {
         Document document = database.getDocument("pit:" + pitResults.getTeamKey());
         UnsavedRevision revision = document.createRevision();
         HashMap<String, Object> properties = new HashMap<>();
-        properties.put("team", DatabaseManagerConstants.PIT_RESULTS_TYPE);
+        properties.put("type", DatabaseManagerConstants.PIT_RESULTS_TYPE);
         properties.put("users", pitResults.getUserIds());
         properties.put("team_key", pitResults.getTeamKey());
         properties.put("data", pitResults.getData());
         revision.setProperties(properties);
         revision.save();
+    }
+
+    public void saveNotes(String[] teams, String[] notes) throws CouchbaseLiteException
+    {
+        for(int i = 0; i < teams.length; i++)
+        {
+            Document document = database.getDocument("notes:" + teams[i]);
+            UnsavedRevision revision = document.createRevision();
+            HashMap<String, Object> properties = new HashMap<>();
+            properties.put("type", DatabaseManagerConstants.NOTES_RESULTS_TYPE);
+            properties.put("users", "to be added");
+            properties.put("team_key", teams[i]);
+            properties.put("data", notes[i]);
+            revision.setProperties(properties);
+            revision.save();
+        }
     }
 
     public Database getDatabase() {
