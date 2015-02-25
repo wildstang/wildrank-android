@@ -17,20 +17,10 @@ public class NoteBox
     Button switchView;
     EditText noteBox;
 
-    boolean pressed;
-
     public NoteBox(View v, String team)
     {
         layout = (LinearLayout) v;
         switchView = (Button) v.findViewById(R.id.toSix);
-        switchView.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                pressed = true;
-            }
-        });
         noteBox = (EditText) v.findViewById(R.id.note);
         ((TextView) v.findViewById(R.id.team)).setText("Team: " + team);
     }
@@ -40,8 +30,13 @@ public class NoteBox
         return noteBox.getText().toString();
     }
 
-    public boolean isPressed()
+    public Button getButton()
     {
-        return pressed;
+        return switchView;
+    }
+
+    public LinearLayout getLayout()
+    {
+        return layout;
     }
 }

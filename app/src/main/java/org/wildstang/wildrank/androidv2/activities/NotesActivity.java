@@ -19,7 +19,6 @@ import com.couchbase.lite.CouchbaseLiteException;
 import org.wildstang.wildrank.androidv2.R;
 import org.wildstang.wildrank.androidv2.Utilities;
 import org.wildstang.wildrank.androidv2.data.DatabaseManager;
-import org.wildstang.wildrank.androidv2.fragments.NotesFragment;
 import org.wildstang.wildrank.androidv2.fragments.NotesSixFragment;
 
 import java.io.IOException;
@@ -37,7 +36,6 @@ public class NotesActivity extends ActionBarActivity
     private String[] notes;
 
     private NotesSixFragment sixFrag;
-    private NotesFragment frag;
 
     public static Intent createIntent(Context context, String matchKey, String teamKeys, String[] teams)
     {
@@ -65,7 +63,7 @@ public class NotesActivity extends ActionBarActivity
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        
+
         toolbar.setTitleTextColor(Color.WHITE);
         if (team.contains("red"))
         {
@@ -85,10 +83,8 @@ public class NotesActivity extends ActionBarActivity
         FragmentTransaction ft = fm.beginTransaction();
         ft.add(R.id.space, sixFrag);
         ft.commit();
-
-        listenForPress();
     }
-    
+
     public void finishScouting()
     {
         try
@@ -106,15 +102,14 @@ public class NotesActivity extends ActionBarActivity
 
     public void promptSave()
     {
-        if(!sixMode)
+        if (!sixMode)
         {
             FragmentManager fm = getSupportFragmentManager();
             FragmentTransaction ft = fm.beginTransaction();
             ft.add(R.id.space, sixFrag);
             ft.commit();
             sixMode = true;
-        }
-        else
+        } else
         {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("Save");
@@ -155,46 +150,5 @@ public class NotesActivity extends ActionBarActivity
     public void onBackPressed()
     {
         promptSave();
-    }
-
-    int i;
-    public void listenForPress()
-    {
-        if(sixMode)
-        {
-            for(i = 0; i < sixFrag.boxes.size(); i++)
-            {
-                (new Thread()
-                {
-                    @Override
-                    public void run()
-                    {
-                        while(!sixFrag.boxes.get(i).isPressed());
-                        frag = new NotesFragment(teams[i]);
-                        FragmentManager fm = getSupportFragmentManager();
-                        FragmentTransaction ft = fm.beginTransaction();
-                        ft.add(R.id.space, frag);
-                        ft.commit();
-                        sixMode = false;
-                    }
-                }).start();
-            }
-        }
-        else
-        {
-            (new Thread()
-            {
-                @Override
-                public void run()
-                {
-                    while(!frag.box.isPressed());
-                    FragmentManager fm = getSupportFragmentManager();
-                    FragmentTransaction ft = fm.beginTransaction();
-                    ft.add(R.id.space, sixFrag);
-                    ft.commit();
-                    sixMode = true;
-                }
-            }).start();
-        }
     }
 }

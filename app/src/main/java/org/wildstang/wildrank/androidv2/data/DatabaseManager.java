@@ -14,7 +14,9 @@ import com.couchbase.lite.UnsavedRevision;
 import com.couchbase.lite.View;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**

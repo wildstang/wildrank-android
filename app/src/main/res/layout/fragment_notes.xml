@@ -1,4 +1,0 @@
-<org.wildstang.wildrank.androidv2.views.SerializableNoteView
-    android:layout_height="fill_parent"
-    android:layout_width="fill_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android"/>
