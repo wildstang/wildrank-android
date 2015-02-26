@@ -29,10 +29,9 @@ import java.io.IOException;
 public class NotesActivity extends ActionBarActivity
 {
     private Toolbar toolbar;
-    private String matchKey;
-    private Boolean sixMode = true;
-    private String[] teams;
-    private String[] notes;
+    private static String matchKey;
+    private static String[] teams;
+    private static String[] notes;
 
     private NotesSixFragment sixFrag;
 

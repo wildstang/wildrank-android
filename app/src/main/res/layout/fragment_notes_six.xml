@@ -10,7 +10,7 @@
                   android:layout_height="0dp"
                   android:layout_weight="1">
 
-        <org.wildstang.wildrank.androidv2.views.SerializableNoteView
+        <org.wildstang.wildrank.androidv2.views.NoteView
             android:id="@+id/one"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
@@ -21,7 +21,7 @@
             android:layout_height="match_parent"
             android:background="@android:color/darker_gray"/>
 
-        <org.wildstang.wildrank.androidv2.views.SerializableNoteView
+        <org.wildstang.wildrank.androidv2.views.NoteView
             android:id="@+id/two"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
@@ -32,7 +32,7 @@
             android:layout_height="match_parent"
             android:background="@android:color/darker_gray"/>
 
-        <org.wildstang.wildrank.androidv2.views.SerializableNoteView
+        <org.wildstang.wildrank.androidv2.views.NoteView
             android:id="@+id/three"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
@@ -51,7 +51,7 @@
                   android:layout_height="0dp"
                   android:layout_weight="1">
 
-        <org.wildstang.wildrank.androidv2.views.SerializableNoteView
+        <org.wildstang.wildrank.androidv2.views.NoteView
             android:id="@+id/four"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
@@ -62,7 +62,7 @@
             android:layout_height="match_parent"
             android:background="@android:color/darker_gray"/>
 
-        <org.wildstang.wildrank.androidv2.views.SerializableNoteView
+        <org.wildstang.wildrank.androidv2.views.NoteView
             android:id="@+id/five"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
@@ -73,7 +73,7 @@
             android:layout_height="match_parent"
             android:background="@android:color/darker_gray"/>
 
-        <org.wildstang.wildrank.androidv2.views.SerializableNoteView
+        <org.wildstang.wildrank.androidv2.views.NoteView
             android:id="@+id/six"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
