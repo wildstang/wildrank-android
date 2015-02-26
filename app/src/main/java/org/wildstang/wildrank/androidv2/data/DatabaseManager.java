@@ -220,17 +220,20 @@ public class DatabaseManager {
     {
         for(int i = 0; i < teams.length; i++)
         {
-            Document document = database.getDocument("notes:" + teams[i]);
-            UnsavedRevision revision = document.createRevision();
-            HashMap<String, Object> properties = new HashMap<>();
-            properties.put("type", DatabaseManagerConstants.NOTES_RESULTS_TYPE);
-            properties.put("users", "to be added");
-            properties.put("team_key", teams[i]);
-            List<String> notesList = (ArrayList<String>) properties.get("notes");
-            notesList.add(notes[i]);
-            properties.put("note", notesList);
-            revision.setProperties(properties);
-            revision.save();
+            if(!notes[i].equals(""))
+            {
+                Document document = database.getDocument("notes:" + teams[i]);
+                UnsavedRevision revision = document.createRevision();
+                HashMap<String, Object> properties = new HashMap<>();
+                properties.put("type", DatabaseManagerConstants.NOTES_RESULTS_TYPE);
+                properties.put("users", "to be added");
+                properties.put("team_key", teams[i]);
+                List<String> notesList = (ArrayList<String>) properties.get("notes");
+                notesList.add(notes[i]);
+                properties.put("note", notesList);
+                revision.setProperties(properties);
+                revision.save();
+            }
         }
     }
 
