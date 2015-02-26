@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import org.wildstang.wildrank.androidv2.NoteBox;
 import org.wildstang.wildrank.androidv2.R;
 import org.wildstang.wildrank.androidv2.ReverseInterpolator;
+import org.wildstang.wildrank.androidv2.Utilities;
 import org.wildstang.wildrank.androidv2.activities.NotesActivity;
 import org.wildstang.wildrank.androidv2.activities.ScoutMatchActivity;
 
@@ -31,21 +32,35 @@ public class NotesSixFragment extends Fragment
     int i;
     boolean sixMode;
 
-    public NotesSixFragment(String[] teams)
+    public static NotesSixFragment newInstance(String[] teams)
     {
-        this.teams = teams;
+        NotesSixFragment f = new NotesSixFragment();
+        Bundle b = new Bundle();
+        b.putStringArray("teams", teams);
+        f.setArguments(b);
+        return f;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState)
+    {
+        super.onCreate(savedInstanceState);
+        if(getActivity() != null)
+        {
+            teams = getArguments().getStringArray("teams");
+        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         View view = inflater.inflate(R.layout.fragment_notes_six, container, false);
-        boxes.add(new NoteBox(view.findViewById(R.id.one), teams[0]));
-        boxes.add(new NoteBox(view.findViewById(R.id.two), teams[1]));
-        boxes.add(new NoteBox(view.findViewById(R.id.three), teams[2]));
-        boxes.add(new NoteBox(view.findViewById(R.id.four), teams[3]));
-        boxes.add(new NoteBox(view.findViewById(R.id.five), teams[4]));
-        boxes.add(new NoteBox(view.findViewById(R.id.six), teams[5]));
+        boxes.add(new NoteBox(view.findViewById(R.id.one), Utilities.teamNumberFromTeamKey(teams[0])));
+        boxes.add(new NoteBox(view.findViewById(R.id.two), Utilities.teamNumberFromTeamKey(teams[1])));
+        boxes.add(new NoteBox(view.findViewById(R.id.three), Utilities.teamNumberFromTeamKey(teams[2])));
+        boxes.add(new NoteBox(view.findViewById(R.id.four), Utilities.teamNumberFromTeamKey(teams[3])));
+        boxes.add(new NoteBox(view.findViewById(R.id.five), Utilities.teamNumberFromTeamKey(teams[4])));
+        boxes.add(new NoteBox(view.findViewById(R.id.six), Utilities.teamNumberFromTeamKey(teams[5])));
         sixMode = true;
         for(int i = 0; i < 6; i++)
         {
@@ -115,5 +130,15 @@ public class NotesSixFragment extends Fragment
                 view.getLayoutParams().height = LinearLayout.LayoutParams.FILL_PARENT;
             }
         });
+    }
+
+    public String[] getNotes()
+    {
+        String[] notes = new String[]{"","","","","",""};
+        for(int i = 0; i < boxes.size(); i++)
+        {
+            notes[i] = boxes.get(i).getNote();
+        }
+        return notes;
     }
 }

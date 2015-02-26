@@ -29,7 +29,6 @@ import java.io.IOException;
 public class NotesActivity extends ActionBarActivity
 {
     private Toolbar toolbar;
-    private String teamKeys;
     private String matchKey;
     private Boolean sixMode = true;
     private String[] teams;
@@ -37,12 +36,11 @@ public class NotesActivity extends ActionBarActivity
 
     private NotesSixFragment sixFrag;
 
-    public static Intent createIntent(Context context, String matchKey, String teamKeys, String[] teams)
+    public static Intent createIntent(Context context, String matchKey, String[] teams)
     {
         Intent i = new Intent(context, NotesActivity.class);
-        i.putExtra("team_keys", teamKeys);
         i.putExtra("match_key", matchKey);
-        i.putExtra("teams_key", teams);
+        i.putExtra("team_keys", teams);
         return i;
     }
 
@@ -52,9 +50,8 @@ public class NotesActivity extends ActionBarActivity
         super.onCreate(savedInstanceState);
 
         Bundle extras = getIntent().getExtras();
-        teamKeys = extras.getString("team_keys");
         matchKey = extras.getString("match_key");
-        teams = extras.getStringArray("teams_key");
+        teams = extras.getStringArray("team_keys");
 
         setContentView(R.layout.activity_notes);
 
@@ -75,9 +72,22 @@ public class NotesActivity extends ActionBarActivity
         }
 
         ((TextView) findViewById(R.id.match_number)).setText("" + Utilities.matchNumberFromMatchKey(matchKey));
-        ((TextView) findViewById(R.id.team_numbers)).setText("" + Utilities.teamNumberFromTeamKey(teamKeys));
+        StringBuilder sb = new StringBuilder();
+        for(int i = 0; i < teams.length; i++)
+        {
+            if(i < teams.length - 1)
+            {
+                sb.append(teams[i] + ", ");
+            }
+            else
+            {
+                sb.append(teams[i]);
+            }
 
-        sixFrag = new NotesSixFragment(teams);
+        }
+        ((TextView) findViewById(R.id.team_numbers)).setText("" + Utilities.teamNumberFromTeamKey(sb.toString()));
+
+        sixFrag = NotesSixFragment.newInstance(teams);
 
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
@@ -87,6 +97,7 @@ public class NotesActivity extends ActionBarActivity
 
     public void finishScouting()
     {
+        notes = sixFrag.getNotes();
         try
         {
             DatabaseManager.getInstance(this).saveNotes(teams, notes);
@@ -102,16 +113,7 @@ public class NotesActivity extends ActionBarActivity
 
     public void promptSave()
     {
-        if (!sixMode)
-        {
-            FragmentManager fm = getSupportFragmentManager();
-            FragmentTransaction ft = fm.beginTransaction();
-            ft.add(R.id.space, sixFrag);
-            ft.commit();
-            sixMode = true;
-        } else
-        {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("Save");
             builder.setMessage("Would you like to save before exiting?");
             builder.setPositiveButton("Yes", new DialogInterface.OnClickListener()
@@ -131,7 +133,6 @@ public class NotesActivity extends ActionBarActivity
                 }
             });
             builder.show();
-        }
     }
 
     @Override

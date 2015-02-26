@@ -177,7 +177,6 @@ public class NotesMainFragment extends Fragment implements View.OnClickListener 
         for(int i = 0; i < selectedTeams.length; i++)
         {
             String newTeam = selectedTeams[i].replace("frc", "");
-            selectedTeams[i] = newTeam;
             if(i != selectedTeams.length - 1)
             {
                 teams.append(newTeam + ", ");
@@ -198,7 +197,7 @@ public class NotesMainFragment extends Fragment implements View.OnClickListener 
         int id = v.getId();
         if (id == R.id.begin_scouting) {
             // Launch the scouting activity
-            final Intent intent = NotesActivity.createIntent(getActivity(), selectedMatchKey, selectedTeamsString, selectedTeams);
+            final Intent intent = NotesActivity.createIntent(getActivity(), selectedMatchKey, selectedTeams);
             startActivity(intent);
         }
     }

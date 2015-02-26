@@ -226,7 +226,9 @@ public class DatabaseManager {
             properties.put("type", DatabaseManagerConstants.NOTES_RESULTS_TYPE);
             properties.put("users", "to be added");
             properties.put("team_key", teams[i]);
-            properties.put("data", notes[i]);
+            List<String> notesList = (ArrayList<String>) properties.get("notes");
+            notesList.add(notes[i]);
+            properties.put("note", notesList);
             revision.setProperties(properties);
             revision.save();
         }
