@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_view"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    card_view:cardCornerRadius="4dp">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        style="@style/ScoutingWidget"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:focusableInTouchMode="true"
+        android:id="@+id/relativeLayout">
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="-"
+            android:id="@+id/minus"
+            android:layout_alignParentLeft="true"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="40sp"
+            android:text="0"
+            android:id="@+id/totes"
+            android:layout_above="@+id/bin"
+            android:layout_toRightOf="@+id/minus"
+            android:layout_toEndOf="@+id/minus" />
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="+"
+            android:id="@+id/plus"
+            android:layout_toRightOf="@id/totes"/>
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pre-Existing"
+            android:id="@+id/preexisting"
+            android:layout_alignBottom="@+id/plus"
+            android:layout_toRightOf="@id/plus"/>
+
+        <!-- Make dropdown 0-6-->
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:ems="2"
+            android:id="@+id/preexisting_count"
+            android:layout_toRightOf="@id/preexisting"/>
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Topped w/ Bin"
+            android:id="@+id/bin"
+            android:layout_below="@+id/minus" />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Litter in Bin"
+            android:id="@+id/litter"
+            android:layout_alignTop="@+id/bin"
+            android:layout_toRightOf="@+id/bin"
+            android:layout_toEndOf="@+id/bin" />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Co-op Stack"
+            android:id="@+id/coop"
+            android:layout_below="@+id/bin" />
+
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>

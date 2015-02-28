@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
@@ -70,14 +71,6 @@ public class ScoutMatchActivity extends ActionBarActivity {
         ((TextView) findViewById(R.id.match_number)).setText("" + Utilities.matchNumberFromMatchKey(matchKey));
         ((TextView) findViewById(R.id.team_number)).setText("" + Utilities.teamNumberFromTeamKey(teamKey));
 
-        TextView alliance = (TextView) findViewById(R.id.alliance);
-        if (allianceColor.equals(EXTRA_ALLIANCE_COLOR_RED)) {
-            alliance.setText("Red");
-            alliance.setTextColor(getResources().getColor(R.color.red));
-        } else {
-            alliance.setText("Blue");
-            alliance.setTextColor(getResources().getColor(R.color.blue));
-        }
 
         findViewById(android.R.id.content).setKeepScreenOn(true);
 
@@ -93,6 +86,19 @@ public class ScoutMatchActivity extends ActionBarActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        TextView alliance = (TextView) findViewById(R.id.alliance);
+        String team = PreferenceManager.getDefaultSharedPreferences(this).getString("assignedTeam", "red_1");
+
+        if (team.contains("red")) {
+            alliance.setText("Red");
+            toolbar.setBackgroundColor(getResources().getColor(R.color.material_red));
+            tabs.setBackgroundColor(getResources().getColor(R.color.material_red));
+        } else {
+            alliance.setText("Blue");
+            toolbar.setBackgroundColor(getResources().getColor(R.color.material_blue));
+            tabs.setBackgroundColor(getResources().getColor(R.color.material_blue));
+        }
     }
 
     public void finishScouting() {

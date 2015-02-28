@@ -9,7 +9,6 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:background="@color/blue"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:contentInsetStart="72dp">
@@ -18,8 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:orientation="horizontal"
-            android:gravity="center_vertical|left"
-            android:background="@color/blue">
+            android:gravity="center_vertical|left">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -50,8 +48,7 @@
         <org.wildstang.wildrank.androidv2.views.SlidingTabs
             android:id="@+id/tabs"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:background="@color/blue" />
+            android:layout_height="48dp"/>
 
         <android.support.v4.view.ViewPager
             android:id="@+id/view_pager"

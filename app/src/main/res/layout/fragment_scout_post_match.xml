@@ -5,12 +5,139 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <org.wildstang.wildrank.androidv2.views.SerializableCheckboxView
-        android:id="@+id/swag"
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
-        app:key="post_match-swag"
-        app:label="Does robot have swag?" />
+        android:id="@+id/general"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="10dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/general_title"
+            android:text="General"
+            android:textSize="30sp"/>
+
+        <org.wildstang.wildrank.androidv2.views.SerializableCheckboxView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/dq"
+            app:key="post_match-dq"
+            app:label="DQ"/>
+
+        <org.wildstang.wildrank.androidv2.views.SerializableCheckboxView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/no_show"
+            app:key="post_match-no_show"
+            app:label="No Show"/>
+
+        <org.wildstang.wildrank.androidv2.views.SerializableCheckboxView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/broke_down"
+            app:key="post_match-broke_down"
+            app:label="Broke Down"/>
+
+        <org.wildstang.wildrank.androidv2.views.SerializableCheckboxView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tipped"
+            app:key="post_match-tipped"
+            app:label="Tipped Over"/>
+
+        <org.wildstang.wildrank.androidv2.views.SerializableCheckboxView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/lost_comm"
+            app:key="post_match-lost_comm"
+            app:label="Lost Comm"/>
+
+        <org.wildstang.wildrank.androidv2.views.SerializableCheckboxView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/damaged"
+            app:key="post_match-damaged"
+            app:label="Damaged"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/fouls"
+        android:layout_toRightOf="@id/general"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="10dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/fouls_title"
+            android:text="Fouls"
+            android:textSize="30sp"/>
+
+        <org.wildstang.wildrank.androidv2.views.SerializableCounterView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/general_foul"
+            app:key="post_match-general_foul"
+            app:label="General Foul"/>
+
+        <org.wildstang.wildrank.androidv2.views.SerializableCounterView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/technical_foul"
+            app:key="post_match-technical_foul"
+            app:label="Technical Foul"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/ranking"
+        android:layout_toRightOf="@id/fouls"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="10dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/ranking_title"
+            android:text="Ranking"
+            android:textSize="30sp"/>
+
+        <org.wildstang.wildrank.androidv2.views.SerializableSpinnerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/driver_skill"
+            app:key="post_match-driver_skill"
+            app:label="Driver Skill"
+            app:values="@array/rankings"/>
+
+        <org.wildstang.wildrank.androidv2.views.SerializableSpinnerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/robot_speed"
+            app:key="post_match-robot_speed"
+            app:label="Robot Speed"
+            app:values="@array/rankings"/>
+
+        <org.wildstang.wildrank.androidv2.views.SerializableSpinnerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/floor_pickup_speed"
+            app:key="post_match-floor_pickup_rating"
+            app:label="Floor Pickup Rating"
+            app:values="@array/rankings"/>
+
+    </LinearLayout>
 
     <Button
         android:id="@+id/finish"

@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import org.wildstang.wildrank.androidv2.fragments.AutonomousScoutingFragment;
+import org.wildstang.wildrank.androidv2.fragments.PitScoutingFragment;
 import org.wildstang.wildrank.androidv2.fragments.PostMatchScoutingFragment;
 import org.wildstang.wildrank.androidv2.fragments.ScoutingFragment;
 import org.wildstang.wildrank.androidv2.fragments.TeleopScoutingFragment;
@@ -42,7 +43,7 @@ public class PitScoutFragmentPagerAdapter extends FragmentPagerAdapter {
         ScoutingFragment fragment;
         switch (position) {
             case 0: // basic info
-                fragment = new AutonomousScoutingFragment();
+                fragment = new PitScoutingFragment();
                 break;
             default: // uh oh.
                 fragment = null;

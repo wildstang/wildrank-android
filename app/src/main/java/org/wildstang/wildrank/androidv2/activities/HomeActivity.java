@@ -2,6 +2,8 @@ package org.wildstang.wildrank.androidv2.activities;
 
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.content.res.Resources;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.widget.DrawerLayout;
@@ -12,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
@@ -33,15 +36,31 @@ public class HomeActivity extends ActionBarActivity {
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle drawerToggle;
     private ListView navigationDrawerList;
+    private Toolbar toolbar;
 
     private int currentPosition = -1;
+
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+        String team = PreferenceManager.getDefaultSharedPreferences(this).getString("assignedTeam", "red_1");
+
+        if (team.contains("red")) {
+            toolbar.setBackgroundColor(getResources().getColor(R.color.material_red));
+
+        } else {
+            toolbar.setBackgroundColor(getResources().getColor(R.color.material_blue));
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         PreferenceManager.setDefaultValues(this, R.xml.preferences, true);
 
@@ -65,6 +84,16 @@ public class HomeActivity extends ActionBarActivity {
              */
             startActivity(new Intent(this, AppSetupActivity.class));
             finish();
+        }
+
+        String team = PreferenceManager.getDefaultSharedPreferences(this).getString("assignedTeam", "red_1");
+
+        toolbar.setTitleTextColor(Color.WHITE);
+        if (team.contains("red")) {
+            toolbar.setBackgroundColor(getResources().getColor(R.color.material_red));
+
+        } else {
+            toolbar.setBackgroundColor(getResources().getColor(R.color.material_blue));
         }
 
         drawerLayout = (DrawerLayout) findViewById(R.id.nav_drawer_layout);
