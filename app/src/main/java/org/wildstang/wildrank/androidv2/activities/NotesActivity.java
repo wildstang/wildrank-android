@@ -99,7 +99,10 @@ public class NotesActivity extends ActionBarActivity
         notes = sixFrag.getNotes();
         try
         {
-            DatabaseManager.getInstance(this).saveNotes(teams, notes);
+            for(int i = 0; i < teams.length; i++)
+            {
+                DatabaseManager.getInstance(this).saveNotes(teams[i], notes[i], this);
+            }
         } catch (CouchbaseLiteException e)
         {
             e.printStackTrace();
