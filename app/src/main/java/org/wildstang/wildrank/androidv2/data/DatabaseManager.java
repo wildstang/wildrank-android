@@ -1,17 +1,20 @@
 package org.wildstang.wildrank.androidv2.data;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.couchbase.lite.CouchbaseLiteException;
 import com.couchbase.lite.Database;
+import com.couchbase.lite.Document;
 import com.couchbase.lite.Emitter;
-import com.couchbase.lite.LiveQuery;
 import com.couchbase.lite.Manager;
 import com.couchbase.lite.Mapper;
 import com.couchbase.lite.Query;
+import com.couchbase.lite.QueryEnumerator;
+import com.couchbase.lite.UnsavedRevision;
+import com.couchbase.lite.View;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -35,22 +38,83 @@ public class DatabaseManager {
         manager = new Manager(new com.couchbase.lite.android.AndroidContext(context.getApplicationContext()), Manager.DEFAULT_OPTIONS);
         database = manager.getDatabase(DatabaseManagerConstants.DB_NAME);
 
-        com.couchbase.lite.View matchView = database.getView(DatabaseManagerConstants.MATCH_LIST_VIEW);
-        matchView.setMap(new Mapper() {
+        com.couchbase.lite.View matchViewByNumber = database.getView(DatabaseManagerConstants.MATCH_LIST_VIEW_BY_NUMBER);
+        matchViewByNumber.setMap(new Mapper() {
             @Override
             public void map(Map<String, Object> document, Emitter emitter) {
-                Log.d("wildrank", "mapping!");
-
                 Object docType = document.get(DatabaseManagerConstants.DOC_TYPE);
                 if (docType != null) {
-                    Log.d("wildrank", "type not null! " + docType.toString());
                     if (docType.toString().equals(DatabaseManagerConstants.MATCH_TYPE)) {
-                        Log.d("wildrank", "emitting! " + document.get(DatabaseManagerConstants.MATCH_KEY));
-                        emitter.emit(/*document.get(DatabaseManagerConstants.MATCH_KEY)*/document.get("match_number"), null);
+                        emitter.emit(document.get("match_number"), null);
                     }
                 }
             }
-        }, "7");
+        }, "8");
+
+        com.couchbase.lite.View matchViewByKey = database.getView(DatabaseManagerConstants.MATCH_LIST_VIEW_BY_KEY);
+        matchViewByKey.setMap(new Mapper() {
+            @Override
+            public void map(Map<String, Object> document, Emitter emitter) {
+                Object docType = document.get(DatabaseManagerConstants.DOC_TYPE);
+                if (docType != null) {
+                    if (docType.toString().equals(DatabaseManagerConstants.MATCH_TYPE)) {
+                        emitter.emit(document.get("key"), null);
+                    }
+                }
+            }
+        }, "1");
+
+        com.couchbase.lite.View matchResultsView = database.getView(DatabaseManagerConstants.MATCH_RESULT_VIEW);
+        matchResultsView.setMap(new Mapper() {
+            @Override
+            public void map(Map<String, Object> document, Emitter emitter) {
+                Object docType = document.get(DatabaseManagerConstants.DOC_TYPE);
+                if (docType != null) {
+                    if (docType.toString().equals(DatabaseManagerConstants.MATCH_RESULT_TYPE)) {
+                        emitter.emit(document.get("match_key") + ":" + document.get("team_number"), null);
+                    }
+                }
+            }
+        }, "1");
+
+        View usersView = database.getView(DatabaseManagerConstants.USER_VIEW_BY_ID);
+        usersView.setMap(new Mapper() {
+            @Override
+            public void map(Map<String, Object> document, Emitter emitter) {
+                Object docType = document.get(DatabaseManagerConstants.DOC_TYPE);
+                if (docType != null) {
+                    if (docType.toString().equals(DatabaseManagerConstants.USER_TYPE)) {
+                        emitter.emit(document.get("id"), null);
+                    }
+                }
+            }
+        }, "1");
+
+        View teamsView = database.getView(DatabaseManagerConstants.TEAM_LIST_VIEW_BY_NUMBER);
+        teamsView.setMap(new Mapper() {
+            @Override
+            public void map(Map<String, Object> document, Emitter emitter) {
+                Object docType = document.get(DatabaseManagerConstants.DOC_TYPE);
+                if (docType != null) {
+                    if (docType.toString().equals(DatabaseManagerConstants.TEAM_TYPE)) {
+                        emitter.emit(document.get("team_number"), null);
+                    }
+                }
+            }
+        }, "1");
+
+        View pitResultsView = database.getView(DatabaseManagerConstants.PIT_RESULTS_VIEW);
+        pitResultsView.setMap(new Mapper() {
+            @Override
+            public void map(Map<String, Object> document, Emitter emitter) {
+                Object docType = document.get(DatabaseManagerConstants.DOC_TYPE);
+                if (docType != null) {
+                    if (docType.toString().equals(DatabaseManagerConstants.PIT_RESULTS_TYPE)) {
+                        emitter.emit(document.get("team_key"), null);
+                    }
+                }
+            }
+        }, "1");
     }
 
     public Manager getManager() {
@@ -62,9 +126,92 @@ public class DatabaseManager {
      */
 
     public Query getAllMatches() {
-        Query query = database.getView(DatabaseManagerConstants.MATCH_LIST_VIEW).createQuery();
+        Query query = database.getView(DatabaseManagerConstants.MATCH_LIST_VIEW_BY_NUMBER).createQuery();
         query.setDescending(false);
         return query;
+    }
+
+    public Document getMatchFromKey(String matchKey) throws CouchbaseLiteException {
+        Query query = database.getView(DatabaseManagerConstants.MATCH_LIST_VIEW_BY_KEY).createQuery();
+        query.setDescending(false);
+        query.setStartKey(matchKey);
+        query.setEndKey(matchKey);
+        QueryEnumerator results = query.run();
+        if (results.getCount() > 0) {
+            return results.getRow(0).getDocument();
+        } else {
+            return null;
+        }
+    }
+
+    /*
+     * Match results
+     */
+
+    public void saveMatchResults(MatchResultsModel matchResults) throws CouchbaseLiteException {
+        Document document = database.getDocument(matchResults.getMatchKey() + ":" + matchResults.getTeamKey());
+        UnsavedRevision revision = document.createRevision();
+        HashMap<String, Object> properties = new HashMap<>();
+        properties.put("type", DatabaseManagerConstants.MATCH_RESULT_TYPE);
+        properties.put("users", matchResults.getUserIds());
+        properties.put("match_key", matchResults.getMatchKey());
+        properties.put("team_key", matchResults.getTeamKey());
+        properties.put("data", matchResults.getData());
+        revision.setProperties(properties);
+        revision.save();
+    }
+
+    public Document getMatchResults(String matchKey, String teamKey) {
+        return database.getDocument(matchKey + ":" + teamKey);
+    }
+
+    public boolean isMatchScouted(String matchKey, String teamKey) {
+        return (database.getExistingDocument(matchKey + ":" + teamKey) != null);
+    }
+
+    /*
+     * Users
+     */
+
+    public Document getUserById(String id) throws CouchbaseLiteException {
+        Query query = database.getView(DatabaseManagerConstants.USER_VIEW_BY_ID).createQuery();
+        query.setStartKey(id);
+        query.setEndKey(id);
+        QueryEnumerator results = query.run();
+        if (results.getCount() > 0) {
+            return results.getRow(0).getDocument();
+        } else {
+            return null;
+        }
+    }
+
+    /*
+     * Teams
+     */
+    public Query getAllTeams() {
+        Query query = database.getView(DatabaseManagerConstants.TEAM_LIST_VIEW_BY_NUMBER).createQuery();
+        query.setDescending(false);
+        return query;
+    }
+
+    /*
+     * Pit Scouting
+     */
+
+    public boolean isTeamPitScouted(String teamKey) {
+        return (database.getExistingDocument("pit:" + teamKey) != null);
+    }
+
+    public void savePitResults(PitResultsModel pitResults) throws CouchbaseLiteException {
+        Document document = database.getDocument("pit:" + pitResults.getTeamKey());
+        UnsavedRevision revision = document.createRevision();
+        HashMap<String, Object> properties = new HashMap<>();
+        properties.put("team", DatabaseManagerConstants.PIT_RESULTS_TYPE);
+        properties.put("users", pitResults.getUserIds());
+        properties.put("team_key", pitResults.getTeamKey());
+        properties.put("data", pitResults.getData());
+        revision.setProperties(properties);
+        revision.save();
     }
 
     public Database getDatabase() {

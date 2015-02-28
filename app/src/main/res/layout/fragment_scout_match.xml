@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/pickup"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="10dp"
+        android:layout_alignParentLeft="true"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/pickup_total"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Pickup"
+            android:textSize="30sp" />
+
+        <org.wildstang.wildrank.androidv2.views.SerializableCounterView
+            android:id="@+id/ground_tote"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:key="match-ground_tote_pickup"
+            app:label="Pickup Tote (Ground)" />
+
+        <org.wildstang.wildrank.androidv2.views.SerializableCounterView
+            android:id="@+id/ps_tote"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:key="match-ps_tote_pickup"
+            app:label="Pickup Tote (Player Station)" />
+
+        <org.wildstang.wildrank.androidv2.views.SerializableCounterView
+            android:id="@+id/step_tote"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:key="match-step_tote_pickup"
+            app:label="Pickup Tote (Step)" />
+
+        <org.wildstang.wildrank.androidv2.views.SerializableCounterView
+            android:id="@+id/ground_bin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:key="match-ground_bin_pickup"
+            app:label="Pickup Bin (Ground)" />
+
+        <org.wildstang.wildrank.androidv2.views.SerializableCounterView
+            android:id="@+id/ground_bin_side"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:key="match-ground_bin_pickup_side"
+            app:label="Pickup Bin (Ground Sideways)" />
+
+        <org.wildstang.wildrank.androidv2.views.SerializableCounterView
+            android:id="@+id/step_bin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:key="match-step_bin_pickup"
+            app:label="Pickup Bin (Step)" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/errors"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="10dp"
+        android:layout_toRightOf="@id/pickup"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/error_total"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Errors"
+            android:textSize="30sp" />
+
+        <org.wildstang.wildrank.androidv2.views.SerializableCounterView
+            android:id="@+id/stacks_knocked"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:key="match-stacks_knocked"
+            app:label="Knocked Over Stacks" />
+
+        <org.wildstang.wildrank.androidv2.views.SerializableCounterView
+            android:id="@+id/totes_dropped"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:key="match-dropped"
+            app:label="Totes/Bins Dropped" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/finish"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="Finish" />
+
+</RelativeLayout>

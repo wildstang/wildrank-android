@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:contentInsetStart="72dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical|left">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Team Number:"
+                android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
+                android:paddingRight="16dp"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:id="@+id/team_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="21"
+                android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
+                android:layout_marginRight="32dp"
+                android:textColor="@color/white" />
+        </LinearLayout>
+    </android.support.v7.widget.Toolbar>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar"
+        android:orientation="vertical">
+
+        <org.wildstang.wildrank.androidv2.views.SlidingTabs
+            android:id="@+id/tabs"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"/>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent" />
+
+    </LinearLayout>
+
+</RelativeLayout>

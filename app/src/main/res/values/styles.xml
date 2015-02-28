@@ -3,9 +3,28 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
+
+    </style>
+
+    <style name="AppThemeNoActionBar" parent="AppTheme">
         <item name="windowActionBar">false</item>
         <item name="android:colorPrimary">@color/material_blue</item>
         <item name="android:colorPrimaryDark">@color/material_blue_dark</item>
+    </style>
+
+    <style name="ScoutingWidget">
+        <item name="android:layout_margin">5dp</item>
+        <item name="android:padding">8dp</item>
+    </style>
+
+    <style name="ScoutingSectionTitle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingLeft">5dp</item>
+        <item name="android:paddingRight">5dp</item>
+        <item name="android:paddingTop">7dp</item>
+        <item name="android:paddingBottom">7dp</item>
+        <item name="android:textSize">25sp</item>
     </style>
 
 </resources>

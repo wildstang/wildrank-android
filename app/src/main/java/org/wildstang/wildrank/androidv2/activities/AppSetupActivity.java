@@ -131,6 +131,7 @@ public class AppSetupActivity extends ActionBarActivity implements View.OnClickL
                         e.printStackTrace();
                     }
                 }
+                externalDatabase.close();
             } catch (Exception e) {
                 e.printStackTrace();
             }

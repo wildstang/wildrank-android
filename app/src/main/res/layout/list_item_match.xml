@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content" >
+    android:layout_height="wrap_content">
 
     <TextView
         android:id="@+id/match_number"
@@ -13,24 +13,66 @@
         android:layout_centerVertical="true"
         android:textAppearance="?android:attr/textAppearanceListItem" />
 
-    <TextView
+    <LinearLayout
         android:id="@+id/red_alliance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/match_number"
-        android:layout_alignParentTop="true"
-        android:textColor="@color/red"
-        android:textAppearance="?android:attr/textAppearanceListItemSmall"  />
+        android:layout_marginLeft="100dp"
+        android:orientation="horizontal">
 
-    <TextView
+        <TextView
+            android:id="@+id/red_team_1"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/red"
+            android:textAppearance="?android:attr/textAppearanceListItemSmall" />
+
+        <TextView
+            android:id="@+id/red_team_2"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/red"
+            android:textAppearance="?android:attr/textAppearanceListItemSmall" />
+
+        <TextView
+            android:id="@+id/red_team_3"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/red"
+            android:textAppearance="?android:attr/textAppearanceListItemSmall" />
+
+    </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/blue_alliance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/match_number"
         android:layout_below="@id/red_alliance"
-        android:layout_alignParentBottom="true"
-        android:textColor="@color/blue"
-        android:textAppearance="?android:attr/textAppearanceListItemSmall"  />
+        android:layout_marginLeft="100dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/blue_team_1"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/blue"
+            android:textAppearance="?android:attr/textAppearanceListItemSmall" />
+
+        <TextView
+            android:id="@+id/blue_team_2"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/blue"
+            android:textAppearance="?android:attr/textAppearanceListItemSmall" />
+
+        <TextView
+            android:id="@+id/blue_team_3"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/blue"
+            android:textAppearance="?android:attr/textAppearanceListItemSmall" />
+
+    </LinearLayout>
 
 
 </RelativeLayout>
