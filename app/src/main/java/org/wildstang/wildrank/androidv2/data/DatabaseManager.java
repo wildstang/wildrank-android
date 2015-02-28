@@ -13,8 +13,12 @@ import com.couchbase.lite.QueryEnumerator;
 import com.couchbase.lite.UnsavedRevision;
 import com.couchbase.lite.View;
 
+import org.wildstang.wildrank.androidv2.UserHelper;
+
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -206,12 +210,59 @@ public class DatabaseManager {
         Document document = database.getDocument("pit:" + pitResults.getTeamKey());
         UnsavedRevision revision = document.createRevision();
         HashMap<String, Object> properties = new HashMap<>();
-        properties.put("team", DatabaseManagerConstants.PIT_RESULTS_TYPE);
+        properties.put("type", DatabaseManagerConstants.PIT_RESULTS_TYPE);
         properties.put("users", pitResults.getUserIds());
         properties.put("team_key", pitResults.getTeamKey());
         properties.put("data", pitResults.getData());
         revision.setProperties(properties);
         revision.save();
+    }
+
+    public void saveNotes(String team, String note, Context c) throws CouchbaseLiteException
+    {
+        if (!note.equals(""))
+        {
+            Boolean existed = (database.getExistingDocument("notes:" + team) != null);
+            Document document = database.getDocument("notes:" + team);
+            UnsavedRevision revision = document.createRevision();
+
+            HashMap<String, Object> properties = new HashMap<>();
+            properties.put("type", DatabaseManagerConstants.NOTES_RESULTS_TYPE);
+            properties.put("users", UserHelper.getLoggedInUsersAsArray(c));
+            properties.put("team_key", team);
+
+            List<String> notesList;
+            if (existed)
+            {
+                notesList = (ArrayList<String>) document.getProperties().get("notes");
+            }
+            else
+            {
+                notesList = new ArrayList<>();
+            }
+
+            notesList.add(note);
+            properties.put("notes", notesList);
+
+            revision.setProperties(properties);
+            revision.save();
+        }
+    }
+
+    public String[] getNotes(String team)
+    {
+        Boolean existed = (database.getExistingDocument("notes:" + team) != null);
+        Document document = database.getDocument("notes:" + team);
+        List<String> notesList;
+        if(existed)
+        {
+            notesList = (ArrayList<String>) document.getProperties().get("notes");
+        }
+        else
+        {
+            notesList = new ArrayList<>();
+        }
+        return notesList.toArray(new String[notesList.size()]);
     }
 
     public Database getDatabase() {
