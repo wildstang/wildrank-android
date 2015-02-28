@@ -12,13 +12,18 @@ import android.view.animation.Animation;
 import android.view.animation.Transformation;
 import android.widget.LinearLayout;
 
+import com.couchbase.lite.CouchbaseLiteException;
+import com.couchbase.lite.Database;
+
 import org.wildstang.wildrank.androidv2.NoteBox;
 import org.wildstang.wildrank.androidv2.R;
 import org.wildstang.wildrank.androidv2.ReverseInterpolator;
 import org.wildstang.wildrank.androidv2.Utilities;
 import org.wildstang.wildrank.androidv2.activities.NotesActivity;
 import org.wildstang.wildrank.androidv2.activities.ScoutMatchActivity;
+import org.wildstang.wildrank.androidv2.data.DatabaseManager;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -116,11 +121,22 @@ public class NotesSixFragment extends Fragment
                 if(sixMode)
                 {
                     sixMode = false;
+                    try
+                    {
+                        boxes.get(i).setOldNotes(DatabaseManager.getInstance(getActivity()).getNotes(teams[i]));
+                    } catch (CouchbaseLiteException e)
+                    {
+                        e.printStackTrace();
+                    } catch (IOException e)
+                    {
+                        e.printStackTrace();
+                    }
                 }
                 else
                 {
                     animate.setInterpolator(new ReverseInterpolator());
                     sixMode = true;
+                    boxes.get(i).setOldNotes(new String[0]);
                 }
 
                 animate.setDuration(Math.abs((int)(targetWidth / view.getContext().getResources().getDisplayMetrics().density))/4);

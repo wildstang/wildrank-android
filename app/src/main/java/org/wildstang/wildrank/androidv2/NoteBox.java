@@ -16,10 +16,12 @@ public class NoteBox
     LinearLayout layout;
     Button switchView;
     EditText noteBox;
+    TextView oldNotes;
 
     public NoteBox(View v, String team)
     {
         layout = (LinearLayout) v;
+        oldNotes = (TextView) v.findViewById(R.id.oldnotes);
         switchView = (Button) v.findViewById(R.id.toSix);
         noteBox = (EditText) v.findViewById(R.id.note);
         ((TextView) v.findViewById(R.id.team)).setText("Team: " + team);
@@ -38,5 +40,15 @@ public class NoteBox
     public LinearLayout getLayout()
     {
         return layout;
+    }
+
+    public void setOldNotes(String[] notes)
+    {
+        oldNotes.setText("");
+        for(int i = 0; i < notes.length; i++)
+        {
+            System.out.println("Adding: " + notes[i]);
+            oldNotes.append(notes[i] + "\n");
+        }
     }
 }

@@ -39,8 +39,27 @@
         android:id="@+id/border"
         android:background="@android:color/darker_gray" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/oldnotes"
+        android:layout_below="@id/border"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true" />
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/midborder"
+        android:layout_below="@id/border"
+        android:layout_toRightOf="@id/oldnotes"
+        android:layout_alignParentBottom="true"
+        android:background="@android:color/darker_gray" />
+
     <EditText
         android:id="@+id/note"
+        android:layout_toRightOf="@id/midborder"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/border"

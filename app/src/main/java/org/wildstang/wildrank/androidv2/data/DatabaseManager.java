@@ -222,19 +222,47 @@ public class DatabaseManager {
         {
             if(!notes[i].equals(""))
             {
+                Boolean existed = (database.getExistingDocument("notes:" + teams[i]) != null);
                 Document document = database.getDocument("notes:" + teams[i]);
                 UnsavedRevision revision = document.createRevision();
+
                 HashMap<String, Object> properties = new HashMap<>();
                 properties.put("type", DatabaseManagerConstants.NOTES_RESULTS_TYPE);
                 properties.put("users", "to be added");
                 properties.put("team_key", teams[i]);
-                List<String> notesList = (ArrayList<String>) properties.get("notes");
+
+                List<String> notesList;
+                if(existed)
+                {
+                    notesList = (ArrayList<String>) document.getProperties().get("notes");
+                }
+                else
+                {
+                    notesList = new ArrayList<>();
+                }
+
                 notesList.add(notes[i]);
-                properties.put("note", notesList);
+                properties.put("notes", notesList);
+
                 revision.setProperties(properties);
                 revision.save();
             }
         }
+    }
+
+    public String[] getNotes(String team)
+    {
+        Document document = database.getDocument("notes:" + team);
+        List<String> notesList;
+            if(document.getProperties().containsKey("notes"))
+            {
+                notesList = (ArrayList<String>) document.getProperties().get("notes");
+            }
+            else
+            {
+                notesList = new ArrayList<>();
+            }
+        return notesList.toArray(new String[notesList.size()]);
     }
 
     public Database getDatabase() {
