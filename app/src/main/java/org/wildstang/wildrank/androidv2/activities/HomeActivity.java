@@ -25,13 +25,14 @@ import org.wildstang.wildrank.androidv2.UserHelper;
 import org.wildstang.wildrank.androidv2.fragments.MatchScoutingMainFragment;
 import org.wildstang.wildrank.androidv2.fragments.NotesMainFragment;
 import org.wildstang.wildrank.androidv2.fragments.PitScoutingMainFragment;
+import org.wildstang.wildrank.androidv2.fragments.WhiteboardFragment;
 
 
 public class HomeActivity extends ActionBarActivity {
 
     public static final String PREF_IS_APP_CONFIGURED = "is_app_configured";
 
-    private static final String[] MODE_NAMES = {"Match Scouting", "Pit Scouting", "Notes"};
+    private static final String[] MODE_NAMES = {"Match Scouting", "Pit Scouting", "Notes", "Whiteboard"};
 
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle drawerToggle;
@@ -181,6 +182,11 @@ public class HomeActivity extends ActionBarActivity {
                 // Notes
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new NotesMainFragment()).commit();
                 getSupportActionBar().setTitle(MODE_NAMES[2]);
+                break;
+            case 3:
+                // Whiteboard
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new WhiteboardFragment()).commit();
+                getSupportActionBar().setTitle(MODE_NAMES[3]);
                 break;
             default:
                 break;
