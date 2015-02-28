@@ -50,6 +50,7 @@ public class NoteBox
     public void setOldNotes(String[] notes, Context c)
     {
         mid.setVisibility(View.VISIBLE);
+        oldNotes.setVisibility(View.VISIBLE);
         oldNotes.setText("");
         Configuration configuration = c.getResources().getConfiguration();
         int screenWidthDp = configuration.screenWidthDp;
@@ -64,6 +65,7 @@ public class NoteBox
     public void clearNotes()
     {
         mid.setVisibility(View.GONE);
+        oldNotes.setVisibility(View.GONE);
         oldNotes.setText("");
     }
 }
