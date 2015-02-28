@@ -123,7 +123,7 @@ public class NotesSixFragment extends Fragment
                     sixMode = false;
                     try
                     {
-                        boxes.get(i).setOldNotes(DatabaseManager.getInstance(getActivity()).getNotes(teams[i]));
+                        boxes.get(i).setOldNotes(DatabaseManager.getInstance(getActivity()).getNotes(teams[i]), getActivity());
                     } catch (CouchbaseLiteException e)
                     {
                         e.printStackTrace();
@@ -136,7 +136,7 @@ public class NotesSixFragment extends Fragment
                 {
                     animate.setInterpolator(new ReverseInterpolator());
                     sixMode = true;
-                    boxes.get(i).setOldNotes(new String[0]);
+                    boxes.get(i).clearNotes();
                 }
 
                 animate.setDuration(Math.abs((int)(targetWidth / view.getContext().getResources().getDisplayMetrics().density))/4);

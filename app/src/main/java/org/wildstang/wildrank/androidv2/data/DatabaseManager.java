@@ -252,16 +252,17 @@ public class DatabaseManager {
 
     public String[] getNotes(String team)
     {
+        Boolean existed = (database.getExistingDocument("notes:" + team) != null);
         Document document = database.getDocument("notes:" + team);
         List<String> notesList;
-            if(document.getProperties().containsKey("notes"))
-            {
-                notesList = (ArrayList<String>) document.getProperties().get("notes");
-            }
-            else
-            {
-                notesList = new ArrayList<>();
-            }
+        if(existed)
+        {
+            notesList = (ArrayList<String>) document.getProperties().get("notes");
+        }
+        else
+        {
+            notesList = new ArrayList<>();
+        }
         return notesList.toArray(new String[notesList.size()]);
     }
 
