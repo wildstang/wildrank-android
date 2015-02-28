@@ -63,11 +63,11 @@ public class NotesActivity extends ActionBarActivity
         toolbar.setTitleTextColor(Color.WHITE);
         if (team.contains("red"))
         {
-            toolbar.setBackgroundColor(getResources().getColor(R.color./*material_*/red));
+            toolbar.setBackgroundColor(getResources().getColor(R.color.material_red));
 
         } else
         {
-            toolbar.setBackgroundColor(getResources().getColor(R.color./*material_*/blue));
+            toolbar.setBackgroundColor(getResources().getColor(R.color.material_blue));
         }
 
         ((TextView) findViewById(R.id.match_number)).setText("" + Utilities.matchNumberFromMatchKey(matchKey));
