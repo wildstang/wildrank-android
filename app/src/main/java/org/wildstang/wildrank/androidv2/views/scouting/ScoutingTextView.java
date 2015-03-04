@@ -1,4 +1,4 @@
-package org.wildstang.wildrank.androidv2.views;
+package org.wildstang.wildrank.androidv2.views.scouting;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -8,15 +8,16 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import org.wildstang.wildrank.androidv2.R;
+import org.wildstang.wildrank.androidv2.views.scouting.ScoutingView;
 
 import java.util.Map;
 
-public class SerializableTextView extends ScoutingView {
+public class ScoutingTextView extends ScoutingView {
 
     private TextView labelView;
     private EditText valueView;
 
-    public SerializableTextView(Context context, AttributeSet attrs) {
+    public ScoutingTextView(Context context, AttributeSet attrs) {
         super(context, attrs);
 
         LayoutInflater inflater = LayoutInflater.from(context);

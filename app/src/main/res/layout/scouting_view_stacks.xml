@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:text="Stack"
+        android:textSize="20dp" />
+
+    <org.wildstang.wildrank.androidv2.views.scouting.ScoutingCounterView
+        android:id="@+id/tote_counter"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        app:label="Tote Counter" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignTop="@id/tote_counter"
+        android:orientation="vertical">
+
+        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingCheckboxView
+            android:id="@+id/includes_bin"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            app:label="Includes Bin" />
+
+        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingCheckboxView
+            android:id="@+id/includes_noodle"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            app:label="Includes Noodle" />
+
+        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingCheckboxView
+            android:id="@+id/stack_dropped"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            app:label="Stack Dropped" />
+
+        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingCheckboxView
+            android:id="@+id/bin_dropped"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            app:label="Bin Dropped" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@id/tote_counter"
+        android:orientation="vertical">
+
+        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingCheckboxView
+            android:id="@+id/preexisting"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            app:label="Preexisting" />
+
+        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingSpinnerView
+            android:id="@+id/preexisting_height"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            app:label="Height"
+            app:values="@array/preexisting_heights"/>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/finish_stack"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="Finish stack"/>
+
+
+</RelativeLayout>

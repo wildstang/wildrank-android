@@ -8,7 +8,7 @@
         <attr name="key" format="string" />
     </declare-styleable>
 
-    <declare-styleable name="SerializableSpinnerView">
+    <declare-styleable name="ScoutingSpinnerView">
         <attr name="values" format="reference" />
         <attr name="editable" format="boolean" />
         <attr name="defaultValue" format="string" />

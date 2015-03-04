@@ -61,6 +61,9 @@ public class MatchScoutingMainFragment extends Fragment implements View.OnClickL
             // data
             @Override
             public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+                if(key == null) {
+                    return;
+                }
                 if (key.equals("assignedTeam")) {
                     if (MatchScoutingMainFragment.this.isAdded()) {
                         // Requery the list to update which matches are scouted or not

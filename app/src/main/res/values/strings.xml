@@ -15,4 +15,13 @@
     <string name="drawer_open">Drawer Open</string>
     <string name="drawer_close">Drawer Open</string>
 
+    <string-array name="preexisting_heights">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+    </string-array>
+
 </resources>

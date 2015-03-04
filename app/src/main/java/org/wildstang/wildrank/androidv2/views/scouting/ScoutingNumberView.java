@@ -1,11 +1,10 @@
-package org.wildstang.wildrank.androidv2.views;
+package org.wildstang.wildrank.androidv2.views.scouting;
 
 import java.util.Locale;
 import java.util.Map;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.os.Bundle;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,13 +12,14 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import org.wildstang.wildrank.androidv2.R;
+import org.wildstang.wildrank.androidv2.views.scouting.ScoutingView;
 
-public class SerializableNumberView extends ScoutingView {
+public class ScoutingNumberView extends ScoutingView {
 
 	private TextView labelView;
 	private EditText valueView;
 
-	public SerializableNumberView(Context context, AttributeSet attrs) {
+	public ScoutingNumberView(Context context, AttributeSet attrs) {
 		super(context, attrs);
 
 		LayoutInflater inflater = LayoutInflater.from(context);

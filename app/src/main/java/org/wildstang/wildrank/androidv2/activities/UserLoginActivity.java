@@ -154,6 +154,11 @@ public class UserLoginActivity extends ActionBarActivity implements View.OnClick
         int id = v.getId();
         if (id == R.id.login_button) {
             doLogin();
+            try {
+                DatabaseManager.getInstance(this).dumpDatabaseContentsToLog();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 }

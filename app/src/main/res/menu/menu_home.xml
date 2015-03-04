@@ -9,6 +9,12 @@
         app:showAsAction="never" />
 
     <item
+        android:id="@+id/action_sync"
+        android:title="Sync"
+        android:orderInCategory="400"
+        app:showAsAction="never" />
+
+    <item
         android:id="@+id/action_log_out"
         android:title="Log out all users"
         android:orderInCategory="200"

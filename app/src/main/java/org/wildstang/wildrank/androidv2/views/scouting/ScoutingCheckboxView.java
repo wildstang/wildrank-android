@@ -1,8 +1,7 @@
-package org.wildstang.wildrank.androidv2.views;
+package org.wildstang.wildrank.androidv2.views.scouting;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.os.Bundle;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,12 +12,14 @@ import org.wildstang.wildrank.androidv2.R;
 
 import java.util.Map;
 
-public class SerializableCheckboxView extends ScoutingView {
+public class ScoutingCheckboxView extends ScoutingView {
 
     private TextView labelView;
     private CheckBox checkboxView;
 
-    public SerializableCheckboxView(Context context, AttributeSet attrs) {
+    private OnValueChangedListener listener;
+
+    public ScoutingCheckboxView(Context context, AttributeSet attrs) {
         super(context, attrs);
 
         LayoutInflater inflater = LayoutInflater.from(context);
@@ -40,13 +41,24 @@ public class SerializableCheckboxView extends ScoutingView {
 
             @Override
             public void onClick(View v) {
-                checkboxView.setChecked(!checkboxView.isChecked());
+                setChecked(!checkboxView.isChecked());
             }
         });
     }
 
-    public void setState(boolean state) {
-        checkboxView.setChecked(state);
+    public boolean isChecked() {
+        return checkboxView.isChecked();
+    }
+
+    public void setChecked(boolean checked) {
+        checkboxView.setChecked(checked);
+        if(listener != null) {
+            listener.onValueChanged(checkboxView.isChecked());
+        }
+    }
+
+    public void setOnValueChangedListener(OnValueChangedListener listener) {
+        this.listener = listener;
     }
 
     @Override
@@ -58,7 +70,11 @@ public class SerializableCheckboxView extends ScoutingView {
     public void restoreFromMap(Map<String, Object> map) {
         Object checked = map.get(key);
         if (checked != null && checked instanceof Boolean) {
-            setState((Boolean) checked);
+            setChecked((Boolean) checked);
         }
+    }
+
+    public interface OnValueChangedListener {
+        public void onValueChanged(boolean newValue);
     }
 }

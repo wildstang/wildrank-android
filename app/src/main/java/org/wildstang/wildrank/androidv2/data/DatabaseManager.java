@@ -1,6 +1,7 @@
 package org.wildstang.wildrank.androidv2.data;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.couchbase.lite.CouchbaseLiteException;
 import com.couchbase.lite.Database;
@@ -10,11 +11,15 @@ import com.couchbase.lite.Manager;
 import com.couchbase.lite.Mapper;
 import com.couchbase.lite.Query;
 import com.couchbase.lite.QueryEnumerator;
+import com.couchbase.lite.QueryRow;
 import com.couchbase.lite.UnsavedRevision;
 import com.couchbase.lite.View;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -37,7 +42,10 @@ public class DatabaseManager {
     private DatabaseManager(Context context) throws IOException, CouchbaseLiteException {
         manager = new Manager(new com.couchbase.lite.android.AndroidContext(context.getApplicationContext()), Manager.DEFAULT_OPTIONS);
         database = manager.getDatabase(DatabaseManagerConstants.DB_NAME);
+        initializeViews();
+    }
 
+    private void initializeViews() {
         com.couchbase.lite.View matchViewByNumber = database.getView(DatabaseManagerConstants.MATCH_LIST_VIEW_BY_NUMBER);
         matchViewByNumber.setMap(new Mapper() {
             @Override
@@ -121,6 +129,24 @@ public class DatabaseManager {
         return manager;
     }
 
+    public Database getDatabase() {
+        return database;
+    }
+
+    public void dumpDatabaseContentsToLog() {
+        try {
+            Query allDocsQuery = database.createAllDocumentsQuery();
+            QueryEnumerator result = allDocsQuery.run();
+            for (Iterator<QueryRow> it = result; it.hasNext(); ) {
+                QueryRow row = it.next();
+                Document doc = row.getDocument();
+                Log.d("wildrank", "Document contents: " + doc.getProperties());
+            }
+        } catch (CouchbaseLiteException e) {
+            e.printStackTrace();
+        }
+    }
+
     /*
      * Matches
      */
@@ -174,15 +200,7 @@ public class DatabaseManager {
      */
 
     public Document getUserById(String id) throws CouchbaseLiteException {
-        Query query = database.getView(DatabaseManagerConstants.USER_VIEW_BY_ID).createQuery();
-        query.setStartKey(id);
-        query.setEndKey(id);
-        QueryEnumerator results = query.run();
-        if (results.getCount() > 0) {
-            return results.getRow(0).getDocument();
-        } else {
-            return null;
-        }
+        return database.getExistingDocument("user:" + id);
     }
 
     /*
@@ -214,7 +232,118 @@ public class DatabaseManager {
         revision.save();
     }
 
-    public Database getDatabase() {
-        return database;
+    /*
+     * General
+     */
+
+    /**
+     * This method will take note of the current database state so we can reference it later when
+     * syncing. If we know the state of the internal and external databases at the time of the last
+     * sync, we can determine what's changed and act appropriately.
+     * <p/>
+     * Database state will be saved as a list of maps, with each map containing the following
+     * properties: document_id: the id of the document (String) deleted: if this document is deleted
+     * (boolean) document_revision: the last known revision of this document (String)
+     */
+    public void trackCurrentInternalDatabaseState() {
+        trackDatabaseState(database, DatabaseManagerConstants.LAST_KNOWN_INTERNAL_DATABASE_STATE_DOCUMENT_ID);
+    }
+
+    public void trackCurrentExternalDatabaseState(Database externalDatabase) {
+        trackDatabaseState(externalDatabase, DatabaseManagerConstants.LAST_KNOWN_EXTERNAL_DATABASE_STATE_DOCUMENT_ID);
+    }
+
+    private void trackDatabaseState(Database trackingDatabase, String saveDocumentId) {
+        Query allDocsQuery = trackingDatabase.createAllDocumentsQuery();
+        try {
+            QueryEnumerator queryenum = allDocsQuery.run();
+            List<Document> allDocuments = new ArrayList<>();
+            for (Iterator<QueryRow> it = queryenum; it.hasNext(); ) {
+                QueryRow row = it.next();
+                allDocuments.add(row.getDocument());
+            }
+
+            List<Map<String, Object>> documentStates = new ArrayList<>();
+            for (Document document : allDocuments) {
+                // Don't track the document that stores the document state
+                if (document.getId().equals(saveDocumentId)) {
+                    continue;
+                }
+
+                Map<String, Object> documentMap = new HashMap<>();
+                documentMap.put(DatabaseManagerConstants.DOCUMENT_ID, document.getId());
+                documentMap.put(DatabaseManagerConstants.DELETED, document.isDeleted());
+                documentMap.put(DatabaseManagerConstants.DOCUMENT_REVISION, document.getCurrentRevisionId());
+                documentStates.add(documentMap);
+            }
+
+            // Persist the new data in the local database
+            Document document = database.getDocument(saveDocumentId);
+            UnsavedRevision revision = document.createRevision();
+            HashMap<String, Object> properties = new HashMap<>();
+            properties.put(DatabaseManagerConstants.DATA_KEY, documentStates);
+            revision.setProperties(properties);
+            revision.save();
+        } catch (CouchbaseLiteException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public DatabaseState getLastKnownInternalState() {
+        return getLastKnownStateFromDocumentId(DatabaseManagerConstants.LAST_KNOWN_INTERNAL_DATABASE_STATE_DOCUMENT_ID);
+    }
+
+    public DatabaseState getLastKnownExternalState() {
+        return getLastKnownStateFromDocumentId(DatabaseManagerConstants.LAST_KNOWN_EXTERNAL_DATABASE_STATE_DOCUMENT_ID);
+    }
+
+    private DatabaseState getLastKnownStateFromDocumentId(String docId) {
+        Document doc = database.getExistingDocument(docId);
+        if(doc == null) {
+            return null;
+        }
+
+        List<Map<String, Object>> states = (List<Map<String,Object>>) doc.getProperty(DatabaseManagerConstants.DATA_KEY);
+        DatabaseState databaseState = new DatabaseState();
+
+        for(Map<String, Object> state : states) {
+            String id = (String) state.get(DatabaseManagerConstants.DOCUMENT_ID);
+            String revisionId = (String) state.get(DatabaseManagerConstants.DOCUMENT_REVISION);
+            boolean deleted = (Boolean) state.get(DatabaseManagerConstants.DELETED);
+            databaseState.addStateRecord(new DocumentState(docId, revisionId, deleted));
+        }
+
+        return databaseState;
+    }
+
+    public class DatabaseState {
+        Map<String, DocumentState> states;
+
+        public DatabaseState() {
+            states = new HashMap<>();
+        }
+
+        public void addStateRecord(DocumentState state) {
+            states.put(state.docId, state);
+        }
+
+        public boolean documentExists(String docId) {
+            return states.containsKey(docId);
+        }
+
+        public DocumentState getDocStateForId(String docId) {
+            return states.get(docId);
+        }
+    }
+
+    public class DocumentState {
+        public String docId, revisionId;
+        public boolean deleted;
+
+        public DocumentState(String docId, String revisionId, boolean deleted) {
+            this.docId = docId;
+            this.revisionId = revisionId;
+            this.deleted = deleted;
+        }
     }
 }

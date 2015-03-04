@@ -107,10 +107,10 @@ public class ScoutMatchActivity extends ActionBarActivity {
             DatabaseManager.getInstance(this).saveMatchResults(results);
             Document doc = DatabaseManager.getInstance(this).getMatchResults(matchKey, teamKey);
             Log.d("wildrank", doc.getProperties().toString());
-            Toast.makeText(this, "Pit results saved successfully.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Match results saved successfully.", Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
             e.printStackTrace();
-            Toast.makeText(this, "Error saving pit results! Check LogCat.", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Error saving match results! Check LogCat.", Toast.LENGTH_LONG).show();
         }
 
         finish();

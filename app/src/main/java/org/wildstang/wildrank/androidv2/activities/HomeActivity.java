@@ -9,6 +9,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -45,6 +46,7 @@ public class HomeActivity extends ActionBarActivity {
         PreferenceManager.setDefaultValues(this, R.xml.preferences, true);
 
         boolean isAppConfigured = PreferenceManager.getDefaultSharedPreferences(this).getBoolean(PREF_IS_APP_CONFIGURED, false);
+        Log.d("wildrank", "isAppConfigured: " + isAppConfigured);
 
         boolean isLoggedIn = UserHelper.isUserLoggedIn(this);
 
@@ -172,6 +174,9 @@ public class HomeActivity extends ActionBarActivity {
 
         if (id == R.id.action_settings) {
             startActivity(new Intent(this, SettingsActivity.class));
+            return true;
+        } else if (id == R.id.action_sync) {
+            startActivity(new Intent(this, SyncActivity.class));
             return true;
         } else if (id == R.id.action_log_out) {
             UserHelper.logOutAllUsers(this);

@@ -1,4 +1,4 @@
-package org.wildstang.wildrank.androidv2.views;
+package org.wildstang.wildrank.androidv2.views.scouting;
 
 import android.content.Context;
 import android.content.res.TypedArray;

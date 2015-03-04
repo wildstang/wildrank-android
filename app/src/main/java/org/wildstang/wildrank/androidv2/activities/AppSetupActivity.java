@@ -1,5 +1,6 @@
 package org.wildstang.wildrank.androidv2.activities;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -24,6 +25,7 @@ import com.couchbase.lite.UnsavedRevision;
 import com.couchbase.lite.android.AndroidContext;
 
 import org.wildstang.wildrank.androidv2.R;
+import org.wildstang.wildrank.androidv2.SyncUtilities;
 import org.wildstang.wildrank.androidv2.Utilities;
 import org.wildstang.wildrank.androidv2.data.DatabaseManager;
 import org.wildstang.wildrank.androidv2.data.DatabaseManagerConstants;
@@ -36,6 +38,11 @@ import java.util.Map;
 
 public class AppSetupActivity extends ActionBarActivity implements View.OnClickListener {
 
+    public static final int REQUEST_CODE_FINISHED = 78;
+
+    public static final int RESULT_CODE_MOUNT = 34;
+    public static final int RESULT_CODE_UNMOUNT = 45;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,23 +52,18 @@ public class AppSetupActivity extends ActionBarActivity implements View.OnClickL
     }
 
     private void beginDataLoad() {
-        if (!isFlashDriveConnected()) {
+        if (!SyncUtilities.isFlashDriveConnected()) {
             showExternalWarning();
         } else {
             // DO SHIT
             new SetupTask().execute();
         }
-
     }
 
     private void setupComplete() {
-        startActivityForResult(new Intent(android.provider.Settings.ACTION_INTERNAL_STORAGE_SETTINGS), /*RESULT_CODE_UNMOUNT*/1);
+        startActivityForResult(new Intent(android.provider.Settings.ACTION_INTERNAL_STORAGE_SETTINGS), RESULT_CODE_UNMOUNT);
         Toast.makeText(this, "Scroll down, press \"Unmount\", press back button.", Toast.LENGTH_LONG).show();
         PreferenceManager.getDefaultSharedPreferences(this).edit().putBoolean(HomeActivity.PREF_IS_APP_CONFIGURED, true).commit();
-    }
-
-    private boolean isFlashDriveConnected() {
-        return new File(Utilities.getExternalRootDirectory()).exists();
     }
 
     private void showExternalWarning() {
@@ -131,6 +133,10 @@ public class AppSetupActivity extends ActionBarActivity implements View.OnClickL
                         e.printStackTrace();
                     }
                 }
+
+                DatabaseManager.getInstance(AppSetupActivity.this).trackCurrentInternalDatabaseState();
+                DatabaseManager.getInstance(AppSetupActivity.this).trackCurrentExternalDatabaseState(externalDatabase);
+
                 externalDatabase.close();
             } catch (Exception e) {
                 e.printStackTrace();
@@ -142,6 +148,17 @@ public class AppSetupActivity extends ActionBarActivity implements View.OnClickL
         @Override
         protected void onPostExecute(Void aVoid) {
             AppSetupActivity.this.setupComplete();
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == RESULT_CODE_MOUNT) {
+            //promptForDataSource();
+        } else if (requestCode == RESULT_CODE_UNMOUNT) {
+            setResult(Activity.RESULT_OK);
+            startActivity(new Intent(this, HomeActivity.class));
+            finish();
         }
     }
 }

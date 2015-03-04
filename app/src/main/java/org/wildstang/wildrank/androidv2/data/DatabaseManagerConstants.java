@@ -5,6 +5,14 @@ package org.wildstang.wildrank.androidv2.data;
  */
 public class DatabaseManagerConstants {
 
+    // State tracking stuff
+    public static final String LAST_KNOWN_INTERNAL_DATABASE_STATE_DOCUMENT_ID = "last_known_internal_state";
+    public static final String LAST_KNOWN_EXTERNAL_DATABASE_STATE_DOCUMENT_ID = "last_known_external_state";
+    public static final String DATA_KEY = "data";
+    public static final String DOCUMENT_ID = "doc_id";
+    public static final String DELETED = "deleted";
+    public static final String DOCUMENT_REVISION = "doc_rev";
+
     public static final String DB_NAME = "wildrank";
     public static final String DOC_TYPE = "type";
 

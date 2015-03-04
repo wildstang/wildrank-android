@@ -1,4 +1,4 @@
-package org.wildstang.wildrank.androidv2.views;
+package org.wildstang.wildrank.androidv2.views.scouting;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -9,16 +9,17 @@ import android.view.View;
 import android.widget.TextView;
 
 import org.wildstang.wildrank.androidv2.R;
+import org.wildstang.wildrank.androidv2.views.scouting.ScoutingView;
 
 import java.util.Map;
 
-public class SerializableCounterView extends ScoutingView {
+public class ScoutingCounterView extends ScoutingView {
 
 	private TextView labelView;
 	private TextView countView;
 	private int count;
 
-	public SerializableCounterView(Context context, AttributeSet attrs) {
+	public ScoutingCounterView(Context context, AttributeSet attrs) {
 		super(context, attrs);
 
 		LayoutInflater inflater = LayoutInflater.from(context);
@@ -63,6 +64,10 @@ public class SerializableCounterView extends ScoutingView {
 		this.count = count;
 		countView.setText(Integer.toString(this.count));
 	}
+
+    public int getCount() {
+        return count;
+    }
 
 	@Override
 	public void writeContentsToMap(Map<String, Object> map) {
