@@ -46,7 +46,7 @@ public class TeamSummariesFragmentPagerAdapter extends FragmentStatePagerAdapter
     private void initFragments(String teamID)
     {
         fragmentArgs = new Bundle();
-        fragmentArgs.putString("TeamID", teamID);
+        fragmentArgs.putString("team_key", teamID);
         dataFragment = new TeamSummariesDataFragment();
         dataFragment.setArguments(fragmentArgs);
         graphFragment = new TeamSummariesGraphFragment();
