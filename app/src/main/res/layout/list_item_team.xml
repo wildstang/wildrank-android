@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="16dp">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp">
 
     <TextView
         android:id="@+id/team_number"
@@ -12,6 +12,6 @@
         android:paddingRight="8dp"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
-        android:textAppearance="?android:attr/textAppearanceListItem" />
+        android:textAppearance="?android:attr/textAppearanceListItem"/>
 
 </RelativeLayout>

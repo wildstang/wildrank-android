@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <attr name="label" format="string" />
+    <attr name="label" format="string"/>
 
     <declare-styleable name="ScoutingView">
-        <attr name="label" />
-        <attr name="key" format="string" />
+        <attr name="label"/>
+        <attr name="key" format="string"/>
     </declare-styleable>
 
     <declare-styleable name="ScoutingSpinnerView">
-        <attr name="values" format="reference" />
-        <attr name="editable" format="boolean" />
-        <attr name="defaultValue" format="string" />
+        <attr name="values" format="reference"/>
+        <attr name="editable" format="boolean"/>
+        <attr name="defaultValue" format="string"/>
     </declare-styleable>
 
     <declare-styleable name="DataView">
-        <attr name="label" />
-        <attr name="expression" format="string" />
+        <attr name="label"/>
+        <attr name="expression" format="string"/>
         <attr name="format">
             <enum name="decimal" value="0"/>
             <enum name="integer" value="1"/>
@@ -25,8 +25,8 @@
     </declare-styleable>
 
     <declare-styleable name="TemplatedTextView">
-        <attr name="text" format="string" />
-        <attr name="trueString" format="string" />
-        <attr name="falseString" format="string" />
+        <attr name="text" format="string"/>
+        <attr name="trueString" format="string"/>
+        <attr name="falseString" format="string"/>
     </declare-styleable>
 </resources>

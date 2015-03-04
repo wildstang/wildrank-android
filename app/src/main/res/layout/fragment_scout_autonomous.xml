@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="300dp"
@@ -15,7 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:key="auto-drive"
-            app:label="Drives to Auto Zone" />
+            app:label="Drives to Auto Zone"/>
 
         <org.wildstang.wildrank.androidv2.views.SerializableSpinnerView
             android:id="@+id/totes"
@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             app:key="auto-totes"
             app:label="Totes Moved"
-            app:values="@array/auto_totes" />
+            app:values="@array/auto_totes"/>
 
         <org.wildstang.wildrank.androidv2.views.SerializableSpinnerView
             android:id="@+id/stacked"
@@ -32,7 +32,7 @@
             android:layout_below="@id/drive"
             app:key="auto-totes_stacked"
             app:label="Totes Stacked"
-            app:values="@array/auto_totes" />
+            app:values="@array/auto_totes"/>
 
         <org.wildstang.wildrank.androidv2.views.SerializableSpinnerView
             android:id="@+id/bins"
@@ -40,7 +40,7 @@
             android:layout_height="wrap_content"
             app:key="auto-bins"
             app:label="Bins Moved"
-            app:values="@array/auto_bins" />
+            app:values="@array/auto_bins"/>
 
         <org.wildstang.wildrank.androidv2.views.SerializableSpinnerView
             android:id="@+id/taken"
@@ -48,14 +48,14 @@
             android:layout_height="wrap_content"
             app:key="auto-taken"
             app:label="Bins Taken from Step"
-            app:values="@array/auto_step" />
+            app:values="@array/auto_step"/>
 
         <org.wildstang.wildrank.androidv2.views.SerializableNumberView
             android:id="@+id/time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:key="auto-time"
-            app:label="Approx. Time Taken" />
+            app:label="Approx. Time Taken"/>
 
     </LinearLayout>
 
@@ -64,6 +64,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:text="Finish" />
+        android:text="Finish"/>
 
 </RelativeLayout>

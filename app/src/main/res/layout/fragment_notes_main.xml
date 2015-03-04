@@ -1,9 +1,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="horizontal"
-    tools:context="org.wildstang.wildrank.androidv2.fragments.MatchScoutingMainFragment">
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="horizontal"
+              tools:context="org.wildstang.wildrank.androidv2.fragments.MatchScoutingMainFragment">
 
     <LinearLayout
         android:layout_width="0dp"
@@ -13,7 +13,7 @@
         <ListView
             android:id="@+id/match_list"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"/>
     </LinearLayout>
 
     <RelativeLayout
@@ -42,7 +42,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="80sp"
-                android:text="Teams 111, 111, 111, 111, 111, 111" />
+                android:text="Teams 111, 111, 111, 111, 111, 111"/>
 
         </LinearLayout>
 
