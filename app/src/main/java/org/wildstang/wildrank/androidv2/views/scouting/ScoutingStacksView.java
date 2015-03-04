@@ -1,7 +1,6 @@
 package org.wildstang.wildrank.androidv2.views.scouting;
 
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -67,7 +66,7 @@ public class ScoutingStacksView extends ScoutingView implements View.OnClickList
     @Override
     public void writeContentsToMap(Map<String, Object> map) {
         List<Map<String, Object>> mappedDataList = new ArrayList<>();
-        for(StackData data : stackData) {
+        for (StackData data : stackData) {
             Map<String, Object> dataMap = new HashMap<>();
             dataMap.put(TOTE_COUNT_KEY, data.toteCount);
             dataMap.put(PREEXISTING_KEY, data.isPreexisting);
@@ -91,9 +90,9 @@ public class ScoutingStacksView extends ScoutingView implements View.OnClickList
             return;
         }
 
-        if(mappedDataList != null) {
+        if (mappedDataList != null) {
             stackData.clear();
-            for(Map<String, Object> dataMap : mappedDataList) {
+            for (Map<String, Object> dataMap : mappedDataList) {
                 StackData data = new StackData();
                 data.toteCount = (Integer) dataMap.get(TOTE_COUNT_KEY);
                 data.isPreexisting = (Boolean) dataMap.get(PREEXISTING_KEY);

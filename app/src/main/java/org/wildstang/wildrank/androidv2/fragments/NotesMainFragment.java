@@ -1,7 +1,5 @@
 package org.wildstang.wildrank.androidv2.fragments;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -26,7 +24,6 @@ import com.couchbase.lite.QueryRow;
 import org.wildstang.wildrank.androidv2.R;
 import org.wildstang.wildrank.androidv2.Utilities;
 import org.wildstang.wildrank.androidv2.activities.NotesActivity;
-import org.wildstang.wildrank.androidv2.activities.ScoutMatchActivity;
 import org.wildstang.wildrank.androidv2.adapters.MatchListAdapter;
 import org.wildstang.wildrank.androidv2.data.DatabaseManager;
 
@@ -174,15 +171,11 @@ public class NotesMainFragment extends Fragment implements View.OnClickListener 
         selectedTeams = Arrays.copyOf(objects, objects.length, String[].class);
 
         StringBuilder teams = new StringBuilder();
-        for(int i = 0; i < selectedTeams.length; i++)
-        {
+        for (int i = 0; i < selectedTeams.length; i++) {
             String newTeam = selectedTeams[i].replace("frc", "");
-            if(i != selectedTeams.length - 1)
-            {
+            if (i != selectedTeams.length - 1) {
                 teams.append(newTeam + ", ");
-            }
-            else
-            {
+            } else {
                 teams.append(newTeam);
             }
         }

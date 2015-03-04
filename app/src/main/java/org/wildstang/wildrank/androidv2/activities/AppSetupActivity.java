@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.DatabaseErrorHandler;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -31,7 +30,6 @@ import org.wildstang.wildrank.androidv2.data.DatabaseManager;
 import org.wildstang.wildrank.androidv2.data.DatabaseManagerConstants;
 
 import java.io.File;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 

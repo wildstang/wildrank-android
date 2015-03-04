@@ -4,11 +4,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import org.wildstang.wildrank.androidv2.fragments.AutonomousScoutingFragment;
 import org.wildstang.wildrank.androidv2.fragments.PitScoutingFragment;
-import org.wildstang.wildrank.androidv2.fragments.PostMatchScoutingFragment;
 import org.wildstang.wildrank.androidv2.fragments.ScoutingFragment;
-import org.wildstang.wildrank.androidv2.fragments.TeleopScoutingFragment;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -55,7 +52,7 @@ public class PitScoutFragmentPagerAdapter extends FragmentPagerAdapter {
 
     public List<ScoutingFragment> getAllFragments() {
         List<ScoutingFragment> fragmentsList = new ArrayList<>();
-        for(Map.Entry<Integer, WeakReference<ScoutingFragment>> entry : fragments.entrySet()) {
+        for (Map.Entry<Integer, WeakReference<ScoutingFragment>> entry : fragments.entrySet()) {
             fragmentsList.add(entry.getValue().get());
         }
         return fragmentsList;

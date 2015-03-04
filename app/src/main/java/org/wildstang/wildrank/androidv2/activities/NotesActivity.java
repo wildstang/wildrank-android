@@ -26,8 +26,7 @@ import java.io.IOException;
 /**
  * Created by Liam on 2/21/2015.
  */
-public class NotesActivity extends ActionBarActivity
-{
+public class NotesActivity extends ActionBarActivity {
     private Toolbar toolbar;
     private static String matchKey;
     private static String[] teams;
@@ -35,8 +34,7 @@ public class NotesActivity extends ActionBarActivity
 
     private NotesSixFragment sixFrag;
 
-    public static Intent createIntent(Context context, String matchKey, String[] teams)
-    {
+    public static Intent createIntent(Context context, String matchKey, String[] teams) {
         Intent i = new Intent(context, NotesActivity.class);
         i.putExtra("match_key", matchKey);
         i.putExtra("team_keys", teams);
@@ -44,8 +42,7 @@ public class NotesActivity extends ActionBarActivity
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         Bundle extras = getIntent().getExtras();
@@ -61,25 +58,19 @@ public class NotesActivity extends ActionBarActivity
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         toolbar.setTitleTextColor(Color.WHITE);
-        if (team.contains("red"))
-        {
+        if (team.contains("red")) {
             toolbar.setBackgroundColor(getResources().getColor(R.color.material_red));
 
-        } else
-        {
+        } else {
             toolbar.setBackgroundColor(getResources().getColor(R.color.material_blue));
         }
 
         ((TextView) findViewById(R.id.match_number)).setText("" + Utilities.matchNumberFromMatchKey(matchKey));
         StringBuilder sb = new StringBuilder();
-        for(int i = 0; i < teams.length; i++)
-        {
-            if(i < teams.length - 1)
-            {
+        for (int i = 0; i < teams.length; i++) {
+            if (i < teams.length - 1) {
                 sb.append(teams[i] + ", ");
-            }
-            else
-            {
+            } else {
                 sb.append(teams[i]);
             }
 
@@ -94,55 +85,43 @@ public class NotesActivity extends ActionBarActivity
         ft.commit();
     }
 
-    public void finishScouting()
-    {
+    public void finishScouting() {
         notes = sixFrag.getNotes();
-        try
-        {
-            for(int i = 0; i < teams.length; i++)
-            {
+        try {
+            for (int i = 0; i < teams.length; i++) {
                 DatabaseManager.getInstance(this).saveNotes(teams[i], notes[i], this);
             }
-        } catch (CouchbaseLiteException e)
-        {
+        } catch (CouchbaseLiteException e) {
             e.printStackTrace();
-        } catch (IOException e)
-        {
+        } catch (IOException e) {
             e.printStackTrace();
         }
         finish();
     }
 
-    public void promptSave()
-    {
+    public void promptSave() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("Save");
-            builder.setMessage("Would you like to save before exiting? (Press outside this dialog to cancel)");
-            builder.setPositiveButton("Yes", new DialogInterface.OnClickListener()
-            {
-                @Override
-                public void onClick(DialogInterface dialog, int which)
-                {
-                    finishScouting();
-                }
-            });
-            builder.setNegativeButton("No", new DialogInterface.OnClickListener()
-            {
-                @Override
-                public void onClick(DialogInterface dialog, int which)
-                {
-                    NotesActivity.this.finish();
-                }
-            });
-            builder.show();
+        builder.setTitle("Save");
+        builder.setMessage("Would you like to save before exiting? (Press outside this dialog to cancel)");
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                finishScouting();
+            }
+        });
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                NotesActivity.this.finish();
+            }
+        });
+        builder.show();
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
+    public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == android.R.id.home)
-        {
+        if (id == android.R.id.home) {
             promptSave();
             return true;
         }
@@ -150,8 +129,7 @@ public class NotesActivity extends ActionBarActivity
     }
 
     @Override
-    public void onBackPressed()
-    {
+    public void onBackPressed() {
         promptSave();
     }
 }

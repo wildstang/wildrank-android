@@ -8,7 +8,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import org.wildstang.wildrank.androidv2.R;
-import org.wildstang.wildrank.androidv2.views.scouting.ScoutingView;
 
 import java.util.Map;
 

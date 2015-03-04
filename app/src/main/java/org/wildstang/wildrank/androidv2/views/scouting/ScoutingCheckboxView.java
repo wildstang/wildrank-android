@@ -52,7 +52,7 @@ public class ScoutingCheckboxView extends ScoutingView {
 
     public void setChecked(boolean checked) {
         checkboxView.setChecked(checked);
-        if(listener != null) {
+        if (listener != null) {
             listener.onValueChanged(checkboxView.isChecked());
         }
     }

@@ -3,7 +3,6 @@ package org.wildstang.wildrank.androidv2.activities;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -43,7 +42,7 @@ public class UserLoginActivity extends ActionBarActivity implements View.OnClick
         findViewById(R.id.login_button).setOnClickListener(this);
 
         Bundle extras = getIntent().getExtras();
-        if(extras != null) {
+        if (extras != null) {
             if (extras.containsKey(EXTRA_CREATE_NEW_HOME)) {
                 createNewHome = extras.getBoolean(EXTRA_CREATE_NEW_HOME, true);
             }
@@ -63,7 +62,7 @@ public class UserLoginActivity extends ActionBarActivity implements View.OnClick
                 String userName = (String) user.getProperty("name");
                 UserHelper.logInUser(this, userID);
                 String[] users = UserHelper.getLoggedInUsersAsArray(this);
-                for(String userNumber : users) {
+                for (String userNumber : users) {
                     Log.d("wildrank", "Logged in user: " + userNumber);
                 }
                 doFancyAnimationsAndFinish(userName);
@@ -127,7 +126,7 @@ public class UserLoginActivity extends ActionBarActivity implements View.OnClick
 
             @Override
             public void onAnimationEnd(Animator animation) {
-                if(createNewHome) {
+                if (createNewHome) {
                     startActivity(new Intent(UserLoginActivity.this, HomeActivity.class));
                 }
                 UserLoginActivity.this.finish();

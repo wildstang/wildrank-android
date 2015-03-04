@@ -3,13 +3,9 @@ package org.wildstang.wildrank.androidv2.fragments;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,10 +22,7 @@ import com.couchbase.lite.QueryEnumerator;
 import com.couchbase.lite.QueryRow;
 
 import org.wildstang.wildrank.androidv2.R;
-import org.wildstang.wildrank.androidv2.Utilities;
-import org.wildstang.wildrank.androidv2.activities.ScoutMatchActivity;
 import org.wildstang.wildrank.androidv2.activities.ScoutPitActivity;
-import org.wildstang.wildrank.androidv2.adapters.MatchListAdapter;
 import org.wildstang.wildrank.androidv2.adapters.TeamListAdapter;
 import org.wildstang.wildrank.androidv2.data.DatabaseManager;
 

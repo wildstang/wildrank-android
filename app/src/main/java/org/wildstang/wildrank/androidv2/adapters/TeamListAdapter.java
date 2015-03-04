@@ -10,7 +10,6 @@ import android.widget.TextView;
 import com.couchbase.lite.QueryRow;
 
 import org.wildstang.wildrank.androidv2.R;
-import org.wildstang.wildrank.androidv2.Utilities;
 import org.wildstang.wildrank.androidv2.data.DatabaseManager;
 
 import java.util.List;

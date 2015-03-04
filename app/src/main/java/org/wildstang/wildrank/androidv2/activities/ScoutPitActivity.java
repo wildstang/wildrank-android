@@ -16,7 +16,6 @@ import android.widget.Toast;
 import org.wildstang.wildrank.androidv2.R;
 import org.wildstang.wildrank.androidv2.UserHelper;
 import org.wildstang.wildrank.androidv2.Utilities;
-import org.wildstang.wildrank.androidv2.adapters.MatchScoutFragmentPagerAdapter;
 import org.wildstang.wildrank.androidv2.adapters.PitScoutFragmentPagerAdapter;
 import org.wildstang.wildrank.androidv2.data.DatabaseManager;
 import org.wildstang.wildrank.androidv2.data.PitResultsModel;

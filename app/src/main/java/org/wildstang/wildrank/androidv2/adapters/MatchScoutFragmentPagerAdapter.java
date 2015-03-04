@@ -60,7 +60,7 @@ public class MatchScoutFragmentPagerAdapter extends FragmentPagerAdapter {
 
     public List<ScoutingFragment> getAllFragments() {
         List<ScoutingFragment> fragmentsList = new ArrayList<>();
-        for(Map.Entry<Integer, WeakReference<ScoutingFragment>> entry : fragments.entrySet()) {
+        for (Map.Entry<Integer, WeakReference<ScoutingFragment>> entry : fragments.entrySet()) {
             fragmentsList.add(entry.getValue().get());
         }
         return fragmentsList;

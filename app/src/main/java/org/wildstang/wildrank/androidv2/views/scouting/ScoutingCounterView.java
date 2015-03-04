@@ -9,77 +9,76 @@ import android.view.View;
 import android.widget.TextView;
 
 import org.wildstang.wildrank.androidv2.R;
-import org.wildstang.wildrank.androidv2.views.scouting.ScoutingView;
 
 import java.util.Map;
 
 public class ScoutingCounterView extends ScoutingView {
 
-	private TextView labelView;
-	private TextView countView;
-	private int count;
+    private TextView labelView;
+    private TextView countView;
+    private int count;
 
-	public ScoutingCounterView(Context context, AttributeSet attrs) {
-		super(context, attrs);
+    public ScoutingCounterView(Context context, AttributeSet attrs) {
+        super(context, attrs);
 
-		LayoutInflater inflater = LayoutInflater.from(context);
-		inflater.inflate(R.layout.custom_view_counter, this, true);
+        LayoutInflater inflater = LayoutInflater.from(context);
+        inflater.inflate(R.layout.custom_view_counter, this, true);
 
-		TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.ScoutingView, 0, 0);
-		String label = a.getString(R.styleable.ScoutingView_label);
-		a.recycle();
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.ScoutingView, 0, 0);
+        String label = a.getString(R.styleable.ScoutingView_label);
+        a.recycle();
 
-		labelView = (TextView) findViewById(R.id.label);
-		labelView.setText(label);
+        labelView = (TextView) findViewById(R.id.label);
+        labelView.setText(label);
 
-		countView = (TextView) findViewById(R.id.count);
-		countView.setText(Integer.toString(count));
+        countView = (TextView) findViewById(R.id.count);
+        countView.setText(Integer.toString(count));
 
-		// Make view clickable
-		this.setOnClickListener(new OnClickListener() {
+        // Make view clickable
+        this.setOnClickListener(new OnClickListener() {
 
-			@Override
-			public void onClick(View v) {
-				count++;
-				countView.setText(Integer.toString(count));
-			}
-		});
+            @Override
+            public void onClick(View v) {
+                count++;
+                countView.setText(Integer.toString(count));
+            }
+        });
 
-		// Long clicks subtract from count
-		this.setOnLongClickListener(new OnLongClickListener() {
+        // Long clicks subtract from count
+        this.setOnLongClickListener(new OnLongClickListener() {
 
-			@Override
-			public boolean onLongClick(View v) {
-				if (count > 0) {
-					count--;
-					playSoundEffect(SoundEffectConstants.CLICK);
-				}
-				countView.setText(Integer.toString(count));
-				return true;
-			}
-		});
-	}
+            @Override
+            public boolean onLongClick(View v) {
+                if (count > 0) {
+                    count--;
+                    playSoundEffect(SoundEffectConstants.CLICK);
+                }
+                countView.setText(Integer.toString(count));
+                return true;
+            }
+        });
+    }
 
-	public void setCount(int count) {
-		this.count = count;
-		countView.setText(Integer.toString(this.count));
-	}
+    public void setCount(int count) {
+        this.count = count;
+        countView.setText(Integer.toString(this.count));
+    }
 
     public int getCount() {
         return count;
     }
 
-	@Override
-	public void writeContentsToMap(Map<String, Object> map) {
-		map.put(key, count);
-	}
+    @Override
+    public void writeContentsToMap(Map<String, Object> map) {
+        map.put(key, count);
+    }
 
-	@Override
-	public void restoreFromMap(Map<String, Object> map) {
+    @Override
+    public void restoreFromMap(Map<String, Object> map) {
         Object count = map.get(key);
-		if (count instanceof Integer) {
-			setCount((Integer) count);
-		}
+        if (count instanceof Integer) {
+            setCount((Integer) count);
+        }
 
-	}
+    }
 }

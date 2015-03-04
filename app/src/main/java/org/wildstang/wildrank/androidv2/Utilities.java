@@ -2,7 +2,6 @@ package org.wildstang.wildrank.androidv2;
 
 import android.content.Context;
 import android.preference.PreferenceManager;
-import android.widget.Toast;
 
 import com.couchbase.lite.Document;
 
@@ -23,7 +22,7 @@ public class Utilities {
         Map<String, Object> properties = matchDocument.getProperties();
         Map<String, Object> alliances = (Map<String, Object>) properties.get("alliances");
         Map<String, Object> redAlliance = (Map<String, Object>) alliances.get("red");
-        return  ((ArrayList<Object>) redAlliance.get("teams")).toArray();
+        return ((ArrayList<Object>) redAlliance.get("teams")).toArray();
     }
 
     public static Object[] getBlueTeamsFromMatchDocument(Document matchDocument) {
@@ -33,8 +32,7 @@ public class Utilities {
         return ((ArrayList<Object>) blueAlliance.get("teams")).toArray();
     }
 
-    public static Object[] getTeamsFromMatchDocument(Document matchDocument)
-    {
+    public static Object[] getTeamsFromMatchDocument(Document matchDocument) {
         Map<String, Object> properties = matchDocument.getProperties();
         Map<String, Object> alliances = (Map<String, Object>) properties.get("alliances");
         Map<String, Object> blueAlliance = (Map<String, Object>) alliances.get("blue");
@@ -42,12 +40,10 @@ public class Utilities {
         Object[] blueTeams = ((ArrayList<Object>) blueAlliance.get("teams")).toArray();
         Object[] redTeams = ((ArrayList<Object>) redAlliance.get("teams")).toArray();
         List<Object> teams = new ArrayList<>();
-        for(int i = 0; i < blueTeams.length; i++)
-        {
+        for (int i = 0; i < blueTeams.length; i++) {
             teams.add(blueTeams[i]);
         }
-        for(int i = 0; i < redTeams.length; i++)
-        {
+        for (int i = 0; i < redTeams.length; i++) {
             teams.add(redTeams[i]);
         }
         return teams.toArray();
@@ -58,7 +54,7 @@ public class Utilities {
     }
 
     public static String teamNumberFromTeamKey(String teamKey) {
-        return teamKey.replace("frc","");
+        return teamKey.replace("frc", "");
     }
 
     public static String getAssignedTeamKeyFromMatchDocument(Context context, Document matchDocument) {

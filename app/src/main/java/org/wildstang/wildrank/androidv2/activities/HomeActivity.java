@@ -2,7 +2,6 @@ package org.wildstang.wildrank.androidv2.activities;
 
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -15,7 +14,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
@@ -42,8 +40,7 @@ public class HomeActivity extends ActionBarActivity {
     private int currentPosition = -1;
 
     @Override
-    public void onResume()
-    {
+    public void onResume() {
         super.onResume();
         String team = PreferenceManager.getDefaultSharedPreferences(this).getString("assignedTeam", "red_1");
 

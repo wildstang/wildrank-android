@@ -6,7 +6,6 @@ import android.preference.PreferenceManager;
 
 import java.util.HashSet;
 import java.util.Set;
-import java.util.prefs.Preferences;
 
 /**
  * Created by Nathan on 1/27/2015.
