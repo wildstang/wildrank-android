@@ -2,6 +2,8 @@ package org.wildstang.wildrank.androidv2.activities;
 
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.content.res.Resources;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.widget.DrawerLayout;
@@ -13,6 +15,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
@@ -21,6 +24,7 @@ import android.widget.ListView;
 import org.wildstang.wildrank.androidv2.R;
 import org.wildstang.wildrank.androidv2.UserHelper;
 import org.wildstang.wildrank.androidv2.fragments.MatchScoutingMainFragment;
+import org.wildstang.wildrank.androidv2.fragments.NotesMainFragment;
 import org.wildstang.wildrank.androidv2.fragments.PitScoutingMainFragment;
 
 
@@ -28,20 +32,36 @@ public class HomeActivity extends ActionBarActivity {
 
     public static final String PREF_IS_APP_CONFIGURED = "is_app_configured";
 
-    private static final String[] MODE_NAMES = {"Match Scouting", "Pit Scouting"};
+    private static final String[] MODE_NAMES = {"Match Scouting", "Pit Scouting", "Notes"};
 
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle drawerToggle;
     private ListView navigationDrawerList;
+    private Toolbar toolbar;
 
     private int currentPosition = -1;
+
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+        String team = PreferenceManager.getDefaultSharedPreferences(this).getString("assignedTeam", "red_1");
+
+        if (team.contains("red")) {
+            toolbar.setBackgroundColor(getResources().getColor(R.color.material_red));
+
+        } else {
+            toolbar.setBackgroundColor(getResources().getColor(R.color.material_blue));
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         PreferenceManager.setDefaultValues(this, R.xml.preferences, true);
 
@@ -66,6 +86,16 @@ public class HomeActivity extends ActionBarActivity {
              */
             startActivity(new Intent(this, AppSetupActivity.class));
             finish();
+        }
+
+        String team = PreferenceManager.getDefaultSharedPreferences(this).getString("assignedTeam", "red_1");
+
+        toolbar.setTitleTextColor(Color.WHITE);
+        if (team.contains("red")) {
+            toolbar.setBackgroundColor(getResources().getColor(R.color.material_red));
+
+        } else {
+            toolbar.setBackgroundColor(getResources().getColor(R.color.material_blue));
         }
 
         drawerLayout = (DrawerLayout) findViewById(R.id.nav_drawer_layout);
@@ -148,6 +178,12 @@ public class HomeActivity extends ActionBarActivity {
                 // Pit scouting
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PitScoutingMainFragment()).commit();
                 getSupportActionBar().setTitle(MODE_NAMES[1]);
+                break;
+            case 2:
+                // Notes
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new NotesMainFragment()).commit();
+                getSupportActionBar().setTitle(MODE_NAMES[2]);
+                break;
             default:
                 break;
         }

@@ -48,6 +48,11 @@
             android:screenOrientation="landscape" />
 
         <activity
+            android:name=".activities.NotesActivity"
+            android:theme="@style/AppThemeNoActionBar"
+            android:screenOrientation="landscape" />
+
+        <activity
             android:name=".activities.SettingsActivity"
             android:screenOrientation="landscape" />
     </application>

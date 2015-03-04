@@ -33,4 +33,8 @@ public class DatabaseManagerConstants {
     public static final String PIT_RESULTS_TYPE = "pit";
     public static final String PIT_RESULTS_VIEW = "pit_view";
     public static final String TEAM_KEY = "team_key";
+
+    public static final String NOTES_RESULTS_VIEW = "notes_view";
+    public static final String NOTES_RESULTS_TYPE = "notes";
+    public static final String NOTES_KEY = "notes_key";
 }
