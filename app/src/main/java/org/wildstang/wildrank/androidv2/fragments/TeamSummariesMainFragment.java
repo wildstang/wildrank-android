@@ -32,8 +32,7 @@ import java.util.List;
 /**
  * Created by Liam on 2/28/2015.
  */
-public class TeamSummariesMainFragment extends Fragment
-{
+public class TeamSummariesMainFragment extends Fragment {
     private ListView teamList;
     private ListView pickList;
     private ViewPager pager;
@@ -45,8 +44,7 @@ public class TeamSummariesMainFragment extends Fragment
     private String selectedTeamKey;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
-    {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_summaries_main, container, false);
         teamList = (ListView) view.findViewById(R.id.teams_list);
         pickList = (ListView) view.findViewById(R.id.pick_list);
@@ -54,15 +52,16 @@ public class TeamSummariesMainFragment extends Fragment
         tabs = (SlidingTabs) view.findViewById(R.id.tabs);
 
         pager.setOffscreenPageLimit(10);
-        teamList.setOnItemClickListener(new AdapterView.OnItemClickListener()
-        {
+        teamList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
-            {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 QueryRow row = (QueryRow) parent.getItemAtPosition(position);
                 onTeamSelected(row.getDocument());
             }
         });
+
+        pager.setAdapter(new TeamSummariesFragmentPagerAdapter(getFragmentManager()));
+        tabs.setViewPager(pager);
 
         String team = PreferenceManager.getDefaultSharedPreferences(getActivity()).getString("assignedTeam", "red_1");
 
@@ -112,23 +111,11 @@ public class TeamSummariesMainFragment extends Fragment
         pickList.onRestoreInstanceState(state);
     }
 
-    private void onTeamSelected(Document doc)
-    {
-        loadInfoForTeam((String) doc.getProperty("team_key"));
+    private void onTeamSelected(Document doc) {
+        loadInfoForTeam((String) doc.getProperty("key"));
     }
 
-    private void loadInfoForTeam(String teamID)
-    {
-        int position = pager.getCurrentItem();
-        if(pager.getAdapter() == null)
-        {
-            pager.setAdapter(new TeamSummariesFragmentPagerAdapter(getFragmentManager(), teamID));
-        }
-        else
-        {
-            ((TeamSummariesFragmentPagerAdapter) pager.getAdapter()).changeTeamID(teamID);
-        }
-        pager.setCurrentItem(position);
-        tabs.setViewPager(pager);
+    private void loadInfoForTeam(String teamKey) {
+        ((TeamSummariesFragmentPagerAdapter) pager.getAdapter()).updateTeamKey(teamKey);
     }
 }
