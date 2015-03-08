@@ -68,18 +68,21 @@
         <item>Upright</item>
         <item>Upside-down</item>
         <item>Both</item>
+        <item>No</item>
     </string-array>
 
     <string-array name="bin">
         <item>Upright</item>
         <item>Sideways</item>
         <item>Both</item>
+        <item>No</item>
     </string-array>
 
     <string-array name="litter">
         <item>Player Station</item>
         <item>Ground</item>
         <item>Both</item>
+        <item>No</item>
     </string-array>
 
     <string-array name="player_stations">
@@ -87,6 +90,12 @@
         <item>Right</item>
         <item>Both</item>
         <item>None</item>
+    </string-array>
+
+    <string-array name="locations">
+        <item>HP Station</item>
+        <item>Landfill</item>
+        <item>Other???</item>
     </string-array>
 
 </resources>

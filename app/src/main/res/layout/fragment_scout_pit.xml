@@ -57,13 +57,6 @@
             app:values="@array/drives"
             app:label="Drivetrain"/>
 
-        <org.wildstang.wildrank.androidv2.views.SerializableCheckboxView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/swag"
-            app:key="pit-swag"
-            app:label="Does Have Swag?"/>
-
     </LinearLayout>
 
     <LinearLayout
@@ -127,6 +120,14 @@
             app:key="pit-litter"
             app:values="@array/litter"
             app:label="Can Manipulate Litter"/>
+
+        <org.wildstang.wildrank.androidv2.views.SerializableSpinnerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/location"
+            app:key="pit-playing_location"
+            app:values="@array/locations"
+            app:label="Playing Location"/>
 
     </LinearLayout>
 
