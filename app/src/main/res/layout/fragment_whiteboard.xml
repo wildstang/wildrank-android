@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:background="@android:color/white" >
 
-    <org.wildstang.wildrank.androidv2.view.WhiteboardView
+    <org.wildstang.wildrank.androidv2.views.WhiteboardView
         android:id="@+id/whiteboard"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
