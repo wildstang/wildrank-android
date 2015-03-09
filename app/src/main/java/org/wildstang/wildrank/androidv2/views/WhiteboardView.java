@@ -6,11 +6,9 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Button;
 
 import org.wildstang.wildrank.androidv2.R;
 
@@ -23,22 +21,20 @@ import java.util.List;
 public class WhiteboardView extends View
 {
     Bitmap field;
-    Bitmap binMagnet;
-    Bitmap toteMagnet;
-    Bitmap coopMagnet;
-    Bitmap litterMagnet;
-    Bitmap robotMagnet;
     Bitmap bin;
     Bitmap tote;
     Bitmap coop;
     Bitmap litter;
     Bitmap robot;
 
+    List<GamePiece> pieces = new ArrayList<>();
+
     boolean run = false;
     boolean penOn = false;
     boolean magnetheld = false;
 
     double scale;
+    double magScale;
     int currentmagnet = 0;
     int xOffset;
     int yOffset;
@@ -65,22 +61,27 @@ public class WhiteboardView extends View
     //it initializes images and buttons
     public void init()
     {
-        //loads all the magnet images that can be manipulated
-        scale = ((double)getHeight()/(double)field.getHeight());
-        field = Bitmap.createScaledBitmap(field,(int) (scale * field.getWidth()), getHeight(), false);
-        binMagnet = Bitmap.createScaledBitmap(bin,(int)(scale * bin.getWidth()), (int)(scale * bin.getHeight()), false);
-        toteMagnet = Bitmap.createScaledBitmap(tote, (int)(scale * tote.getWidth()), (int)(scale * tote.getHeight()), false);
-        coopMagnet = Bitmap.createScaledBitmap(coop,  (int)(scale * coop.getWidth()), (int)(scale * coop.getHeight()), false);
-        litterMagnet = Bitmap.createScaledBitmap(litter, (int) (scale * litter.getWidth()), (int)(scale * litter.getHeight()), false);
-        robotMagnet = Bitmap.createScaledBitmap(robot, 2*coopMagnet.getWidth(), 2*(int)(robot.getHeight() * ((double)coopMagnet.getWidth() / (double)robot.getWidth())), false);
-
-        //loads all the button images
+        //setups field and scales
+        magScale = ((double)getHeight()/(double)field.getHeight());
+        field = Bitmap.createScaledBitmap(field,(int) (magScale * field.getWidth()), getHeight(), false);
         scale = (((double)getHeight()/8.0)/(double)tote.getWidth());
-        bin = Bitmap.createScaledBitmap(bin,(int)(scale * bin.getWidth()), (int)(scale * bin.getHeight()), false);
-        tote = Bitmap.createScaledBitmap(tote, (int)(scale * tote.getWidth()), (int)(scale * tote.getHeight()), false);
-        coop = Bitmap.createScaledBitmap(coop,  (int)(scale * coop.getWidth()), (int)(scale * coop.getHeight()), false);
-        litter = Bitmap.createScaledBitmap(litter, (int) (scale * litter.getWidth()), (int)(scale * litter.getHeight()), false);
-        robot = Bitmap.createScaledBitmap(robot, coop.getWidth(), (int)(robot.getHeight() * ((double)coop.getWidth() / (double)robot.getWidth())), false);
+
+        //creates the buttons
+        pieces.add(new GamePiece(10, 10,
+                Bitmap.createScaledBitmap(tote, (int)(scale * tote.getWidth()), (int)(scale * tote.getHeight()), false),
+                Bitmap.createScaledBitmap(tote, (int)(magScale * tote.getWidth()), (int)(magScale * tote.getHeight()), false)));
+        pieces.add(new GamePiece(10, 20 + pieces.get(0).getHeight(),
+                Bitmap.createScaledBitmap(bin,(int)(scale * bin.getWidth()), (int)(scale * bin.getHeight()), false),
+                Bitmap.createScaledBitmap(bin,(int)(magScale * bin.getWidth()), (int)(magScale * bin.getHeight()), false)));
+        pieces.add(new GamePiece(10, 30 + pieces.get(0).getHeight() + pieces.get(1).getHeight(),
+                Bitmap.createScaledBitmap(coop,  (int)(scale * coop.getWidth()), (int)(scale * coop.getHeight()), false),
+                Bitmap.createScaledBitmap(coop,  (int)(magScale * coop.getWidth()), (int)(magScale * coop.getHeight()), false)));
+        pieces.add(new GamePiece(10, 40 + pieces.get(0).getHeight() + pieces.get(1).getHeight() + pieces.get(2).getHeight(),
+                Bitmap.createScaledBitmap(litter, (int) (scale * litter.getWidth()), (int)(scale * litter.getHeight()), false),
+                Bitmap.createScaledBitmap(litter, (int) (magScale * litter.getWidth()), (int)(magScale * litter.getHeight()), false)));
+        pieces.add(new GamePiece(10, 50 + pieces.get(0).getHeight() + pieces.get(1).getHeight() + pieces.get(2).getHeight() + pieces.get(3).getHeight(),
+                Bitmap.createScaledBitmap(robot, pieces.get(2).getWidth(), (int)(robot.getHeight() * ((double)pieces.get(2).getWidth() / (double)robot.getWidth())), false),
+                Bitmap.createScaledBitmap(robot, 2*pieces.get(2).getMagnetWidth(), 2*(int)(robot.getHeight() * ((double)pieces.get(2).getMagnetWidth() / (double)robot.getWidth())), false)));
 
         //creates the side buttons for clearing and using the pen
         int width = ((getWidth() / 6) + field.getWidth());
@@ -105,43 +106,14 @@ public class WhiteboardView extends View
                 switch (action) {
                     case MotionEvent.ACTION_DOWN:
                         //if pressed on
-                        if (!penOn && y >= 10 && y <= 10 + tote.getHeight() && x >= 10 && x <= tote.getWidth() + 10)
+                        if(!penOn)
                         {
-                            //if the grey tote button is pressed on add a new one
-                            currentmagnet = magnets.size();
-                            magnets.add(new Magnet(x, y, toteMagnet));
-                            magnetheld = true;
+                            for(int i = 0; i < pieces.size(); i++)
+                            {
+                                pieces.get(i).checkPress(x, y);
+                            }
                         }
-                        else if (!penOn && y >= 20 + tote.getHeight() && y <= 20 + tote.getHeight() + bin.getHeight() && x >= 10 && x <= bin.getWidth() + 10)
-                        {
-                            //if the green bin button is pressed on add a new one
-                            currentmagnet = magnets.size();
-                            magnets.add(new Magnet(x, y, binMagnet));
-                            magnetheld = true;
-                        }
-                        else if (!penOn && y >= 30 + tote.getHeight() + bin.getHeight() && y <= 30 + tote.getHeight() + bin.getHeight() + coop.getHeight() && x >= 10 && x <= coop.getWidth() + 10)
-                        {
-                            //if the yellow tote button is pressed on add a new one
-                             currentmagnet = magnets.size();
-                             magnets.add(new Magnet(x, y, coopMagnet));
-                             magnetheld = true;
-                        }
-                        else if (!penOn && y >= 40 + tote.getHeight() + bin.getHeight() + coop.getHeight() && y <= 40 + tote.getHeight() + bin.getHeight() + coop.getHeight() + litter.getHeight() && x >= 10 && x <= litter.getWidth()*10)
-                        {
-                            //if the litter button is pressed on add a new one (this has a buffer because it is hard to press)
-                            currentmagnet = magnets.size();
-                            magnets.add(new Magnet(x, y, litterMagnet));
-                            magnetheld = true;
-                        }
-                        else if (!penOn && y >= 50 + tote.getHeight() + bin.getHeight() + coop.getHeight() && y <= 40 + tote.getHeight() + bin.getHeight() + coop.getHeight() + litter.getHeight() + robot.getHeight() && x >= 10 && x <= robot.getWidth() + 10)
-                        {
-                            //if the robot button is pressed on add a new one
-                            currentmagnet = magnets.size();
-                            magnets.add(new Magnet(x, y, robotMagnet));
-                            magnetheld = true;
-                        }
-                        else
-                        {
+                        
                             //otherwise
 
                             //if the pen is on add a new point
@@ -166,33 +138,25 @@ public class WhiteboardView extends View
                             }
 
                             //check if either of the buttons are being pressed
-                            for(int i = 0; i < buttons.size(); i++)
-                            {
+                            for(int i = 0; i < buttons.size(); i++) {
                                 Button button = buttons.get(i);
-                                if(x >= button.x && x <= button.x + button.width && y >= button.y && y <= button.y + button.height)
-                                {
+                                if (x >= button.x && x <= button.x + button.width && y >= button.y && y <= button.y + button.height) {
                                     //if its a toggle button toggle the state
-                                    if(button.toggle)
-                                    {
+                                    if (button.toggle) {
                                         buttons.get(i).pushed = !buttons.get(i).pushed;
-                                        if(button.name.equals("Pen On/Off"))
-                                        {
+                                        if (button.name.equals("Pen On/Off")) {
                                             penOn = buttons.get(i).pushed;
                                         }
-                                    }
-                                    else
-                                    {
+                                    } else {
                                         //otherwise just set it pushed
                                         buttons.get(i).pushed = true;
                                     }
-                                }
-                                else if(!button.toggle)
-                                {
+                                } else if (!button.toggle) {
                                     //if you didn't press a button and its not a toggle depress it
                                     buttons.get(i).pushed = false;
                                 }
                             }
-                        }
+                        
                         return true;
                     case MotionEvent.ACTION_MOVE:
                         //if dragged on
@@ -258,11 +222,10 @@ public class WhiteboardView extends View
 
         //draws the field and all the image buttons
         canvas.drawBitmap(field, getWidth() / 6, 0, null);
-        canvas.drawBitmap(tote, 10, 10, null);
-        canvas.drawBitmap(bin, 10, 20 + tote.getHeight(), null);
-        canvas.drawBitmap(coop, 10, 40 + tote.getHeight() + bin.getHeight(), null);
-        canvas.drawBitmap(litter, 10, 50 + tote.getHeight() + bin.getHeight() + coop.getHeight(), null);
-        canvas.drawBitmap(robot, 10, 60 + tote.getHeight() + bin.getHeight() + coop.getHeight() + litter.getHeight(), null);
+        for(int i = 0; i < pieces.size(); i++)
+        {
+            pieces.get(i).draw(canvas);
+        }
 
         //draws all the buttons
         for(int i = 0; i < buttons.size(); i++)
@@ -368,6 +331,56 @@ public class WhiteboardView extends View
         {
             this.x = x;
             this.y = y;
+        }
+    }
+
+    public class GamePiece
+    {
+        int x, y;
+        Bitmap image;
+        Bitmap magnetImage;
+
+        public GamePiece(int x, int y, Bitmap image, Bitmap magnetImage)
+        {
+            this.x = x;
+            this.y = y;
+            this.image = image;
+            this.magnetImage = magnetImage;
+        }
+
+        public void checkPress(int tX, int tY)
+        {
+            if(tX > x && tX < x + image.getWidth() && tY > y && tY < y + image.getHeight())
+            {
+                currentmagnet = magnets.size();
+                magnets.add(new Magnet(x, y, magnetImage));
+                magnetheld = true;
+            }
+        }
+
+        public void draw(Canvas c)
+        {
+            c.drawBitmap(image, x, y, null);
+        }
+
+        public int getHeight()
+        {
+            return image.getHeight();
+        }
+
+        public int getWidth()
+        {
+            return image.getWidth();
+        }
+
+        public int getMagnetHeight()
+        {
+            return magnetImage.getHeight();
+        }
+
+        public int getMagnetWidth()
+        {
+            return magnetImage.getWidth();
         }
     }
 }
