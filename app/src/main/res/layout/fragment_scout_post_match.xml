@@ -21,42 +21,42 @@
             android:text="General"
             android:textSize="30sp"/>
 
-        <org.wildstang.wildrank.androidv2.views.SerializableCheckboxView
+        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingCheckboxView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/dq"
             app:key="post_match-dq"
             app:label="DQ"/>
 
-        <org.wildstang.wildrank.androidv2.views.SerializableCheckboxView
+        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingCheckboxView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/no_show"
             app:key="post_match-no_show"
             app:label="No Show"/>
 
-        <org.wildstang.wildrank.androidv2.views.SerializableCheckboxView
+        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingCheckboxView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/broke_down"
             app:key="post_match-broke_down"
             app:label="Broke Down"/>
 
-        <org.wildstang.wildrank.androidv2.views.SerializableCheckboxView
+        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingCheckboxView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/tipped"
             app:key="post_match-tipped"
             app:label="Tipped Over"/>
 
-        <org.wildstang.wildrank.androidv2.views.SerializableCheckboxView
+        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingCheckboxView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/lost_comm"
             app:key="post_match-lost_comm"
             app:label="Lost Comm"/>
 
-        <org.wildstang.wildrank.androidv2.views.SerializableCheckboxView
+        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingCheckboxView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/damaged"
@@ -81,14 +81,14 @@
             android:text="Fouls"
             android:textSize="30sp"/>
 
-        <org.wildstang.wildrank.androidv2.views.SerializableCounterView
+        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingCounterView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/general_foul"
             app:key="post_match-general_foul"
             app:label="General Foul"/>
 
-        <org.wildstang.wildrank.androidv2.views.SerializableCounterView
+        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingCounterView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/technical_foul"
@@ -113,7 +113,7 @@
             android:text="Ranking"
             android:textSize="30sp"/>
 
-        <org.wildstang.wildrank.androidv2.views.SerializableSpinnerView
+        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingSpinnerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/driver_skill"
@@ -121,7 +121,7 @@
             app:label="Driver Skill"
             app:values="@array/rankings"/>
 
-        <org.wildstang.wildrank.androidv2.views.SerializableSpinnerView
+        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingSpinnerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/robot_speed"
@@ -129,7 +129,7 @@
             app:label="Robot Speed"
             app:values="@array/rankings"/>
 
-        <org.wildstang.wildrank.androidv2.views.SerializableSpinnerView
+        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingSpinnerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/floor_pickup_speed"

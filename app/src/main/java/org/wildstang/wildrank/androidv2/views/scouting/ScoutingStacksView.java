@@ -152,7 +152,7 @@ public class ScoutingStacksView extends ScoutingView implements View.OnClickList
             hasBin = false;
             hasNoodle = false;
             isPreexisting = false;
-            preexistingHeight = 0;
+            preexistingHeight = 1;
             stackDropped = false;
             binDropped = false;
         }

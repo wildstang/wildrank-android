@@ -60,8 +60,6 @@ public class HomeActivity extends ActionBarActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        PreferenceManager.setDefaultValues(this, R.xml.preferences, true);
-
         boolean isAppConfigured = PreferenceManager.getDefaultSharedPreferences(this).getBoolean(PREF_IS_APP_CONFIGURED, false);
         Log.d("wildrank", "isAppConfigured: " + isAppConfigured);
 

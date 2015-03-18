@@ -154,6 +154,7 @@ public class MatchScoutingMainFragment extends Fragment implements View.OnClickL
             queryRows.add(row);
             Log.d("wildstang", "Document key: " + row.getKey());
         }
+
         Parcelable state = list.onSaveInstanceState();
         adapter = new MatchListAdapter(getActivity(), queryRows);
         list.setAdapter(adapter);

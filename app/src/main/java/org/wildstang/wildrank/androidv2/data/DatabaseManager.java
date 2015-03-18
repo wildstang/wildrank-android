@@ -14,9 +14,12 @@ import com.couchbase.lite.QueryEnumerator;
 import com.couchbase.lite.QueryRow;
 import com.couchbase.lite.UnsavedRevision;
 import com.couchbase.lite.View;
+import com.couchbase.lite.android.AndroidContext;
 
 import org.wildstang.wildrank.androidv2.UserHelper;
+import org.wildstang.wildrank.androidv2.Utilities;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,9 +34,9 @@ public class DatabaseManager {
 
     private static DatabaseManager instance;
 
-    private Manager manager;
-    private Database database;
-
+    private Manager internalManager;
+    private Database internalDatabase;
+    private Manager externalManager;
     public static DatabaseManager getInstance(Context context) throws CouchbaseLiteException, IOException {
         if (instance == null) {
             instance = new DatabaseManager(context);
@@ -42,13 +45,13 @@ public class DatabaseManager {
     }
 
     private DatabaseManager(Context context) throws IOException, CouchbaseLiteException {
-        manager = new Manager(new com.couchbase.lite.android.AndroidContext(context.getApplicationContext()), Manager.DEFAULT_OPTIONS);
-        database = manager.getDatabase(DatabaseManagerConstants.DB_NAME);
+        internalManager = new Manager(new com.couchbase.lite.android.AndroidContext(context.getApplicationContext()), Manager.DEFAULT_OPTIONS);
+        internalDatabase = internalManager.getDatabase(DatabaseManagerConstants.DB_NAME);
         initializeViews();
     }
 
     private void initializeViews() {
-        com.couchbase.lite.View matchViewByNumber = database.getView(DatabaseManagerConstants.MATCH_LIST_VIEW_BY_NUMBER);
+        com.couchbase.lite.View matchViewByNumber = internalDatabase.getView(DatabaseManagerConstants.MATCH_LIST_VIEW_BY_NUMBER);
         matchViewByNumber.setMap(new Mapper() {
             @Override
             public void map(Map<String, Object> document, Emitter emitter) {
@@ -61,7 +64,7 @@ public class DatabaseManager {
             }
         }, "8");
 
-        com.couchbase.lite.View matchViewByKey = database.getView(DatabaseManagerConstants.MATCH_LIST_VIEW_BY_KEY);
+        com.couchbase.lite.View matchViewByKey = internalDatabase.getView(DatabaseManagerConstants.MATCH_LIST_VIEW_BY_KEY);
         matchViewByKey.setMap(new Mapper() {
             @Override
             public void map(Map<String, Object> document, Emitter emitter) {
@@ -74,7 +77,7 @@ public class DatabaseManager {
             }
         }, "1");
 
-        com.couchbase.lite.View matchResultsView = database.getView(DatabaseManagerConstants.MATCH_RESULT_VIEW);
+        com.couchbase.lite.View matchResultsView = internalDatabase.getView(DatabaseManagerConstants.MATCH_RESULT_VIEW);
         matchResultsView.setMap(new Mapper() {
             @Override
             public void map(Map<String, Object> document, Emitter emitter) {
@@ -87,7 +90,7 @@ public class DatabaseManager {
             }
         }, "1");
 
-        View usersView = database.getView(DatabaseManagerConstants.USER_VIEW_BY_ID);
+        View usersView = internalDatabase.getView(DatabaseManagerConstants.USER_VIEW_BY_ID);
         usersView.setMap(new Mapper() {
             @Override
             public void map(Map<String, Object> document, Emitter emitter) {
@@ -100,7 +103,7 @@ public class DatabaseManager {
             }
         }, "1");
 
-        View teamsView = database.getView(DatabaseManagerConstants.TEAM_LIST_VIEW_BY_NUMBER);
+        View teamsView = internalDatabase.getView(DatabaseManagerConstants.TEAM_LIST_VIEW_BY_NUMBER);
         teamsView.setMap(new Mapper() {
             @Override
             public void map(Map<String, Object> document, Emitter emitter) {
@@ -113,7 +116,7 @@ public class DatabaseManager {
             }
         }, "1");
 
-        View pitResultsView = database.getView(DatabaseManagerConstants.PIT_RESULTS_VIEW);
+        View pitResultsView = internalDatabase.getView(DatabaseManagerConstants.PIT_RESULTS_VIEW);
         pitResultsView.setMap(new Mapper() {
             @Override
             public void map(Map<String, Object> document, Emitter emitter) {
@@ -127,17 +130,40 @@ public class DatabaseManager {
         }, "1");
     }
 
-    public Manager getManager() {
-        return manager;
+    public Manager getInternalManager() {
+        return internalManager;
     }
 
-    public Database getDatabase() {
-        return database;
+    public Database getInternalDatabase() {
+        return internalDatabase;
+    }
+
+    public Database getExternalDatabase(Context context) throws Exception {
+        try {
+            // Custom Couchbase Manager that points to the flash drive
+            com.couchbase.lite.Context externalContext = new AndroidContext(context.getApplicationContext()) {
+                @Override
+                public File getFilesDir() {
+                    return new File(Utilities.getExternalRootDirectory() + "/");
+                }
+            };
+            if(externalManager == null) {
+                externalManager = new Manager(externalContext, Manager.DEFAULT_OPTIONS);
+            }
+            Database externalDatabase = externalManager.getExistingDatabase(DatabaseManagerConstants.DB_NAME);
+            if(externalDatabase == null) {
+                throw new Exception("Error opening database!");
+            }
+            return externalDatabase;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new Exception("Error opening database!");
+        }
     }
 
     public void dumpDatabaseContentsToLog() {
         try {
-            Query allDocsQuery = database.createAllDocumentsQuery();
+            Query allDocsQuery = internalDatabase.createAllDocumentsQuery();
             QueryEnumerator result = allDocsQuery.run();
             for (Iterator<QueryRow> it = result; it.hasNext(); ) {
                 QueryRow row = it.next();
@@ -154,13 +180,13 @@ public class DatabaseManager {
      */
 
     public Query getAllMatches() {
-        Query query = database.getView(DatabaseManagerConstants.MATCH_LIST_VIEW_BY_NUMBER).createQuery();
+        Query query = internalDatabase.getView(DatabaseManagerConstants.MATCH_LIST_VIEW_BY_NUMBER).createQuery();
         query.setDescending(false);
         return query;
     }
 
     public Document getMatchFromKey(String matchKey) throws CouchbaseLiteException {
-        Query query = database.getView(DatabaseManagerConstants.MATCH_LIST_VIEW_BY_KEY).createQuery();
+        Query query = internalDatabase.getView(DatabaseManagerConstants.MATCH_LIST_VIEW_BY_KEY).createQuery();
         query.setDescending(false);
         query.setStartKey(matchKey);
         query.setEndKey(matchKey);
@@ -177,7 +203,7 @@ public class DatabaseManager {
      */
 
     public void saveMatchResults(MatchResultsModel matchResults) throws CouchbaseLiteException {
-        Document document = database.getDocument(matchResults.getMatchKey() + ":" + matchResults.getTeamKey());
+        Document document = internalDatabase.getDocument(matchResults.getMatchKey() + ":" + matchResults.getTeamKey());
         UnsavedRevision revision = document.createRevision();
         HashMap<String, Object> properties = new HashMap<>();
         properties.put("type", DatabaseManagerConstants.MATCH_RESULT_TYPE);
@@ -190,11 +216,11 @@ public class DatabaseManager {
     }
 
     public Document getMatchResults(String matchKey, String teamKey) {
-        return database.getDocument(matchKey + ":" + teamKey);
+        return internalDatabase.getDocument(matchKey + ":" + teamKey);
     }
 
     public boolean isMatchScouted(String matchKey, String teamKey) {
-        return (database.getExistingDocument(matchKey + ":" + teamKey) != null);
+        return (internalDatabase.getExistingDocument(matchKey + ":" + teamKey) != null);
     }
 
     /*
@@ -202,14 +228,14 @@ public class DatabaseManager {
      */
 
     public Document getUserById(String id) throws CouchbaseLiteException {
-        return database.getExistingDocument("user:" + id);
+        return internalDatabase.getExistingDocument("user:" + id);
     }
 
     /*
      * Teams
      */
     public Query getAllTeams() {
-        Query query = database.getView(DatabaseManagerConstants.TEAM_LIST_VIEW_BY_NUMBER).createQuery();
+        Query query = internalDatabase.getView(DatabaseManagerConstants.TEAM_LIST_VIEW_BY_NUMBER).createQuery();
         query.setDescending(false);
         return query;
     }
@@ -219,11 +245,11 @@ public class DatabaseManager {
      */
 
     public boolean isTeamPitScouted(String teamKey) {
-        return (database.getExistingDocument("pit:" + teamKey) != null);
+        return (internalDatabase.getExistingDocument("pit:" + teamKey) != null);
     }
 
     public void savePitResults(PitResultsModel pitResults) throws CouchbaseLiteException {
-        Document document = database.getDocument("pit:" + pitResults.getTeamKey());
+        Document document = internalDatabase.getDocument("pit:" + pitResults.getTeamKey());
         UnsavedRevision revision = document.createRevision();
         HashMap<String, Object> properties = new HashMap<>();
         properties.put("type", DatabaseManagerConstants.PIT_RESULTS_TYPE);
@@ -248,7 +274,7 @@ public class DatabaseManager {
      * (boolean) document_revision: the last known revision of this document (String)
      */
     public void trackCurrentInternalDatabaseState() {
-        trackDatabaseState(database, DatabaseManagerConstants.LAST_KNOWN_INTERNAL_DATABASE_STATE_DOCUMENT_ID);
+        trackDatabaseState(internalDatabase, DatabaseManagerConstants.LAST_KNOWN_INTERNAL_DATABASE_STATE_DOCUMENT_ID);
     }
 
     public void trackCurrentExternalDatabaseState(Database externalDatabase) {
@@ -280,7 +306,7 @@ public class DatabaseManager {
             }
 
             // Persist the new data in the local database
-            Document document = database.getDocument(saveDocumentId);
+            Document document = internalDatabase.getDocument(saveDocumentId);
             UnsavedRevision revision = document.createRevision();
             HashMap<String, Object> properties = new HashMap<>();
             properties.put(DatabaseManagerConstants.DATA_KEY, documentStates);
@@ -300,7 +326,7 @@ public class DatabaseManager {
     }
 
     private DatabaseState getLastKnownStateFromDocumentId(String docId) {
-        Document doc = database.getExistingDocument(docId);
+        Document doc = internalDatabase.getExistingDocument(docId);
         if (doc == null) {
             return null;
         }
@@ -349,16 +375,16 @@ public class DatabaseManager {
         }
     }
 
-    public void saveNotes(String team, String note, Context c) throws CouchbaseLiteException {
+    public void saveNotes(String teamKey, String note, Context c) throws CouchbaseLiteException {
         if (!note.equals("")) {
-            Boolean existed = (database.getExistingDocument("notes:" + team) != null);
-            Document document = database.getDocument("notes:" + team);
+            Boolean existed = (internalDatabase.getExistingDocument("notes:" + teamKey) != null);
+            Document document = internalDatabase.getDocument("notes:" + teamKey);
             UnsavedRevision revision = document.createRevision();
 
             HashMap<String, Object> properties = new HashMap<>();
             properties.put("type", DatabaseManagerConstants.NOTES_RESULTS_TYPE);
             properties.put("users", UserHelper.getLoggedInUsersAsArray(c));
-            properties.put("team_key", team);
+            properties.put("team_key", teamKey);
 
             List<String> notesList;
             if (existed) {
@@ -375,9 +401,9 @@ public class DatabaseManager {
         }
     }
 
-    public String[] getNotes(String team) {
-        Boolean existed = (database.getExistingDocument("notes:" + team) != null);
-        Document document = database.getDocument("notes:" + team);
+    public String[] getNotes(String teamKey) {
+        Boolean existed = (internalDatabase.getExistingDocument("notes:" + teamKey) != null);
+        Document document = internalDatabase.getDocument("notes:" + teamKey);
         List<String> notesList;
         if (existed) {
             notesList = (ArrayList<String>) document.getProperties().get("notes");

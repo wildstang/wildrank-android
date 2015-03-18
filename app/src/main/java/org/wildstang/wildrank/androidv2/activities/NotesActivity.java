@@ -29,7 +29,7 @@ import java.io.IOException;
 public class NotesActivity extends ActionBarActivity {
     private Toolbar toolbar;
     private static String matchKey;
-    private static String[] teams;
+    private static String[] teamKeys;
     private static String[] notes;
 
     private NotesSixFragment sixFrag;
@@ -47,7 +47,7 @@ public class NotesActivity extends ActionBarActivity {
 
         Bundle extras = getIntent().getExtras();
         matchKey = extras.getString("match_key");
-        teams = extras.getStringArray("team_keys");
+        teamKeys = extras.getStringArray("team_keys");
 
         setContentView(R.layout.activity_notes);
 
@@ -67,17 +67,17 @@ public class NotesActivity extends ActionBarActivity {
 
         ((TextView) findViewById(R.id.match_number)).setText("" + Utilities.matchNumberFromMatchKey(matchKey));
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < teams.length; i++) {
-            if (i < teams.length - 1) {
-                sb.append(teams[i] + ", ");
+        for (int i = 0; i < teamKeys.length; i++) {
+            if (i < teamKeys.length - 1) {
+                sb.append(teamKeys[i] + ", ");
             } else {
-                sb.append(teams[i]);
+                sb.append(teamKeys[i]);
             }
 
         }
         ((TextView) findViewById(R.id.team_numbers)).setText("" + Utilities.teamNumberFromTeamKey(sb.toString()));
 
-        sixFrag = NotesSixFragment.newInstance(teams);
+        sixFrag = NotesSixFragment.newInstance(teamKeys);
 
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
@@ -88,8 +88,8 @@ public class NotesActivity extends ActionBarActivity {
     public void finishScouting() {
         notes = sixFrag.getNotes();
         try {
-            for (int i = 0; i < teams.length; i++) {
-                DatabaseManager.getInstance(this).saveNotes(teams[i], notes[i], this);
+            for (int i = 0; i < teamKeys.length; i++) {
+                DatabaseManager.getInstance(this).saveNotes(teamKeys[i], notes[i], this);
             }
         } catch (CouchbaseLiteException e) {
             e.printStackTrace();

@@ -97,7 +97,7 @@ public class AppSetupActivity extends ActionBarActivity implements View.OnClickL
         @Override
         protected Void doInBackground(Void... params) {
             try {
-                Manager internalManager = DatabaseManager.getInstance(AppSetupActivity.this).getManager();
+                Manager internalManager = DatabaseManager.getInstance(AppSetupActivity.this).getInternalManager();
 
                 // Custom Couchbase Manager that points to the flash drive
                 Context context = new AndroidContext(AppSetupActivity.this) {
@@ -110,6 +110,8 @@ public class AppSetupActivity extends ActionBarActivity implements View.OnClickL
 
                 Database internalDatabase = internalManager.getDatabase(DatabaseManagerConstants.DB_NAME);
                 Database externalDatabase = externalManager.getExistingDatabase(DatabaseManagerConstants.DB_NAME);
+
+                internalDatabase.beginTransaction();
 
                 // Copy everything into the internal database
                 Query query = externalDatabase.createAllDocumentsQuery();
@@ -134,6 +136,8 @@ public class AppSetupActivity extends ActionBarActivity implements View.OnClickL
 
                 DatabaseManager.getInstance(AppSetupActivity.this).trackCurrentInternalDatabaseState();
                 DatabaseManager.getInstance(AppSetupActivity.this).trackCurrentExternalDatabaseState(externalDatabase);
+
+                internalDatabase.endTransaction(true);
 
                 externalDatabase.close();
             } catch (Exception e) {

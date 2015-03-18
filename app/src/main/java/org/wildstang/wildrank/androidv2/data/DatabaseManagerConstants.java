@@ -36,5 +36,4 @@ public class DatabaseManagerConstants {
 
     public static final String NOTES_RESULTS_VIEW = "notes_view";
     public static final String NOTES_RESULTS_TYPE = "notes";
-    public static final String NOTES_KEY = "notes_key";
 }

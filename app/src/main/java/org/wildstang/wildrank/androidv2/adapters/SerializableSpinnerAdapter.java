@@ -88,11 +88,14 @@ public class SerializableSpinnerAdapter extends BaseAdapter {
                 backingArray.add(backingArray.size() - 1, string.toString());
                 // Store new value in SharedPreferences
                 Set<String> savedValues = new LinkedHashSet<>();
-                if (PreferenceManager.getDefaultSharedPreferences(context).getStringSet(preferencesKey, null) != null) {
-                    savedValues.addAll(PreferenceManager.getDefaultSharedPreferences(context).getStringSet(preferencesKey, null));
+                // Prevent saving a preference with a null name
+                if (preferencesKey != null) {
+                    if (PreferenceManager.getDefaultSharedPreferences(context).getStringSet(preferencesKey, null) != null) {
+                        savedValues.addAll(PreferenceManager.getDefaultSharedPreferences(context).getStringSet(preferencesKey, null));
+                    }
+                    savedValues.add(string.toString());
+                    PreferenceManager.getDefaultSharedPreferences(context).edit().putStringSet(preferencesKey, savedValues).apply();
                 }
-                savedValues.add(string.toString());
-                PreferenceManager.getDefaultSharedPreferences(context).edit().putStringSet(preferencesKey, savedValues).apply();
             }
         }
         sortList();

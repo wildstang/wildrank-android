@@ -10,14 +10,14 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <org.wildstang.wildrank.androidv2.views.SerializableCheckboxView
+        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingCheckboxView
             android:id="@+id/drive"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:key="auto-drive"
             app:label="Drives to Auto Zone"/>
 
-        <org.wildstang.wildrank.androidv2.views.SerializableSpinnerView
+        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingSpinnerView
             android:id="@+id/totes"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -25,7 +25,7 @@
             app:label="Totes Moved"
             app:values="@array/auto_totes"/>
 
-        <org.wildstang.wildrank.androidv2.views.SerializableSpinnerView
+        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingSpinnerView
             android:id="@+id/stacked"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -34,7 +34,7 @@
             app:label="Totes Stacked"
             app:values="@array/auto_totes"/>
 
-        <org.wildstang.wildrank.androidv2.views.SerializableSpinnerView
+        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingSpinnerView
             android:id="@+id/bins"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -42,7 +42,7 @@
             app:label="Bins Moved"
             app:values="@array/auto_bins"/>
 
-        <org.wildstang.wildrank.androidv2.views.SerializableSpinnerView
+        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingSpinnerView
             android:id="@+id/taken"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -50,7 +50,7 @@
             app:label="Bins Taken from Step"
             app:values="@array/auto_step"/>
 
-        <org.wildstang.wildrank.androidv2.views.SerializableNumberView
+        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingNumberView
             android:id="@+id/time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -58,12 +58,5 @@
             app:label="Approx. Time Taken"/>
 
     </LinearLayout>
-
-    <Button
-        android:id="@+id/finish"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:text="Finish"/>
 
 </RelativeLayout>
