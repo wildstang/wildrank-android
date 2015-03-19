@@ -22,6 +22,8 @@ import org.wildstang.wildrank.androidv2.Utilities;
 import org.wildstang.wildrank.androidv2.adapters.MatchScoutFragmentPagerAdapter;
 import org.wildstang.wildrank.androidv2.data.DatabaseManager;
 import org.wildstang.wildrank.androidv2.data.MatchResultsModel;
+import org.wildstang.wildrank.androidv2.fragments.NoteFragment;
+import org.wildstang.wildrank.androidv2.fragments.NotesSixFragment;
 import org.wildstang.wildrank.androidv2.fragments.ScoutingFragment;
 import org.wildstang.wildrank.androidv2.views.SlidingTabs;
 
@@ -45,7 +47,7 @@ public class ScoutMatchActivity extends ActionBarActivity {
     private SlidingTabs tabs;
     private Toolbar toolbar;
 
-    private String teamKey;
+    public String teamKey;
     private String matchKey;
     private String allianceColor;
 
@@ -146,4 +148,5 @@ public class ScoutMatchActivity extends ActionBarActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
 }

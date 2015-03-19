@@ -19,6 +19,7 @@ import org.wildstang.wildrank.androidv2.Utilities;
 import org.wildstang.wildrank.androidv2.adapters.PitScoutFragmentPagerAdapter;
 import org.wildstang.wildrank.androidv2.data.DatabaseManager;
 import org.wildstang.wildrank.androidv2.data.PitResultsModel;
+import org.wildstang.wildrank.androidv2.fragments.NoteFragment;
 import org.wildstang.wildrank.androidv2.fragments.ScoutingFragment;
 import org.wildstang.wildrank.androidv2.views.SlidingTabs;
 
@@ -38,7 +39,7 @@ public class ScoutPitActivity extends ActionBarActivity {
     private SlidingTabs tabs;
     private Toolbar toolbar;
 
-    private String teamKey;
+    public String teamKey;
 
     public static Intent createIntent(Context context, String teamKey) {
         Intent i = new Intent(context, ScoutPitActivity.class);
