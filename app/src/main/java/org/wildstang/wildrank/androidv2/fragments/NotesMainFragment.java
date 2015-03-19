@@ -6,12 +6,15 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,8 +26,10 @@ import com.couchbase.lite.QueryRow;
 
 import org.wildstang.wildrank.androidv2.R;
 import org.wildstang.wildrank.androidv2.Utilities;
+import org.wildstang.wildrank.androidv2.activities.NoteActivity;
 import org.wildstang.wildrank.androidv2.activities.NotesActivity;
 import org.wildstang.wildrank.androidv2.adapters.MatchListAdapter;
+import org.wildstang.wildrank.androidv2.adapters.TeamListAdapter;
 import org.wildstang.wildrank.androidv2.data.DatabaseManager;
 
 import java.util.ArrayList;
@@ -42,14 +47,17 @@ public class NotesMainFragment extends Fragment implements View.OnClickListener 
     private TextView scoutingTeam;
     private Button beginScouting;
     private TextView matchNumber;
+    private CheckBox useNumbers;
 
     private String[] selectedTeams;
     private String selectedTeamsString;
     private String selectedMatchKey;
 
-    private MatchListAdapter adapter;
+    private String selectedTeamKey;
 
     private SharedPreferences.OnSharedPreferenceChangeListener listener;
+
+    private boolean useTeamNumbers = false;
 
     public NotesMainFragment() {
         // Required empty public constructor
@@ -77,11 +85,18 @@ public class NotesMainFragment extends Fragment implements View.OnClickListener 
                         }
 
                         // Update the selected match view if it exists
-                        if (selectedMatchKey != null) {
+                        if (selectedMatchKey != null || selectedTeamKey != null) {
                             try {
                                 Log.d("wildrank", "Requerying match details!");
-                                onMatchSelected(DatabaseManager.getInstance(NotesMainFragment.this.getActivity()).getMatchFromKey(selectedMatchKey));
-                            } catch (Exception e) {
+                                if(useTeamNumbers)
+                                {
+                                    onTeamSelected(DatabaseManager.getInstance(NotesMainFragment.this.getActivity()).getTeamFromKey(selectedTeamKey));
+                                }
+                                else
+                                {
+                                    onMatchSelected(DatabaseManager.getInstance(NotesMainFragment.this.getActivity()).getMatchFromKey(selectedMatchKey));
+                                }
+                               } catch (Exception e) {
                                 e.printStackTrace();
                             }
                         } else {
@@ -103,14 +118,21 @@ public class NotesMainFragment extends Fragment implements View.OnClickListener 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_match_scouting_main, container, false);
+        View view = inflater.inflate(R.layout.fragment_notes_main, container, false);
 
         list = (ListView) view.findViewById(R.id.match_list);
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 QueryRow row = (QueryRow) parent.getItemAtPosition(position);
-                onMatchSelected(row.getDocument());
+                if(useTeamNumbers)
+                {
+                    onTeamSelected(row.getDocument());
+                }
+                else
+                {
+                    onMatchSelected(row.getDocument());
+                }
             }
         });
 
@@ -118,12 +140,28 @@ public class NotesMainFragment extends Fragment implements View.OnClickListener 
         matchNumber = (TextView) view.findViewById(R.id.match_number);
         matchNumber.setText("Please select a match.");
 
-        scoutingTeam = (TextView) view.findViewById(R.id.scouting_team);
+        scoutingTeam = (TextView) view.findViewById(R.id.scouting_teams);
         scoutingTeam.setText("");
+
+        useNumbers = (CheckBox) view.findViewById(R.id.useTeams);
+        useNumbers.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
+        {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
+            {
+                useTeamNumbers = useNumbers.isChecked();
+                try {
+                    runQuery();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
 
         beginScouting = (Button) view.findViewById(R.id.begin_scouting);
         beginScouting.setOnClickListener(this);
         beginScouting.setEnabled(false);
+
         return view;
     }
 
@@ -140,24 +178,48 @@ public class NotesMainFragment extends Fragment implements View.OnClickListener 
     }
 
     private void runQuery() throws Exception {
-        Query query = DatabaseManager.getInstance(getActivity()).getAllMatches();
+        if(useTeamNumbers)
+        {
+            Query query = DatabaseManager.getInstance(getActivity()).getAllTeams();
 
-        adapter = new MatchListAdapter(getActivity(), new ArrayList<QueryRow>());
+            TeamListAdapter adapter = new TeamListAdapter(getActivity(), new ArrayList<QueryRow>());
 
-        QueryEnumerator enumerator = query.run();
+            QueryEnumerator enumerator = query.run();
 
-        Log.d("wildrank", "match query count: " + enumerator.getCount());
+            Log.d("wildrank", "match query count: " + enumerator.getCount());
 
-        List<QueryRow> queryRows = new ArrayList<>();
-        for (Iterator<QueryRow> it = enumerator; it.hasNext(); ) {
-            QueryRow row = it.next();
-            queryRows.add(row);
-            Log.d("wildstang", "Document key: " + row.getKey());
+            List<QueryRow> queryRows = new ArrayList<>();
+            for (Iterator<QueryRow> it = enumerator; it.hasNext(); ) {
+                QueryRow row = it.next();
+                queryRows.add(row);
+                Log.d("wildstang", "Document key: " + row.getKey());
+            }
+            Parcelable state = list.onSaveInstanceState();
+            adapter = new TeamListAdapter(getActivity(), queryRows);
+            list.setAdapter(adapter);
+            list.onRestoreInstanceState(state);
         }
-        Parcelable state = list.onSaveInstanceState();
-        adapter = new MatchListAdapter(getActivity(), queryRows);
-        list.setAdapter(adapter);
-        list.onRestoreInstanceState(state);
+        else
+        {
+            Query query = DatabaseManager.getInstance(getActivity()).getAllMatches();
+
+            MatchListAdapter adapter = new MatchListAdapter(getActivity(), new ArrayList<QueryRow>());
+
+            QueryEnumerator enumerator = query.run();
+
+            Log.d("wildrank", "match query count: " + enumerator.getCount());
+
+            List<QueryRow> queryRows = new ArrayList<>();
+            for (Iterator<QueryRow> it = enumerator; it.hasNext(); ) {
+                QueryRow row = it.next();
+                queryRows.add(row);
+                Log.d("wildstang", "Document key: " + row.getKey());
+            }
+            Parcelable state = list.onSaveInstanceState();
+            adapter = new MatchListAdapter(getActivity(), queryRows);
+            list.setAdapter(adapter);
+            list.onRestoreInstanceState(state);
+        }
     }
 
     private void onMatchSelected(Document matchDocument) {
@@ -185,13 +247,32 @@ public class NotesMainFragment extends Fragment implements View.OnClickListener 
         beginScouting.setEnabled(true);
     }
 
+    private void onTeamSelected(Document teamDocument) {
+        selectedTeamKey = (String) teamDocument.getProperty("key");
+        Log.d("wildrank", "team key is null? " + (selectedMatchKey == null));
+        matchNumber.setText("Team:" + Utilities.teamNumberFromTeamKey(selectedTeamKey));
+        scoutingTeam.setText("");
+
+        beginScouting.setEnabled(true);
+    }
+
     @Override
     public void onClick(View v) {
         int id = v.getId();
         if (id == R.id.begin_scouting) {
             // Launch the scouting activity
-            final Intent intent = NotesActivity.createIntent(getActivity(), selectedMatchKey, selectedTeams);
-            startActivity(intent);
+            if(useTeamNumbers)
+            {
+                System.out.println("opening note activity");
+                final Intent intent = NoteActivity.createIntent(getActivity(), selectedTeamKey);
+                startActivity(intent);
+            }
+            else
+            {
+                System.out.println("opening noteS activity");
+                final Intent intent = NotesActivity.createIntent(getActivity(), selectedMatchKey, selectedTeams);
+                startActivity(intent);
+            }
         }
     }
 }
