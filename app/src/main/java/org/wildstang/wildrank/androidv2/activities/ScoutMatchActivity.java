@@ -22,8 +22,6 @@ import org.wildstang.wildrank.androidv2.Utilities;
 import org.wildstang.wildrank.androidv2.adapters.MatchScoutFragmentPagerAdapter;
 import org.wildstang.wildrank.androidv2.data.DatabaseManager;
 import org.wildstang.wildrank.androidv2.data.MatchResultsModel;
-import org.wildstang.wildrank.androidv2.fragments.NoteFragment;
-import org.wildstang.wildrank.androidv2.fragments.NotesSixFragment;
 import org.wildstang.wildrank.androidv2.fragments.ScoutingFragment;
 import org.wildstang.wildrank.androidv2.views.SlidingTabs;
 

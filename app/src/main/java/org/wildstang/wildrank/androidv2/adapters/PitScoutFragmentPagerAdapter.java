@@ -3,6 +3,7 @@ package org.wildstang.wildrank.androidv2.adapters;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.util.Log;
 
 import org.wildstang.wildrank.androidv2.fragments.PitScoutingFragment;
 import org.wildstang.wildrank.androidv2.fragments.ScoutingFragment;
@@ -47,6 +48,7 @@ public class PitScoutFragmentPagerAdapter extends FragmentPagerAdapter {
                 break;
         }
         fragments.put(position, new WeakReference<>(fragment));
+        Log.d("wildrank", "fragment created");
         return fragment;
     }
 

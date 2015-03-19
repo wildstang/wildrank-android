@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import org.wildstang.wildrank.androidv2.R;
-import org.wildstang.wildrank.androidv2.activities.ScoutMatchActivity;
 import org.wildstang.wildrank.androidv2.activities.ScoutPitActivity;
 
 /**
@@ -30,8 +29,7 @@ public class PitScoutingFragment extends ScoutingFragment implements View.OnClic
     }
 
     @Override
-    public void onResume()
-    {
+    public void onResume() {
         super.onResume();
         NoteFragment f = NoteFragment.newInstance(((ScoutPitActivity) getActivity()).teamKey);
         getFragmentManager().beginTransaction().replace(R.id.notes_container, f, "notes").commit();

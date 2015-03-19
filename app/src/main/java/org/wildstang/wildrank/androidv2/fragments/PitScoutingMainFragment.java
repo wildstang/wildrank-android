@@ -98,7 +98,7 @@ public class PitScoutingMainFragment extends Fragment implements View.OnClickLis
         }
 
         Parcelable state = list.onSaveInstanceState();
-        adapter = new TeamListAdapter(getActivity(), queryRows);
+        adapter = new TeamListAdapter(getActivity(), queryRows, true);
         list.setAdapter(adapter);
         list.onRestoreInstanceState(state);
     }

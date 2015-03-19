@@ -3,8 +3,10 @@ package org.wildstang.wildrank.androidv2.views.scouting;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -44,6 +46,14 @@ public class ScoutingNumberView extends ScoutingView {
                 }
             }
         });
+
+        this.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                valueView.requestFocus();
+                ((InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE)).showSoftInput(valueView, InputMethodManager.SHOW_FORCED);
+            }
+        });
     }
 
     public void setValue(double value) {
@@ -71,6 +81,7 @@ public class ScoutingNumberView extends ScoutingView {
     @Override
     public void restoreFromMap(Map<String, Object> map) {
         Object object = map.get(key);
+        Log.d("wildrank", "restoring " + key + " from object " + object.toString());
         if (object instanceof Integer) {
             setValue((double) ((Integer) object).intValue());
         } else if (object instanceof Double) {

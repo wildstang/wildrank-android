@@ -220,7 +220,7 @@ public class DatabaseManager {
         return internalDatabase.getDocument(matchKey + ":" + teamKey);
     }
 
-    public List<Document> getMatchResultsForTeam(String teamKey) throws CouchbaseLiteException{
+    public List<Document> getMatchResultsForTeam(String teamKey) throws CouchbaseLiteException {
         Query query = internalDatabase.getView(DatabaseManagerConstants.MATCH_RESULT_VIEW).createQuery();
         query.setDescending(false);
         query.setStartKey(teamKey);
@@ -228,7 +228,7 @@ public class DatabaseManager {
         QueryEnumerator results = query.run();
         if (results.getCount() > 0) {
             List<Document> matches = new ArrayList<>();
-            for(Iterator<QueryRow> it = results; it.hasNext();) {
+            for (Iterator<QueryRow> it = results; it.hasNext(); ) {
                 matches.add(it.next().getDocument());
             }
             return matches;

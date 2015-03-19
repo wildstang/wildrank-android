@@ -22,21 +22,21 @@ public class MatchDataNumberStacksTippedView extends MatchDataView implements IM
 
     @Override
     public void calculateFromDocuments(List<Document> documents) {
-        if(documents == null) {
+        if (documents == null) {
             return;
         } else if (documents.size() == 0) {
             return;
         }
         double tipped = 0;
-        for(Document document : documents) {
+        for (Document document : documents) {
             Map<String, Object> data = (Map<String, Object>) document.getProperty("data");
-            if(data == null) {
+            if (data == null) {
                 return;
             }
 
             Log.d("wildrank", data.toString());
 
-            if(data.get("stacks_tipped_over") == null) {
+            if (data.get("stacks_tipped_over") == null) {
                 continue;
             }
             int stacksTippedInMatch = (int) data.get("stacks_tipped_over");

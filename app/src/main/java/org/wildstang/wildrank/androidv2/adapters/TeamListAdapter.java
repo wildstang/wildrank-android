@@ -20,8 +20,11 @@ import java.util.Map;
  */
 public class TeamListAdapter extends ArrayAdapter<QueryRow> {
 
-    public TeamListAdapter(Context context, List<QueryRow> matches) {
-        super(context, R.layout.list_item_team, matches);
+    private boolean greyOutScoutedTeams;
+
+    public TeamListAdapter(Context context, List<QueryRow> teams, boolean greyOutScoutedTeams) {
+        super(context, R.layout.list_item_team, teams);
+        this.greyOutScoutedTeams = greyOutScoutedTeams;
     }
 
     private static class ViewHolder {
@@ -47,7 +50,7 @@ public class TeamListAdapter extends ArrayAdapter<QueryRow> {
 
         boolean isTeamScouted;
         try {
-            isTeamScouted = DatabaseManager.getInstance(getContext()).isTeamPitScouted((String) properties.get("team_key"));
+            isTeamScouted = DatabaseManager.getInstance(getContext()).isTeamPitScouted((String) properties.get("key"));
         } catch (Exception e) {
             e.printStackTrace();
             isTeamScouted = false;
@@ -56,13 +59,14 @@ public class TeamListAdapter extends ArrayAdapter<QueryRow> {
         holder.teamNumber.setText(properties.get("team_number").toString());
 
         // Gray everything out if the team has already been scouted
-        if (isTeamScouted) {
-            float alpha = 0.2f;
-            holder.teamNumber.setAlpha(alpha);
+        float alpha;
+        if (isTeamScouted && greyOutScoutedTeams) {
+            alpha = 0.2f;
         } else {
-            float alpha = 1f;
-            holder.teamNumber.setAlpha(alpha);
+            alpha = 1f;
         }
+        holder.teamNumber.setAlpha(alpha);
+
 
         return convertView;
     }

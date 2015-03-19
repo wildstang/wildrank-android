@@ -16,7 +16,6 @@ import org.wildstang.wildrank.androidv2.data.DatabaseManager;
 import org.wildstang.wildrank.androidv2.views.TemplatedTextView;
 
 import java.io.IOException;
-import java.util.Iterator;
 import java.util.Map;
 
 /**
@@ -59,9 +58,9 @@ public class TeamSummariesInfoFragment extends TeamSummariesFragment {
             teamNameView.setText(teamName);
 
             notesView = (TextView) getView().findViewById(R.id.notes);
+            notesView.setText("");
 
             String[] notes = DatabaseManager.getInstance(getActivity()).getNotes(teamKey);
-            notesView.setText("Notes\n");
             for (int i = 0; i < notes.length; i++) {
                 notesView.append("-" + notes[i] + "\n");
             }

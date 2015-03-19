@@ -88,14 +88,14 @@
             app:key="post_match-foul"
             app:label="Foul"/>
 
-        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingCounterView
+        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingCheckboxView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/red_card"
             app:key="post_match-red_card"
             app:label="Red Card"/>
 
-        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingCounterView
+        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingCheckboxView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/yellow_card"

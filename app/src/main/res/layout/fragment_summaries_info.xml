@@ -39,81 +39,70 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingTop="24dp"
-            android:layout_below="@id/team_info">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Pit Data"
-                android:textSize="0sp"/>
-
-            <org.wildstang.wildrank.androidv2.views.TemplatedTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:text="&lt;b>Dimensions (l*w*h):&lt;/b> {{length}} x {{width}} x {{height}}"
-                android:textSize="20sp"/>
-
-            <org.wildstang.wildrank.androidv2.views.TemplatedTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:text="&lt;b>Bumpers:&lt;/b> {{bumpers}}"
-                app:trueString="yes"
-                app:falseString="no"
-                android:textSize="20sp"/>
-
-            <org.wildstang.wildrank.androidv2.views.TemplatedTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:text="&lt;b>Drivetrain:&lt;/b> {{drivetrain}}"
-                android:textSize="20sp"/>
-            <!--
-                    <org.wildstang.wildrank.androidv2.views.TemplatedTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:text="&lt;b>Shooter:&lt;/b> {{scoring-shooter}}"
-                        android:textSize="20sp"/>
-
-                    <org.wildstang.wildrank.androidv2.views.TemplatedTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:text="&lt;b>Catcher:&lt;/b> {{scoring-catcher}}"
-                        app:trueString="yes"
-                        app:falseString="no"
-                        android:textSize="20sp"/>
-
-                    <org.wildstang.wildrank.androidv2.views.TemplatedTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:text="&lt;b>Accumulator:&lt;/b> {{scoring-accumulator}}"
-                        app:trueString="yes"
-                        app:falseString="no"
-                        android:textSize="20sp"/>
-
-                    <org.wildstang.wildrank.androidv2.views.TemplatedTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:text="&lt;b>Receive from HP:&lt;/b> {{scoring-receive_from_hp}}"
-                        app:trueString="yes"
-                        app:falseString="no"
-                        android:textSize="20sp"/>-->
-        </LinearLayout>
-
-        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:orientation="horizontal">
+            android:layout_height="fill_parent"
+            android:layout_below="@id/team_info"
+            android:orientation="horizontal"
+            android:paddingTop="24dp">
 
-            <TextView
+            <LinearLayout
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:textAppearance="?android:attr/textAppearanceLarge"
                 android:layout_height="wrap_content"
-                android:id="@+id/notes"/>
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Pit Data"
+                    android:textSize="40sp"/>
+
+                <org.wildstang.wildrank.androidv2.views.TemplatedTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:text="&lt;b>Dimensions (l*w*h):&lt;/b> {{length}} x {{width}} x {{height}}"
+                    android:textSize="20sp"/>
+
+                <org.wildstang.wildrank.androidv2.views.TemplatedTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:text="&lt;b>Bumpers:&lt;/b> {{bumpers}}"
+                    app:trueString="yes"
+                    app:falseString="no"
+                    android:textSize="20sp"/>
+
+                <org.wildstang.wildrank.androidv2.views.TemplatedTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:text="&lt;b>Drivetrain:&lt;/b> {{drivetrain}}"
+                    android:textSize="20sp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="40sp"
+                    android:text="Notes"/>
+
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/notes"
+                        android:textSize="20sp"/>
+                </ScrollView>
+            </LinearLayout>
+
         </LinearLayout>
     </RelativeLayout>
 

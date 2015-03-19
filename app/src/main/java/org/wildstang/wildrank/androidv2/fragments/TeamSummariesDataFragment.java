@@ -18,8 +18,7 @@ import java.util.List;
 /**
  * Created by Liam on 2/28/2015.
  */
-public class TeamSummariesDataFragment extends TeamSummariesFragment
-{
+public class TeamSummariesDataFragment extends TeamSummariesFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

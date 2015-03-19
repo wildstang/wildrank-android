@@ -1,6 +1,5 @@
 package org.wildstang.wildrank.androidv2.fragments;
 
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
 import com.couchbase.lite.Document;

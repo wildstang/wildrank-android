@@ -89,6 +89,15 @@ public class ScoutingSpinnerView extends ScoutingView implements OnItemSelectedL
         } else {
             deleteButton.setOnClickListener(this);
         }
+
+        this.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Open the spinner when the view is touched
+                spinner.performClick();
+
+            }
+        });
     }
 
     public void setEnabled(boolean enabled) {

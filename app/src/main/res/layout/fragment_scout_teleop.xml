@@ -10,15 +10,34 @@
         android:id="@+id/stacks_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/tipped_counter"
+        android:layout_above="@+id/other"
         app:key="stacks"/>
 
-    <org.wildstang.wildrank.androidv2.views.scouting.ScoutingCounterView
-        android:id="@id/tipped_counter"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
+    <LinearLayout
+        android:id="@id/other"
         android:layout_alignParentBottom="true"
-        app:key="stacks_tipped_over"
-        app:label="Stacks Tipped Over"/>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingCounterView
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            app:key="stacks_tipped_over"
+            app:label="Stacks Tipped Over"/>
+
+        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingCounterView
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            app:key="coop"
+            app:label="Did Co-op Stack"/>
+
+        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingCounterView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:key="coop_height"
+            app:label="Total Co-op Stack Height (if contributed to)"/>
+
+    </LinearLayout>
 
 </RelativeLayout>

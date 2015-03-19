@@ -9,5 +9,6 @@ import java.util.List;
  */
 public interface IMatchDataView {
     public void calculateFromDocuments(List<Document> documents);
+
     public void clearValue();
 }

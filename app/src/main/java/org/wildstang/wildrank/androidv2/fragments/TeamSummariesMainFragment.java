@@ -19,7 +19,6 @@ import com.couchbase.lite.QueryEnumerator;
 import com.couchbase.lite.QueryRow;
 
 import org.wildstang.wildrank.androidv2.R;
-import org.wildstang.wildrank.androidv2.adapters.MatchScoutFragmentPagerAdapter;
 import org.wildstang.wildrank.androidv2.adapters.TeamListAdapter;
 import org.wildstang.wildrank.androidv2.adapters.TeamSummariesFragmentPagerAdapter;
 import org.wildstang.wildrank.androidv2.data.DatabaseManager;
@@ -101,12 +100,12 @@ public class TeamSummariesMainFragment extends Fragment {
         }
 
         Parcelable state = teamList.onSaveInstanceState();
-        listAdapter = new TeamListAdapter(getActivity(), queryRows);
+        listAdapter = new TeamListAdapter(getActivity(), queryRows, false);
         teamList.setAdapter(listAdapter);
         teamList.onRestoreInstanceState(state);
 
         state = pickList.onSaveInstanceState();
-        listAdapter = new TeamListAdapter(getActivity(), queryRows);
+        listAdapter = new TeamListAdapter(getActivity(), queryRows, false);
         pickList.setAdapter(listAdapter);
         pickList.onRestoreInstanceState(state);
     }

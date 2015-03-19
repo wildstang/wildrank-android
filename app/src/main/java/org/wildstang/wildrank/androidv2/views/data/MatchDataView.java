@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,7 +46,7 @@ public abstract class MatchDataView extends RelativeLayout implements IMatchData
         a.recycle();
 
         labelView = (TextView) findViewById(R.id.label);
-        if(label != null) {
+        if (label != null) {
             labelView.setText(label);
         }
 
@@ -56,7 +55,7 @@ public abstract class MatchDataView extends RelativeLayout implements IMatchData
         this.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(explanation != null) {
+                if (explanation != null) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                     builder.setTitle("Explanation");
                     builder.setMessage(explanation);

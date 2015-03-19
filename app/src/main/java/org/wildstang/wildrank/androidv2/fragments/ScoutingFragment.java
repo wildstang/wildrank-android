@@ -1,6 +1,7 @@
 package org.wildstang.wildrank.androidv2.fragments;
 
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -52,6 +53,7 @@ public abstract class ScoutingFragment extends Fragment {
         // Get the ViewGroup holding all of the widgets
         ViewGroup vg = (ViewGroup) getView();
         if (vg == null) {
+            Log.d("wildrank", "view is null");
             // If the view has been destroyed, state should already be saved
             // to parent activity
             return;

@@ -9,24 +9,20 @@ import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.couchbase.lite.Context;
 import com.couchbase.lite.Database;
 import com.couchbase.lite.Document;
-import com.couchbase.lite.Manager;
 import com.couchbase.lite.Query;
 import com.couchbase.lite.QueryEnumerator;
 import com.couchbase.lite.QueryRow;
 import com.couchbase.lite.UnsavedRevision;
-import com.couchbase.lite.android.AndroidContext;
 
 import org.wildstang.wildrank.androidv2.R;
 import org.wildstang.wildrank.androidv2.SyncUtilities;
-import org.wildstang.wildrank.androidv2.Utilities;
 import org.wildstang.wildrank.androidv2.data.DatabaseManager;
 import org.wildstang.wildrank.androidv2.data.DatabaseManagerConstants;
 
-import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -174,6 +170,12 @@ public class SyncActivity extends ActionBarActivity {
                         // Determine the last note that each list has in common
                         int lastInCommonIndex = 0;
                         for (int i = 0; i < internalNotes.size(); i++) {
+                            if (i >= externalNotes.size()) {
+                                // Current index is outside the bounds of the external notes array.
+                                // Go back to the last index and break out of here!
+                                lastInCommonIndex = i - 1;
+                                break;
+                            }
                             if (externalNotes.get(i).equals(internalNotes.get(i))) {
                                 // The lists both have this note in common
                                 lastInCommonIndex = i;
@@ -189,7 +191,7 @@ public class SyncActivity extends ActionBarActivity {
                         }
 
                         // Create a new set of properties with these notes based on the existing internal properties
-                        Map<String, Object> newProps = doc.getProperties();
+                        Map<String, Object> newProps = new HashMap<>(doc.getProperties());
                         newProps.remove("notes");
                         newProps.put("notes", internalNotes);
 
@@ -225,7 +227,7 @@ public class SyncActivity extends ActionBarActivity {
                     // Compare the revision IDs of the external document both currently and at the time of the last sync
                     DatabaseManager.DocumentState lastKnownExternalRevisionState = lastExternalState.getDocStateForId(docId);
                     DatabaseManager.DocumentState lastKnownInternalRevisionState = lastInternalState.getDocStateForId(docId);
-                    if(lastKnownExternalRevisionState == null && lastKnownInternalRevisionState == null) {
+                    if (lastKnownExternalRevisionState == null && lastKnownInternalRevisionState == null) {
                         // The document was newly created both internally and externally.
                         // For now, keep the external one.
                         // TODO more advanced conflict resolution

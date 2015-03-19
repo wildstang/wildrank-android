@@ -33,8 +33,7 @@ public class NoteFragment extends Fragment implements View.OnClickListener {
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState)
-    {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         // Get details about the team we are scouting from the intent
@@ -60,10 +59,8 @@ public class NoteFragment extends Fragment implements View.OnClickListener {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
-        switch (item.getItemId())
-        {
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
             case android.R.id.home:
                 saveNotes();
                 return true;
@@ -71,8 +68,7 @@ public class NoteFragment extends Fragment implements View.OnClickListener {
         return super.onOptionsItemSelected(item);
     }
 
-    public void saveNotes()
-    {
+    public void saveNotes() {
         // Only save notes when the text field is not empty
         try {
             DatabaseManager.getInstance(getActivity()).saveNotes(teamKey, notes.getText().toString(), getActivity());
@@ -85,8 +81,7 @@ public class NoteFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.finish)
-        {
+        if (v.getId() == R.id.finish) {
             saveNotes();
         }
     }

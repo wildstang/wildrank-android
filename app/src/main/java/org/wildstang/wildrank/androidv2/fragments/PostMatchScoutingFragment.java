@@ -1,7 +1,6 @@
 package org.wildstang.wildrank.androidv2.fragments;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,8 +29,7 @@ public class PostMatchScoutingFragment extends ScoutingFragment implements View.
     }
 
     @Override
-    public void onResume()
-    {
+    public void onResume() {
         super.onResume();
         NoteFragment f = NoteFragment.newInstance(((ScoutMatchActivity) getActivity()).teamKey);
         getFragmentManager().beginTransaction().replace(R.id.notes_container, f, "notes").commit();

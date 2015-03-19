@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -30,6 +31,26 @@ public class ScoutingTextView extends ScoutingView {
         labelView.setText(label);
 
         valueView = (EditText) findViewById(R.id.value);
+        valueView.setClickable(false);
+        // When we receive focus after pressing "Next", pass focus onto the edittext
+        this.setFocusable(true);
+        this.setFocusableInTouchMode(true);
+        this.setOnFocusChangeListener(new OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    valueView.requestFocus();
+                }
+            }
+        });
+
+        this.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                valueView.requestFocus();
+            }
+        });
+
     }
 
     public void setText(String text) {
