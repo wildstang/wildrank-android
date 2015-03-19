@@ -14,9 +14,10 @@
         <attr name="defaultValue" format="string"/>
     </declare-styleable>
 
-    <declare-styleable name="DataView">
+    <declare-styleable name="MatchDataView">
         <attr name="label"/>
         <attr name="expression" format="string"/>
+        <attr name="explanation" format="string"/>
         <attr name="format">
             <enum name="decimal" value="0"/>
             <enum name="integer" value="1"/>

@@ -42,7 +42,6 @@ public class ScoutingNumberView extends ScoutingView {
                 if (hasFocus) {
                     valueView.requestFocus();
                 }
-
             }
         });
     }

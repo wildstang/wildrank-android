@@ -1,13 +1,12 @@
 package org.wildstang.wildrank.androidv2.adapters;
 
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import org.wildstang.wildrank.androidv2.fragments.TeamSummariesDataFragment;
 import org.wildstang.wildrank.androidv2.fragments.TeamSummariesGraphFragment;
-import org.wildstang.wildrank.androidv2.fragments.TeamSummariesNotesFragment;
+import org.wildstang.wildrank.androidv2.fragments.TeamSummariesInfoFragment;
 
 /**
  * Created by Liam on 2/28/2015.
@@ -15,11 +14,10 @@ import org.wildstang.wildrank.androidv2.fragments.TeamSummariesNotesFragment;
 public class TeamSummariesFragmentPagerAdapter extends FragmentStatePagerAdapter {
 
     static final int NUM_FRAGMENTS = 3;
-    private Bundle fragmentArgs;
 
+    private TeamSummariesInfoFragment infoFragment;
     private TeamSummariesDataFragment dataFragment;
     private TeamSummariesGraphFragment graphFragment;
-    private TeamSummariesNotesFragment notesFragment;
 
     public TeamSummariesFragmentPagerAdapter(FragmentManager fm) {
         super(fm);
@@ -29,14 +27,14 @@ public class TeamSummariesFragmentPagerAdapter extends FragmentStatePagerAdapter
     private void initFragments() {
         dataFragment = new TeamSummariesDataFragment();
         graphFragment = new TeamSummariesGraphFragment();
-        notesFragment = new TeamSummariesNotesFragment();
+        infoFragment = new TeamSummariesInfoFragment();
     }
 
     @Override
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                return notesFragment;
+                return infoFragment;
             case 1:
                 return dataFragment;
             case 2:
@@ -73,7 +71,7 @@ public class TeamSummariesFragmentPagerAdapter extends FragmentStatePagerAdapter
     public void updateTeamKey(String newTeamKey) {
         dataFragment.updateTeamKey(newTeamKey);
         graphFragment.updateTeamKey(newTeamKey);
-        notesFragment.updateTeamKey(newTeamKey);
+        infoFragment.updateTeamKey(newTeamKey);
     }
 
 }

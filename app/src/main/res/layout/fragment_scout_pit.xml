@@ -20,47 +20,47 @@
             android:text="Robot Specs"
             android:textSize="30sp"/>
 
-        <org.wildstang.wildrank.androidv2.views.SerializableNumberView
+        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingNumberView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/height"
-            app:key="pit-height"
+            app:key="height"
             app:label="Height"/>
 
-        <org.wildstang.wildrank.androidv2.views.SerializableNumberView
+        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingNumberView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/width"
-            app:key="pit-width"
+            app:key="width"
             app:label="Width"/>
 
-        <org.wildstang.wildrank.androidv2.views.SerializableNumberView
+        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingNumberView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/length"
-            app:key="pit-length"
+            app:key="length"
             app:label="Length"/>
 
-        <org.wildstang.wildrank.androidv2.views.SerializableCheckboxView
+        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingCheckboxView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/bumpers"
-            app:key="pit-bumpers"
+            app:key="bumpers"
             app:label="Bumpers"/>
 
-        <org.wildstang.wildrank.androidv2.views.SerializableSpinnerView
+        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingSpinnerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/drive"
-            app:key="pit-drive"
+            app:key="drivetrain"
             app:values="@array/drives"
             app:label="Drivetrain"/>
 
-        <org.wildstang.wildrank.androidv2.views.SerializableCheckboxView
+        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingCheckboxView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/swag"
-            app:key="pit-swag"
+            app:key="swag"
             app:label="Does Have Swag?"/>
 
     </LinearLayout>
@@ -81,49 +81,49 @@
             android:text="Match Strategy"
             android:textSize="30sp"/>
 
-        <org.wildstang.wildrank.androidv2.views.SerializableCheckboxView
+        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingCheckboxView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/landfill"
-            app:key="pit-landfill"
+            app:key="landfill"
             app:label="Plays in Landfill"/>
 
-        <org.wildstang.wildrank.androidv2.views.SerializableSpinnerView
+        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingSpinnerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/player_station"
-            app:key="pit-player_station"
+            app:key="player_station"
             app:values="@array/player_stations"
             app:label="Plays at Player Station"/>
 
-        <org.wildstang.wildrank.androidv2.views.SerializableCheckboxView
+        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingCheckboxView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/step"
-            app:key="pit-step"
+            app:key="step"
             app:label="Plays at Step"/>
 
-        <org.wildstang.wildrank.androidv2.views.SerializableSpinnerView
+        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingSpinnerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/totes"
-            app:key="pit-totes"
+            app:key="totes"
             app:values="@array/tote"
             app:label="Can Manipulate Totes"/>
 
-        <org.wildstang.wildrank.androidv2.views.SerializableSpinnerView
+        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingSpinnerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/bins"
-            app:key="pit-bins"
+            app:key="bins"
             app:values="@array/bin"
             app:label="Can Manipulate Bins"/>
 
-        <org.wildstang.wildrank.androidv2.views.SerializableSpinnerView
+        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingSpinnerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/litter"
-            app:key="pit-litter"
+            app:key="litter"
             app:values="@array/litter"
             app:label="Can Manipulate Litter"/>
 
@@ -145,27 +145,27 @@
             android:text="Match Performance"
             android:textSize="30sp"/>
 
-        <org.wildstang.wildrank.androidv2.views.SerializableSpinnerView
+        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingSpinnerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/tote_stack"
-            app:key="pit-tote_stack"
+            app:key="max_totes_stack"
             app:values="@array/tote_stack"
             app:label="Max Totes Stack"/>
 
-        <org.wildstang.wildrank.androidv2.views.SerializableSpinnerView
+        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingSpinnerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/max_cap"
-            app:key="pit-max_cap"
+            app:key="max_cap"
             app:values="@array/tote_stack"
             app:label="Max Cap (with Bin)"/>
 
-        <org.wildstang.wildrank.androidv2.views.SerializableNumberView
+        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingNumberView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/stacks"
-            app:key="pit-stacks"
+            app:key="stacks_per_match"
             app:label="Stacks/Match"/>
 
     </LinearLayout>
@@ -186,35 +186,35 @@
             android:text="Autonomous"
             android:textSize="30sp"/>
 
-        <org.wildstang.wildrank.androidv2.views.SerializableSpinnerView
+        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingSpinnerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/auto_bins"
-            app:key="pit-auto_bins"
+            app:key="auto_bins"
             app:values="@array/auto_bins"
             app:label="Auto Bins"/>
 
-        <org.wildstang.wildrank.androidv2.views.SerializableSpinnerView
+        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingSpinnerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/auto_totes"
-            app:key="pit-auto_totes"
+            app:key="auto_totes"
             app:values="@array/auto_totes"
             app:label="Auto Totes"/>
 
-        <org.wildstang.wildrank.androidv2.views.SerializableSpinnerView
+        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingSpinnerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/auto_step"
-            app:key="pit-auto_step"
+            app:key="auto_step"
             app:values="@array/auto_step"
             app:label="Auto Bins (from Step)"/>
 
-        <org.wildstang.wildrank.androidv2.views.SerializableCheckboxView
+        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingCheckboxView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/auto_drives"
-            app:key="pit-auto_drives"
+            app:key="auto_drives"
             app:label="Drives to Auto Zone"/>
 
     </LinearLayout>

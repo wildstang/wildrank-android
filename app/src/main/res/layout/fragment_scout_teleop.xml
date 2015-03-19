@@ -1,13 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <org.wildstang.wildrank.androidv2.views.scouting.ScoutingStacksView
+        android:id="@+id/stacks_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/tipped_counter"
         app:key="stacks"/>
+
+    <org.wildstang.wildrank.androidv2.views.scouting.ScoutingCounterView
+        android:id="@id/tipped_counter"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        app:key="stacks_tipped_over"
+        app:label="Stacks Tipped Over"/>
 
 </RelativeLayout>

@@ -6,9 +6,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import org.wildstang.wildrank.androidv2.R;
+import com.couchbase.lite.CouchbaseLiteException;
+import com.couchbase.lite.Document;
 
+import org.wildstang.wildrank.androidv2.R;
+import org.wildstang.wildrank.androidv2.data.DatabaseManager;
+import org.wildstang.wildrank.androidv2.views.MatchDataView;
+import org.wildstang.wildrank.androidv2.views.TemplatedTextView;
+
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Liam on 2/28/2015.
@@ -23,6 +31,14 @@ public class TeamSummariesDataFragment extends TeamSummariesFragment
 
     @Override
     public void updateTeamKey(String teamKey) {
-
+        MatchDataView.clearAllViewsInViewGroup((ViewGroup) getView());
+        try {
+            List<Document> docs = DatabaseManager.getInstance(getActivity()).getMatchResultsForTeam(teamKey);
+            MatchDataView.initializeViewsInViewGroupWithDocuments((ViewGroup) getView(), docs);
+        } catch (CouchbaseLiteException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -37,6 +37,7 @@ public class DatabaseManager {
     private Manager internalManager;
     private Database internalDatabase;
     private Manager externalManager;
+
     public static DatabaseManager getInstance(Context context) throws CouchbaseLiteException, IOException {
         if (instance == null) {
             instance = new DatabaseManager(context);
@@ -84,7 +85,7 @@ public class DatabaseManager {
                 Object docType = document.get(DatabaseManagerConstants.DOC_TYPE);
                 if (docType != null) {
                     if (docType.toString().equals(DatabaseManagerConstants.MATCH_RESULT_TYPE)) {
-                        emitter.emit(document.get("match_key") + ":" + document.get("team_number"), null);
+                        emitter.emit(document.get("team_key"), null);
                     }
                 }
             }
@@ -147,11 +148,11 @@ public class DatabaseManager {
                     return new File(Utilities.getExternalRootDirectory() + "/");
                 }
             };
-            if(externalManager == null) {
+            if (externalManager == null) {
                 externalManager = new Manager(externalContext, Manager.DEFAULT_OPTIONS);
             }
             Database externalDatabase = externalManager.getExistingDatabase(DatabaseManagerConstants.DB_NAME);
-            if(externalDatabase == null) {
+            if (externalDatabase == null) {
                 throw new Exception("Error opening database!");
             }
             return externalDatabase;
@@ -217,6 +218,23 @@ public class DatabaseManager {
 
     public Document getMatchResults(String matchKey, String teamKey) {
         return internalDatabase.getDocument(matchKey + ":" + teamKey);
+    }
+
+    public List<Document> getMatchResultsForTeam(String teamKey) throws CouchbaseLiteException{
+        Query query = internalDatabase.getView(DatabaseManagerConstants.MATCH_RESULT_VIEW).createQuery();
+        query.setDescending(false);
+        query.setStartKey(teamKey);
+        query.setEndKey(teamKey);
+        QueryEnumerator results = query.run();
+        if (results.getCount() > 0) {
+            List<Document> matches = new ArrayList<>();
+            for(Iterator<QueryRow> it = results; it.hasNext();) {
+                matches.add(it.next().getDocument());
+            }
+            return matches;
+        } else {
+            return null;
+        }
     }
 
     public boolean isMatchScouted(String matchKey, String teamKey) {
