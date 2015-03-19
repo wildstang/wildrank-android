@@ -29,8 +29,7 @@ public class MatchDataCappedStacksView extends MatchDataView implements IMatchDa
         } else if (documents.size() == 0) {
             return;
         }
-        double totalStacks = 0;
-        double droppedStacks = 0;
+        double cappedStacks = 0;
         for(Document document : documents) {
             Map<String, Object> data = (Map<String, Object>) document.getProperty("data");
             if(data == null) {
@@ -38,18 +37,13 @@ public class MatchDataCappedStacksView extends MatchDataView implements IMatchDa
             }
             List<Map<String, Object>> stacks = (List<Map<String, Object>>) data.get("stacks");
             for(Map<String, Object> stack : stacks) {
-                totalStacks++;
-                boolean dropped = (boolean) stack.get(ScoutingStacksView.STACK_DROPPED_KEY);
-                if(dropped) {
-                    droppedStacks++;
+                boolean includesBin = (boolean) stack.get(ScoutingStacksView.HAS_BIN_KEY);
+                boolean binDropped = (boolean) stack.get(ScoutingStacksView.BIN_DROPPED_KEY);
+                if(includesBin && !binDropped) {
+                    cappedStacks++;
                 }
-                Log.d("wildstang", stack.toString());
             }
         }
-        double percentage = (droppedStacks / totalStacks);
-        NumberFormat format = NumberFormat.getPercentInstance();
-        format.setMaximumFractionDigits(2);
-        String string = format.format(percentage);
-        setValueText(string);
+        setValueText("" + cappedStacks);
     }
 }

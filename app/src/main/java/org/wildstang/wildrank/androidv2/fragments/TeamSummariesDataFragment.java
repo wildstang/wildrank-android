@@ -1,7 +1,6 @@
 package org.wildstang.wildrank.androidv2.fragments;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,11 +10,9 @@ import com.couchbase.lite.Document;
 
 import org.wildstang.wildrank.androidv2.R;
 import org.wildstang.wildrank.androidv2.data.DatabaseManager;
-import org.wildstang.wildrank.androidv2.views.MatchDataView;
-import org.wildstang.wildrank.androidv2.views.TemplatedTextView;
+import org.wildstang.wildrank.androidv2.views.data.MatchDataView;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**

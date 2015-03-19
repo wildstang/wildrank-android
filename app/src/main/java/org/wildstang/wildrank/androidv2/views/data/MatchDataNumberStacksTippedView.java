@@ -2,6 +2,7 @@ package org.wildstang.wildrank.androidv2.views.data;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
 
 import com.couchbase.lite.Document;
 
@@ -33,6 +34,11 @@ public class MatchDataNumberStacksTippedView extends MatchDataView implements IM
                 return;
             }
 
+            Log.d("wildrank", data.toString());
+
+            if(data.get("stacks_tipped_over") == null) {
+                continue;
+            }
             int stacksTippedInMatch = (int) data.get("stacks_tipped_over");
             tipped += stacksTippedInMatch;
         }

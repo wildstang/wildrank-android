@@ -95,7 +95,7 @@
             app:key="post_match-red_card"
             app:label="Red Card"/>
 
-        <org.wildstang.wildrank.androidv2.views.SerializableCounterView
+        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingCounterView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/yellow_card"
@@ -144,7 +144,7 @@
             app:label="Floor Pickup Rating"
             app:values="@array/rankings"/>
 
-        <org.wildstang.wildrank.androidv2.views.SerializableSpinnerView
+        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingSpinnerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/hp_rating"
@@ -152,7 +152,7 @@
             app:label="Human Player Rating"
             app:values="@array/rankings"/>
 
-        <org.wildstang.wildrank.androidv2.views.SerializableNumberView
+        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingNumberView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/avg_points"

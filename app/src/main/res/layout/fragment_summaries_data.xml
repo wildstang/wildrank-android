@@ -6,23 +6,35 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <org.wildstang.wildrank.androidv2.views.MatchDataTotalStacksContributedToView
+    <org.wildstang.wildrank.androidv2.views.data.MatchDataTotalStacksContributedToView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:label="Total Stacks Contributed To"
         app:explanation="Calculated as the number of times the robot modified any stacks. This includes any additions to existing stacks. Stacks could count twice if, for example, they added totes to a stack that they made before."/>
 
-    <org.wildstang.wildrank.androidv2.views.MatchDataMaxHeightView
+    <org.wildstang.wildrank.androidv2.views.data.MatchDataMaxHeightView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:label="Max Stack Height"
         app:explanation="The max height of all stack that this robot contributed to. For additions to preexisting stacks, height is claculated as the height of the existing stack plus the number of added totes. For new stacks, height is simply the number of totes in the stack."/>
 
-    <org.wildstang.wildrank.androidv2.views.MatchDataPercentageStacksDroppedView
+    <org.wildstang.wildrank.androidv2.views.data.MatchDataPercentageStacksDroppedView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:label="Percentage of Stacks Dropped"
-        app:explanation="Calculated as the percentage of all stack manipulation records that have been flagged as &quot;Stack Dropped&quot;."/>
+        app:explanation="Calculated as the percentage of all stack manipulation records that have been flagged as &quot;Stack Dropped&quot;. If scouters did their job right, this only counts stacks that were dropped during formation or transport. Scored stacks that were tipped are counted separately."/>
+
+    <org.wildstang.wildrank.androidv2.views.data.MatchDataNumberStacksTippedView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:label="Number of Stacks Tipped"
+        app:explanation="The total number of scored stacks that the robot has tipped over."/>
+
+    <org.wildstang.wildrank.androidv2.views.data.MatchDataCappedStacksView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:label="Number of Capped Stacks"
+        app:explanation="Counts the number of stack records that are marked as including a bin that was not dropped."/>
 
 
 </LinearLayout>
