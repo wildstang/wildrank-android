@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
     <LinearLayout
         android:layout_width="250dp"
         android:layout_height="wrap_content"
@@ -57,6 +56,13 @@
             app:key="drivetrain"
             app:values="@array/drives"
             app:label="Drivetrain"/>
+
+        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingCheckboxView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/swag"
+            app:key="pit-swag"
+            app:label="Does Have Swag?"/>
 
     </LinearLayout>
 
@@ -177,8 +183,8 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:id="@+id/auto"
-        android:layout_toRightOf="@id/match_perf"
-        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@id/match"
+        android:layout_below="@id/match_perf"
         android:layout_marginRight="10dp"
         android:orientation="vertical">
 
@@ -220,6 +226,30 @@
             app:key="auto_drives"
             app:label="Drives to Auto Zone"/>
 
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/notes"
+        android:layout_width="500dp"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/finish"
+        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@id/auto"
+        android:orientation="vertical"
+        android:layout_marginRight="10dp" >
+
+        <TextView
+            android:id="@+id/notes_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Notes"
+            android:textSize="30sp" />
+
+        <FrameLayout
+            android:id="@+id/notes_container"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
     </LinearLayout>
 
     <Button
