@@ -84,21 +84,28 @@
         <org.wildstang.wildrank.androidv2.views.scouting.ScoutingCounterView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/general_foul"
-            app:key="post_match-general_foul"
-            app:label="General Foul"/>
+            android:id="@+id/foul"
+            app:key="post_match-foul"
+            app:label="Foul"/>
 
         <org.wildstang.wildrank.androidv2.views.scouting.ScoutingCounterView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/technical_foul"
-            app:key="post_match-technical_foul"
-            app:label="Technical Foul"/>
+            android:id="@+id/red_card"
+            app:key="post_match-red_card"
+            app:label="Red Card"/>
+
+        <org.wildstang.wildrank.androidv2.views.SerializableCounterView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/yellow_card"
+            app:key="post_match-yellow_card"
+            app:label="Yellow Card"/>
 
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="250dp"
+        android:layout_width="275dp"
         android:layout_height="wrap_content"
         android:id="@+id/ranking"
         android:layout_toRightOf="@id/fouls"
@@ -136,6 +143,21 @@
             app:key="post_match-floor_pickup_rating"
             app:label="Floor Pickup Rating"
             app:values="@array/rankings"/>
+
+        <org.wildstang.wildrank.androidv2.views.SerializableSpinnerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/hp_rating"
+            app:key="post_match-hp_rating"
+            app:label="Human Player Rating"
+            app:values="@array/rankings"/>
+
+        <org.wildstang.wildrank.androidv2.views.SerializableNumberView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/avg_points"
+            app:key="post_match-avg_points"
+            app:label="New Average Points"/>
 
     </LinearLayout>
 
