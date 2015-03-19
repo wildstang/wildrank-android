@@ -53,6 +53,7 @@
                 android:layout_marginRight="32dp"
                 android:textColor="@color/white"/>
 
+
         </LinearLayout>
     </android.support.v7.widget.Toolbar>
 

@@ -19,25 +19,24 @@ import com.couchbase.lite.CouchbaseLiteException;
 import org.wildstang.wildrank.androidv2.R;
 import org.wildstang.wildrank.androidv2.Utilities;
 import org.wildstang.wildrank.androidv2.data.DatabaseManager;
+import org.wildstang.wildrank.androidv2.fragments.NotesFragment;
 import org.wildstang.wildrank.androidv2.fragments.NotesSixFragment;
 
 import java.io.IOException;
 
 /**
- * Created by Liam on 2/21/2015.
+ * Created by Liam on 3/19/2015.
  */
-public class NotesActivity extends ActionBarActivity {
+public class NoteActivity extends ActionBarActivity {
     private Toolbar toolbar;
-    private static String matchKey;
-    private static String[] teamKeys;
-    private static String[] notes;
+    private static String teamKey;
+    private static String note;
 
-    private NotesSixFragment sixFrag;
+    private NotesFragment frag;
 
-    public static Intent createIntent(Context context, String matchKey, String[] teams) {
-        Intent i = new Intent(context, NotesActivity.class);
-        i.putExtra("match_key", matchKey);
-        i.putExtra("team_keys", teams);
+    public static Intent createIntent(Context context, String team) {
+        Intent i = new Intent(context, NoteActivity.class);
+        i.putExtra("team_key", team);
         return i;
     }
 
@@ -46,8 +45,7 @@ public class NotesActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
 
         Bundle extras = getIntent().getExtras();
-        matchKey = extras.getString("match_key");
-        teamKeys = extras.getStringArray("team_keys");
+        teamKey = extras.getString("team_key");
 
         setContentView(R.layout.activity_notes);
 
@@ -65,34 +63,20 @@ public class NotesActivity extends ActionBarActivity {
             toolbar.setBackgroundColor(getResources().getColor(R.color.material_blue));
         }
 
+        ((TextView) findViewById(R.id.team_numbers)).setText("" + Utilities.teamNumberFromTeamKey(teamKey));
 
-
-        ((TextView) findViewById(R.id.match_number)).setText("" + Utilities.matchNumberFromMatchKey(matchKey));
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < teamKeys.length; i++) {
-            if (i < teamKeys.length - 1) {
-                sb.append(teamKeys[i] + ", ");
-            } else {
-                sb.append(teamKeys[i]);
-            }
-
-        }
-        ((TextView) findViewById(R.id.team_numbers)).setText("" + Utilities.teamNumberFromTeamKey(sb.toString()));
-
-        sixFrag = NotesSixFragment.newInstance(teamKeys);
+        frag = NotesFragment.newInstance(teamKey);
 
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
-        ft.add(R.id.space, sixFrag);
+        ft.add(R.id.space, frag);
         ft.commit();
     }
 
     public void finishScouting() {
-        notes = sixFrag.getNotes();
+        note = frag.getNote();
         try {
-            for (int i = 0; i < teamKeys.length; i++) {
-                DatabaseManager.getInstance(this).saveNotes(teamKeys[i], notes[i], this);
-            }
+            DatabaseManager.getInstance(this).saveNotes(teamKey, note, this);
         } catch (CouchbaseLiteException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -114,7 +98,7 @@ public class NotesActivity extends ActionBarActivity {
         builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                NotesActivity.this.finish();
+                NoteActivity.this.finish();
             }
         });
         builder.show();
