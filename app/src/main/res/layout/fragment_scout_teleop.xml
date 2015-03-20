@@ -30,13 +30,13 @@
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             app:key="coop"
-            app:label="Did Co-op Stack"/>
+            app:label="Totes added to coop"/>
 
         <org.wildstang.wildrank.androidv2.views.scouting.ScoutingCounterView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:key="coop_height"
-            app:label="Total Co-op Stack Height (if contributed to)"/>
+            app:label="Pre-existing Co-op Height"/>
 
     </LinearLayout>
 
