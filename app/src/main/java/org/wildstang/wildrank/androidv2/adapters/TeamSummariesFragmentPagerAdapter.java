@@ -7,17 +7,19 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import org.wildstang.wildrank.androidv2.fragments.TeamSummariesDataFragment;
 import org.wildstang.wildrank.androidv2.fragments.TeamSummariesGraphFragment;
 import org.wildstang.wildrank.androidv2.fragments.TeamSummariesInfoFragment;
+import org.wildstang.wildrank.androidv2.fragments.TeamSummariesStackFragment;
 
 /**
  * Created by Liam on 2/28/2015.
  */
 public class TeamSummariesFragmentPagerAdapter extends FragmentStatePagerAdapter {
 
-    static final int NUM_FRAGMENTS = 3;
+    static final int NUM_FRAGMENTS = 4;
 
     private TeamSummariesInfoFragment infoFragment;
     private TeamSummariesDataFragment dataFragment;
     private TeamSummariesGraphFragment graphFragment;
+    private TeamSummariesStackFragment stackFragment;
 
     public TeamSummariesFragmentPagerAdapter(FragmentManager fm) {
         super(fm);
@@ -28,6 +30,7 @@ public class TeamSummariesFragmentPagerAdapter extends FragmentStatePagerAdapter
         dataFragment = new TeamSummariesDataFragment();
         graphFragment = new TeamSummariesGraphFragment();
         infoFragment = new TeamSummariesInfoFragment();
+        stackFragment = new TeamSummariesStackFragment();
     }
 
     @Override
@@ -39,6 +42,8 @@ public class TeamSummariesFragmentPagerAdapter extends FragmentStatePagerAdapter
                 return dataFragment;
             case 2:
                 return graphFragment;
+            case 3:
+                return stackFragment;
             default:
                 return null;
         }
@@ -63,6 +68,8 @@ public class TeamSummariesFragmentPagerAdapter extends FragmentStatePagerAdapter
                 return "Data";
             case 2:
                 return "Graphs";
+            case 3:
+                return "Stacks";
             default:
                 return "ERROR INVALID POSITION";
         }
@@ -72,6 +79,7 @@ public class TeamSummariesFragmentPagerAdapter extends FragmentStatePagerAdapter
         dataFragment.updateTeamKey(newTeamKey);
         graphFragment.updateTeamKey(newTeamKey);
         infoFragment.updateTeamKey(newTeamKey);
+        stackFragment.updateTeamKey(newTeamKey);
     }
 
 }
