@@ -152,13 +152,6 @@
             app:label="Human Player Rating"
             app:values="@array/rankings"/>
 
-        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingNumberView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/avg_points"
-            app:key="post_match-avg_points"
-            app:label="New Average Points"/>
-
     </LinearLayout>
 
     <LinearLayout
