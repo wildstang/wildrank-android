@@ -76,6 +76,8 @@ public class MatchScoutingMainFragment extends Fragment implements View.OnClickL
                             Toast.makeText(getActivity(), "Error querying the match list. Check logcat!", Toast.LENGTH_LONG).show();
                         }
 
+                        updateAssignedTeam();
+
                         // Update the selected match view if it exists
                         if (selectedMatchKey != null) {
                             try {
@@ -130,6 +132,8 @@ public class MatchScoutingMainFragment extends Fragment implements View.OnClickL
     @Override
     public void onResume() {
         super.onResume();
+
+        updateAssignedTeam();
 
         try {
             runQuery();
@@ -230,5 +234,10 @@ public class MatchScoutingMainFragment extends Fragment implements View.OnClickL
 
             }
         }
+    }
+
+    public void updateAssignedTeam() {
+        String assignedTeamType = PreferenceManager.getDefaultSharedPreferences(getActivity()).getString("assignedTeam", "red_1");
+        ((TextView) getView().findViewById(R.id.assigned_team)).setText(assignedTeamType);
     }
 }

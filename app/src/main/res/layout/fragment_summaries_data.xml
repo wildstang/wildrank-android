@@ -36,5 +36,11 @@
         app:label="Number of Capped Stacks"
         app:explanation="Counts the number of stack records that are marked as including a bin that was not dropped."/>
 
+    <org.wildstang.wildrank.androidv2.views.data.MatchDataHumanPlayerRatingAverageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:label="Average human player ranking"
+        app:explanation="Averages all non-zero human player rankings that have been given for this team." />
+
 
 </LinearLayout>

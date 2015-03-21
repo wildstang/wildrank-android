@@ -24,6 +24,7 @@ import org.wildstang.wildrank.androidv2.data.DatabaseManagerConstants;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -190,10 +191,19 @@ public class SyncActivity extends ActionBarActivity {
                             internalNotes.add(externalNotes.get(i));
                         }
 
+                        // Remove duplicates
+                        // We do it this way instead of using a set so we can sort of maintain chronological order
+                        List<String> newNotes = new ArrayList<>();
+                        for(String string : internalNotes) {
+                            if(!newNotes.contains(string)) {
+                                newNotes.add(string);
+                            }
+                        }
+
                         // Create a new set of properties with these notes based on the existing internal properties
                         Map<String, Object> newProps = new HashMap<>(doc.getProperties());
                         newProps.remove("notes");
-                        newProps.put("notes", internalNotes);
+                        newProps.put("notes", newNotes);
 
                         // Save the documents both internally and externally
                         Document document = internalDatabase.getDocument(docId);
