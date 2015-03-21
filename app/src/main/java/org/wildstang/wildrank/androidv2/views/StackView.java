@@ -27,8 +27,14 @@ public class StackView extends View {
     Bitmap noodle;
     List<Stack> stacks = new ArrayList<>();
 
+    boolean inited = false;
+
     public StackView(Context context, AttributeSet attrs) {
         super(context, attrs);
+    }
+
+    public void init()
+    {
         bin = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.binside);
         tote = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.toteside);
         noodle = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.noodle);
@@ -37,12 +43,13 @@ public class StackView extends View {
         double ogscale = scale;
         tote = Bitmap.createScaledBitmap(tote, (int) (scale * (tote.getWidth() / tote.getHeight())), (int) (scale), false);
         scale = ogscale * (bin.getHeight() / tote.getHeight());
-        bin = Bitmap.createScaledBitmap(bin, (int) (scale * (bin.getWidth() / bin.getHeight())), (int) (scale), false);
+        bin = Bitmap.createScaledBitmap(bin, (int) (scale * ((double)bin.getWidth() /(double) bin.getHeight())), (int) (scale), false);
         scale = ogscale * (noodle.getHeight() / noodle.getHeight());
-        noodle = Bitmap.createScaledBitmap(noodle, (int) (scale * (noodle.getWidth() / noodle.getHeight())), (int) (scale), false);
+        noodle = Bitmap.createScaledBitmap(noodle, (int) (scale * ((double)noodle.getWidth() / (double)noodle.getHeight())), (int) (scale), false);
     }
 
     public void updateData(String teamKey) {
+        stacks = new ArrayList<>();
         try {
             List<Document> matchResults = DatabaseManager.getInstance(getContext()).getMatchResultsForTeam(teamKey);
             for (Document doc : matchResults) {
@@ -55,6 +62,7 @@ public class StackView extends View {
                     stacks.add(new Stack(totes, hasBin, hasNoodle, j));
                 }
             }
+            invalidate();
         } catch (CouchbaseLiteException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -64,13 +72,13 @@ public class StackView extends View {
 
     @Override
     public void onDraw(Canvas c) {
-        try {
-
-            for (int i = 0; i < stacks.size(); i++) {
-                stacks.get(i).draw(c);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+        if(!inited)
+        {
+            inited = true;
+            init();
+        }
+        for (int i = 0; i < stacks.size(); i++) {
+            stacks.get(i).draw(c);
         }
     }
 
@@ -87,12 +95,15 @@ public class StackView extends View {
 
         public void draw(Canvas c) {
             for (int i = 0; i < totes; i++) {
+                System.out.println("Drawing Tote X: " + (stackNum * (tote.getWidth() + 10)) + " Y: " + (getHeight() - (i * tote.getHeight())));
                 c.drawBitmap(tote, stackNum * (tote.getWidth() + 10), getHeight() - (i * tote.getHeight()), null);
             }
             if (hasNoodle) {
-                c.drawBitmap(noodle, stackNum * (tote.getWidth() + 10), getHeight() - (totes * getHeight()), null);
+                System.out.println("Drawing Noodle X: " + (stackNum * (tote.getWidth() + 10)) + " Y: " + (getHeight() - (totes * tote.getHeight())));
+                c.drawBitmap(noodle, stackNum * (tote.getWidth() + 10), getHeight() - ((totes+1) * getHeight()), null);
             }
             if (hasBin) {
+                System.out.println("Drawing Bin X: " + (stackNum * (tote.getWidth() + 10)) + " Y: " + (getHeight() - (totes * tote.getHeight())));
                 c.drawBitmap(bin, stackNum * (tote.getWidth() + 10), getHeight() - (totes * getHeight()), null);
             }
         }
