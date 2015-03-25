@@ -4,10 +4,14 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import com.couchbase.lite.Document;
+
 import org.wildstang.wildrank.androidv2.fragments.TeamSummariesDataFragment;
-import org.wildstang.wildrank.androidv2.fragments.TeamSummariesGraphFragment;
+import org.wildstang.wildrank.androidv2.fragments.TeamSummariesRawDataFragment;
 import org.wildstang.wildrank.androidv2.fragments.TeamSummariesInfoFragment;
 import org.wildstang.wildrank.androidv2.fragments.TeamSummariesStackFragment;
+
+import java.util.List;
 
 /**
  * Created by Liam on 2/28/2015.
@@ -18,8 +22,8 @@ public class TeamSummariesFragmentPagerAdapter extends FragmentStatePagerAdapter
 
     private TeamSummariesInfoFragment infoFragment;
     private TeamSummariesDataFragment dataFragment;
-    private TeamSummariesGraphFragment graphFragment;
     private TeamSummariesStackFragment stackFragment;
+    private TeamSummariesRawDataFragment rawDataFragment;
 
     public TeamSummariesFragmentPagerAdapter(FragmentManager fm) {
         super(fm);
@@ -28,9 +32,9 @@ public class TeamSummariesFragmentPagerAdapter extends FragmentStatePagerAdapter
 
     private void initFragments() {
         dataFragment = new TeamSummariesDataFragment();
-        graphFragment = new TeamSummariesGraphFragment();
-        infoFragment = new TeamSummariesInfoFragment();
+        rawDataFragment = new TeamSummariesRawDataFragment();
         stackFragment = new TeamSummariesStackFragment();
+        infoFragment = new TeamSummariesInfoFragment();
     }
 
     @Override
@@ -41,9 +45,9 @@ public class TeamSummariesFragmentPagerAdapter extends FragmentStatePagerAdapter
             case 1:
                 return dataFragment;
             case 2:
-                return graphFragment;
-            case 3:
                 return stackFragment;
+            case 3:
+                return rawDataFragment;
             default:
                 return null;
         }
@@ -67,19 +71,19 @@ public class TeamSummariesFragmentPagerAdapter extends FragmentStatePagerAdapter
             case 1:
                 return "Data";
             case 2:
-                return "Graphs";
-            case 3:
                 return "Stacks";
+            case 3:
+                return "Raw Data";
             default:
                 return "ERROR INVALID POSITION";
         }
     }
 
-    public void updateTeamKey(String newTeamKey) {
-        dataFragment.updateTeamKey(newTeamKey);
-        graphFragment.updateTeamKey(newTeamKey);
-        infoFragment.updateTeamKey(newTeamKey);
-        stackFragment.updateTeamKey(newTeamKey);
+    public void acceptNewTeamData(String teamKey, Document teamDoc, Document pitDoc, List<Document> matchDocs) {
+        infoFragment.acceptNewTeamData(teamKey, teamDoc, pitDoc, matchDocs);
+        dataFragment.acceptNewTeamData(teamKey, teamDoc, pitDoc, matchDocs);
+        stackFragment.acceptNewTeamData(teamKey, teamDoc, pitDoc, matchDocs);
+        rawDataFragment.acceptNewTeamData(teamKey, teamDoc, pitDoc, matchDocs);
     }
 
 }

@@ -57,6 +57,10 @@ public class Utilities {
         return teamKey.replace("frc", "");
     }
 
+    public static String getAssignedTeam(Context context) {
+        return PreferenceManager.getDefaultSharedPreferences(context).getString("assignedTeam", "red_1");
+    }
+
     public static String getAssignedTeamKeyFromMatchDocument(Context context, Document matchDocument) {
         String assignedTeamType = PreferenceManager.getDefaultSharedPreferences(context).getString("assignedTeam", "red_1");
         switch (assignedTeamType) {

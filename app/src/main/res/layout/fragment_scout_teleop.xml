@@ -33,7 +33,7 @@
             app:label="Totes added to coop"/>
 
         <org.wildstang.wildrank.androidv2.views.scouting.ScoutingCounterView
-            android:layout_width="wrap_content"
+            android:layout_width="350dp"
             android:layout_height="wrap_content"
             app:key="coop_height"
             app:label="Pre-existing Co-op Height"/>

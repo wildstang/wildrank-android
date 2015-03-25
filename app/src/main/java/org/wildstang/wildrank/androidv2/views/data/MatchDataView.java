@@ -16,6 +16,8 @@ import com.couchbase.lite.Document;
 import org.wildstang.wildrank.androidv2.R;
 import org.wildstang.wildrank.androidv2.interfaces.IMatchDataView;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.List;
 
 /**
@@ -111,6 +113,16 @@ public abstract class MatchDataView extends RelativeLayout implements IMatchData
                 clearAllViewsInViewGroup((ViewGroup) view);
             }
         }
+    }
+
+    protected static String formatNumberAsString(double number) {
+        return new DecimalFormat("#.##").format(number);
+    }
+
+    protected static String formatPercentageAsString(double percentage) {
+        NumberFormat format = NumberFormat.getPercentInstance();
+        format.setMaximumFractionDigits(2);
+        return format.format(percentage);
     }
 
 }

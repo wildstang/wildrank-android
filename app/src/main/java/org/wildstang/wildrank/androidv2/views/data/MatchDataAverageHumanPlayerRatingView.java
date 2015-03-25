@@ -15,9 +15,9 @@ import java.util.Map;
 /**
  * Created by Nathan on 3/18/2015.
  */
-public class MatchDataHumanPlayerRatingAverageView extends MatchDataView implements IMatchDataView {
+public class MatchDataAverageHumanPlayerRatingView extends MatchDataView implements IMatchDataView {
 
-    public MatchDataHumanPlayerRatingAverageView(Context context, AttributeSet attrs) {
+    public MatchDataAverageHumanPlayerRatingView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
@@ -50,6 +50,6 @@ public class MatchDataHumanPlayerRatingAverageView extends MatchDataView impleme
             numMatches++;
         }
         double average = ratingSum / numMatches;
-        setValueText(new DecimalFormat("#.##").format(average));
+        setValueText(formatNumberAsString(average));
     }
 }

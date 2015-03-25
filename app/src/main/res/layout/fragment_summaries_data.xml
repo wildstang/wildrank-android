@@ -30,17 +30,35 @@
         app:label="Number of Stacks Tipped"
         app:explanation="The total number of scored stacks that the robot has tipped over."/>
 
-    <org.wildstang.wildrank.androidv2.views.data.MatchDataCappedStacksView
+    <org.wildstang.wildrank.androidv2.views.data.MatchDataNumberCappedStacksView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:label="Number of Capped Stacks"
         app:explanation="Counts the number of stack records that are marked as including a bin that was not dropped."/>
 
-    <org.wildstang.wildrank.androidv2.views.data.MatchDataHumanPlayerRatingAverageView
+    <org.wildstang.wildrank.androidv2.views.data.MatchDataAverageHumanPlayerRatingView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:label="Average human player ranking"
+        app:label="Average Human Player Ranking"
         app:explanation="Averages all non-zero human player rankings that have been given for this team." />
+
+    <org.wildstang.wildrank.androidv2.views.data.MatchDataAverageStacksContributedToView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:label="Average Stacks Contributed To Per Match"
+        app:explanation="Calculated as the total number of stacks contributed to divided by the total number of matches played in."/>
+
+    <org.wildstang.wildrank.androidv2.views.data.MatchDataTotalFoulsView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:label="Total Fouls"
+        app:explanation="The sum of all fouls received by this team."/>
+
+    <org.wildstang.wildrank.androidv2.views.data.MatchDataTotalYellowRedCardsView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:label="Total Yellow/Red Cards"
+        app:explanation="Simply the sum of all yellow/red cards received by the team."/>
 
 
 </LinearLayout>

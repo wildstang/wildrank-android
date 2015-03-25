@@ -4,6 +4,8 @@ import android.support.v4.app.Fragment;
 
 import com.couchbase.lite.Document;
 
+import java.util.List;
+
 /**
  * Created by Liam on 2/28/2015.
  */
@@ -18,5 +20,5 @@ public abstract class TeamSummariesFragment extends Fragment {
         teamNumber = (Integer) document.getProperty("team_number");
     }
 
-    public abstract void updateTeamKey(String teamKey);
+    public abstract void acceptNewTeamData(String teamKey, Document teamDocument, Document pitDocument, List<Document> matchDocuments);
 }

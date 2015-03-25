@@ -13,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.couchbase.lite.CouchbaseLiteException;
 import com.couchbase.lite.Document;
 import com.couchbase.lite.Query;
 import com.couchbase.lite.QueryEnumerator;
@@ -24,6 +25,7 @@ import org.wildstang.wildrank.androidv2.adapters.TeamSummariesFragmentPagerAdapt
 import org.wildstang.wildrank.androidv2.data.DatabaseManager;
 import org.wildstang.wildrank.androidv2.views.SlidingTabs;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -115,6 +117,15 @@ public class TeamSummariesMainFragment extends Fragment {
     }
 
     private void loadInfoForTeam(String teamKey) {
-        ((TeamSummariesFragmentPagerAdapter) pager.getAdapter()).updateTeamKey(teamKey);
+        try {
+            DatabaseManager db = DatabaseManager.getInstance(getActivity());
+            Document teamDocument = db.getTeamFromKey(teamKey);
+            Document pitDocument = db.getInternalDatabase().getExistingDocument("pit:" + teamKey);
+            List<Document> matchDocuments = db.getMatchResultsForTeam(teamKey);
+            ((TeamSummariesFragmentPagerAdapter) pager.getAdapter()).acceptNewTeamData(teamKey, teamDocument, pitDocument, matchDocuments);
+        } catch (CouchbaseLiteException | IOException e) {
+            e.printStackTrace();
+            Toast.makeText(getActivity(), "Error loading data for team. Check LogCat.", Toast.LENGTH_LONG).show();
+        }
     }
 }

@@ -200,17 +200,7 @@ public class DatabaseManager {
     }
 
     public Document getTeamFromKey(String teamKey) throws CouchbaseLiteException {
-        String teamNumber = Utilities.teamNumberFromTeamKey(teamKey);
-        Query query = internalDatabase.getView(DatabaseManagerConstants.TEAM_LIST_VIEW_BY_NUMBER).createQuery();
-        query.setDescending(false);
-        query.setStartKey(teamNumber);
-        query.setEndKey(teamNumber);
-        QueryEnumerator results = query.run();
-        if (results.getCount() > 0) {
-            return results.getRow(0).getDocument();
-        } else {
-            return null;
-        }
+        return internalDatabase.getExistingDocument("team:" + teamKey);
     }
 
     /*

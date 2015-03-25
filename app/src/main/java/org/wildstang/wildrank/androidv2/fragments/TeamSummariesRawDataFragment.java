@@ -18,7 +18,7 @@ import java.util.List;
 /**
  * Created by Liam on 2/28/2015.
  */
-public class TeamSummariesGraphFragment extends TeamSummariesFragment {
+public class TeamSummariesRawDataFragment extends TeamSummariesFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -27,20 +27,19 @@ public class TeamSummariesGraphFragment extends TeamSummariesFragment {
     }
 
     @Override
-    public void updateTeamKey(String teamKey) {
+    public void acceptNewTeamData(String teamKey, Document teamDoc, Document pitDoc, List<Document> matchDocs) {
         StringBuilder rawDataString = new StringBuilder();
 
         TextView rawData = ((TextView) getView().findViewById(R.id.raw_data));
         try {
-            List<Document> docs = DatabaseManager.getInstance(getActivity()).getMatchResultsForTeam(teamKey);
-            if(docs == null) {
+            if(matchDocs == null) {
                 rawData.setText("No match results found.");
                 return;
-            } else if (docs.size() == 0) {
+            } else if (matchDocs.size() == 0) {
                 rawData.setText("No match results found.");
                 return;
             }
-            for (Document doc : docs) {
+            for (Document doc : matchDocs) {
                 try {
                     Gson gson = new Gson();
                     String json = gson.toJson(doc.getProperties());

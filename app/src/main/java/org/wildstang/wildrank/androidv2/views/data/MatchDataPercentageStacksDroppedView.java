@@ -7,6 +7,7 @@ import android.util.Log;
 import com.couchbase.lite.Document;
 
 import org.wildstang.wildrank.androidv2.interfaces.IMatchDataView;
+import org.wildstang.wildrank.androidv2.models.StackModel;
 import org.wildstang.wildrank.androidv2.views.scouting.ScoutingStacksView;
 
 import java.text.NumberFormat;
@@ -39,21 +40,17 @@ public class MatchDataPercentageStacksDroppedView extends MatchDataView implemen
             List<Map<String, Object>> stacks = (List<Map<String, Object>>) data.get("stacks");
             for (Map<String, Object> stack : stacks) {
                 totalStacks++;
-                boolean dropped = (boolean) stack.get(ScoutingStacksView.STACK_DROPPED_KEY);
+                boolean dropped = (boolean) stack.get(StackModel.STACK_DROPPED_KEY);
                 if (dropped) {
                     droppedStacks++;
                 }
-                Log.d("wildstang", stack.toString());
             }
         }
         if (totalStacks == 0) {
             setValueText("N/A");
         } else {
             double percentage = (droppedStacks / totalStacks);
-            NumberFormat format = NumberFormat.getPercentInstance();
-            format.setMaximumFractionDigits(2);
-            String string = format.format(percentage);
-            setValueText(string);
+            setValueText(formatPercentageAsString(percentage));
         }
     }
 }

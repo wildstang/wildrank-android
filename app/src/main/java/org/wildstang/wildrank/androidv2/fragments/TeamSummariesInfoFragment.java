@@ -16,6 +16,7 @@ import org.wildstang.wildrank.androidv2.data.DatabaseManager;
 import org.wildstang.wildrank.androidv2.views.TemplatedTextView;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -42,7 +43,7 @@ public class TeamSummariesInfoFragment extends TeamSummariesFragment {
     }
 
     @Override
-    public void updateTeamKey(String teamKey) {
+    public void acceptNewTeamData(String teamKey, Document teamDoc, Document pitDoc, List<Document> matchDocs) {
         this.teamKey = teamKey;
         this.teamNumber = Integer.parseInt(Utilities.teamNumberFromTeamKey(teamKey));
 
@@ -50,8 +51,6 @@ public class TeamSummariesInfoFragment extends TeamSummariesFragment {
         getView().findViewById(R.id.content).setVisibility(View.VISIBLE);
 
         try {
-            Document pitDoc = DatabaseManager.getInstance(getActivity()).getInternalDatabase().getExistingDocument("pit:" + teamKey);
-            Document teamDoc = DatabaseManager.getInstance(getActivity()).getInternalDatabase().getExistingDocument("team:" + teamKey);
             System.out.println("team doc null? " + teamDoc == null);
             teamName = (String) teamDoc.getProperty("nickname");
             teamNumberView.setText("Team " + teamNumber);

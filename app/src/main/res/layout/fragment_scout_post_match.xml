@@ -86,7 +86,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/foul"
             app:key="post_match-foul"
-            app:label="Foul"/>
+            app:label="Fouls"/>
 
         <org.wildstang.wildrank.androidv2.views.scouting.ScoutingCheckboxView
             android:layout_width="match_parent"

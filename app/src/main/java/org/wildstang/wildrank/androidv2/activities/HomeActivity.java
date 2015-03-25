@@ -27,30 +27,58 @@ import org.wildstang.wildrank.androidv2.fragments.PitScoutingMainFragment;
 import org.wildstang.wildrank.androidv2.fragments.TeamSummariesMainFragment;
 
 
+/**
+ * Serves as the jumping-off point of the entire app. It utilizes a navigation drawer to jump
+ * between various top-level screens, including match scouting, pit scouting, and data viewing.
+ * <p/>
+ * When you switch modes, the app swaps in the appropriate main fragment for the given mode. The
+ * modes are defined in the enum Mode; new modes should be added there, and any setup that should be
+ * done when that mode is selected should be defined in switchToMode().
+ */
 public class HomeActivity extends ActionBarActivity {
 
     public static final String PREF_IS_APP_CONFIGURED = "is_app_configured";
 
-    private static final String[] MODE_NAMES = {"Match Scouting", "Pit Scouting", "Notes", "Team Summaries"};
+    private static final String[] MODE_NAMES;
+
+    static {
+        MODE_NAMES = new String[Mode.values().length];
+        for (Mode mode : Mode.values()) {
+            MODE_NAMES[mode.ordinal()] = mode.getTitle();
+        }
+    }
+
+    // Defines "modes" that can be switched to from the navigation drawer
+    private enum Mode {
+        MATCH_SCOUTING("Match scouting"),
+        PIT_SCOUTING("Pit scouting"),
+        NOTES("Notes"),
+        TEAM_SUMMARIES("Team summaries");
+
+        private final String title;
+
+        Mode(String title) {
+            this.title = title;
+        }
+
+        public String getTitle() {
+            return this.title;
+        }
+    }
 
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle drawerToggle;
     private ListView navigationDrawerList;
     private Toolbar toolbar;
 
-    private int currentPosition = -1;
+    private Mode currentMode = null;
 
     @Override
     public void onResume() {
         super.onResume();
-        String team = PreferenceManager.getDefaultSharedPreferences(this).getString("assignedTeam", "red_1");
 
-        if (team.contains("red")) {
-            toolbar.setBackgroundColor(getResources().getColor(R.color.material_red));
-
-        } else {
-            toolbar.setBackgroundColor(getResources().getColor(R.color.material_blue));
-        }
+        // If we're resuming, the assigned team could have changed. Set up the color of the Toolbar again.
+        setUpToolbar();
     }
 
     @Override
@@ -67,12 +95,12 @@ public class HomeActivity extends ActionBarActivity {
         boolean isLoggedIn = UserHelper.isUserLoggedIn(this);
 
         if (isAppConfigured) {
-           /* The app has been set up! Go ahead and display stuff.
-            *
-            */
+            // The app has been set up! Go ahead and display stuff.
             if (isLoggedIn) {
-                switchToModeForPosition(0);
+                // Default to match scouting mode
+                switchToMode(Mode.MATCH_SCOUTING);
             } else {
+                // A user needs to be looged in first before we can begin
                 startActivity(new Intent(this, UserLoginActivity.class));
                 finish();
             }
@@ -84,19 +112,23 @@ public class HomeActivity extends ActionBarActivity {
             finish();
         }
 
-        String team = PreferenceManager.getDefaultSharedPreferences(this).getString("assignedTeam", "red_1");
+        setUpToolbar();
 
+        drawerLayout = (DrawerLayout) findViewById(R.id.nav_drawer_layout);
+        navigationDrawerList = (ListView) findViewById(R.id.navigation_drawer_list);
+        setUpNavigationDrawer();
+    }
+
+    private void setUpToolbar() {
         toolbar.setTitleTextColor(Color.WHITE);
+
+        String team = PreferenceManager.getDefaultSharedPreferences(this).getString("assignedTeam", "red_1");
         if (team.contains("red")) {
             toolbar.setBackgroundColor(getResources().getColor(R.color.material_red));
 
         } else {
             toolbar.setBackgroundColor(getResources().getColor(R.color.material_blue));
         }
-
-        drawerLayout = (DrawerLayout) findViewById(R.id.nav_drawer_layout);
-        navigationDrawerList = (ListView) findViewById(R.id.navigation_drawer_list);
-        setUpNavigationDrawer();
     }
 
     @Override
@@ -155,32 +187,44 @@ public class HomeActivity extends ActionBarActivity {
         navigationDrawerList.setAdapter(adapter);
     }
 
+    /**
+     * Called when an item is selected from the navigation drawer.
+     *
+     * @param position the position of the selected item in the list. This should correspond to the
+     *                 ordinal of the enum representing this mode.
+     */
     private void onItemSelected(int position) {
-        switchToModeForPosition(position);
+        if (position > Mode.values().length - 1) {
+            return;
+        }
+        Mode mode = Mode.values()[position];
+        switchToMode(mode);
         drawerLayout.closeDrawers();
     }
 
-    private void switchToModeForPosition(int position) {
-        if (currentPosition == position) {
-            return;
+    private void switchToMode(Mode mode) {
+        if(currentMode != null) {
+            if (currentMode == mode) {
+                return;
+            }
         }
-        switch (position) {
-            case 0:
+        switch (mode) {
+            case MATCH_SCOUTING:
                 //Match scouting
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new MatchScoutingMainFragment()).commit();
                 getSupportActionBar().setTitle(MODE_NAMES[0]);
                 break;
-            case 1:
+            case PIT_SCOUTING:
                 // Pit scouting
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PitScoutingMainFragment()).commit();
                 getSupportActionBar().setTitle(MODE_NAMES[1]);
                 break;
-            case 2:
+            case NOTES:
                 // Notes
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new NotesMainFragment()).commit();
                 getSupportActionBar().setTitle(MODE_NAMES[2]);
                 break;
-            case 3:
+            case TEAM_SUMMARIES:
                 // Team Summaries
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new TeamSummariesMainFragment()).commit();
                 getSupportActionBar().setTitle(MODE_NAMES[3]);
@@ -188,6 +232,7 @@ public class HomeActivity extends ActionBarActivity {
             default:
                 break;
         }
+        currentMode = mode;
     }
 
     @Override
@@ -221,6 +266,7 @@ public class HomeActivity extends ActionBarActivity {
             this.finish();
         } else if (id == R.id.action_add_user) {
             Intent i = new Intent(this, UserLoginActivity.class);
+            // Don't create a new Home activity after the user is logged in; simply return to this one.
             i.putExtra(UserLoginActivity.EXTRA_CREATE_NEW_HOME, false);
             startActivity(i);
         } else if (drawerToggle.onOptionsItemSelected(item)) {

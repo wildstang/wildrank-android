@@ -27,7 +27,7 @@ public class MatchDataNumberStacksTippedView extends MatchDataView implements IM
         } else if (documents.size() == 0) {
             return;
         }
-        double tipped = 0;
+        int tipped = 0;
         for (Document document : documents) {
             Map<String, Object> data = (Map<String, Object>) document.getProperty("data");
             if (data == null) {

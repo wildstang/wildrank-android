@@ -17,6 +17,9 @@ import android.widget.ImageView;
 
 /**
  * Created by Nathan on 2/7/2015.
+ * <p/>
+ * A subclass of ImageView that applies a linear gradient to the bottom half of the image. This is
+ * mostly useful for cases where text needs to be overlaid on an image.
  */
 public class LinearGradientImageView extends ImageView {
     public LinearGradientImageView(Context context) {
