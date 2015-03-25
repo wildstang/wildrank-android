@@ -59,13 +59,13 @@ public class ScoutingCounterView extends ScoutingView {
         });
     }
 
+    public int getCount() {
+        return count;
+    }
+
     public void setCount(int count) {
         this.count = count;
         countView.setText(Integer.toString(this.count));
-    }
-
-    public int getCount() {
-        return count;
     }
 
     @Override

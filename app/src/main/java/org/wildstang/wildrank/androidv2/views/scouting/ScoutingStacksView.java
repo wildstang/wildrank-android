@@ -97,7 +97,7 @@ public class ScoutingStacksView extends ScoutingView implements View.OnClickList
             data.preexistingToteCount = preexistingHeight;
 
             // If the stack was not marked as preexisting, set the preexisting height to 0
-            if(data.isPreexisting == false) {
+            if (data.isPreexisting == false) {
                 data.preexistingToteCount = 0;
             }
 

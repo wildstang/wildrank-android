@@ -41,6 +41,36 @@ public class TemplatedTextView extends TextView {
         a.recycle();
     }
 
+    public static void initializeViewsInViewGroupWithMap(ViewGroup v, Map<String, Object> data) {
+        if (v == null) {
+            return;
+        }
+        int childCount = v.getChildCount();
+        for (int i = 0; i < childCount; i++) {
+            View view = v.getChildAt(i);
+            if (view instanceof TemplatedTextView) {
+                ((TemplatedTextView) view).populateFromMap(data);
+            } else if (view instanceof ViewGroup) {
+                initializeViewsInViewGroupWithMap((ViewGroup) view, data);
+            }
+        }
+    }
+
+    public static void clearAllViewsInViewGroup(ViewGroup v) {
+        if (v == null) {
+            return;
+        }
+        int childCount = v.getChildCount();
+        for (int i = 0; i < childCount; i++) {
+            View view = v.getChildAt(i);
+            if (view instanceof TemplatedTextView) {
+                ((TemplatedTextView) view).clearData();
+            } else if (view instanceof ViewGroup) {
+                clearAllViewsInViewGroup((ViewGroup) view);
+            }
+        }
+    }
+
     public void populateFromMap(Map<String, Object> data) {
         String text = originalString;
         // First, parse through the text
@@ -83,35 +113,5 @@ public class TemplatedTextView extends TextView {
 
     public void clearData() {
         setText("");
-    }
-
-    public static void initializeViewsInViewGroupWithMap(ViewGroup v, Map<String, Object> data) {
-        if (v == null) {
-            return;
-        }
-        int childCount = v.getChildCount();
-        for (int i = 0; i < childCount; i++) {
-            View view = v.getChildAt(i);
-            if (view instanceof TemplatedTextView) {
-                ((TemplatedTextView) view).populateFromMap(data);
-            } else if (view instanceof ViewGroup) {
-                initializeViewsInViewGroupWithMap((ViewGroup) view, data);
-            }
-        }
-    }
-
-    public static void clearAllViewsInViewGroup(ViewGroup v) {
-        if (v == null) {
-            return;
-        }
-        int childCount = v.getChildCount();
-        for (int i = 0; i < childCount; i++) {
-            View view = v.getChildAt(i);
-            if (view instanceof TemplatedTextView) {
-                ((TemplatedTextView) view).clearData();
-            } else if (view instanceof ViewGroup) {
-                clearAllViewsInViewGroup((ViewGroup) view);
-            }
-        }
     }
 }

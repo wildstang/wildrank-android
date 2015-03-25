@@ -1,47 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/red">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/red">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
+        theme="@style/ThemeOverlay.AppCompat.ActionBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/blue"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        app:contentInsetStart="72dp"/>
+        app:contentInsetStart="72dp"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
     <LinearLayout
         android:layout_width="500dp"
         android:layout_height="match_parent"
-        android:layout_centerHorizontal="true"
         android:layout_below="@id/toolbar"
-        android:padding="16dp"
-        android:background="@color/white"
+        android:layout_centerHorizontal="true"
         android:layout_marginBottom="64dp"
-        android:orientation="vertical">
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:padding="16dp">
 
         <ListView
             android:id="@+id/users_list"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
-            android:layout_marginBottom="16dp"/>
+            android:layout_marginBottom="16dp"
+            android:layout_weight="1" />
 
         <Button
             android:id="@+id/add_user_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Add user"/>
+            android:text="Add user" />
 
         <Button
             android:id="@+id/logout_all_users_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Logout all users"/>
+            android:text="Logout all users" />
 
     </LinearLayout>
 </RelativeLayout>

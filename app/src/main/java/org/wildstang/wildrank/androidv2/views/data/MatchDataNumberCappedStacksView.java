@@ -7,7 +7,6 @@ import com.couchbase.lite.Document;
 
 import org.wildstang.wildrank.androidv2.interfaces.IMatchDataView;
 import org.wildstang.wildrank.androidv2.models.StackModel;
-import org.wildstang.wildrank.androidv2.views.scouting.ScoutingStacksView;
 
 import java.util.List;
 import java.util.Map;

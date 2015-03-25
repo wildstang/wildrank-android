@@ -35,13 +35,11 @@ import java.util.Map;
 public class ScoutPitActivity extends ActionBarActivity {
 
     public static final String EXTRA_TEAM_KEY = "team_key";
-
+    public String teamKey;
     private ViewPager pager;
     private PitScoutFragmentPagerAdapter adapter;
     private SlidingTabs tabs;
     private Toolbar toolbar;
-
-    public String teamKey;
 
     public static Intent createIntent(Context context, String teamKey) {
         Intent i = new Intent(context, ScoutPitActivity.class);

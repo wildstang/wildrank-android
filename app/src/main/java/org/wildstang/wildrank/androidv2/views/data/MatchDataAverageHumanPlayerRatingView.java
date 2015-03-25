@@ -8,7 +8,6 @@ import com.couchbase.lite.Document;
 
 import org.wildstang.wildrank.androidv2.interfaces.IMatchDataView;
 
-import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Map;
 
@@ -43,7 +42,7 @@ public class MatchDataAverageHumanPlayerRatingView extends MatchDataView impleme
             }
             String hpRatingString = (String) data.get("post_match-hp_rating");
             int hpRating = Integer.parseInt(hpRatingString);
-            if(hpRating == 0) {
+            if (hpRating == 0) {
                 continue;
             }
             ratingSum += hpRating;

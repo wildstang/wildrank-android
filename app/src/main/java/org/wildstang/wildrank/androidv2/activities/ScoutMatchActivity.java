@@ -39,13 +39,11 @@ public class ScoutMatchActivity extends ActionBarActivity {
     public static final String EXTRA_ALLIANCE_COLOR = "alliance_color";
     public static final String EXTRA_ALLIANCE_COLOR_RED = "red";
     public static final String EXTRA_ALLIANCE_COLOR_BLUE = "blue";
-
+    public String teamKey;
     private ViewPager pager;
     private MatchScoutFragmentPagerAdapter adapter;
     private SlidingTabs tabs;
     private Toolbar toolbar;
-
-    public String teamKey;
     private String matchKey;
     private String allianceColor;
 

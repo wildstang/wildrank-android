@@ -56,6 +56,14 @@ public class ScoutingNumberView extends ScoutingView {
         });
     }
 
+    public static String formatDouble(double d) {
+        if (d == (int) d) {
+            return String.format(Locale.US, "%d", (int) d);
+        } else {
+            return String.format(Locale.US, "%s", d);
+        }
+    }
+
     public void setValue(double value) {
         valueView.setText(formatDouble(value));
     }
@@ -67,14 +75,6 @@ public class ScoutingNumberView extends ScoutingView {
             map.put(key, Double.parseDouble(valueView.getText().toString()));
         } else {
             map.put(key, Double.valueOf(0.0));
-        }
-    }
-
-    public static String formatDouble(double d) {
-        if (d == (int) d) {
-            return String.format(Locale.US, "%d", (int) d);
-        } else {
-            return String.format(Locale.US, "%s", d);
         }
     }
 

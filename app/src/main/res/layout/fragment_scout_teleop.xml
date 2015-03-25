@@ -1,42 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <org.wildstang.wildrank.androidv2.views.scouting.ScoutingStacksView
         android:id="@+id/stacks_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/other"
-        app:key="stacks"/>
+        app:key="stacks" />
 
     <LinearLayout
         android:id="@id/other"
-        android:layout_alignParentBottom="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:orientation="horizontal">
 
         <org.wildstang.wildrank.androidv2.views.scouting.ScoutingCounterView
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             app:key="stacks_tipped_over"
-            app:label="Stacks Tipped Over"/>
+            app:label="Stacks Tipped Over" />
 
         <org.wildstang.wildrank.androidv2.views.scouting.ScoutingCounterView
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             app:key="coop"
-            app:label="Totes added to coop"/>
+            app:label="Totes added to coop" />
 
         <org.wildstang.wildrank.androidv2.views.scouting.ScoutingCounterView
             android:layout_width="350dp"
             android:layout_height="wrap_content"
             app:key="coop_height"
-            app:label="Pre-existing Co-op Height"/>
+            app:label="Pre-existing Co-op Height" />
 
     </LinearLayout>
 

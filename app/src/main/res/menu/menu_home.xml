@@ -1,28 +1,28 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-      xmlns:app="http://schemas.android.com/apk/res-auto"
-      xmlns:tools="http://schemas.android.com/tools"
-      tools:context=".HomeActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".HomeActivity">
     <item
         android:id="@+id/action_settings"
-        android:title="@string/action_settings"
         android:orderInCategory="100"
-        app:showAsAction="never"/>
+        android:title="@string/action_settings"
+        app:showAsAction="never" />
 
     <item
         android:id="@+id/action_sync"
-        android:title="Sync"
         android:orderInCategory="400"
-        app:showAsAction="never"/>
+        android:title="Sync"
+        app:showAsAction="never" />
 
     <item
         android:id="@+id/action_log_out"
-        android:title="Log out all users"
         android:orderInCategory="200"
-        app:showAsAction="never"/>
+        android:title="Log out all users"
+        app:showAsAction="never" />
 
     <item
         android:id="@+id/action_add_user"
-        android:title="Add user"
         android:orderInCategory="200"
-        app:showAsAction="never"/>
+        android:title="Add user"
+        app:showAsAction="never" />
 </menu>

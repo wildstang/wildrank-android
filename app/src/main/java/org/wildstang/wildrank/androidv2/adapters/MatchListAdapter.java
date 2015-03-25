@@ -25,16 +25,6 @@ public class MatchListAdapter extends ArrayAdapter<QueryRow> {
         super(context, R.layout.list_item_match, matches);
     }
 
-    private static class ViewHolder {
-        TextView matchNumber;
-        TextView red1;
-        TextView red2;
-        TextView red3;
-        TextView blue1;
-        TextView blue2;
-        TextView blue3;
-    }
-
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
@@ -103,5 +93,15 @@ public class MatchListAdapter extends ArrayAdapter<QueryRow> {
         }
 
         return convertView;
+    }
+
+    private static class ViewHolder {
+        TextView matchNumber;
+        TextView red1;
+        TextView red2;
+        TextView red3;
+        TextView blue1;
+        TextView blue2;
+        TextView blue3;
     }
 }

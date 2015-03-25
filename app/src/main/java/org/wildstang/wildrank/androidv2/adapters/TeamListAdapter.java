@@ -27,10 +27,6 @@ public class TeamListAdapter extends ArrayAdapter<QueryRow> {
         this.greyOutScoutedTeams = greyOutScoutedTeams;
     }
 
-    private static class ViewHolder {
-        TextView teamNumber;
-    }
-
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
@@ -69,5 +65,9 @@ public class TeamListAdapter extends ArrayAdapter<QueryRow> {
 
 
         return convertView;
+    }
+
+    private static class ViewHolder {
+        TextView teamNumber;
     }
 }

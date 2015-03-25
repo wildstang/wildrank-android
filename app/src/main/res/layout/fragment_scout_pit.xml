@@ -1,223 +1,222 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <LinearLayout
+        android:id="@+id/robot"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:id="@+id/robot"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginRight="10dp"
         android:orientation="vertical">
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:id="@+id/robot_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:text="Robot Specs"
-            android:textSize="30sp"/>
+            android:textSize="30sp" />
 
         <org.wildstang.wildrank.androidv2.views.scouting.ScoutingNumberView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:id="@+id/height"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             app:key="height"
-            app:label="Height"/>
+            app:label="Height" />
 
         <org.wildstang.wildrank.androidv2.views.scouting.ScoutingNumberView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:id="@+id/width"
-            app:key="width"
-            app:label="Width"/>
-
-        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingNumberView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:key="width"
+            app:label="Width" />
+
+        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingNumberView
             android:id="@+id/length"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             app:key="length"
-            app:label="Length"/>
+            app:label="Length" />
 
         <org.wildstang.wildrank.androidv2.views.scouting.ScoutingCheckboxView
+            android:id="@+id/bumpers"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/bumpers"
             app:key="bumpers"
-            app:label="Bumpers"/>
+            app:label="Bumpers" />
 
         <org.wildstang.wildrank.androidv2.views.scouting.ScoutingSpinnerView
+            android:id="@+id/drive"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/drive"
             app:key="drivetrain"
-            app:values="@array/drives"
-            app:label="Drivetrain"/>
+            app:label="Drivetrain"
+            app:values="@array/drives" />
 
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/match"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
-        android:id="@+id/match"
-        android:layout_toRightOf="@id/robot"
         android:layout_alignParentTop="true"
         android:layout_marginRight="10dp"
+        android:layout_toRightOf="@id/robot"
         android:orientation="vertical">
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:id="@+id/match_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:text="Match Strategy"
-            android:textSize="30sp"/>
+            android:textSize="30sp" />
 
         <org.wildstang.wildrank.androidv2.views.scouting.ScoutingCheckboxView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:id="@+id/landfill"
-            app:key="landfill"
-            app:label="Plays in Landfill"/>
-
-        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingSpinnerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:key="landfill"
+            app:label="Plays in Landfill" />
+
+        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingSpinnerView
             android:id="@+id/player_station"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             app:key="player_station"
-            app:values="@array/player_stations"
-            app:label="Plays at Player Station"/>
+            app:label="Plays at Player Station"
+            app:values="@array/player_stations" />
 
         <org.wildstang.wildrank.androidv2.views.scouting.ScoutingCheckboxView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:id="@+id/step"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             app:key="step"
-            app:label="Plays at Step"/>
+            app:label="Plays at Step" />
 
         <org.wildstang.wildrank.androidv2.views.scouting.ScoutingSpinnerView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:id="@+id/totes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             app:key="totes"
-            app:values="@array/tote"
-            app:label="Can Manipulate Totes"/>
+            app:label="Can Manipulate Totes"
+            app:values="@array/tote" />
 
         <org.wildstang.wildrank.androidv2.views.scouting.ScoutingSpinnerView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:id="@+id/bins"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             app:key="bins"
-            app:values="@array/bin"
-            app:label="Can Manipulate Bins"/>
+            app:label="Can Manipulate Bins"
+            app:values="@array/bin" />
 
         <org.wildstang.wildrank.androidv2.views.scouting.ScoutingSpinnerView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:id="@+id/litter"
-            app:key="litter"
-            app:values="@array/litter"
-            app:label="Can Manipulate Litter"/>
-
-        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingSpinnerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:key="litter"
+            app:label="Can Manipulate Litter"
+            app:values="@array/litter" />
+
+        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingSpinnerView
             android:id="@+id/location"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             app:key="pit-playing_location"
-            app:values="@array/locations"
-            app:label="Playing Location"/>
+            app:label="Playing Location"
+            app:values="@array/locations" />
 
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/match_perf"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:id="@+id/match_perf"
-        android:layout_toRightOf="@id/match"
         android:layout_alignParentTop="true"
         android:layout_marginRight="10dp"
+        android:layout_toRightOf="@id/match"
         android:orientation="vertical">
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:id="@+id/match_perf_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:text="Match Performance"
-            android:textSize="30sp"/>
+            android:textSize="30sp" />
 
         <org.wildstang.wildrank.androidv2.views.scouting.ScoutingSpinnerView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:id="@+id/tote_stack"
-            app:key="max_totes_stack"
-            app:values="@array/tote_stack"
-            app:label="Max Totes Stack"/>
-
-        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingSpinnerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:key="max_totes_stack"
+            app:label="Max Totes Stack"
+            app:values="@array/tote_stack" />
+
+        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingSpinnerView
             android:id="@+id/max_cap"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             app:key="max_cap"
-            app:values="@array/tote_stack"
-            app:label="Max Cap (with Bin)"/>
+            app:label="Max Cap (with Bin)"
+            app:values="@array/tote_stack" />
 
         <org.wildstang.wildrank.androidv2.views.scouting.ScoutingNumberView
+            android:id="@+id/stacks"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/stacks"
             app:key="stacks_per_match"
-            app:label="Stacks/Match"/>
+            app:label="Stacks/Match" />
 
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/auto"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:id="@+id/auto"
-        android:layout_toRightOf="@id/match"
         android:layout_below="@id/match_perf"
         android:layout_marginRight="10dp"
+        android:layout_toRightOf="@id/match"
         android:orientation="vertical">
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:id="@+id/auto_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:text="Autonomous"
-            android:textSize="30sp"/>
+            android:textSize="30sp" />
 
         <org.wildstang.wildrank.androidv2.views.scouting.ScoutingSpinnerView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:id="@+id/auto_bins"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             app:key="auto_bins"
-            app:values="@array/auto_bins"
-            app:label="Auto Bins"/>
+            app:label="Auto Bins"
+            app:values="@array/auto_bins" />
 
         <org.wildstang.wildrank.androidv2.views.scouting.ScoutingSpinnerView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:id="@+id/auto_totes"
-            app:key="auto_totes"
-            app:values="@array/auto_totes"
-            app:label="Auto Totes"/>
-
-        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingSpinnerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:key="auto_totes"
+            app:label="Auto Totes"
+            app:values="@array/auto_totes" />
+
+        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingSpinnerView
             android:id="@+id/auto_step"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             app:key="auto_step"
-            app:values="@array/auto_step"
-            app:label="Auto Bins (from Step)"/>
+            app:label="Auto Bins (from Step)"
+            app:values="@array/auto_step" />
 
         <org.wildstang.wildrank.androidv2.views.scouting.ScoutingCheckboxView
+            android:id="@+id/auto_drives"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/auto_drives"
             app:key="auto_drives"
-            app:label="Drives to Auto Zone"/>
+            app:label="Drives to Auto Zone" />
 
     </LinearLayout>
 
@@ -227,9 +226,9 @@
         android:layout_height="match_parent"
         android:layout_above="@+id/finish"
         android:layout_alignParentRight="true"
+        android:layout_marginRight="10dp"
         android:layout_toRightOf="@id/auto"
-        android:orientation="vertical"
-        android:layout_marginRight="10dp" >
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/notes_title"
@@ -246,15 +245,15 @@
     </LinearLayout>
 
     <Button
+        android:id="@+id/finish"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Finish"
-        android:id="@+id/finish"
         android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"/>
+        android:layout_alignParentStart="true"
+        android:text="Finish" />
 
 
 </RelativeLayout>

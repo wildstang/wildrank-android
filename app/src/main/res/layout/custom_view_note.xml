@@ -1,71 +1,71 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <RelativeLayout
+        android:id="@+id/top"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/top"
-        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true">
 
         <TextView
+            android:id="@+id/team"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Team: 111"
-            android:id="@+id/team"
-            android:layout_centerVertical="true"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"/>
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:text="Team: 111"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <Button
+            android:id="@+id/toSix"
             style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="6 Mode"
-            android:id="@+id/toSix"
-            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"/>
+            android:layout_alignParentTop="true"
+            android:text="6 Mode" />
     </RelativeLayout>
 
     <View
+        android:id="@+id/border"
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:layout_marginTop="10dp"
         android:layout_below="@id/top"
-        android:id="@+id/border"
-        android:background="@android:color/darker_gray"/>
+        android:layout_marginTop="10dp"
+        android:background="@android:color/darker_gray" />
 
     <TextView
+        android:id="@+id/oldnotes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:id="@+id/oldnotes"
-        android:scrollbars="vertical"
-        android:layout_below="@id/border"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"/>
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/border"
+        android:scrollbars="vertical"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <View
+        android:id="@+id/midborder"
         android:layout_width="1dp"
         android:layout_height="wrap_content"
-        android:id="@+id/midborder"
+        android:layout_alignParentBottom="true"
         android:layout_below="@id/border"
         android:layout_toRightOf="@id/oldnotes"
-        android:layout_alignParentBottom="true"
-        android:background="@android:color/darker_gray"/>
+        android:background="@android:color/darker_gray" />
 
     <EditText
         android:id="@+id/note"
-        android:layout_toRightOf="@id/midborder"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/border"
         android:layout_alignParentBottom="true"
+        android:layout_below="@id/border"
+        android:layout_toRightOf="@id/midborder"
         android:inputType="textMultiLine"
-        android:scrollbars="vertical"/>
+        android:scrollbars="vertical" />
 
 </RelativeLayout>

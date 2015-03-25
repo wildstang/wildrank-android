@@ -27,12 +27,10 @@ import org.wildstang.wildrank.androidv2.data.DatabaseManager;
 public class UserLoginActivity extends ActionBarActivity implements View.OnClickListener {
 
     public static final String EXTRA_CREATE_NEW_HOME = "create_new_home";
-
-    private boolean createNewHome = true;
-
     EditText userLoginEditText;
     TextView userWelcomeMessage;
     View loginContainer;
+    private boolean createNewHome = true;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

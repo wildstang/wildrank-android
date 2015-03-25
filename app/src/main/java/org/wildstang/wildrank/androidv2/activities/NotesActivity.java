@@ -27,11 +27,10 @@ import java.io.IOException;
  * Created by Liam on 2/21/2015.
  */
 public class NotesActivity extends ActionBarActivity {
-    private Toolbar toolbar;
     private static String matchKey;
     private static String[] teamKeys;
     private static String[] notes;
-
+    private Toolbar toolbar;
     private NotesSixFragment sixFrag;
 
     public static Intent createIntent(Context context, String matchKey, String[] teams) {
@@ -64,7 +63,6 @@ public class NotesActivity extends ActionBarActivity {
         } else {
             toolbar.setBackgroundColor(getResources().getColor(R.color.material_blue));
         }
-
 
 
         ((TextView) findViewById(R.id.match_number)).setText("" + Utilities.matchNumberFromMatchKey(matchKey));

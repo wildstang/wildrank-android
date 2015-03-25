@@ -38,17 +38,17 @@ public class DatabaseManager {
     private Database internalDatabase;
     private Manager externalManager;
 
+    private DatabaseManager(Context context) throws IOException, CouchbaseLiteException {
+        internalManager = new Manager(new com.couchbase.lite.android.AndroidContext(context.getApplicationContext()), Manager.DEFAULT_OPTIONS);
+        internalDatabase = internalManager.getDatabase(DatabaseManagerConstants.DB_NAME);
+        initializeViews();
+    }
+
     public static DatabaseManager getInstance(Context context) throws CouchbaseLiteException, IOException {
         if (instance == null) {
             instance = new DatabaseManager(context);
         }
         return instance;
-    }
-
-    private DatabaseManager(Context context) throws IOException, CouchbaseLiteException {
-        internalManager = new Manager(new com.couchbase.lite.android.AndroidContext(context.getApplicationContext()), Manager.DEFAULT_OPTIONS);
-        internalDatabase = internalManager.getDatabase(DatabaseManagerConstants.DB_NAME);
-        initializeViews();
     }
 
     private void initializeViews() {
@@ -366,37 +366,6 @@ public class DatabaseManager {
         return databaseState;
     }
 
-    public class DatabaseState {
-        Map<String, DocumentState> states;
-
-        public DatabaseState() {
-            states = new HashMap<>();
-        }
-
-        public void addStateRecord(DocumentState state) {
-            states.put(state.docId, state);
-        }
-
-        public boolean documentExists(String docId) {
-            return states.containsKey(docId);
-        }
-
-        public DocumentState getDocStateForId(String docId) {
-            return states.get(docId);
-        }
-    }
-
-    public class DocumentState {
-        public String docId, revisionId;
-        public boolean deleted;
-
-        public DocumentState(String docId, String revisionId, boolean deleted) {
-            this.docId = docId;
-            this.revisionId = revisionId;
-            this.deleted = deleted;
-        }
-    }
-
     public void saveNotes(String teamKey, String note, Context c) throws CouchbaseLiteException {
         if (!note.equals("")) {
             Boolean existed = (internalDatabase.getExistingDocument("notes:" + teamKey) != null);
@@ -433,5 +402,36 @@ public class DatabaseManager {
             notesList = new ArrayList<>();
         }
         return notesList.toArray(new String[notesList.size()]);
+    }
+
+    public class DatabaseState {
+        Map<String, DocumentState> states;
+
+        public DatabaseState() {
+            states = new HashMap<>();
+        }
+
+        public void addStateRecord(DocumentState state) {
+            states.put(state.docId, state);
+        }
+
+        public boolean documentExists(String docId) {
+            return states.containsKey(docId);
+        }
+
+        public DocumentState getDocStateForId(String docId) {
+            return states.get(docId);
+        }
+    }
+
+    public class DocumentState {
+        public String docId, revisionId;
+        public boolean deleted;
+
+        public DocumentState(String docId, String revisionId, boolean deleted) {
+            this.docId = docId;
+            this.revisionId = revisionId;
+            this.deleted = deleted;
+        }
     }
 }

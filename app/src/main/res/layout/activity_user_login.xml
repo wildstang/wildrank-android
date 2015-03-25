@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <RelativeLayout
         android:id="@+id/login_container"
@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:text="WildRank Login"
-            android:textSize="50sp"/>
+            android:textSize="50sp" />
 
         <TextView
             android:id="@+id/login_prompt"
@@ -26,7 +26,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="100dp"
             android:text="Enter your user ID"
-            android:textSize="30sp"/>
+            android:textSize="30sp" />
 
         <EditText
             android:id="@+id/login_user_id"
@@ -37,9 +37,9 @@
             android:layout_below="@id/login_prompt"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="30dp"
-            android:textSize="30sp"
+            android:gravity="center_horizontal"
             android:inputType="number"
-            android:gravity="center_horizontal"/>
+            android:textSize="30sp" />
 
         <Button
             android:id="@+id/login_button"
@@ -49,7 +49,7 @@
             android:layout_alignRight="@id/login_prompt"
             android:layout_below="@id/login_user_id"
             android:layout_centerHorizontal="true"
-            android:text="Login"/>
+            android:text="Login" />
     </RelativeLayout>
 
     <TextView
@@ -58,6 +58,6 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:textSize="50sp"
-        android:visibility="invisible"/>
+        android:visibility="invisible" />
 
 </RelativeLayout>

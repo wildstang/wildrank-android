@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
     <TextView
         android:id="@+id/match_number"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingLeft="8dp"
-        android:paddingRight="8dp"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
-        android:textAppearance="?android:attr/textAppearanceListItem"/>
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:textAppearance="?android:attr/textAppearanceListItem" />
 
     <LinearLayout
         android:id="@+id/red_alliance"
@@ -24,22 +24,22 @@
             android:id="@+id/red_team_1"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
-            android:textColor="@color/red"
-            android:textAppearance="?android:attr/textAppearanceListItemSmall"/>
+            android:textAppearance="?android:attr/textAppearanceListItemSmall"
+            android:textColor="@color/red" />
 
         <TextView
             android:id="@+id/red_team_2"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
-            android:textColor="@color/red"
-            android:textAppearance="?android:attr/textAppearanceListItemSmall"/>
+            android:textAppearance="?android:attr/textAppearanceListItemSmall"
+            android:textColor="@color/red" />
 
         <TextView
             android:id="@+id/red_team_3"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
-            android:textColor="@color/red"
-            android:textAppearance="?android:attr/textAppearanceListItemSmall"/>
+            android:textAppearance="?android:attr/textAppearanceListItemSmall"
+            android:textColor="@color/red" />
 
     </LinearLayout>
 
@@ -55,22 +55,22 @@
             android:id="@+id/blue_team_1"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
-            android:textColor="@color/blue"
-            android:textAppearance="?android:attr/textAppearanceListItemSmall"/>
+            android:textAppearance="?android:attr/textAppearanceListItemSmall"
+            android:textColor="@color/blue" />
 
         <TextView
             android:id="@+id/blue_team_2"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
-            android:textColor="@color/blue"
-            android:textAppearance="?android:attr/textAppearanceListItemSmall"/>
+            android:textAppearance="?android:attr/textAppearanceListItemSmall"
+            android:textColor="@color/blue" />
 
         <TextView
             android:id="@+id/blue_team_3"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
-            android:textColor="@color/blue"
-            android:textAppearance="?android:attr/textAppearanceListItemSmall"/>
+            android:textAppearance="?android:attr/textAppearanceListItemSmall"
+            android:textColor="@color/blue" />
 
     </LinearLayout>
 

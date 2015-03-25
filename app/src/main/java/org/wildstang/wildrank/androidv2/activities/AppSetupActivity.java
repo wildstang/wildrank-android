@@ -92,6 +92,17 @@ public class AppSetupActivity extends ActionBarActivity implements View.OnClickL
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == RESULT_CODE_MOUNT) {
+            //promptForDataSource();
+        } else if (requestCode == RESULT_CODE_UNMOUNT) {
+            setResult(Activity.RESULT_OK);
+            startActivity(new Intent(this, HomeActivity.class));
+            finish();
+        }
+    }
+
     private class SetupTask extends AsyncTask<Void, Void, Void> {
 
         @Override
@@ -150,17 +161,6 @@ public class AppSetupActivity extends ActionBarActivity implements View.OnClickL
         @Override
         protected void onPostExecute(Void aVoid) {
             AppSetupActivity.this.setupComplete();
-        }
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == RESULT_CODE_MOUNT) {
-            //promptForDataSource();
-        } else if (requestCode == RESULT_CODE_UNMOUNT) {
-            setResult(Activity.RESULT_OK);
-            startActivity(new Intent(this, HomeActivity.class));
-            finish();
         }
     }
 }

@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/explanation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="8dp"
-        android:textSize="15sp"
-        android:text="Please only count totes and bins that have actually been scored."/>
+        android:text="Please only count totes and bins that have actually been scored."
+        android:textSize="15sp" />
 
     <LinearLayout
-        android:layout_below="@id/explanation"
         android:layout_width="300dp"
         android:layout_height="match_parent"
+        android:layout_below="@id/explanation"
         android:orientation="vertical">
 
         <org.wildstang.wildrank.androidv2.views.scouting.ScoutingCheckboxView
@@ -24,7 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:key="auto-drive"
-            app:label="Drives to Auto Zone"/>
+            app:label="Drives to Auto Zone" />
 
         <org.wildstang.wildrank.androidv2.views.scouting.ScoutingSpinnerView
             android:id="@+id/totes"
@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             app:key="auto-totes"
             app:label="Totes Moved"
-            app:values="@array/auto_totes"/>
+            app:values="@array/auto_totes" />
 
         <org.wildstang.wildrank.androidv2.views.scouting.ScoutingSpinnerView
             android:id="@+id/stacked"
@@ -41,7 +41,7 @@
             android:layout_below="@id/drive"
             app:key="auto-totes_stacked"
             app:label="Totes Stacked"
-            app:values="@array/auto_totes"/>
+            app:values="@array/auto_totes" />
 
         <org.wildstang.wildrank.androidv2.views.scouting.ScoutingSpinnerView
             android:id="@+id/bins"
@@ -49,7 +49,7 @@
             android:layout_height="wrap_content"
             app:key="auto-bins"
             app:label="Bins Moved"
-            app:values="@array/auto_bins"/>
+            app:values="@array/auto_bins" />
 
         <org.wildstang.wildrank.androidv2.views.scouting.ScoutingSpinnerView
             android:id="@+id/taken"
@@ -57,14 +57,14 @@
             android:layout_height="wrap_content"
             app:key="auto-taken"
             app:label="Bins Taken from Step"
-            app:values="@array/auto_step"/>
+            app:values="@array/auto_step" />
 
         <org.wildstang.wildrank.androidv2.views.scouting.ScoutingNumberView
             android:id="@+id/time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:key="auto-time"
-            app:label="Approx. Time Taken"/>
+            app:label="Approx. Time Taken" />
 
     </LinearLayout>
 

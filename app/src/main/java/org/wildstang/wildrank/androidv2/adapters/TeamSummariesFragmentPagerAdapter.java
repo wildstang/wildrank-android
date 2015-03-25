@@ -7,8 +7,8 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import com.couchbase.lite.Document;
 
 import org.wildstang.wildrank.androidv2.fragments.TeamSummariesDataFragment;
-import org.wildstang.wildrank.androidv2.fragments.TeamSummariesRawDataFragment;
 import org.wildstang.wildrank.androidv2.fragments.TeamSummariesInfoFragment;
+import org.wildstang.wildrank.androidv2.fragments.TeamSummariesRawDataFragment;
 import org.wildstang.wildrank.androidv2.fragments.TeamSummariesStackFragment;
 
 import java.util.List;

@@ -47,30 +47,10 @@ public class HomeActivity extends ActionBarActivity {
             MODE_NAMES[mode.ordinal()] = mode.getTitle();
         }
     }
-
-    // Defines "modes" that can be switched to from the navigation drawer
-    private enum Mode {
-        MATCH_SCOUTING("Match scouting"),
-        PIT_SCOUTING("Pit scouting"),
-        NOTES("Notes"),
-        TEAM_SUMMARIES("Team summaries");
-
-        private final String title;
-
-        Mode(String title) {
-            this.title = title;
-        }
-
-        public String getTitle() {
-            return this.title;
-        }
-    }
-
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle drawerToggle;
     private ListView navigationDrawerList;
     private Toolbar toolbar;
-
     private Mode currentMode = null;
 
     @Override
@@ -203,7 +183,7 @@ public class HomeActivity extends ActionBarActivity {
     }
 
     private void switchToMode(Mode mode) {
-        if(currentMode != null) {
+        if (currentMode != null) {
             if (currentMode == mode) {
                 return;
             }
@@ -242,7 +222,6 @@ public class HomeActivity extends ActionBarActivity {
         drawerToggle.onConfigurationChanged(newConfig);
     }
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -274,5 +253,23 @@ public class HomeActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    // Defines "modes" that can be switched to from the navigation drawer
+    private enum Mode {
+        MATCH_SCOUTING("Match scouting"),
+        PIT_SCOUTING("Pit scouting"),
+        NOTES("Notes"),
+        TEAM_SUMMARIES("Team summaries");
+
+        private final String title;
+
+        Mode(String title) {
+            this.title = title;
+        }
+
+        public String getTitle() {
+            return this.title;
+        }
     }
 }

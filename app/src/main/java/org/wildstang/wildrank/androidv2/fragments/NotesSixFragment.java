@@ -28,6 +28,7 @@ public class NotesSixFragment extends Fragment {
     public List<NoteBox> boxes = new ArrayList<>();
     String[] teams;
     boolean sixMode;
+    View section;
 
     public static NotesSixFragment newInstance(String[] teams) {
         NotesSixFragment f = new NotesSixFragment();
@@ -60,8 +61,6 @@ public class NotesSixFragment extends Fragment {
         }
         return view;
     }
-
-    View section;
 
     public void setupAnimation(final int i) {
         boxes.get(i).getButton().setOnClickListener(new View.OnClickListener() {

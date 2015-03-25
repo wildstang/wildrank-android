@@ -5,21 +5,15 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.Transformation;
-import android.widget.LinearLayout;
 
 import com.couchbase.lite.CouchbaseLiteException;
 
 import org.wildstang.wildrank.androidv2.NoteBox;
 import org.wildstang.wildrank.androidv2.R;
-import org.wildstang.wildrank.androidv2.ReverseInterpolator;
 import org.wildstang.wildrank.androidv2.Utilities;
 import org.wildstang.wildrank.androidv2.data.DatabaseManager;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Liam on 3/19/2015.

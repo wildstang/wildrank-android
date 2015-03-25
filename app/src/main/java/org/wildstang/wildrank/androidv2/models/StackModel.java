@@ -61,10 +61,10 @@ public class StackModel {
 
     @Override
     public boolean equals(Object o) {
-        if(!(o instanceof StackModel)) {
+        if (!(o instanceof StackModel)) {
             return false;
         }
-        if(o == this) {
+        if (o == this) {
             return true;
         }
         StackModel comparing = (StackModel) o;
@@ -81,13 +81,13 @@ public class StackModel {
 
     /**
      * A meaningful stack is defined as one that indicates something actually happened.
-     *
+     * <p/>
      * We will define a meaningful stack as one that has totes, a bin, or both.
      *
      * @return true if it is meaningful stack, false if otherwise
      */
     public boolean isMeaningfulStack() {
-        if(toteCount > 0 || hasBin == true) {
+        if (toteCount > 0 || hasBin == true) {
             return true;
         }
         return false;

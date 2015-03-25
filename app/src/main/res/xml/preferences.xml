@@ -8,6 +8,6 @@
         android:entryValues="@array/preference_configured_team_values"
         android:key="assignedTeam"
         android:summary="@string/preference_configured_team_summary"
-        android:title="@string/preference_configured_team_title"/>
+        android:title="@string/preference_configured_team_title" />
 
 </PreferenceScreen>

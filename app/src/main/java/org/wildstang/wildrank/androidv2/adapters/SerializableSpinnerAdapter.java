@@ -20,19 +20,13 @@ import java.util.Set;
  */
 public class SerializableSpinnerAdapter extends BaseAdapter {
 
-    private List<String> backingArray;
-
-    private final Object lock = new Object();
-
-    private LayoutInflater inflater;
-
-    private Context context;
-
-    private String preferencesKey;
-
-    private boolean editable;
-
     private static final String NEW_CHOICE = "New choice...";
+    private final Object lock = new Object();
+    private List<String> backingArray;
+    private LayoutInflater inflater;
+    private Context context;
+    private String preferencesKey;
+    private boolean editable;
 
     public SerializableSpinnerAdapter(Context context, String key, int textArrayResId) {
         init(context, key, textArrayResId, false);

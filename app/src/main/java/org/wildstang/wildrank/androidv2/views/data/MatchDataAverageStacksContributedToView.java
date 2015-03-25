@@ -2,7 +2,6 @@ package org.wildstang.wildrank.androidv2.views.data;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.Log;
 
 import com.couchbase.lite.Document;
 
@@ -36,7 +35,7 @@ public class MatchDataAverageStacksContributedToView extends MatchDataView imple
             totalStacks += stacks.size();
         }
         double average;
-        if(totalMatches == 0) {
+        if (totalMatches == 0) {
             average = 0;
         } else {
             average = totalStacks / totalMatches;

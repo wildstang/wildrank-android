@@ -1,5 +1,4 @@
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,19 +8,19 @@
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:orientation="vertical">
 
         <CheckBox
+            android:id="@+id/useTeams"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="List Team Numbers"
-            android:id="@+id/useTeams"/>
+            android:text="List Team Numbers" />
 
         <ListView
             android:id="@+id/match_list"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent" />
     </LinearLayout>
 
     <RelativeLayout
@@ -32,25 +31,25 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
+            android:layout_above="@+id/begin_scouting"
             android:layout_centerInParent="true"
             android:gravity="center"
-            android:layout_above="@+id/begin_scouting">
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/match_number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="64dp"
                 android:text="Match 13"
-                android:textSize="120sp"
-                android:layout_marginBottom="64dp"/>
+                android:textSize="120sp" />
 
             <TextView
                 android:id="@+id/scouting_teams"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="80sp"
-                android:text="Teams 111, 111, 111, 111, 111, 111"/>
+                android:text="Teams 111, 111, 111, 111, 111, 111"
+                android:textSize="80sp" />
 
         </LinearLayout>
 
@@ -58,9 +57,9 @@
             android:id="@id/begin_scouting"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Begin Noting"
             android:layout_alignParentBottom="true"
-            android:textSize="40sp"/>
+            android:text="Begin Noting"
+            android:textSize="40sp" />
 
     </RelativeLayout>
 

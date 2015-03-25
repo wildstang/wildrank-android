@@ -1,156 +1,156 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <LinearLayout
+        android:id="@+id/general"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:id="@+id/general"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginRight="10dp"
         android:orientation="vertical">
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:id="@+id/general_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:text="General"
-            android:textSize="30sp"/>
+            android:textSize="30sp" />
 
         <org.wildstang.wildrank.androidv2.views.scouting.ScoutingCheckboxView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:id="@+id/dq"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             app:key="post_match-dq"
-            app:label="DQ"/>
+            app:label="DQ" />
 
         <org.wildstang.wildrank.androidv2.views.scouting.ScoutingCheckboxView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:id="@+id/no_show"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             app:key="post_match-no_show"
-            app:label="No Show"/>
+            app:label="No Show" />
 
         <org.wildstang.wildrank.androidv2.views.scouting.ScoutingCheckboxView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:id="@+id/broke_down"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             app:key="post_match-broke_down"
-            app:label="Broke Down"/>
+            app:label="Broke Down" />
 
         <org.wildstang.wildrank.androidv2.views.scouting.ScoutingCheckboxView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:id="@+id/tipped"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             app:key="post_match-tipped"
-            app:label="Tipped Over"/>
+            app:label="Tipped Over" />
 
         <org.wildstang.wildrank.androidv2.views.scouting.ScoutingCheckboxView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:id="@+id/lost_comm"
-            app:key="post_match-lost_comm"
-            app:label="Lost Comm"/>
-
-        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingCheckboxView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:key="post_match-lost_comm"
+            app:label="Lost Comm" />
+
+        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingCheckboxView
             android:id="@+id/damaged"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             app:key="post_match-damaged"
-            app:label="Damaged"/>
+            app:label="Damaged" />
 
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/fouls"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:id="@+id/fouls"
-        android:layout_toRightOf="@id/general"
         android:layout_alignParentTop="true"
         android:layout_marginRight="10dp"
+        android:layout_toRightOf="@id/general"
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/fouls_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/fouls_title"
             android:text="Fouls"
-            android:textSize="30sp"/>
+            android:textSize="30sp" />
 
         <org.wildstang.wildrank.androidv2.views.scouting.ScoutingCounterView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:id="@+id/foul"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             app:key="post_match-foul"
-            app:label="Fouls"/>
+            app:label="Fouls" />
 
         <org.wildstang.wildrank.androidv2.views.scouting.ScoutingCheckboxView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:id="@+id/red_card"
-            app:key="post_match-red_card"
-            app:label="Red Card"/>
-
-        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingCheckboxView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:key="post_match-red_card"
+            app:label="Red Card" />
+
+        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingCheckboxView
             android:id="@+id/yellow_card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             app:key="post_match-yellow_card"
-            app:label="Yellow Card"/>
+            app:label="Yellow Card" />
 
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/ranking"
         android:layout_width="275dp"
         android:layout_height="wrap_content"
-        android:id="@+id/ranking"
-        android:layout_toRightOf="@id/fouls"
         android:layout_alignParentTop="true"
         android:layout_marginRight="10dp"
+        android:layout_toRightOf="@id/fouls"
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/ranking_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/ranking_title"
             android:text="Ranking"
-            android:textSize="30sp"/>
+            android:textSize="30sp" />
 
         <org.wildstang.wildrank.androidv2.views.scouting.ScoutingSpinnerView
+            android:id="@+id/driver_skill"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/driver_skill"
             app:key="post_match-driver_skill"
             app:label="Driver Skill"
-            app:values="@array/rankings"/>
+            app:values="@array/rankings" />
 
         <org.wildstang.wildrank.androidv2.views.scouting.ScoutingSpinnerView
+            android:id="@+id/robot_speed"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/robot_speed"
             app:key="post_match-robot_speed"
             app:label="Robot Speed"
-            app:values="@array/rankings"/>
+            app:values="@array/rankings" />
 
         <org.wildstang.wildrank.androidv2.views.scouting.ScoutingSpinnerView
+            android:id="@+id/floor_pickup_speed"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/floor_pickup_speed"
             app:key="post_match-floor_pickup_rating"
             app:label="Floor Pickup Rating"
-            app:values="@array/rankings"/>
+            app:values="@array/rankings" />
 
         <org.wildstang.wildrank.androidv2.views.scouting.ScoutingSpinnerView
+            android:id="@+id/hp_rating"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/hp_rating"
             app:key="post_match-hp_rating"
             app:label="Human Player Rating"
-            app:values="@array/rankings"/>
+            app:values="@array/rankings" />
 
     </LinearLayout>
 
@@ -160,9 +160,9 @@
         android:layout_height="match_parent"
         android:layout_above="@+id/finish"
         android:layout_alignParentRight="true"
+        android:layout_marginRight="10dp"
         android:layout_toRightOf="@id/ranking"
-        android:orientation="vertical"
-        android:layout_marginRight="10dp" >
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/notes_title"
@@ -183,6 +183,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:text="Finish"/>
+        android:text="Finish" />
 
 </RelativeLayout>

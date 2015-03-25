@@ -11,7 +11,6 @@ import com.google.gson.Gson;
 
 import org.json.JSONObject;
 import org.wildstang.wildrank.androidv2.R;
-import org.wildstang.wildrank.androidv2.data.DatabaseManager;
 
 import java.util.List;
 
@@ -32,7 +31,7 @@ public class TeamSummariesRawDataFragment extends TeamSummariesFragment {
 
         TextView rawData = ((TextView) getView().findViewById(R.id.raw_data));
         try {
-            if(matchDocs == null) {
+            if (matchDocs == null) {
                 rawData.setText("No match results found.");
                 return;
             } else if (matchDocs.size() == 0) {

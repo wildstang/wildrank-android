@@ -25,11 +25,9 @@ import java.util.List;
  */
 public abstract class MatchDataView extends RelativeLayout implements IMatchDataView {
 
+    protected int format;
     private TextView labelView;
     private TextView valueView;
-
-    protected int format;
-
     private String expression;
     private String explanation;
 
@@ -73,18 +71,6 @@ public abstract class MatchDataView extends RelativeLayout implements IMatchData
         });
     }
 
-    protected void setLabelText(String text) {
-        labelView.setText(text);
-    }
-
-    protected void setValueText(String text) {
-        valueView.setText(text);
-    }
-
-    public void clearValue() {
-        valueView.setText("");
-    }
-
     public static void initializeViewsInViewGroupWithDocuments(ViewGroup v, List<Document> docs) {
         if (v == null) {
             return;
@@ -123,6 +109,18 @@ public abstract class MatchDataView extends RelativeLayout implements IMatchData
         NumberFormat format = NumberFormat.getPercentInstance();
         format.setMaximumFractionDigits(2);
         return format.format(percentage);
+    }
+
+    protected void setLabelText(String text) {
+        labelView.setText(text);
+    }
+
+    protected void setValueText(String text) {
+        valueView.setText(text);
+    }
+
+    public void clearValue() {
+        valueView.setText("");
     }
 
 }

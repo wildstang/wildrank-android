@@ -74,45 +74,6 @@ public class SyncActivity extends ActionBarActivity {
         builder.create().show();
     }
 
-    private class SyncTask extends AsyncTask<Void, Void, SyncTask.SyncResult> {
-
-        protected class SyncResult {
-            public static final int RESULT_SUCCESS = 0;
-            public static final int RESULT_ERROR = 1;
-
-            public int result;
-        }
-
-        @Override
-        protected SyncTask.SyncResult doInBackground(Void... params) {
-            try {
-                syncDatabases();
-                SyncResult r = new SyncResult();
-                r.result = SyncResult.RESULT_SUCCESS;
-                return r;
-            } catch (Exception e) {
-                e.printStackTrace();
-                SyncResult r = new SyncResult();
-                r.result = SyncResult.RESULT_ERROR;
-                return r;
-            }
-        }
-
-        @Override
-        protected void onPostExecute(SyncResult result) {
-            super.onPostExecute(result);
-            switch (result.result) {
-                case SyncResult.RESULT_SUCCESS:
-                    Toast.makeText(SyncActivity.this, "Sync complete!", Toast.LENGTH_LONG).show();
-                    break;
-                case SyncResult.RESULT_ERROR:
-                    Toast.makeText(SyncActivity.this, "Error syncing databases. Check logcat.", Toast.LENGTH_LONG).show();
-                    break;
-            }
-            readDatabases();
-        }
-    }
-
     /**
      * Syncs the internal and external databases
      */
@@ -194,8 +155,8 @@ public class SyncActivity extends ActionBarActivity {
                         // Remove duplicates
                         // We do it this way instead of using a set so we can sort of maintain chronological order
                         List<String> newNotes = new ArrayList<>();
-                        for(String string : internalNotes) {
-                            if(!newNotes.contains(string)) {
+                        for (String string : internalNotes) {
+                            if (!newNotes.contains(string)) {
                                 newNotes.add(string);
                             }
                         }
@@ -315,7 +276,6 @@ public class SyncActivity extends ActionBarActivity {
         externalDatabase.close();
     }
 
-
     private void readDatabases() {
         Log.d("wildrank", "reading databasees");
         try {
@@ -354,6 +314,45 @@ public class SyncActivity extends ActionBarActivity {
         } catch (Exception e) {
             e.printStackTrace();
             Toast.makeText(this, "Error reading!", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private class SyncTask extends AsyncTask<Void, Void, SyncTask.SyncResult> {
+
+        @Override
+        protected SyncTask.SyncResult doInBackground(Void... params) {
+            try {
+                syncDatabases();
+                SyncResult r = new SyncResult();
+                r.result = SyncResult.RESULT_SUCCESS;
+                return r;
+            } catch (Exception e) {
+                e.printStackTrace();
+                SyncResult r = new SyncResult();
+                r.result = SyncResult.RESULT_ERROR;
+                return r;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(SyncResult result) {
+            super.onPostExecute(result);
+            switch (result.result) {
+                case SyncResult.RESULT_SUCCESS:
+                    Toast.makeText(SyncActivity.this, "Sync complete!", Toast.LENGTH_LONG).show();
+                    break;
+                case SyncResult.RESULT_ERROR:
+                    Toast.makeText(SyncActivity.this, "Error syncing databases. Check logcat.", Toast.LENGTH_LONG).show();
+                    break;
+            }
+            readDatabases();
+        }
+
+        protected class SyncResult {
+            public static final int RESULT_SUCCESS = 0;
+            public static final int RESULT_ERROR = 1;
+
+            public int result;
         }
     }
 }

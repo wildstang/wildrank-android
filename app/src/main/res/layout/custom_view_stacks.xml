@@ -1,84 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-                                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                                    android:id="@+id/card_view"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center"
-                                    card_view:cardCornerRadius="4dp">
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_view"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    card_view:cardCornerRadius="4dp">
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                    style="@style/ScoutingWidget"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:focusableInTouchMode="true"
-                    android:id="@+id/relativeLayout">
+        android:id="@+id/relativeLayout"
+        style="@style/ScoutingWidget"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:focusableInTouchMode="true">
 
         <Button
+            android:id="@+id/minus"
             style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="-"
-            android:id="@+id/minus"
-            android:layout_alignParentLeft="true"/>
+            android:layout_alignParentLeft="true"
+            android:text="-" />
 
         <TextView
+            android:id="@+id/totes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="40sp"
-            android:text="0"
-            android:id="@+id/totes"
             android:layout_above="@+id/bin"
+            android:layout_toEndOf="@+id/minus"
             android:layout_toRightOf="@+id/minus"
-            android:layout_toEndOf="@+id/minus"/>
+            android:text="0"
+            android:textSize="40sp" />
 
         <Button
+            android:id="@+id/plus"
             style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="+"
-            android:id="@+id/plus"
-            android:layout_toRightOf="@id/totes"/>
+            android:layout_toRightOf="@id/totes"
+            android:text="+" />
 
         <CheckBox
+            android:id="@+id/preexisting"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Pre-Existing"
-            android:id="@+id/preexisting"
             android:layout_alignBottom="@+id/plus"
-            android:layout_toRightOf="@id/plus"/>
+            android:layout_toRightOf="@id/plus"
+            android:text="Pre-Existing" />
 
         <!-- Make dropdown 0-6-->
         <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="number"
-            android:ems="2"
             android:id="@+id/preexisting_count"
-            android:layout_toRightOf="@id/preexisting"/>
-
-        <CheckBox
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Topped w/ Bin"
+            android:layout_toRightOf="@id/preexisting"
+            android:ems="2"
+            android:inputType="number" />
+
+        <CheckBox
             android:id="@+id/bin"
-            android:layout_below="@+id/minus"/>
-
-        <CheckBox
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Litter in Bin"
+            android:layout_below="@+id/minus"
+            android:text="Topped w/ Bin" />
+
+        <CheckBox
             android:id="@+id/litter"
-            android:layout_alignTop="@+id/bin"
-            android:layout_toRightOf="@+id/bin"
-            android:layout_toEndOf="@+id/bin"/>
-
-        <CheckBox
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Co-op Stack"
+            android:layout_alignTop="@+id/bin"
+            android:layout_toEndOf="@+id/bin"
+            android:layout_toRightOf="@+id/bin"
+            android:text="Litter in Bin" />
+
+        <CheckBox
             android:id="@+id/coop"
-            android:layout_below="@+id/bin"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/bin"
+            android:text="Co-op Stack" />
 
     </RelativeLayout>
 

@@ -20,7 +20,6 @@ import org.wildstang.wildrank.androidv2.R;
 import org.wildstang.wildrank.androidv2.Utilities;
 import org.wildstang.wildrank.androidv2.data.DatabaseManager;
 import org.wildstang.wildrank.androidv2.fragments.NotesFragment;
-import org.wildstang.wildrank.androidv2.fragments.NotesSixFragment;
 
 import java.io.IOException;
 
@@ -28,10 +27,9 @@ import java.io.IOException;
  * Created by Liam on 3/19/2015.
  */
 public class NoteActivity extends ActionBarActivity {
-    private Toolbar toolbar;
     private static String teamKey;
     private static String note;
-
+    private Toolbar toolbar;
     private NotesFragment frag;
 
     public static Intent createIntent(Context context, String team) {

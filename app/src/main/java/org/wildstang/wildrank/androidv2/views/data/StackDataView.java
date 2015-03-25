@@ -65,7 +65,7 @@ public class StackDataView extends View {
                 for (int j = 0; j < stackData.size(); j++) {
                     Log.d("wildrank", "stack for match " + (String) doc.getProperty("match_key") + ": " + stackData.get(j));
                     StackModel stack = StackModel.fromMap(stackData.get(j));
-                    if(stack.isMeaningfulStack()) {
+                    if (stack.isMeaningfulStack()) {
                         matchStacks.add(stack);
                         stackCount++;
                     } else {
