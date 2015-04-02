@@ -37,13 +37,7 @@ public class ScoutingCheckboxView extends ScoutingView {
         // This conflicts with our custom state saving
         checkboxView.setSaveEnabled(false);
 
-        this.setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                setChecked(!checkboxView.isChecked());
-            }
-        });
+        this.setOnClickListener(v -> setChecked(!checkboxView.isChecked()));
     }
 
     public boolean isChecked() {

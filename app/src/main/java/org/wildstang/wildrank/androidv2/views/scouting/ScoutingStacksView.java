@@ -41,13 +41,7 @@ public class ScoutingStacksView extends ScoutingView implements View.OnClickList
         stackDroppedCheckbox = (ScoutingCheckboxView) findViewById(R.id.stack_dropped);
         binDroppedCheckbox = (ScoutingCheckboxView) findViewById(R.id.bin_dropped);
 
-        preexistingStackCheckbox.setOnValueChangedListener(new ScoutingCheckboxView.OnValueChangedListener() {
-            @Override
-            public void onValueChanged(boolean newValue) {
-                // Enable/disable the preexisting height spinner
-                preexistingHeightSpinner.setEnabled(newValue);
-            }
-        });
+        preexistingStackCheckbox.setOnValueChangedListener(newValue -> preexistingHeightSpinner.setEnabled(newValue));
 
         // Synchronize the state of the preexisting height spinner with the checkbox
         preexistingHeightSpinner.setEnabled(preexistingStackCheckbox.isChecked());

@@ -35,27 +35,19 @@ public class ScoutingCounterView extends ScoutingView {
         countView.setText(Integer.toString(count));
 
         // Make view clickable
-        this.setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                count++;
-                countView.setText(Integer.toString(count));
-            }
+        this.setOnClickListener(v -> {
+            count++;
+            countView.setText(Integer.toString(count));
         });
 
         // Long clicks subtract from count
-        this.setOnLongClickListener(new OnLongClickListener() {
-
-            @Override
-            public boolean onLongClick(View v) {
-                if (count > 0) {
-                    count--;
-                    playSoundEffect(SoundEffectConstants.CLICK);
-                }
-                countView.setText(Integer.toString(count));
-                return true;
+        this.setOnLongClickListener(v -> {
+            if (count > 0) {
+                count--;
+                playSoundEffect(SoundEffectConstants.CLICK);
             }
+            countView.setText(Integer.toString(count));
+            return true;
         });
     }
 

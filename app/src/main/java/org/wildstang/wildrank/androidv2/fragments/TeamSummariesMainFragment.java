@@ -53,12 +53,9 @@ public class TeamSummariesMainFragment extends Fragment {
         tabs = (SlidingTabs) view.findViewById(R.id.tabs);
 
         pager.setOffscreenPageLimit(10);
-        teamList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                QueryRow row = (QueryRow) parent.getItemAtPosition(position);
-                onTeamSelected(row.getDocument());
-            }
+        teamList.setOnItemClickListener((parent, view1, position, id) -> {
+            QueryRow row = (QueryRow) parent.getItemAtPosition(position);
+            onTeamSelected(row.getDocument());
         });
 
         pager.setAdapter(new TeamSummariesFragmentPagerAdapter(getFragmentManager()));

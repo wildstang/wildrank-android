@@ -53,79 +53,61 @@ public class DatabaseManager {
 
     private void initializeViews() {
         com.couchbase.lite.View matchViewByNumber = internalDatabase.getView(DatabaseManagerConstants.MATCH_LIST_VIEW_BY_NUMBER);
-        matchViewByNumber.setMap(new Mapper() {
-            @Override
-            public void map(Map<String, Object> document, Emitter emitter) {
-                Object docType = document.get(DatabaseManagerConstants.DOC_TYPE);
-                if (docType != null) {
-                    if (docType.toString().equals(DatabaseManagerConstants.MATCH_TYPE)) {
-                        emitter.emit(document.get("match_number"), null);
-                    }
+        matchViewByNumber.setMap((document, emitter) -> {
+            Object docType = document.get(DatabaseManagerConstants.DOC_TYPE);
+            if (docType != null) {
+                if (docType.toString().equals(DatabaseManagerConstants.MATCH_TYPE)) {
+                    emitter.emit(document.get("match_number"), null);
                 }
             }
         }, "8");
 
         com.couchbase.lite.View matchViewByKey = internalDatabase.getView(DatabaseManagerConstants.MATCH_LIST_VIEW_BY_KEY);
-        matchViewByKey.setMap(new Mapper() {
-            @Override
-            public void map(Map<String, Object> document, Emitter emitter) {
-                Object docType = document.get(DatabaseManagerConstants.DOC_TYPE);
-                if (docType != null) {
-                    if (docType.toString().equals(DatabaseManagerConstants.MATCH_TYPE)) {
-                        emitter.emit(document.get("key"), null);
-                    }
+        matchViewByKey.setMap((document, emitter) -> {
+            Object docType = document.get(DatabaseManagerConstants.DOC_TYPE);
+            if (docType != null) {
+                if (docType.toString().equals(DatabaseManagerConstants.MATCH_TYPE)) {
+                    emitter.emit(document.get("key"), null);
                 }
             }
         }, "1");
 
         com.couchbase.lite.View matchResultsView = internalDatabase.getView(DatabaseManagerConstants.MATCH_RESULT_VIEW);
-        matchResultsView.setMap(new Mapper() {
-            @Override
-            public void map(Map<String, Object> document, Emitter emitter) {
-                Object docType = document.get(DatabaseManagerConstants.DOC_TYPE);
-                if (docType != null) {
-                    if (docType.toString().equals(DatabaseManagerConstants.MATCH_RESULT_TYPE)) {
-                        emitter.emit(document.get("team_key"), null);
-                    }
+        matchResultsView.setMap((document, emitter) -> {
+            Object docType = document.get(DatabaseManagerConstants.DOC_TYPE);
+            if (docType != null) {
+                if (docType.toString().equals(DatabaseManagerConstants.MATCH_RESULT_TYPE)) {
+                    emitter.emit(document.get("team_key"), null);
                 }
             }
         }, "1");
 
         View usersView = internalDatabase.getView(DatabaseManagerConstants.USER_VIEW_BY_ID);
-        usersView.setMap(new Mapper() {
-            @Override
-            public void map(Map<String, Object> document, Emitter emitter) {
-                Object docType = document.get(DatabaseManagerConstants.DOC_TYPE);
-                if (docType != null) {
-                    if (docType.toString().equals(DatabaseManagerConstants.USER_TYPE)) {
-                        emitter.emit(document.get("id"), null);
-                    }
+        usersView.setMap((document, emitter) -> {
+            Object docType = document.get(DatabaseManagerConstants.DOC_TYPE);
+            if (docType != null) {
+                if (docType.toString().equals(DatabaseManagerConstants.USER_TYPE)) {
+                    emitter.emit(document.get("id"), null);
                 }
             }
         }, "1");
 
         View teamsView = internalDatabase.getView(DatabaseManagerConstants.TEAM_LIST_VIEW_BY_NUMBER);
-        teamsView.setMap(new Mapper() {
-            @Override
-            public void map(Map<String, Object> document, Emitter emitter) {
-                Object docType = document.get(DatabaseManagerConstants.DOC_TYPE);
-                if (docType != null) {
-                    if (docType.toString().equals(DatabaseManagerConstants.TEAM_TYPE)) {
-                        emitter.emit(document.get("team_number"), null);
-                    }
+        teamsView.setMap((document, emitter) -> {
+            Object docType = document.get(DatabaseManagerConstants.DOC_TYPE);
+            if (docType != null) {
+                if (docType.toString().equals(DatabaseManagerConstants.TEAM_TYPE)) {
+                    emitter.emit(document.get("team_number"), null);
                 }
             }
         }, "1");
 
         View pitResultsView = internalDatabase.getView(DatabaseManagerConstants.PIT_RESULTS_VIEW);
-        pitResultsView.setMap(new Mapper() {
-            @Override
-            public void map(Map<String, Object> document, Emitter emitter) {
-                Object docType = document.get(DatabaseManagerConstants.DOC_TYPE);
-                if (docType != null) {
-                    if (docType.toString().equals(DatabaseManagerConstants.PIT_RESULTS_TYPE)) {
-                        emitter.emit(document.get("team_key"), null);
-                    }
+        pitResultsView.setMap((document, emitter) -> {
+            Object docType = document.get(DatabaseManagerConstants.DOC_TYPE);
+            if (docType != null) {
+                if (docType.toString().equals(DatabaseManagerConstants.PIT_RESULTS_TYPE)) {
+                    emitter.emit(document.get("team_key"), null);
                 }
             }
         }, "1");

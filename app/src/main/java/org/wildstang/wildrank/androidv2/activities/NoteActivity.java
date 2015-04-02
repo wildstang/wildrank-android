@@ -87,18 +87,8 @@ public class NoteActivity extends ActionBarActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Save");
         builder.setMessage("Would you like to save before exiting? (Press outside this dialog to cancel)");
-        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                finishScouting();
-            }
-        });
-        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                NoteActivity.this.finish();
-            }
-        });
+        builder.setPositiveButton("Yes", (dialog, which) -> finishScouting());
+        builder.setNegativeButton("No", (dialog, which) -> NoteActivity.this.finish());
         builder.show();
     }
 

@@ -11,6 +11,11 @@ import org.wildstang.wildrank.androidv2.interfaces.IMatchDataView;
 import java.util.List;
 import java.util.Map;
 
+import rx.Observable;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.observables.MathObservable;
+import rx.schedulers.Schedulers;
+
 /**
  * Created by Nathan on 3/18/2015.
  */
@@ -27,28 +32,18 @@ public class MatchDataAverageHumanPlayerRatingView extends MatchDataView impleme
         } else if (documents.size() == 0) {
             return;
         }
-        double numMatches = 0;
-        double ratingSum = 0;
-        for (Document document : documents) {
-            Map<String, Object> data = (Map<String, Object>) document.getProperty("data");
-            if (data == null) {
-                continue;
-            }
 
-            Log.d("wildrank", data.toString());
+        Observable<Double> stacksObservable = Observable.from(documents)
+                .map(doc -> (Map<String, Object>) doc.getProperty("data"))
+                .filter(data -> data.get("post_match-hp_rating") != null)
+                .map(data -> Double.parseDouble((String) data.get("post_match-hp_rating")))
+                .filter(ranking -> ranking != 0)
+                .subscribeOn(Schedulers.computation());
 
-            if (data.get("post_match-hp_rating") == null) {
-                continue;
-            }
-            String hpRatingString = (String) data.get("post_match-hp_rating");
-            int hpRating = Integer.parseInt(hpRatingString);
-            if (hpRating == 0) {
-                continue;
-            }
-            ratingSum += hpRating;
-            numMatches++;
-        }
-        double average = ratingSum / numMatches;
-        setValueText(formatNumberAsString(average));
+        MathObservable.averageDouble(stacksObservable)
+                .map(average -> formatNumberAsString(average))
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(average -> setValueText(average));
+
     }
 }

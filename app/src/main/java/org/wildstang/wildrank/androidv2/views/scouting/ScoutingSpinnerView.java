@@ -73,14 +73,10 @@ public class ScoutingSpinnerView extends ScoutingView implements OnItemSelectedL
             spinner.setSelection(0);
         }
         spinner.setOnItemSelectedListener(this);
-        spinner.setOnTouchListener(new OnTouchListener() {
-
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(spinner.getWindowToken(), 0);
-                return false;
-            }
+        spinner.setOnTouchListener((v, event) -> {
+            InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(spinner.getWindowToken(), 0);
+            return false;
         });
 
         deleteButton = (ImageButton) findViewById(R.id.delete_current_spinner_selection);
@@ -90,14 +86,8 @@ public class ScoutingSpinnerView extends ScoutingView implements OnItemSelectedL
             deleteButton.setOnClickListener(this);
         }
 
-        this.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Open the spinner when the view is touched
-                spinner.performClick();
-
-            }
-        });
+        // Open the spinner when this view is touched
+        this.setOnClickListener(v -> spinner.performClick());
     }
 
     public void setEnabled(boolean enabled) {

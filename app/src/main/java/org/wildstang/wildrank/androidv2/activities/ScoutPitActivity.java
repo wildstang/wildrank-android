@@ -136,18 +136,8 @@ public class ScoutPitActivity extends ActionBarActivity {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("Confirm exit");
             builder.setMessage("If you exit without saving, all data will be lost. Do you still want to exit?");
-            builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    ScoutPitActivity.this.finish();
-                }
-            });
-            builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                }
-            });
+            builder.setPositiveButton("Yes", (dialog, which) -> ScoutPitActivity.this.finish());
+            builder.setNegativeButton("No", (dialog, which) -> dialog.dismiss());
             builder.show();
             return true;
         }

@@ -5,12 +5,13 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ValueAnimator;
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,7 +25,7 @@ import org.wildstang.wildrank.androidv2.data.DatabaseManager;
 /**
  * Created by Nathan on 1/27/2015.
  */
-public class UserLoginActivity extends ActionBarActivity implements View.OnClickListener {
+public class UserLoginActivity extends ActionBarActivity implements View.OnClickListener, TextView.OnEditorActionListener {
 
     public static final String EXTRA_CREATE_NEW_HOME = "create_new_home";
     EditText userLoginEditText;
@@ -49,6 +50,8 @@ public class UserLoginActivity extends ActionBarActivity implements View.OnClick
         userLoginEditText = (EditText) findViewById(R.id.login_user_id);
         userWelcomeMessage = (TextView) findViewById(R.id.user_welcome_message);
         loginContainer = findViewById(R.id.login_container);
+
+        userLoginEditText.setOnEditorActionListener(this);
     }
 
     private void doLogin() {
@@ -78,12 +81,8 @@ public class UserLoginActivity extends ActionBarActivity implements View.OnClick
         new AlertDialog.Builder(this)
                 .setTitle("User not found")
                 .setMessage("Please check that your ID is correct!")
-                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                }).show();
+                .setPositiveButton("Ok", (dialog, which) -> dialog.dismiss())
+                .show();
     }
 
     private void doFancyAnimationsAndFinish(String userName) {
@@ -91,12 +90,9 @@ public class UserLoginActivity extends ActionBarActivity implements View.OnClick
 
 
         ValueAnimator fadeLoginOut = ValueAnimator.ofFloat(1, 0);
-        fadeLoginOut.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                Log.d("wildrank", "alpha updated! " + animation.getAnimatedValue());
-                loginContainer.setAlpha((float) animation.getAnimatedValue());
-            }
+        fadeLoginOut.addUpdateListener(animation -> {
+            Log.d("wildrank", "alpha updated! " + animation.getAnimatedValue());
+            loginContainer.setAlpha((float) animation.getAnimatedValue());
         });
         fadeLoginOut.setDuration(400);
 
@@ -107,12 +103,7 @@ public class UserLoginActivity extends ActionBarActivity implements View.OnClick
                 userWelcomeMessage.setVisibility(View.VISIBLE);
             }
         });
-        fadeWelcomeIn.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                userWelcomeMessage.setAlpha((float) animation.getAnimatedValue());
-            }
-        });
+        fadeWelcomeIn.addUpdateListener(animation -> userWelcomeMessage.setAlpha((float) animation.getAnimatedValue()));
         fadeWelcomeIn.setDuration(400);
 
         ValueAnimator fadeWelcomeOut = ValueAnimator.ofFloat(1, 0);
@@ -130,12 +121,7 @@ public class UserLoginActivity extends ActionBarActivity implements View.OnClick
                 UserLoginActivity.this.finish();
             }
         });
-        fadeWelcomeOut.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                userWelcomeMessage.setAlpha((float) animation.getAnimatedValue());
-            }
-        });
+        fadeWelcomeOut.addUpdateListener(animation -> userWelcomeMessage.setAlpha((float) animation.getAnimatedValue()));
         fadeWelcomeOut.setStartDelay(1000);
         fadeWelcomeOut.setDuration(400);
 
@@ -151,11 +137,18 @@ public class UserLoginActivity extends ActionBarActivity implements View.OnClick
         int id = v.getId();
         if (id == R.id.login_button) {
             doLogin();
-            try {
-                DatabaseManager.getInstance(this).dumpDatabaseContentsToLog();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
         }
+    }
+
+    @Override
+    public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+        Log.d("wildrank", "Login button pressed! id: " + actionId);
+        if(event == null || event.getAction() == KeyEvent.ACTION_UP) {
+            InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+            doLogin();
+            return true;
+        }
+        return false;
     }
 }

@@ -53,12 +53,9 @@ public class PitScoutingMainFragment extends Fragment implements View.OnClickLis
         View view = inflater.inflate(R.layout.fragment_pit_scouting_main, container, false);
 
         list = (ListView) view.findViewById(R.id.match_list);
-        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                QueryRow row = (QueryRow) parent.getItemAtPosition(position);
-                onTeamSelected(row.getDocument());
-            }
+        list.setOnItemClickListener((parent, view1, position, id) -> {
+            QueryRow row = (QueryRow) parent.getItemAtPosition(position);
+            onTeamSelected(row.getDocument());
         });
 
         // We reuse this view to show the "select a match" message to avoid having another view
@@ -143,18 +140,8 @@ public class PitScoutingMainFragment extends Fragment implements View.OnClickLis
                 new AlertDialog.Builder(getActivity())
                         .setTitle("Rescouting team")
                         .setMessage("Existing team data will be overwritten if you continue.")
-                        .setPositiveButton("Continue", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                startActivity(intent);
-                            }
-                        })
-                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        }).show();
+                        .setPositiveButton("Continue", (dialog, which) -> startActivity(intent))
+                        .setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss()).show();
             } else {
                 // Begin scouting as normal!
                 startActivity(intent);

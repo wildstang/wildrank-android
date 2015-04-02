@@ -6,6 +6,8 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.SurfaceHolder;
+import android.view.SurfaceView;
 import android.view.View;
 
 import com.couchbase.lite.Document;
@@ -44,7 +46,7 @@ public class StackDataView extends View {
         droppedPaint.setColor(Color.argb(200, 255, 0, 0)); // Transparent red
     }
 
-    public void acceptNewTeamData(String teamKey, Document teamDoc, Document pitDoc, List<Document> matchDocs) {
+    public void acceptNewTeamData(List<Document> matchDocs) {
         stacks = new ArrayList<>();
         // Sorts the matches by match number
         Collections.sort(matchDocs, new MatchDocumentComparator());

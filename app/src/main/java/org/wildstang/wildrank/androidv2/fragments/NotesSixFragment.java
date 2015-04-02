@@ -63,58 +63,55 @@ public class NotesSixFragment extends Fragment {
     }
 
     public void setupAnimation(final int i) {
-        boxes.get(i).getButton().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final View main = getView();
-                final View view = boxes.get(i).getLayout();
-                if (i < 3) {
-                    section = main.findViewById(R.id.top);
-                } else {
-                    section = main.findViewById(R.id.bottom);
-                }
-
-                final int targetWidth = main.getWidth();
-                final int targetHeight = main.getHeight();
-
-                Animation animate = new Animation() {
-                    @Override
-                    protected void applyTransformation(float interpolatedTime, Transformation t) {
-                        section.getLayoutParams().height = (int) (targetHeight * interpolatedTime);
-                        section.requestLayout();
-                        if (!sixMode) {
-                            view.getLayoutParams().height = (int) (targetHeight * interpolatedTime);
-                        }
-                        view.getLayoutParams().width = (int) (targetWidth * interpolatedTime);
-                        view.requestLayout();
-                    }
-
-                    @Override
-                    public boolean willChangeBounds() {
-                        return true;
-                    }
-                };
-
-                if (sixMode) {
-                    sixMode = false;
-                    try {
-                        boxes.get(i).setOldNotes(DatabaseManager.getInstance(getActivity()).getNotes(teams[i]), getActivity());
-                    } catch (CouchbaseLiteException e) {
-                        e.printStackTrace();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                } else {
-                    animate.setInterpolator(new ReverseInterpolator());
-                    sixMode = true;
-                    boxes.get(i).clearNotes();
-                }
-
-                animate.setDuration(Math.abs((int) (targetWidth / view.getContext().getResources().getDisplayMetrics().density)) / 4);
-                view.startAnimation(animate);
-
-                view.getLayoutParams().height = LinearLayout.LayoutParams.FILL_PARENT;
+        boxes.get(i).getButton().setOnClickListener(v -> {
+            final View main = getView();
+            final View view = boxes.get(i).getLayout();
+            if (i < 3) {
+                section = main.findViewById(R.id.top);
+            } else {
+                section = main.findViewById(R.id.bottom);
             }
+
+            final int targetWidth = main.getWidth();
+            final int targetHeight = main.getHeight();
+
+            Animation animate = new Animation() {
+                @Override
+                protected void applyTransformation(float interpolatedTime, Transformation t) {
+                    section.getLayoutParams().height = (int) (targetHeight * interpolatedTime);
+                    section.requestLayout();
+                    if (!sixMode) {
+                        view.getLayoutParams().height = (int) (targetHeight * interpolatedTime);
+                    }
+                    view.getLayoutParams().width = (int) (targetWidth * interpolatedTime);
+                    view.requestLayout();
+                }
+
+                @Override
+                public boolean willChangeBounds() {
+                    return true;
+                }
+            };
+
+            if (sixMode) {
+                sixMode = false;
+                try {
+                    boxes.get(i).setOldNotes(DatabaseManager.getInstance(getActivity()).getNotes(teams[i]), getActivity());
+                } catch (CouchbaseLiteException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                animate.setInterpolator(new ReverseInterpolator());
+                sixMode = true;
+                boxes.get(i).clearNotes();
+            }
+
+            animate.setDuration(Math.abs((int) (targetWidth / view.getContext().getResources().getDisplayMetrics().density)) / 4);
+            view.startAnimation(animate);
+
+            view.getLayoutParams().height = LinearLayout.LayoutParams.FILL_PARENT;
         });
     }
 

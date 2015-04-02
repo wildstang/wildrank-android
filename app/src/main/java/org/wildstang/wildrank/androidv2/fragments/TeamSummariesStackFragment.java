@@ -27,6 +27,6 @@ public class TeamSummariesStackFragment extends TeamSummariesFragment {
 
     @Override
     public void acceptNewTeamData(String teamKey, Document teamDoc, Document pitDoc, List<Document> matchDocs) {
-        view.acceptNewTeamData(teamKey, teamDoc, pitDoc, matchDocs);
+        view.acceptNewTeamData(matchDocs);
     }
 }

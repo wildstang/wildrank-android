@@ -1,10 +1,15 @@
 package org.wildstang.wildrank.androidv2.activities;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
@@ -25,12 +30,15 @@ import org.wildstang.wildrank.androidv2.fragments.MatchScoutingMainFragment;
 import org.wildstang.wildrank.androidv2.fragments.NotesMainFragment;
 import org.wildstang.wildrank.androidv2.fragments.PitScoutingMainFragment;
 import org.wildstang.wildrank.androidv2.fragments.TeamSummariesMainFragment;
+import org.wildstang.wildrank.androidv2.models.UserModel;
+
+import java.util.List;
 
 
 /**
  * Serves as the jumping-off point of the entire app. It utilizes a navigation drawer to jump
  * between various top-level screens, including match scouting, pit scouting, and data viewing.
- * <p/>
+ * <p>
  * When you switch modes, the app swaps in the appropriate main fragment for the given mode. The
  * modes are defined in the enum Mode; new modes should be added there, and any setup that should be
  * done when that mode is selected should be defined in switchToMode().
@@ -47,6 +55,7 @@ public class HomeActivity extends ActionBarActivity {
             MODE_NAMES[mode.ordinal()] = mode.getTitle();
         }
     }
+
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle drawerToggle;
     private ListView navigationDrawerList;
@@ -150,19 +159,9 @@ public class HomeActivity extends ActionBarActivity {
         };
         drawerLayout.setDrawerListener(drawerToggle);
         // Defer code dependent on restoration of previous instance state.
-        drawerLayout.post(new Runnable() {
-            @Override
-            public void run() {
-                drawerToggle.syncState();
-            }
-        });
+        drawerLayout.post(() -> drawerToggle.syncState());
 
-        navigationDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                onItemSelected(position);
-            }
-        });
+        navigationDrawerList.setOnItemClickListener((parent, view, position, id) -> onItemSelected(position));
         ListAdapter adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, MODE_NAMES);
         navigationDrawerList.setAdapter(adapter);
     }
@@ -236,18 +235,12 @@ public class HomeActivity extends ActionBarActivity {
         if (id == R.id.action_settings) {
             startActivity(new Intent(this, SettingsActivity.class));
             return true;
+        } else if (id == R.id.action_users) {
+            showUserDialog();
+            return true;
         } else if (id == R.id.action_sync) {
             startActivity(new Intent(this, SyncActivity.class));
             return true;
-        } else if (id == R.id.action_log_out) {
-            UserHelper.logOutAllUsers(this);
-            startActivity(new Intent(this, UserLoginActivity.class));
-            this.finish();
-        } else if (id == R.id.action_add_user) {
-            Intent i = new Intent(this, UserLoginActivity.class);
-            // Don't create a new Home activity after the user is logged in; simply return to this one.
-            i.putExtra(UserLoginActivity.EXTRA_CREATE_NEW_HOME, false);
-            startActivity(i);
         } else if (drawerToggle.onOptionsItemSelected(item)) {
             return true;
         }
@@ -270,6 +263,72 @@ public class HomeActivity extends ActionBarActivity {
 
         public String getTitle() {
             return this.title;
+        }
+    }
+
+    private void showUserDialog() {
+        FragmentManager fm = getSupportFragmentManager();
+        ManageUsersDialog usersDialog = new ManageUsersDialog();
+        usersDialog.show(fm, "users_dialog");
+    }
+
+    private class ManageUsersDialog extends DialogFragment {
+        private ListView usersList;
+
+        public ManageUsersDialog() {
+            // Empty constructor
+        }
+
+        @NonNull
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity())
+                    .setTitle("Manage Users")
+                    .setPositiveButton("Done", (dialog, which) -> dialog.dismiss())
+                    .setNegativeButton("Log out all users", (dialog1, which) -> {
+                        UserHelper.logOutAllUsers(HomeActivity.this);
+                        startActivity(new Intent(HomeActivity.this, UserLoginActivity.class));
+                        HomeActivity.this.finish();
+                    })
+                    .setNeutralButton("Add user", (dialog, which) -> {
+                        Intent i = new Intent(getActivity(), UserLoginActivity.class);
+                        // Don't create a new Home activity after the user is logged in; simply return to this one.
+                        i.putExtra(UserLoginActivity.EXTRA_CREATE_NEW_HOME, false);
+                        startActivity(i);
+                    });
+
+            View v = getActivity().getLayoutInflater().inflate(R.layout.users_dialog, null);
+            usersList = (ListView) v.findViewById(R.id.list);
+            setupUsersList();
+            builder.setView(v);
+
+            return builder.create();
+        }
+
+        void setupUsersList() {
+            List<UserModel> users = UserHelper.getLoggedInUserModelsAsList(getActivity());
+            final ArrayAdapter<UserModel> adapter = new ArrayAdapter<>(getActivity(), R.layout.list_item_user, users);
+            usersList.setAdapter(adapter);
+            usersList.setOnItemClickListener((parent, view1, position, id) -> {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setTitle("Confirm logout");
+                builder.setMessage("Are you sure you want to log this user out?");
+                final UserModel user = (UserModel) parent.getAdapter().getItem(position);
+                builder.setPositiveButton("Yes", (dialog1, which) -> {
+                    UserHelper.logOutUser(getActivity(), user.userId);
+                    adapter.remove(user);
+                    adapter.notifyDataSetChanged();
+                    if (UserHelper.getLoggedInUsers(getActivity()).size() == 0) {
+                        // No more users are logged in
+                        // Prompt a new one to log in
+                        startActivity(new Intent(getActivity(), UserLoginActivity.class));
+                        finish();
+                    }
+                    dialog1.dismiss();
+                });
+                builder.setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
+                builder.show();
+            });
         }
     }
 }

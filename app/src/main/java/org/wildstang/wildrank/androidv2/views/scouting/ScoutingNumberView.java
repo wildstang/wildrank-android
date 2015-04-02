@@ -38,21 +38,15 @@ public class ScoutingNumberView extends ScoutingView {
         // When we receive focus after pressing "Next", pass focus onto the edittext
         this.setFocusable(true);
         this.setFocusableInTouchMode(true);
-        this.setOnFocusChangeListener(new OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    valueView.requestFocus();
-                }
+        this.setOnFocusChangeListener((v, hasFocus) -> {
+            if (hasFocus) {
+                valueView.requestFocus();
             }
         });
 
-        this.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                valueView.requestFocus();
-                ((InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE)).showSoftInput(valueView, InputMethodManager.SHOW_FORCED);
-            }
+        this.setOnClickListener(v -> {
+            valueView.requestFocus();
+            ((InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE)).showSoftInput(valueView, InputMethodManager.SHOW_FORCED);
         });
     }
 

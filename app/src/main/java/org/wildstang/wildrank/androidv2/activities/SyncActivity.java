@@ -2,8 +2,10 @@ package org.wildstang.wildrank.androidv2.activities;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.widget.TextView;
@@ -59,18 +61,8 @@ public class SyncActivity extends ActionBarActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Connect flash drive");
         builder.setMessage("Please connect a flash drive that has been set up using the desktop application.");
-        builder.setPositiveButton("Try again", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                beginSync();
-            }
-        });
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                SyncActivity.this.finish();
-            }
-        });
+        builder.setPositiveButton("Try again", (dialog, which) -> beginSync());
+        builder.setNegativeButton("Cancel", (dialog, which) -> SyncActivity.this.finish());
         builder.create().show();
     }
 
@@ -339,7 +331,8 @@ public class SyncActivity extends ActionBarActivity {
             super.onPostExecute(result);
             switch (result.result) {
                 case SyncResult.RESULT_SUCCESS:
-                    Toast.makeText(SyncActivity.this, "Sync complete!", Toast.LENGTH_LONG).show();
+                    startActivity(new Intent(android.provider.Settings.ACTION_INTERNAL_STORAGE_SETTINGS));
+                    Toast.makeText(SyncActivity.this, "Scroll down, press \"Unmount\", press back button.", Toast.LENGTH_LONG).show();
                     break;
                 case SyncResult.RESULT_ERROR:
                     Toast.makeText(SyncActivity.this, "Error syncing databases. Check logcat.", Toast.LENGTH_LONG).show();

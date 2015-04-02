@@ -38,7 +38,10 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="30dp"
             android:gravity="center_horizontal"
+            android:imeActionId="@+id/action_login"
+            android:imeActionLabel="Login"
             android:inputType="number"
+            android:singleLine="true"
             android:textSize="30sp" />
 
         <Button

@@ -11,6 +11,9 @@ import org.wildstang.wildrank.androidv2.models.StackModel;
 import java.util.List;
 import java.util.Map;
 
+import rx.Observable;
+import rx.observables.MathObservable;
+
 /**
  * Created by Nathan on 3/18/2015.
  */
@@ -27,6 +30,7 @@ public class MatchDataPercentageStacksDroppedView extends MatchDataView implemen
         } else if (documents.size() == 0) {
             return;
         }
+
         double totalStacks = 0;
         double droppedStacks = 0;
         for (Document document : documents) {

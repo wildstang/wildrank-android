@@ -68,18 +68,8 @@ public class AppSetupActivity extends ActionBarActivity implements View.OnClickL
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Connect flash drive");
         builder.setMessage("Please connect a flash drive that has been set up using the desktop application.");
-        builder.setPositiveButton("Try again", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                beginDataLoad();
-            }
-        });
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                AppSetupActivity.this.finish();
-            }
-        });
+        builder.setPositiveButton("Try again", (dialog, which) -> beginDataLoad());
+        builder.setNegativeButton("Cancel", (dialog, which) -> AppSetupActivity.this.finish());
         builder.create().show();
     }
 

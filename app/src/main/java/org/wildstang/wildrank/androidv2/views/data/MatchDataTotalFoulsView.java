@@ -10,6 +10,11 @@ import org.wildstang.wildrank.androidv2.interfaces.IMatchDataView;
 import java.util.List;
 import java.util.Map;
 
+import rx.Observable;
+import rx.android.lifecycle.LifecycleObservable;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.observables.MathObservable;
+
 /**
  * Created by Nathan on 3/18/2015.
  */
@@ -21,17 +26,21 @@ public class MatchDataTotalFoulsView extends MatchDataView implements IMatchData
 
     @Override
     public void calculateFromDocuments(List<Document> documents) {
-        int totalFouls = 0;
         if (documents == null) {
             return;
         } else if (documents.size() == 0) {
             return;
         }
-        for (Document document : documents) {
-            Map<String, Object> data = (Map<String, Object>) document.getProperty("data");
-            int fouls = (int) data.get("post_match-foul");
-            totalFouls += fouls;
-        }
-        setValueText("" + totalFouls);
+
+        Observable foulsObservable = Observable.from(documents)
+                .map(doc -> (Map<String, Object>) doc.getProperty("data"))
+                .map(data -> data.get("post_match-foul"))
+                .filter(fouls -> fouls != null)
+                .map(fouls -> (int) fouls);
+
+        MathObservable.sumInteger(foulsObservable)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(sum -> setValueText("" + sum));
+
     }
 }

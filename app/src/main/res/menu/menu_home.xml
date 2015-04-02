@@ -2,9 +2,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".HomeActivity">
+
+    <item
+        android:id="@+id/action_users"
+        android:orderInCategory="700"
+        android:title="Users"
+        android:icon="@drawable/ic_people_white_24dp"
+        app:showAsAction="always" />
+
     <item
         android:id="@+id/action_settings"
-        android:orderInCategory="100"
+        android:orderInCategory="700"
         android:title="@string/action_settings"
         app:showAsAction="never" />
 
@@ -14,15 +22,4 @@
         android:title="Sync"
         app:showAsAction="never" />
 
-    <item
-        android:id="@+id/action_log_out"
-        android:orderInCategory="200"
-        android:title="Log out all users"
-        app:showAsAction="never" />
-
-    <item
-        android:id="@+id/action_add_user"
-        android:orderInCategory="200"
-        android:title="Add user"
-        app:showAsAction="never" />
 </menu>

@@ -56,46 +56,41 @@ public class MatchScoutingMainFragment extends Fragment implements View.OnClickL
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        listener = new SharedPreferences.OnSharedPreferenceChangeListener() {
-            // If the team we are configured to scout for changes, reload the
-            // data
-            @Override
-            public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-                if (key == null) {
-                    return;
-                }
-                if (key.equals("assignedTeam")) {
-                    if (MatchScoutingMainFragment.this.isAdded()) {
-                        // Requery the list to update which matches are scouted or not
-                        try {
-                            Log.d("wildrank", "Requerying match list!");
+        listener = (sharedPreferences, key) -> {
+            if (key == null) {
+                return;
+            }
+            if (key.equals("assignedTeam")) {
+                if (MatchScoutingMainFragment.this.isAdded()) {
+                    // Requery the list to update which matches are scouted or not
+                    try {
+                        Log.d("wildrank", "Requerying match list!");
 
-                            runQuery();
+                        runQuery();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        Toast.makeText(getActivity(), "Error querying the match list. Check logcat!", Toast.LENGTH_LONG).show();
+                    }
+
+                    updateAssignedTeam();
+
+                    // Update the selected match view if it exists
+                    if (selectedMatchKey != null) {
+                        try {
+                            Log.d("wildrank", "Requerying match details!");
+                            onMatchSelected(DatabaseManager.getInstance(MatchScoutingMainFragment.this.getActivity()).getMatchFromKey(selectedMatchKey));
                         } catch (Exception e) {
                             e.printStackTrace();
-                            Toast.makeText(getActivity(), "Error querying the match list. Check logcat!", Toast.LENGTH_LONG).show();
-                        }
-
-                        updateAssignedTeam();
-
-                        // Update the selected match view if it exists
-                        if (selectedMatchKey != null) {
-                            try {
-                                Log.d("wildrank", "Requerying match details!");
-                                onMatchSelected(DatabaseManager.getInstance(MatchScoutingMainFragment.this.getActivity()).getMatchFromKey(selectedMatchKey));
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                        } else {
-                            Log.d("wildrank", "You idiot, it's null!");
-
                         }
                     } else {
-                        Log.d("wildrank", "Fragment not added!");
-                    }
-                }
+                        Log.d("wildrank", "You idiot, it's null!");
 
+                    }
+                } else {
+                    Log.d("wildrank", "Fragment not added!");
+                }
             }
+
         };
 
         PreferenceManager.getDefaultSharedPreferences(getActivity()).registerOnSharedPreferenceChangeListener(listener);
@@ -108,12 +103,9 @@ public class MatchScoutingMainFragment extends Fragment implements View.OnClickL
         View view = inflater.inflate(R.layout.fragment_match_scouting_main, container, false);
 
         list = (ListView) view.findViewById(R.id.match_list);
-        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                QueryRow row = (QueryRow) parent.getItemAtPosition(position);
-                onMatchSelected(row.getDocument());
-            }
+        list.setOnItemClickListener((parent, view1, position, id) -> {
+            QueryRow row = (QueryRow) parent.getItemAtPosition(position);
+            onMatchSelected(row.getDocument());
         });
 
         // We reuse this view to show the "select a match" message to avoid having another view
@@ -150,13 +142,10 @@ public class MatchScoutingMainFragment extends Fragment implements View.OnClickL
 
         QueryEnumerator enumerator = query.run();
 
-        Log.d("wildrank", "match query count: " + enumerator.getCount());
-
         List<QueryRow> queryRows = new ArrayList<>();
         for (Iterator<QueryRow> it = enumerator; it.hasNext(); ) {
             QueryRow row = it.next();
             queryRows.add(row);
-            Log.d("wildstang", "Document key: " + row.getKey());
         }
 
         Parcelable state = list.onSaveInstanceState();
@@ -167,7 +156,6 @@ public class MatchScoutingMainFragment extends Fragment implements View.OnClickL
 
     private void onMatchSelected(Document matchDocument) {
         selectedMatchKey = (String) matchDocument.getProperty("key");
-        Log.d("wildrank", "match key is null? " + (selectedMatchKey == null));
 
         int matchNumber = (Integer) matchDocument.getProperty("match_number");
         this.matchNumber.setText("Match " + matchNumber);
@@ -216,18 +204,8 @@ public class MatchScoutingMainFragment extends Fragment implements View.OnClickL
                 new AlertDialog.Builder(getActivity())
                         .setTitle("Rescouting match")
                         .setMessage("Existing match data will be overwritten if you continue.")
-                        .setPositiveButton("Continue", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                startActivity(intent);
-                            }
-                        })
-                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        }).show();
+                        .setPositiveButton("Continue", (dialog, which) -> startActivity(intent))
+                        .setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss()).show();
             } else {
                 // Begin scouting as normal!
                 startActivity(intent);

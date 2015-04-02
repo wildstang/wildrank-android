@@ -66,45 +66,40 @@ public class NotesMainFragment extends Fragment implements View.OnClickListener 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        listener = new SharedPreferences.OnSharedPreferenceChangeListener() {
-            // If the team we are configured to scout for changes, reload the
-            // data
-            @Override
-            public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-                if (key.equals("assignedTeam")) {
-                    if (NotesMainFragment.this.isAdded()) {
-                        // Requery the list to update which matches are scouted or not
-                        try {
-                            Log.d("wildrank", "Requerying match list!");
+        listener = (sharedPreferences, key) -> {
+            if (key.equals("assignedTeam")) {
+                if (NotesMainFragment.this.isAdded()) {
+                    // Requery the list to update which matches are scouted or not
+                    try {
+                        Log.d("wildrank", "Requerying match list!");
 
-                            runQuery();
+                        runQuery();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        Toast.makeText(getActivity(), "Error querying the match list. Check logcat!", Toast.LENGTH_LONG).show();
+                    }
+
+                    // Update the selected match view if it exists
+                    if (selectedMatchKey != null || selectedTeamKey != null) {
+                        try {
+                            Log.d("wildrank", "Requerying match details!");
+                            if (useTeamNumbers) {
+                                onTeamSelected(DatabaseManager.getInstance(NotesMainFragment.this.getActivity()).getTeamFromKey(selectedTeamKey));
+                            } else {
+                                onMatchSelected(DatabaseManager.getInstance(NotesMainFragment.this.getActivity()).getMatchFromKey(selectedMatchKey));
+                            }
                         } catch (Exception e) {
                             e.printStackTrace();
-                            Toast.makeText(getActivity(), "Error querying the match list. Check logcat!", Toast.LENGTH_LONG).show();
-                        }
-
-                        // Update the selected match view if it exists
-                        if (selectedMatchKey != null || selectedTeamKey != null) {
-                            try {
-                                Log.d("wildrank", "Requerying match details!");
-                                if (useTeamNumbers) {
-                                    onTeamSelected(DatabaseManager.getInstance(NotesMainFragment.this.getActivity()).getTeamFromKey(selectedTeamKey));
-                                } else {
-                                    onMatchSelected(DatabaseManager.getInstance(NotesMainFragment.this.getActivity()).getMatchFromKey(selectedMatchKey));
-                                }
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                        } else {
-                            Log.d("wildrank", "You idiot, it's null!");
-
                         }
                     } else {
-                        Log.d("wildrank", "Fragment not added!");
-                    }
-                }
+                        Log.d("wildrank", "You idiot, it's null!");
 
+                    }
+                } else {
+                    Log.d("wildrank", "Fragment not added!");
+                }
             }
+
         };
 
         PreferenceManager.getDefaultSharedPreferences(getActivity()).registerOnSharedPreferenceChangeListener(listener);
@@ -117,15 +112,12 @@ public class NotesMainFragment extends Fragment implements View.OnClickListener 
         View view = inflater.inflate(R.layout.fragment_notes_main, container, false);
 
         list = (ListView) view.findViewById(R.id.match_list);
-        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                QueryRow row = (QueryRow) parent.getItemAtPosition(position);
-                if (useTeamNumbers) {
-                    onTeamSelected(row.getDocument());
-                } else {
-                    onMatchSelected(row.getDocument());
-                }
+        list.setOnItemClickListener((parent, view1, position, id) -> {
+            QueryRow row = (QueryRow) parent.getItemAtPosition(position);
+            if (useTeamNumbers) {
+                onTeamSelected(row.getDocument());
+            } else {
+                onMatchSelected(row.getDocument());
             }
         });
 
@@ -137,15 +129,12 @@ public class NotesMainFragment extends Fragment implements View.OnClickListener 
         scoutingTeam.setText("");
 
         useNumbers = (CheckBox) view.findViewById(R.id.useTeams);
-        useNumbers.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                useTeamNumbers = useNumbers.isChecked();
-                try {
-                    runQuery();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+        useNumbers.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            useTeamNumbers = useNumbers.isChecked();
+            try {
+                runQuery();
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         });
 

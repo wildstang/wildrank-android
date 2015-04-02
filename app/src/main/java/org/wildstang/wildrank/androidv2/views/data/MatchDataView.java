@@ -52,21 +52,13 @@ public abstract class MatchDataView extends RelativeLayout implements IMatchData
 
         valueView = (TextView) findViewById(R.id.value);
 
-        this.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (explanation != null) {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                    builder.setTitle("Explanation");
-                    builder.setMessage(explanation);
-                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    });
-                    builder.create().show();
-                }
+        this.setOnClickListener(v -> {
+            if (explanation != null) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder.setTitle("Explanation");
+                builder.setMessage(explanation);
+                builder.setPositiveButton("OK", (dialog, which) -> dialog.dismiss());
+                builder.create().show();
             }
         });
     }

@@ -35,21 +35,13 @@ public class ScoutingTextView extends ScoutingView {
         // When we receive focus after pressing "Next", pass focus onto the edittext
         this.setFocusable(true);
         this.setFocusableInTouchMode(true);
-        this.setOnFocusChangeListener(new OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    valueView.requestFocus();
-                }
-            }
-        });
-
-        this.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        this.setOnFocusChangeListener((v, hasFocus) -> {
+            if (hasFocus) {
                 valueView.requestFocus();
             }
         });
+
+        this.setOnClickListener(v -> valueView.requestFocus());
 
     }
 
