@@ -25,6 +25,12 @@
             app:key="stacks_tipped_over"
             app:label="Stacks Tipped Over" />
 
+        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingCheckboxView
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            app:key="coop_set"
+            app:label="Coop Set" />
+
         <org.wildstang.wildrank.androidv2.views.scouting.ScoutingCounterView
             android:layout_width="300dp"
             android:layout_height="wrap_content"
