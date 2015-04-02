@@ -224,7 +224,7 @@ public class NotesMainFragment extends Fragment implements View.OnClickListener 
     private void onTeamSelected(Document teamDocument) {
         selectedTeamKey = (String) teamDocument.getProperty("key");
         Log.d("wildrank", "team key is null? " + (selectedMatchKey == null));
-        matchNumber.setText("Team:" + Utilities.teamNumberFromTeamKey(selectedTeamKey));
+        matchNumber.setText("Team: " + Utilities.teamNumberFromTeamKey(selectedTeamKey));
         scoutingTeam.setText("");
 
         beginScouting.setEnabled(true);
