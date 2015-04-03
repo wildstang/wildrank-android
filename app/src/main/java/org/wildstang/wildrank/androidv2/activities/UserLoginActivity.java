@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,6 +35,7 @@ public class UserLoginActivity extends ActionBarActivity implements View.OnClick
     TextView userWelcomeMessage;
     View loginContainer;
     private boolean createNewHome = true;
+    Button sync;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -52,6 +54,8 @@ public class UserLoginActivity extends ActionBarActivity implements View.OnClick
         userLoginEditText = (EditText) findViewById(R.id.login_user_id);
         userWelcomeMessage = (TextView) findViewById(R.id.user_welcome_message);
         loginContainer = findViewById(R.id.login_container);
+        sync = (Button) findViewById(R.id.sync);
+        sync.setOnClickListener(this);
 
         userLoginEditText.setOnEditorActionListener(this);
         updateAssignedTeam();
@@ -140,6 +144,10 @@ public class UserLoginActivity extends ActionBarActivity implements View.OnClick
         int id = v.getId();
         if (id == R.id.login_button) {
             doLogin();
+        }
+        else if(v == sync)
+        {
+            startActivity(new Intent(this, SyncActivity.class));
         }
     }
 
