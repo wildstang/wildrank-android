@@ -168,6 +168,12 @@ public class DatabaseManager {
         return query;
     }
 
+    public Query getAllCompleteMatches() {
+        Query query = internalDatabase.getView(DatabaseManagerConstants.MATCH_RESULT_VIEW).createQuery();
+        query.setDescending(false);
+        return query;
+    }
+
     public Document getMatchFromKey(String matchKey) throws CouchbaseLiteException {
         Query query = internalDatabase.getView(DatabaseManagerConstants.MATCH_LIST_VIEW_BY_KEY).createQuery();
         query.setDescending(false);

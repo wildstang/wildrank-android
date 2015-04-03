@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+     android:layout_width="wrap_content"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/match_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:text="0"
+        android:textAppearance="?android:attr/textAppearanceListItem" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Red 1: "
+        android:id="@+id/red1"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/match_number" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Red 2: "
+        android:id="@+id/red2"
+        android:layout_below="@+id/red1"
+        android:layout_alignLeft="@+id/red1" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Red 3: "
+        android:id="@+id/red3"
+        android:layout_below="@+id/red2"
+        android:layout_alignLeft="@+id/red2" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Blue 1: "
+        android:id="@+id/blue1"
+        android:layout_below="@+id/red3"
+        android:layout_alignLeft="@+id/red3" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Blue 2: "
+        android:id="@+id/blue2"
+        android:layout_below="@+id/blue1"
+        android:layout_alignLeft="@+id/blue1" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Blue 3: "
+        android:id="@+id/blue3"
+        android:layout_below="@+id/blue2"
+        android:layout_alignLeft="@+id/blue2" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Scouter"
+        android:id="@+id/red1Scouter"
+        android:layout_alignParentTop="true"
+        android:layout_alignLeft="@+id/red2Scouter" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Scouter"
+        android:id="@+id/red2Scouter"
+        android:layout_below="@+id/red1Scouter"
+        android:layout_alignLeft="@+id/red3Scouter" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Scouter"
+        android:id="@+id/red3Scouter"
+        android:layout_alignBottom="@+id/red3"
+        android:layout_toRightOf="@+id/blue1" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Scouter"
+        android:id="@+id/blue1Scouter"
+        android:layout_above="@+id/blue2"
+        android:layout_toRightOf="@+id/blue1" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Scouter"
+        android:id="@+id/blue2Scouter"
+        android:layout_alignBottom="@+id/blue2"
+        android:layout_toRightOf="@+id/blue1" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Scouter"
+        android:id="@+id/blue3Scouter"
+        android:layout_alignBottom="@+id/blue3"
+        android:layout_toRightOf="@+id/blue1" />
+</RelativeLayout>

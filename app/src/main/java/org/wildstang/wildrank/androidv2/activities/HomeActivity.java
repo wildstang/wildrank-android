@@ -19,7 +19,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -29,6 +28,7 @@ import org.wildstang.wildrank.androidv2.UserHelper;
 import org.wildstang.wildrank.androidv2.fragments.MatchScoutingMainFragment;
 import org.wildstang.wildrank.androidv2.fragments.NotesMainFragment;
 import org.wildstang.wildrank.androidv2.fragments.PitScoutingMainFragment;
+import org.wildstang.wildrank.androidv2.fragments.ScoutersFragment;
 import org.wildstang.wildrank.androidv2.fragments.TeamSummariesMainFragment;
 import org.wildstang.wildrank.androidv2.models.UserModel;
 
@@ -203,10 +203,15 @@ public class HomeActivity extends ActionBarActivity {
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new NotesMainFragment()).commit();
                 getSupportActionBar().setTitle(MODE_NAMES[2]);
                 break;
+            case SCOUTERS:
+                // Scouters
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ScoutersFragment()).commit();
+                getSupportActionBar().setTitle(MODE_NAMES[3]);
+                break;
             case TEAM_SUMMARIES:
                 // Team Summaries
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new TeamSummariesMainFragment()).commit();
-                getSupportActionBar().setTitle(MODE_NAMES[3]);
+                getSupportActionBar().setTitle(MODE_NAMES[4]);
                 break;
             default:
                 break;
@@ -253,6 +258,7 @@ public class HomeActivity extends ActionBarActivity {
         MATCH_SCOUTING("Match scouting"),
         PIT_SCOUTING("Pit scouting"),
         NOTES("Notes"),
+        SCOUTERS("Scouters"),
         TEAM_SUMMARIES("Team summaries");
 
         private final String title;

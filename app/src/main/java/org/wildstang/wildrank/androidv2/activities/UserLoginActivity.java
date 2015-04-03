@@ -6,7 +6,9 @@ import android.animation.AnimatorSet;
 import android.animation.ValueAnimator;
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -52,6 +54,7 @@ public class UserLoginActivity extends ActionBarActivity implements View.OnClick
         loginContainer = findViewById(R.id.login_container);
 
         userLoginEditText.setOnEditorActionListener(this);
+        updateAssignedTeam();
     }
 
     private void doLogin() {
@@ -150,5 +153,11 @@ public class UserLoginActivity extends ActionBarActivity implements View.OnClick
             return true;
         }
         return false;
+    }
+
+    public void updateAssignedTeam()
+    {
+        String assignedTeamType = PreferenceManager.getDefaultSharedPreferences(this).getString("assignedTeam", "red_1");
+        ((TextView) findViewById(R.id.position)).setText(assignedTeamType);
     }
 }
