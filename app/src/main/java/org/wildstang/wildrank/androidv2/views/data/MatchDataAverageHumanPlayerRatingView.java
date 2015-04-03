@@ -38,6 +38,7 @@ public class MatchDataAverageHumanPlayerRatingView extends MatchDataView impleme
                 .filter(data -> data.get("post_match-hp_rating") != null)
                 .map(data -> Double.parseDouble((String) data.get("post_match-hp_rating")))
                 .filter(ranking -> ranking != 0)
+                .defaultIfEmpty(0.0)
                 .subscribeOn(Schedulers.computation());
 
         MathObservable.averageDouble(stacksObservable)
