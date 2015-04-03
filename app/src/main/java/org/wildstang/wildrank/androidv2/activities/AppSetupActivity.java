@@ -2,7 +2,6 @@ package org.wildstang.wildrank.androidv2.activities;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -70,7 +69,7 @@ public class AppSetupActivity extends ActionBarActivity implements View.OnClickL
         builder.setMessage("Please connect a flash drive that has been set up using the desktop application.");
         builder.setPositiveButton("Try again", (dialog, which) -> beginDataLoad());
         builder.setNegativeButton("Cancel", (dialog, which) -> AppSetupActivity.this.finish());
-        builder.create().show();
+        builder.setCancelable(false).create().show();
     }
 
     @Override

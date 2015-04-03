@@ -47,6 +47,9 @@ public class StackDataView extends View {
     }
 
     public void acceptNewTeamData(List<Document> matchDocs) {
+        if(matchDocs == null || matchDocs.isEmpty()) {
+            return;
+        }
         stacks = new ArrayList<>();
         // Sorts the matches by match number
         Collections.sort(matchDocs, new MatchDocumentComparator());
