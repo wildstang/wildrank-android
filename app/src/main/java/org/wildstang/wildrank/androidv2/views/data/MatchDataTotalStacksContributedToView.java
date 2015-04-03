@@ -2,6 +2,7 @@ package org.wildstang.wildrank.androidv2.views.data;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
 
 import com.couchbase.lite.Document;
 
@@ -39,15 +40,7 @@ public class MatchDataTotalStacksContributedToView extends MatchDataView impleme
 
         MathObservable.sumInteger(stacksObservable)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(sum -> setValueText("" + sum));
+                .subscribe(sum -> setValueText("" + sum), error -> Log.d("wildrank", this.getClass().getName()));
 
-        /*for (Document document : documents) {
-            Map<String, Object> data = (Map<String, Object>) document.getProperty("data");
-            List<Map<String, Object>> stacks = (List<Map<String, Object>>) data.get("stacks");
-            for (Object stack : stacks) {
-                totalStacks++;
-            }
-        }
-        setValueText("" + totalStacks);*/
     }
 }

@@ -2,6 +2,7 @@ package org.wildstang.wildrank.androidv2.views.data;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
 
 import com.couchbase.lite.Document;
 
@@ -45,6 +46,8 @@ public class MatchDataNumberCappedStacksView extends MatchDataView implements IM
                     return (includesBin && !binDropped) ? 1 : 0;
                 })
                 .subscribeOn(Schedulers.computation());
-        MathObservable.sumInteger(o).observeOn(AndroidSchedulers.mainThread()).subscribe(sum -> setValueText("" + sum));
+        MathObservable.sumInteger(o)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(sum -> setValueText("" + sum), error -> Log.d("wildrank", this.getClass().getName()));
     }
 }

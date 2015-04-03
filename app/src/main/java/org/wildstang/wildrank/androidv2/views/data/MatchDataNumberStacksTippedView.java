@@ -40,6 +40,6 @@ public class MatchDataNumberStacksTippedView extends MatchDataView implements IM
 
         MathObservable.sumInteger(stacksTippedObservable)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(sum -> setValueText("" + sum));
+                .subscribe(sum -> setValueText("" + sum), error -> Log.d("wildrank", this.getClass().getName()));
     }
 }

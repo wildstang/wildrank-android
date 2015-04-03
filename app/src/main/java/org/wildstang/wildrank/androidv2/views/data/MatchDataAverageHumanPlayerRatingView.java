@@ -44,7 +44,7 @@ public class MatchDataAverageHumanPlayerRatingView extends MatchDataView impleme
         MathObservable.averageDouble(stacksObservable)
                 .map(average -> formatNumberAsString(average))
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(average -> setValueText(average));
+                .subscribe(average -> setValueText(average), error -> Log.d("wildrank", this.getClass().getName()));
 
     }
 }
