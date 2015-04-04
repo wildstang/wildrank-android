@@ -338,7 +338,7 @@ public class SyncActivity extends ActionBarActivity {
                     Toast.makeText(SyncActivity.this, "Error syncing databases. Check logcat.", Toast.LENGTH_LONG).show();
                     break;
             }
-            readDatabases();
+            //readDatabases();
         }
 
         protected class SyncResult {
