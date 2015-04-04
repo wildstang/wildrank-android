@@ -82,7 +82,7 @@ public class ScoutersFragment extends Fragment {
 
                 MatchModel match = getItem(position);
                 TextView matchNum = (TextView) view.findViewById(R.id.match_number);
-                matchNum.setText(match.matchNumber);
+                matchNum.setText(match.getMatchNumberAsString());
 
                 if (match.matchTeams.size() >= 1) {
                     TeamMatchModel tm = match.matchTeams.get(0);
@@ -241,6 +241,9 @@ public class ScoutersFragment extends Fragment {
         public void add(TeamMatchModel matchTeam) {
             matchTeams.add(matchTeam);
         }
+
+        public String getMatchNumberAsString() { return String.valueOf(matchNumber); }
+
     }
 
     public class Scouter {
