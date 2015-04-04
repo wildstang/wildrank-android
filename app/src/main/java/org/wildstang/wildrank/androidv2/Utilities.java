@@ -53,8 +53,8 @@ public class Utilities {
         return Integer.parseInt(matchKey.substring(matchKey.lastIndexOf('m') + 1));
     }
 
-    public static String teamNumberFromTeamKey(String teamKey) {
-        return teamKey.replace("frc", "");
+    public static int teamNumberFromTeamKey(String teamKey) {
+        return Integer.parseInt(teamKey.replace("frc", ""));
     }
 
     public static String getAssignedTeam(Context context) {

@@ -45,7 +45,7 @@ public class TeamSummariesInfoFragment extends TeamSummariesFragment {
     @Override
     public void acceptNewTeamData(String teamKey, Document teamDoc, Document pitDoc, List<Document> matchDocs) {
         this.teamKey = teamKey;
-        this.teamNumber = Integer.parseInt(Utilities.teamNumberFromTeamKey(teamKey));
+        this.teamNumber = Utilities.teamNumberFromTeamKey(teamKey);
 
         getView().findViewById(R.id.select_a_team).setVisibility(View.GONE);
         getView().findViewById(R.id.content).setVisibility(View.VISIBLE);

@@ -41,7 +41,7 @@ public class NotesFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_notes_one, container, false);
-        box = new NoteBox(view.findViewById(R.id.one), Utilities.teamNumberFromTeamKey(team));
+        box = new NoteBox(view.findViewById(R.id.one), Integer.toString(Utilities.teamNumberFromTeamKey(team)));
         try {
             box.setOldNotes(DatabaseManager.getInstance(getActivity()).getNotes(team), getActivity());
         } catch (CouchbaseLiteException e) {

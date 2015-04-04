@@ -1,39 +1,26 @@
 package org.wildstang.wildrank.androidv2.fragments;
 
-import android.app.AlertDialog;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Parcelable;
-import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.couchbase.lite.CouchbaseLiteException;
-import com.couchbase.lite.Database;
-import com.couchbase.lite.Document;
 import com.couchbase.lite.Query;
 import com.couchbase.lite.QueryEnumerator;
 import com.couchbase.lite.QueryRow;
 
 import org.wildstang.wildrank.androidv2.R;
 import org.wildstang.wildrank.androidv2.Utilities;
-import org.wildstang.wildrank.androidv2.activities.ScoutMatchActivity;
-import org.wildstang.wildrank.androidv2.adapters.MatchListAdapter;
 import org.wildstang.wildrank.androidv2.data.DatabaseManager;
-import org.wildstang.wildrank.androidv2.views.TemplatedTextView;
 
-import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -60,7 +47,8 @@ public class ScoutersFragment  extends Fragment
     private TextView blue3Scouter;
     private TextView matchNum;
 
-    List<ScouterMatches> scoutCounter;
+    List<Scouter> scoutCounter;
+    HashMap<Integer, MatchModel> matches;
 
     public ScoutersFragment() {
         // Required empty public constructor
@@ -76,40 +64,31 @@ public class ScoutersFragment  extends Fragment
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_scouters, container, false);
-
-        List<MatchDataContainer> matches = new ArrayList<>();
+/*
+        matches = new HashMap<>();
         try {
-            List<DataContainer> data = runQuery();
+            List<TeamMatchModel> data = runQuery();
             for(int i = 0; i < data.size(); i++)
             {
-                DataContainer dataPoint = data.get(i);
+                TeamMatchModel dataPoint = data.get(i);
                 boolean foundMatch = false;
-                for(int j = 0; j < matches.size(); j++)
-                {
-                    MatchDataContainer match = matches.get(j);
-                    if(match.match.equals(dataPoint.match))
-                    {
-                        foundMatch = true;
-                        match.teams.add(dataPoint.team);
-                        for(int l = 0; l < dataPoint.scouters.size(); l++)
-                        {
-                            match.scouters.add(dataPoint.scouters.get(l));
-                        }
-                        //System.out.println("Adding " + dataPoint.team + " to " + dataPoint.match);
-                    }
-                }
-                if(!foundMatch)
-                {
-                    //System.out.println("Creating " + dataPoint.match + " with " + dataPoint.team);
-                    matches.add(new MatchDataContainer(dataPoint.team, dataPoint.match, dataPoint.scouters.toString()));
+                if(matches.get(dataPoint.matchNumber) != null) {
+                    MatchModel match = matches.get(dataPoint.matchNumber);
+                    match.add(dataPoint.teamNumber, dataPoint.scouters);
+                } else {
+                    MatchModel match = new MatchModel(dataPoint.matchNumber);
+                    match.add(dataPoint.teamNumber, dataPoint.scouters);
+                    matches.put(dataPoint.matchNumber, match);
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
 
+        sortMatches(matches);
+
         list = (ListView) view.findViewById(R.id.matches);
-        list.setAdapter(new ArrayAdapter<MatchDataContainer>(getActivity(), R.layout.list_item_scouters, R.id.red1, matches) {
+        list.setAdapter(new ArrayAdapter<MatchModel>(getActivity(), R.layout.list_item_scouters, R.id.red1, matches) {
             public View getView(int position, View convertView, ViewGroup parent) {
                 View view;
                 if (convertView == null) {
@@ -118,13 +97,13 @@ public class ScoutersFragment  extends Fragment
                 }
                 view = super.getView(position, convertView, parent);
 
-                MatchDataContainer match = matches.get(position);
+                MatchModel match = matches.get(position);
                 matchNum = (TextView) view.findViewById(R.id.match_number);
-                matchNum.setText(match.match);
-                if(match.scouters.size() >= 1)
+                matchNum.setText(match.matchNumber);
+                if(match.teamScoutersMap.size() >= 1)
                 {
                     red1 = (TextView) view.findViewById(R.id.red1);
-                    red1.setText(match.teams.get(0) + " - ");
+                    red1.setText(match.teamScoutersMap.get(0));
                     red1Scouter = (TextView) view.findViewById(R.id.red1Scouter);
                     red1Scouter.setText(match.scouters.get(0));
                 }
@@ -132,7 +111,7 @@ public class ScoutersFragment  extends Fragment
                 if(match.scouters.size() >= 2)
                 {
                     red2 = (TextView) view.findViewById(R.id.red2);
-                    red2.setText(match.teams.get(1) + " - ");
+                    red2.setText(match.teams.get(1) );
                     red2Scouter = (TextView) view.findViewById(R.id.red2Scouter);
                     red2Scouter.setText(match.scouters.get(1));
                 }
@@ -140,7 +119,7 @@ public class ScoutersFragment  extends Fragment
                 if(match.scouters.size() >= 3)
                 {
                     red3 = (TextView) view.findViewById(R.id.red3);
-                    red3.setText(match.teams.get(2) + " - ");
+                    red3.setText(match.teams.get(2));
                     red3Scouter = (TextView) view.findViewById(R.id.red3Scouter);
                     red3Scouter.setText(match.scouters.get(2));
                 }
@@ -148,7 +127,7 @@ public class ScoutersFragment  extends Fragment
                 if(match.scouters.size() >= 4)
                 {
                     blue1 = (TextView) view.findViewById(R.id.blue1);
-                    blue1.setText(match.teams.get(3) + " - ");
+                    blue1.setText(match.teams.get(3));
                     blue1Scouter = (TextView) view.findViewById(R.id.blue1Scouter);
                     blue1Scouter.setText(match.scouters.get(3));
                 }
@@ -156,7 +135,7 @@ public class ScoutersFragment  extends Fragment
                 if(match.scouters.size() >= 5)
                 {
                     blue2 = (TextView) view.findViewById(R.id.blue2);
-                    blue2.setText(match.teams.get(4) + " - ");
+                    blue2.setText(match.teams.get(4));
                     blue2Scouter = (TextView) view.findViewById(R.id.blue2Scouter);
                     blue2Scouter.setText(match.scouters.get(4));
                 }
@@ -164,7 +143,7 @@ public class ScoutersFragment  extends Fragment
                 if(match.scouters.size() >= 6)
                 {
                     blue3 = (TextView) view.findViewById(R.id.blue3);
-                    blue3.setText(match.teams.get(5) + " - ");
+                    blue3.setText(match.teams.get(5));
                     blue3Scouter = (TextView) view.findViewById(R.id.blue3Scouter);
                     blue3Scouter.setText(match.scouters.get(5));
                 }
@@ -172,8 +151,9 @@ public class ScoutersFragment  extends Fragment
             }
         });
 
+        scoutCounter = sortScouters(scoutCounter);
         scouters = (ListView) view.findViewById(R.id.scouters);
-        scouters.setAdapter(new ArrayAdapter<ScouterMatches>(getActivity(), R.layout.list_item_scouter, R.id.scouter, scoutCounter) {
+        scouters.setAdapter(new ArrayAdapter<Scouter>(getActivity(), R.layout.list_item_scouter, R.id.scouter, scoutCounter) {
             public View getView(int position, View convertView, ViewGroup parent) {
                 View view;
                 if (convertView == null) {
@@ -182,103 +162,119 @@ public class ScoutersFragment  extends Fragment
                 }
                 view = super.getView(position, convertView, parent);
 
-                TextView tv = (TextView) view.findViewById(R.id.scouter);
-                tv.setText(scoutCounter.get(position).scouter + " - " + scoutCounter.get(position).matches);
+                Scouter scouter = scoutCounter.get(position);
+
+                TextView scouterName = (TextView) view.findViewById(R.id.scouter);
+                scouterName.setText(scouter.scouterName);
+                TextView count = (TextView) view.findViewById(R.id.count);
+                count.setText(Integer.toString(scouter.matchCount));
 
                 return view;
             }
-        });
+        });*/
         return view;
     }
 
-    private List<DataContainer> runQuery() throws Exception {
+    private List<TeamMatchModel> runQuery() throws Exception {
         Query query = DatabaseManager.getInstance(getActivity()).getAllCompleteMatches();
 
-        List<DataContainer> data = new ArrayList<>();
+        List<TeamMatchModel> data = new ArrayList<>();
         QueryEnumerator enumerator = query.run();
 
         scoutCounter = new ArrayList<>();
-        List<QueryRow> queryRows = new ArrayList<>();
-        int counter = 0;
+
         for (Iterator<QueryRow> it = enumerator; it.hasNext(); ) {
             QueryRow row = it.next();
-            String team = Utilities.teamNumberFromTeamKey(row.getDocument().getProperty("team_key").toString());
-            String match = String.valueOf(Utilities.matchNumberFromMatchKey(row.getDocument().getProperty("match_key").toString()));
-            List<String> ids = (ArrayList<String>) row.getDocument().getProperty("users");
-            List<String> scouters = new ArrayList<>();
-            for(int i = 0; i < ids.size(); i++)
+            int teamNumber = Utilities.teamNumberFromTeamKey(row.getDocument().getProperty("team_key").toString());
+            int matchNumber = Utilities.matchNumberFromMatchKey(row.getDocument().getProperty("match_key").toString());
+            List<String> scouterIds = (ArrayList<String>) row.getDocument().getProperty("users");
+            List<String> scouterNames = new ArrayList<>();
+            for(String scouterId : scouterIds)
             {
-                String scouter = DatabaseManager.getInstance(getActivity()).getUserById(ids.get(i)).getProperty("name").toString();
-                scouters.add(scouter);
+                String scouterName = DatabaseManager.getInstance(getActivity()).getUserById(scouterId).getProperty("name").toString();
+                scouterNames.add(scouterName);
                 boolean exists = false;
-                for(int j = 0; j < scoutCounter.size(); j++)
+                for(Scouter scouter : scoutCounter)
                 {
-                    if(scouter.equals(scoutCounter.get(j).scouter))
+                    if(scouterName.equals(scouter.scouterName))
                     {
                         exists = true;
-                        scoutCounter.get(j).addMatch();
-                    }
-                    if(!exists)
-                    {
-                        scoutCounter.add(new ScouterMatches(scouter));
+                        scouter.incrementMatchCount();
                     }
                 }
+                if(!exists)
+                {
+                    scoutCounter.add(new Scouter(scouterName));
+                }
             }
-            data.add(new DataContainer(team, match, scouters));
-            counter++;
+            data.add(new TeamMatchModel(teamNumber, matchNumber, scouterNames));
             //System.out.println("Row " + counter + " is match " + match + " for team " + team);
-            queryRows.add(row);
         }
         return data;
     }
 
-    public class DataContainer
+    public void sortScouters(List<Scouter> scouters)
     {
-        String team;
-        String match;
+        //Collections.sort(scouters, (lhs, rhs) -> Integer.compare(lhs.matchCount, rhs.matchCount));
+    }
+
+    public void sortMatches(List<MatchModel> matches)
+    {
+        //Collections.sort(matches, (lhs, rhs) -> Integer.compare(lhs.matchNumber, rhs.matchNumber));
+    }
+
+    public class TeamMatchModel
+    {
+        int teamNumber;
+        int matchNumber;
         List<String> scouters;
 
-        public DataContainer(String team, String match, List<String> scouters)
+        public TeamMatchModel(int teamNumber, int matchNumber, List<String> scouters)
         {
-            this.team = team;
-            this.match = match;
+            this.teamNumber = teamNumber;
+            this.matchNumber = matchNumber;
             this.scouters = scouters;
-            //System.out.println("New data container, containing " + match + " for " + team);
         }
     }
 
-    public class MatchDataContainer
+    public class MatchModel
     {
-        List<String> teams = new ArrayList<>();
-        String match;
-        List<String> scouters = new ArrayList<>();
+        int matchNumber;
+        Map<Integer, List<String>> teamScoutersMap = new HashMap<>();
 
-        public MatchDataContainer(String team, String match, String scouter)
+        public MatchModel(int matchNumber)
         {
-            teams.add(team);
-            this.match = match;
-            scouters.add(scouter);
+            this.matchNumber = matchNumber;
         }
 
-        public void add(String team, String scouter) {
-            teams.add(team);
-            scouters.add(scouter);
+        public void add(int teamNumber, List<String> scouters) {
+            teamScoutersMap.put(teamNumber, scouters);
+        }
+
+        public String getScoutersForIndex(int index) {
+            String scouters = "";
+            //List<String> scoutersList = teamScoutersMap;
+            for(int i = 0;;)
+            {
+
+            }
         }
     }
 
-    public class ScouterMatches
+    public class Scouter
     {
-        String scouter;
-        int matches;
+        String scouterName;
+        int matchCount;
 
-        public ScouterMatches(String scouter)
+        public Scouter(String scouterName)
         {
-            this.scouter = scouter;
+            this.scouterName = scouterName;
+            matchCount = 1;
         }
 
-        public void addMatch()
+        public void incrementMatchCount()
         {
-            matches++;
+            matchCount++;
         }
     }
 }
