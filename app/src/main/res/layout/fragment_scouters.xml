@@ -9,9 +9,14 @@
         android:id="@+id/scouters"
         android:layout_weight="1"/>
 
+    <View
+        android:layout_width="2dp"
+        android:layout_height="match_parent"
+        android:background="#12000000"/>
+
     <ListView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:layout_weight="2"
         android:id="@+id/matches" />
 </LinearLayout>
