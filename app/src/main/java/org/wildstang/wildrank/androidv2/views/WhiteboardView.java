@@ -240,7 +240,7 @@ public class WhiteboardView extends View
         }
 
         //draws the pretty drawing you made
-        paint.setColor(Color.RED);
+        paint.setColor(Color.BLUE);
         for(int i = 0; i < points.size(); i++)
         {
             for(int j = 1; j < points.get(i).size(); j++)
