@@ -196,6 +196,13 @@ public class WhiteboardView extends View
                                 buttons.get(i).pushed = false;
                             }
                         }
+                        for(int i = 0; i < magnets.size(); i++)
+                        {
+                            if(magnets.get(i).x < getWidth() / 6)
+                            {
+                                magnets.remove(i);
+                            }
+                        }
                         break;
                 }
                 return false;
