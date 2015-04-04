@@ -45,6 +45,7 @@ public class ScoutersFragment  extends Fragment
 {
 
     private ListView list;
+    private ListView scouters;
     private TextView red1;
     private TextView red2;
     private TextView red3;
@@ -58,6 +59,8 @@ public class ScoutersFragment  extends Fragment
     private TextView blue2Scouter;
     private TextView blue3Scouter;
     private TextView matchNum;
+
+    List<ScouterMatches> scoutCounter;
 
     public ScoutersFragment() {
         // Required empty public constructor
@@ -92,12 +95,12 @@ public class ScoutersFragment  extends Fragment
                         {
                             match.scouters.add(dataPoint.scouters.get(l));
                         }
-                        System.out.println("Adding " + dataPoint.team + " to " + dataPoint.match);
+                        //System.out.println("Adding " + dataPoint.team + " to " + dataPoint.match);
                     }
                 }
                 if(!foundMatch)
                 {
-                    System.out.println("Creating " + dataPoint.match + " with " + dataPoint.team);
+                    //System.out.println("Creating " + dataPoint.match + " with " + dataPoint.team);
                     matches.add(new MatchDataContainer(dataPoint.team, dataPoint.match, dataPoint.scouters.toString()));
                 }
             }
@@ -105,7 +108,7 @@ public class ScoutersFragment  extends Fragment
             e.printStackTrace();
         }
 
-        list = (ListView) view.findViewById(R.id.listView);
+        list = (ListView) view.findViewById(R.id.matches);
         list.setAdapter(new ArrayAdapter<MatchDataContainer>(getActivity(), R.layout.list_item_scouters, R.id.red1, matches) {
             public View getView(int position, View convertView, ViewGroup parent) {
                 View view;
@@ -168,6 +171,23 @@ public class ScoutersFragment  extends Fragment
                 return view;
             }
         });
+
+        scouters = (ListView) view.findViewById(R.id.scouters);
+        scouters.setAdapter(new ArrayAdapter<ScouterMatches>(getActivity(), R.layout.list_item_scouter, R.id.scouter, scoutCounter) {
+            public View getView(int position, View convertView, ViewGroup parent) {
+                View view;
+                if (convertView == null) {
+                    LayoutInflater infl = (LayoutInflater) getActivity().getSystemService(getActivity().LAYOUT_INFLATER_SERVICE);
+                    convertView = infl.inflate(R.layout.list_item_scouter, parent, false);
+                }
+                view = super.getView(position, convertView, parent);
+
+                TextView tv = (TextView) view.findViewById(R.id.scouter);
+                tv.setText(scoutCounter.get(position).scouter + " - " + scoutCounter.get(position).matches);
+
+                return view;
+            }
+        });
         return view;
     }
 
@@ -177,6 +197,7 @@ public class ScoutersFragment  extends Fragment
         List<DataContainer> data = new ArrayList<>();
         QueryEnumerator enumerator = query.run();
 
+        scoutCounter = new ArrayList<>();
         List<QueryRow> queryRows = new ArrayList<>();
         int counter = 0;
         for (Iterator<QueryRow> it = enumerator; it.hasNext(); ) {
@@ -187,7 +208,21 @@ public class ScoutersFragment  extends Fragment
             List<String> scouters = new ArrayList<>();
             for(int i = 0; i < ids.size(); i++)
             {
-                scouters.add(DatabaseManager.getInstance(getActivity()).getUserById(ids.get(i)).getProperty("name").toString());
+                String scouter = DatabaseManager.getInstance(getActivity()).getUserById(ids.get(i)).getProperty("name").toString();
+                scouters.add(scouter);
+                boolean exists = false;
+                for(int j = 0; j < scoutCounter.size(); j++)
+                {
+                    if(scouter.equals(scoutCounter.get(j).scouter))
+                    {
+                        exists = true;
+                        scoutCounter.get(j).addMatch();
+                    }
+                    if(!exists)
+                    {
+                        scoutCounter.add(new ScouterMatches(scouter));
+                    }
+                }
             }
             data.add(new DataContainer(team, match, scouters));
             counter++;
@@ -228,6 +263,22 @@ public class ScoutersFragment  extends Fragment
         public void add(String team, String scouter) {
             teams.add(team);
             scouters.add(scouter);
+        }
+    }
+
+    public class ScouterMatches
+    {
+        String scouter;
+        int matches;
+
+        public ScouterMatches(String scouter)
+        {
+            this.scouter = scouter;
+        }
+
+        public void addMatch()
+        {
+            matches++;
         }
     }
 }
