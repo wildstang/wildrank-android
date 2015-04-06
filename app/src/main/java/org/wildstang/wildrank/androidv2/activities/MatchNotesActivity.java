@@ -82,7 +82,7 @@ public class MatchNotesActivity extends ActionBarActivity {
 
         }
         //put the match number of the match that is being scouted in the toolbar
-        ((TextView) findViewById(R.id.team_numbers)).setText("" + Utilities.teamNumberFromTeamKey(sb.toString()));
+        ((TextView) findViewById(R.id.team_numbers)).setText("" + sb.toString());
 
         //creates the fragment that contains the view
         sixFrag = MatchNotesFragment.newInstance(teamKeys);//passes in the team keys to the fragment
