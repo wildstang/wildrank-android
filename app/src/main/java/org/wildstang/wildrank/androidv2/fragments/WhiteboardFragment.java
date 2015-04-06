@@ -17,6 +17,9 @@ import org.wildstang.wildrank.androidv2.R;
 
 /**
  * Created by Liam on 1/24/2015.
+ *
+ * Pretty straight forward this inflates the layout file fragment_whiteboard which contains a custom
+ * view WhiteboardView
  */
 public class WhiteboardFragment extends Fragment
 {
