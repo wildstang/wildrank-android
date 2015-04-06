@@ -18,7 +18,7 @@ import com.couchbase.lite.CouchbaseLiteException;
 import org.wildstang.wildrank.androidv2.R;
 import org.wildstang.wildrank.androidv2.Utilities;
 import org.wildstang.wildrank.androidv2.data.DatabaseManager;
-import org.wildstang.wildrank.androidv2.fragments.NotesSixFragment;
+import org.wildstang.wildrank.androidv2.fragments.MatchNotesFragment;
 
 import java.io.IOException;
 
@@ -32,7 +32,7 @@ public class MatchNotesActivity extends ActionBarActivity {
     private static String[] teamKeys;
     private static String[] notes;
     private Toolbar toolbar;
-    private NotesSixFragment sixFrag;
+    private MatchNotesFragment sixFrag;
 
     //Used to pass the teams and the match that the user is scouting into the activity
     public static Intent createIntent(Context context, String matchKey, String[] teams) {
@@ -85,7 +85,7 @@ public class MatchNotesActivity extends ActionBarActivity {
         ((TextView) findViewById(R.id.team_numbers)).setText("" + Utilities.teamNumberFromTeamKey(sb.toString()));
 
         //creates the fragment that contains the view
-        sixFrag = NotesSixFragment.newInstance(teamKeys);//passes in the team keys to the fragment
+        sixFrag = MatchNotesFragment.newInstance(teamKeys);//passes in the team keys to the fragment
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         ft.add(R.id.space, sixFrag);

@@ -18,7 +18,7 @@ import com.couchbase.lite.CouchbaseLiteException;
 import org.wildstang.wildrank.androidv2.R;
 import org.wildstang.wildrank.androidv2.Utilities;
 import org.wildstang.wildrank.androidv2.data.DatabaseManager;
-import org.wildstang.wildrank.androidv2.fragments.NotesFragment;
+import org.wildstang.wildrank.androidv2.fragments.TeamNotesFragment;
 
 import java.io.IOException;
 
@@ -35,7 +35,7 @@ public class TeamNotesActivity extends ActionBarActivity {
     //The bar at the top
     private Toolbar toolbar;
     //Fragment that contains the view
-    private NotesFragment frag;
+    private TeamNotesFragment frag;
 
     //Used to pass the team that the user is scouting into the activity
     public static Intent createIntent(Context context, String team) {
@@ -75,7 +75,7 @@ public class TeamNotesActivity extends ActionBarActivity {
         ((TextView) findViewById(R.id.team_numbers)).setText("" + Utilities.teamNumberFromTeamKey(teamKey));
 
         //creates the fragment that contains the view
-        frag = NotesFragment.newInstance(teamKey); //passes in the team key to the fragment
+        frag = TeamNotesFragment.newInstance(teamKey); //passes in the team key to the fragment
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         ft.add(R.id.space, frag);

@@ -18,12 +18,12 @@ import java.io.IOException;
 /**
  * Created by Liam on 3/19/2015.
  */
-public class NotesFragment extends Fragment {
+public class TeamNotesFragment extends Fragment {
     public NoteBox box;
     String team;
 
-    public static NotesFragment newInstance(String team) {
-        NotesFragment f = new NotesFragment();
+    public static TeamNotesFragment newInstance(String team) {
+        TeamNotesFragment f = new TeamNotesFragment();
         Bundle b = new Bundle();
         b.putString("team", team);
         f.setArguments(b);
@@ -40,7 +40,7 @@ public class NotesFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_notes_one, container, false);
+        View view = inflater.inflate(R.layout.fragment_team_notes, container, false);
         box = new NoteBox(view.findViewById(R.id.one), Integer.toString(Utilities.teamNumberFromTeamKey(team)));
         try {
             box.setOldNotes(DatabaseManager.getInstance(getActivity()).getNotes(team), getActivity());
