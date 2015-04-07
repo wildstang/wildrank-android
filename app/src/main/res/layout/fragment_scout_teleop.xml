@@ -37,6 +37,14 @@
             app:key="coop_height"
             app:label="Pre-existing Co-op Height" />
 
+        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingSpinnerView
+            android:id="@+id/center_bins"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:key="auto-center_bins"
+            app:label="Bins from Step"
+            app:values="@array/auto_center_bins" />
+
     </LinearLayout>
 
 </RelativeLayout>
