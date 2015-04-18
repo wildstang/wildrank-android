@@ -37,6 +37,12 @@
             app:key="coop_height"
             app:label="Pre-existing Co-op Height" />
 
+        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingCounterView
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            app:key="bins_from_step"
+            app:label="Bins taken from step" />
+
     </LinearLayout>
 
 </RelativeLayout>

@@ -13,47 +13,64 @@
         android:text="Select a team"
         android:textSize="50sp" />
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/content"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
 
         <LinearLayout
-            android:id="@+id/team_info"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/team_number"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/team_info"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="50sp" />
+                android:layout_alignParentTop="true"
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/team_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="30sp" />
+                <TextView
+                    android:id="@+id/team_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="50sp" />
+
+                <TextView
+                    android:id="@+id/team_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="30sp" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/team_image"
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="16dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/frc4212" />
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="fill_parent"
-            android:layout_below="@id/team_info"
-            android:orientation="horizontal"
-            android:paddingTop="24dp">
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
 
             <ScrollView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
+
+                    <!-- Pit Data -->
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -179,34 +196,22 @@
                         app:text="&lt;b>Drives during auto:&lt;/b> {{auto_drives}}"
                         app:trueString="yes" />
 
-                </LinearLayout>
-            </ScrollView>
+                    <!-- Notes -->
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Notes"
-                    android:textSize="40sp" />
-
-                <ScrollView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Notes"
+                        android:textSize="40sp" />
 
                     <TextView
                         android:id="@+id/notes"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textSize="20sp" />
-                </ScrollView>
-            </LinearLayout>
+                </LinearLayout>
 
+            </ScrollView>
         </LinearLayout>
-    </RelativeLayout>
-
+    </LinearLayout>
 </RelativeLayout>
