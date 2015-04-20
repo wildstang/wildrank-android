@@ -1,14 +1,18 @@
 package org.wildstang.wildrank.androidv2.fragments;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.couchbase.lite.Attachment;
 import com.couchbase.lite.CouchbaseLiteException;
 import com.couchbase.lite.Document;
+import com.couchbase.lite.Revision;
 
 import org.wildstang.wildrank.androidv2.R;
 import org.wildstang.wildrank.androidv2.Utilities;
@@ -16,6 +20,7 @@ import org.wildstang.wildrank.androidv2.data.DatabaseManager;
 import org.wildstang.wildrank.androidv2.views.TemplatedTextView;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
 
@@ -31,13 +36,14 @@ public class TeamSummariesInfoFragment extends TeamSummariesFragment {
     private TextView teamNameView;
     private TextView teamNumberView;
     private TextView notesView;
-    private TextView pitsView;
+    private ImageView teamImageView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_summaries_info, container, false);
         teamNumberView = (TextView) v.findViewById(R.id.team_number);
         teamNameView = (TextView) v.findViewById(R.id.team_name);
+        teamImageView = (ImageView) v.findViewById(R.id.team_image);
         v.findViewById(R.id.content).setVisibility(View.GONE);
         return v;
     }
@@ -70,10 +76,32 @@ public class TeamSummariesInfoFragment extends TeamSummariesFragment {
             } else {
                 TemplatedTextView.clearAllViewsInViewGroup((ViewGroup) getView());
             }
-        } catch (CouchbaseLiteException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+
+            // Load team images
+            Document imagesDoc = DatabaseManager.getInstance(getActivity()).getTeamImagesDocument(teamKey);
+            if (imagesDoc == null) {
+                loadDefaultTeamImage();
+            } else {
+                Revision currentRevision = imagesDoc.getCurrentRevision();
+                List<String> imageNames = currentRevision.getAttachmentNames();
+                if (imageNames.size() == 0) {
+                    loadDefaultTeamImage();
+                } else {
+                    Attachment attachment = currentRevision.getAttachment(imageNames.get(0));
+                    loadTeamImageFromStream(attachment.getContent());
+                }
+            }
+        } catch (CouchbaseLiteException | IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void loadDefaultTeamImage() {
+        // do nothing
+    }
+
+    private void loadTeamImageFromStream(InputStream stream) {
+        Drawable d = Drawable.createFromStream(stream, "team_image");
+        teamImageView.setImageDrawable(d);
     }
 }

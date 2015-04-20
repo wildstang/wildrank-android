@@ -35,7 +35,6 @@ import java.util.List;
  */
 public class TeamSummariesMainFragment extends Fragment {
     private ListView teamList;
-    private ListView pickList;
     private ViewPager pager;
     private SlidingTabs tabs;
 
@@ -48,12 +47,12 @@ public class TeamSummariesMainFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_summaries_main, container, false);
         teamList = (ListView) view.findViewById(R.id.teams_list);
-        pickList = (ListView) view.findViewById(R.id.pick_list);
         pager = (ViewPager) view.findViewById(R.id.view_pager);
         tabs = (SlidingTabs) view.findViewById(R.id.tabs);
 
         pager.setOffscreenPageLimit(10);
         teamList.setOnItemClickListener((parent, view1, position, id) -> {
+            teamList.setItemChecked(position, true);
             QueryRow row = (QueryRow) parent.getItemAtPosition(position);
             onTeamSelected(row.getDocument());
         });
@@ -95,18 +94,12 @@ public class TeamSummariesMainFragment extends Fragment {
         for (Iterator<QueryRow> it = enumerator; it.hasNext(); ) {
             QueryRow row = it.next();
             queryRows.add(row);
-            Log.d("wildstang", "Document key: " + row.getKey());
         }
 
         Parcelable state = teamList.onSaveInstanceState();
         listAdapter = new TeamListAdapter(getActivity(), queryRows, false);
         teamList.setAdapter(listAdapter);
         teamList.onRestoreInstanceState(state);
-
-        state = pickList.onSaveInstanceState();
-        listAdapter = new TeamListAdapter(getActivity(), queryRows, false);
-        pickList.setAdapter(listAdapter);
-        pickList.onRestoreInstanceState(state);
     }
 
     private void onTeamSelected(Document doc) {

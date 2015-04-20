@@ -251,6 +251,13 @@ public class DatabaseManager {
     }
 
     /*
+     * Team Images
+     */
+    public Document getTeamImagesDocument(String teamKey) {
+        return internalDatabase.getExistingDocument("images:" + teamKey);
+    }
+
+    /*
      * Pit Scouting
      */
 

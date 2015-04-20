@@ -9,6 +9,8 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.couchbase.lite.Context;
@@ -35,25 +37,30 @@ import java.util.Map;
 
 public class AppSetupActivity extends ActionBarActivity implements View.OnClickListener {
 
-    public static final int REQUEST_CODE_FINISHED = 78;
-
     public static final int RESULT_CODE_MOUNT = 34;
     public static final int RESULT_CODE_UNMOUNT = 45;
+
+    private Button beginLoadButton;
+    private ProgressBar loadProgressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_app_setup);
 
-        findViewById(R.id.button).setOnClickListener(this);
+        beginLoadButton = (Button) findViewById(R.id.button);
+        loadProgressBar = (ProgressBar) findViewById(R.id.progress_bar);
+
+        beginLoadButton.setOnClickListener(this);
     }
 
     private void beginDataLoad() {
         if (!SyncUtilities.isFlashDriveConnected()) {
             showExternalWarning();
         } else {
-            // DO SHIT
+            // Load data from the flash drive
             new SetupTask().execute();
+            loadProgressBar.setVisibility(View.VISIBLE);
         }
     }
 
