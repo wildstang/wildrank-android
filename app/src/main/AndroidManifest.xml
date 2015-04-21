@@ -48,12 +48,12 @@
             android:theme="@style/AppThemeNoActionBar" />
 
         <activity
-            android:name=".activities.NotesActivity"
+            android:name=".activities.MatchNotesActivity"
             android:screenOrientation="landscape"
             android:theme="@style/AppThemeNoActionBar" />
 
         <activity
-            android:name=".activities.NoteActivity"
+            android:name=".activities.TeamNotesActivity"
             android:screenOrientation="landscape"
             android:theme="@style/AppThemeNoActionBar" />
 

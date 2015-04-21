@@ -30,6 +30,7 @@ import org.wildstang.wildrank.androidv2.fragments.NotesMainFragment;
 import org.wildstang.wildrank.androidv2.fragments.PitScoutingMainFragment;
 import org.wildstang.wildrank.androidv2.fragments.ScoutersFragment;
 import org.wildstang.wildrank.androidv2.fragments.TeamSummariesMainFragment;
+import org.wildstang.wildrank.androidv2.fragments.WhiteboardFragment;
 import org.wildstang.wildrank.androidv2.models.UserModel;
 
 import java.util.List;
@@ -208,10 +209,15 @@ public class HomeActivity extends ActionBarActivity {
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ScoutersFragment()).commit();
                 getSupportActionBar().setTitle(MODE_NAMES[3]);
                 break;
+            case WHITEBOARD:
+                // Whiteboard
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new WhiteboardFragment()).commit();
+                getSupportActionBar().setTitle(MODE_NAMES[4]);
+                break;
             case TEAM_SUMMARIES:
                 // Team Summaries
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new TeamSummariesMainFragment()).commit();
-                getSupportActionBar().setTitle(MODE_NAMES[4]);
+                getSupportActionBar().setTitle(MODE_NAMES[5]);
                 break;
             default:
                 break;
@@ -259,6 +265,7 @@ public class HomeActivity extends ActionBarActivity {
         PIT_SCOUTING("Pit scouting"),
         NOTES("Notes"),
         SCOUTERS("Scouters"),
+        WHITEBOARD("Whiteboard"),
         TEAM_SUMMARIES("Team summaries");
 
         private final String title;
