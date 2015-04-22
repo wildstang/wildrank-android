@@ -26,6 +26,7 @@ public class ScoutingStacksView extends ScoutingView implements View.OnClickList
     private ScoutingCheckboxView hasNoodleCheckbox;
     private ScoutingCheckboxView stackDroppedCheckbox;
     private ScoutingCheckboxView binDroppedCheckbox;
+    private ScoutingCheckboxView didntScoreCheckbox;
 
     public ScoutingStacksView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -40,6 +41,7 @@ public class ScoutingStacksView extends ScoutingView implements View.OnClickList
         hasNoodleCheckbox = (ScoutingCheckboxView) findViewById(R.id.includes_noodle);
         stackDroppedCheckbox = (ScoutingCheckboxView) findViewById(R.id.stack_dropped);
         binDroppedCheckbox = (ScoutingCheckboxView) findViewById(R.id.bin_dropped);
+        didntScoreCheckbox = (ScoutingCheckboxView) findViewById(R.id.didnt_score);
 
         preexistingStackCheckbox.setOnValueChangedListener(newValue -> preexistingHeightSpinner.setEnabled(newValue));
 
@@ -87,6 +89,7 @@ public class ScoutingStacksView extends ScoutingView implements View.OnClickList
             data.binDropped = binDroppedCheckbox.isChecked();
             data.stackDropped = stackDroppedCheckbox.isChecked();
             data.isPreexisting = preexistingStackCheckbox.isChecked();
+            data.didntScore = didntScoreCheckbox.isChecked();
             int preexistingHeight = Integer.parseInt(preexistingHeightSpinner.getSelectedItem());
             data.preexistingToteCount = preexistingHeight;
 
@@ -109,6 +112,7 @@ public class ScoutingStacksView extends ScoutingView implements View.OnClickList
         binDroppedCheckbox.setChecked(data.binDropped);
         stackDroppedCheckbox.setChecked(data.stackDropped);
         preexistingStackCheckbox.setChecked(data.isPreexisting);
+        didntScoreCheckbox.setChecked(data.didntScore);
         preexistingHeightSpinner.setSelectionBasedOnText(Integer.toString(data.preexistingToteCount));
     }
 }
