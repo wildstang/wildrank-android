@@ -28,7 +28,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignTop="@id/tote_counter"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:id="@+id/linearLayout">
 
         <org.wildstang.wildrank.androidv2.views.scouting.ScoutingCheckboxView
             android:id="@+id/includes_bin"
@@ -83,7 +84,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:text="Finish stack" />
+        android:text="Finish stack"
+        android:layout_below="@+id/linearLayout"/>
 
 
 </RelativeLayout>

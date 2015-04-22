@@ -160,6 +160,9 @@ public class ScoutersFragment extends Fragment {
         public void add(TeamMatchModel matchTeam) {
             matchTeams.add(matchTeam);
         }
+
+        public String getMatchNumberAsString() { return String.valueOf(matchNumber); }
+
     }
 
     public class Scouter {

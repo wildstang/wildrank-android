@@ -10,10 +10,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,8 +23,8 @@ import com.couchbase.lite.QueryRow;
 
 import org.wildstang.wildrank.androidv2.R;
 import org.wildstang.wildrank.androidv2.Utilities;
-import org.wildstang.wildrank.androidv2.activities.NoteActivity;
-import org.wildstang.wildrank.androidv2.activities.NotesActivity;
+import org.wildstang.wildrank.androidv2.activities.TeamNotesActivity;
+import org.wildstang.wildrank.androidv2.activities.MatchNotesActivity;
 import org.wildstang.wildrank.androidv2.adapters.MatchListAdapter;
 import org.wildstang.wildrank.androidv2.adapters.TeamListAdapter;
 import org.wildstang.wildrank.androidv2.data.DatabaseManager;
@@ -237,11 +235,11 @@ public class NotesMainFragment extends Fragment implements View.OnClickListener 
             // Launch the scouting activity
             if (useTeamNumbers) {
                 System.out.println("opening note activity");
-                final Intent intent = NoteActivity.createIntent(getActivity(), selectedTeamKey);
+                final Intent intent = TeamNotesActivity.createIntent(getActivity(), selectedTeamKey);
                 startActivity(intent);
             } else {
                 System.out.println("opening noteS activity");
-                final Intent intent = NotesActivity.createIntent(getActivity(), selectedMatchKey, selectedTeams);
+                final Intent intent = MatchNotesActivity.createIntent(getActivity(), selectedMatchKey, selectedTeams);
                 startActivity(intent);
             }
         }

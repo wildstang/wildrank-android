@@ -31,7 +31,7 @@ public class PostMatchScoutingFragment extends ScoutingFragment implements View.
     @Override
     public void onResume() {
         super.onResume();
-        NoteFragment f = NoteFragment.newInstance(((ScoutMatchActivity) getActivity()).teamKey);
+        ScoutingNoteFragment f = ScoutingNoteFragment.newInstance(((ScoutMatchActivity) getActivity()).teamKey);
         getFragmentManager().beginTransaction().replace(R.id.notes_container, f, "notes").commit();
     }
 }

@@ -18,14 +18,14 @@ import java.io.IOException;
 /**
  * Created by Liam on 3/18/2015.
  */
-public class NoteFragment extends Fragment implements View.OnClickListener {
+public class ScoutingNoteFragment extends Fragment implements View.OnClickListener {
 
     private EditText notes;
 
     private String teamKey;
 
-    public static NoteFragment newInstance(String teamkey) {
-        NoteFragment f = new NoteFragment();
+    public static ScoutingNoteFragment newInstance(String teamkey) {
+        ScoutingNoteFragment f = new ScoutingNoteFragment();
         Bundle b = new Bundle();
         b.putString("teamkey", teamkey);
         f.setArguments(b);
@@ -50,7 +50,7 @@ public class NoteFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_note, container, false);
+        View v = inflater.inflate(R.layout.fragment_scouting_note, container, false);
 
         // Save references to our important views
         notes = (EditText) v.findViewById(R.id.notes);

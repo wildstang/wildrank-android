@@ -24,14 +24,14 @@ import java.util.List;
 /**
  * Created by Liam on 2/21/2015.
  */
-public class NotesSixFragment extends Fragment {
+public class MatchNotesFragment extends Fragment {
     public List<NoteBox> boxes = new ArrayList<>();
     String[] teams;
     boolean sixMode;
     View section;
 
-    public static NotesSixFragment newInstance(String[] teams) {
-        NotesSixFragment f = new NotesSixFragment();
+    public static MatchNotesFragment newInstance(String[] teams) {
+        MatchNotesFragment f = new MatchNotesFragment();
         Bundle b = new Bundle();
         b.putStringArray("teams", teams);
         f.setArguments(b);
@@ -48,7 +48,7 @@ public class NotesSixFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_notes_six, container, false);
+        View view = inflater.inflate(R.layout.fragment_match_notes, container, false);
         boxes.add(new NoteBox(view.findViewById(R.id.one), Integer.toString(Utilities.teamNumberFromTeamKey(teams[0]))));
         boxes.add(new NoteBox(view.findViewById(R.id.two), Integer.toString(Utilities.teamNumberFromTeamKey(teams[1]))));
         boxes.add(new NoteBox(view.findViewById(R.id.three), Integer.toString(Utilities.teamNumberFromTeamKey(teams[2]))));
