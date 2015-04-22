@@ -25,10 +25,12 @@ public class StackDataView extends View {
     List<List<StackModel>> stacks = new ArrayList<>();
     int stackCount = 0;
 
-    Paint existingTotesPaint, newTotesPaint, binPaint, noodlePaint, outlinePoint, droppedPaint, notScoredPaint;
+    Paint textPaint, existingTotesPaint, newTotesPaint, binPaint, noodlePaint, outlinePoint, droppedPaint, notScoredPaint;
 
     public StackDataView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        textPaint = new Paint();
+        textPaint.setColor(Color.BLACK);
         existingTotesPaint = new Paint();
         existingTotesPaint.setColor(Color.LTGRAY);
         newTotesPaint = new Paint();
@@ -48,6 +50,7 @@ public class StackDataView extends View {
 
     public void acceptNewTeamData(List<Document> matchDocs) {
         if (matchDocs == null || matchDocs.isEmpty()) {
+            stacks = new ArrayList<>();
             return;
         }
         stacks = new ArrayList<>();
@@ -86,6 +89,9 @@ public class StackDataView extends View {
 
     @Override
     public void onDraw(Canvas c) {
+        if(stacks.isEmpty()) {
+            c.drawText("No data exists for this team.", 100, 100, textPaint);
+        }
         // First, compute the dimensions of our drawn items so that they're scaled properly
         float toteWidthToHeightRatio = 0.7f;
         // Default tote width is calculated so that the stacks will completely fill the screen horizontally

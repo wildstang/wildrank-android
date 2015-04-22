@@ -2,6 +2,7 @@ package org.wildstang.wildrank.androidv2.fragments;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +20,9 @@ import org.wildstang.wildrank.androidv2.Utilities;
 import org.wildstang.wildrank.androidv2.data.DatabaseManager;
 import org.wildstang.wildrank.androidv2.views.TemplatedTextView;
 
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
@@ -78,7 +82,7 @@ public class TeamSummariesInfoFragment extends TeamSummariesFragment {
             }
 
             // Load team images
-            Document imagesDoc = DatabaseManager.getInstance(getActivity()).getTeamImagesDocument(teamKey);
+            /*Document imagesDoc = DatabaseManager.getInstance(getActivity()).getTeamImagesDocument(teamKey);
             if (imagesDoc == null) {
                 loadDefaultTeamImage();
             } else {
@@ -90,6 +94,18 @@ public class TeamSummariesInfoFragment extends TeamSummariesFragment {
                     Attachment attachment = currentRevision.getAttachment(imageNames.get(0));
                     loadTeamImageFromStream(attachment.getContent());
                 }
+            }*/
+
+            File image = new File(Environment.getExternalStorageDirectory().getPath() + "/wildrank/" + Utilities.teamNumberFromTeamKey(teamKey) + ".jpg");
+            if(image.exists())
+            {
+                BufferedInputStream stream = new BufferedInputStream(new FileInputStream(image));
+                loadTeamImageFromStream(stream);
+            }
+            else
+            {
+                System.out.println("Image not found");
+                loadDefaultTeamImage();
             }
         } catch (CouchbaseLiteException | IOException e) {
             e.printStackTrace();
@@ -97,7 +113,7 @@ public class TeamSummariesInfoFragment extends TeamSummariesFragment {
     }
 
     private void loadDefaultTeamImage() {
-        // do nothing
+        teamImageView.setImageDrawable(getView().getResources().getDrawable(R.drawable.frc4212));
     }
 
     private void loadTeamImageFromStream(InputStream stream) {
