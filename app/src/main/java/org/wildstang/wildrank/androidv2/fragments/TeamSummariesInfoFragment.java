@@ -1,5 +1,7 @@
 package org.wildstang.wildrank.androidv2.fragments;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Environment;
@@ -42,6 +44,8 @@ public class TeamSummariesInfoFragment extends TeamSummariesFragment {
     private TextView notesView;
     private ImageView teamImageView;
 
+    private Bitmap bitmap;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_summaries_info, container, false);
@@ -54,6 +58,11 @@ public class TeamSummariesInfoFragment extends TeamSummariesFragment {
 
     @Override
     public void acceptNewTeamData(String teamKey, Document teamDoc, Document pitDoc, List<Document> matchDocs) {
+        if(bitmap != null && !bitmap.isRecycled())
+        {
+            System.out.println("Recycling bitmap");
+            bitmap.recycle();
+        }
         this.teamKey = teamKey;
         this.teamNumber = Utilities.teamNumberFromTeamKey(teamKey);
 
@@ -95,12 +104,11 @@ public class TeamSummariesInfoFragment extends TeamSummariesFragment {
                     loadTeamImageFromStream(attachment.getContent());
                 }
             }*/
-
-            File image = new File(Environment.getExternalStorageDirectory().getPath() + "/wildrank/" + Utilities.teamNumberFromTeamKey(teamKey) + ".jpg");
+            File image = new File(Environment.getExternalStorageDirectory().getPath() + "/wildrank/" + teamNumber + ".jpg");
             if(image.exists())
             {
-                BufferedInputStream stream = new BufferedInputStream(new FileInputStream(image));
-                loadTeamImageFromStream(stream);
+                bitmap = BitmapFactory.decodeFile(image.toString());
+                loadTeamImageFromStream();
             }
             else
             {
@@ -116,8 +124,21 @@ public class TeamSummariesInfoFragment extends TeamSummariesFragment {
         teamImageView.setImageDrawable(getView().getResources().getDrawable(R.drawable.frc4212));
     }
 
-    private void loadTeamImageFromStream(InputStream stream) {
-        Drawable d = Drawable.createFromStream(stream, "team_image");
-        teamImageView.setImageDrawable(d);
+    private void loadTeamImageFromStream() {
+        double width = bitmap.getWidth();
+        double height = bitmap.getHeight();
+        if(height > 750)
+        {
+            width = width*(750/height);
+            height = 750;
+        }
+        if(width > 1000)
+        {
+            height = height*(750/width);
+            width = 750;
+        }
+        System.out.println("Width " + width + " Height " + height);
+        bitmap = Bitmap.createScaledBitmap(bitmap, (int) width, (int) height, false);
+        teamImageView.setImageBitmap(bitmap);
     }
 }

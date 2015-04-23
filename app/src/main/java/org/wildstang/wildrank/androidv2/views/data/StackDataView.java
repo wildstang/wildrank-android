@@ -25,7 +25,7 @@ public class StackDataView extends View {
     List<List<StackModel>> stacks = new ArrayList<>();
     int stackCount = 0;
 
-    Paint textPaint, existingTotesPaint, newTotesPaint, binPaint, noodlePaint, outlinePoint, droppedPaint, notScoredPaint;
+    Paint textPaint, existingTotesPaint, newTotesPaint, binPaint, noodlePaint, outlinePaint, droppedPaint, notScoredPaint;
 
     public StackDataView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -39,9 +39,9 @@ public class StackDataView extends View {
         binPaint.setColor(Color.argb(255, 85, 107, 47)); // Dark Green
         noodlePaint = new Paint();
         noodlePaint.setColor(Color.YELLOW);
-        outlinePoint = new Paint();
-        outlinePoint.setColor(Color.BLACK);
-        outlinePoint.setStyle(Paint.Style.STROKE);
+        outlinePaint = new Paint();
+        outlinePaint.setColor(Color.BLACK);
+        outlinePaint.setStyle(Paint.Style.STROKE);
         droppedPaint = new Paint();
         droppedPaint.setColor(Color.argb(200, 255, 0, 0)); // Translucent red
         notScoredPaint = new Paint();
@@ -105,6 +105,7 @@ public class StackDataView extends View {
             toteWidth = toteHeight / toteWidthToHeightRatio;
         }
 
+
         Log.d("wildrank", "stack count: " + stackCount);
         Log.d("wildrank", "match count: " + stacks.size());
 
@@ -131,7 +132,7 @@ public class StackDataView extends View {
                     float bottom = getHeight() - (toteHeight * j);
                     float top = bottom - toteHeight;
                     c.drawRect(left, top, right, bottom, existingTotesPaint);
-                    c.drawRect(left, top, right, bottom, outlinePoint);
+                    c.drawRect(left, top, right, bottom, outlinePaint);
                     totalStackHeight++;
                 }
 
@@ -141,7 +142,7 @@ public class StackDataView extends View {
                     float bottom = getHeight() - (toteHeight * j);
                     float top = bottom - toteHeight;
                     c.drawRect(left, top, right, bottom, newTotesPaint);
-                    c.drawRect(left, top, right, bottom, outlinePoint);
+                    c.drawRect(left, top, right, bottom, outlinePaint);
                     totalStackHeight++;
                 }
 
@@ -159,13 +160,13 @@ public class StackDataView extends View {
                     } else {
                         c.drawCircle(cx, cy, radius, binPaint);
                     }
-                    c.drawCircle(cx, cy, radius, outlinePoint);
+                    c.drawCircle(cx, cy, radius, outlinePaint);
                     totalStackHeight++;
 
                     if (stack.hasNoodle) {
                         float noodleRadius = radius / 3;
                         c.drawCircle(cx, cy, noodleRadius, noodlePaint);
-                        c.drawCircle(cx, cy, noodleRadius, outlinePoint);
+                        c.drawCircle(cx, cy, noodleRadius, outlinePaint);
                     }
                 }
 
@@ -186,7 +187,7 @@ public class StackDataView extends View {
                 stackCount++;
             }
             // Draw line to separate matches
-            c.drawLine(stackCount * toteWidth, 0, stackCount * toteWidth, getHeight(), outlinePoint);
+            c.drawLine(stackCount * toteWidth, 0, stackCount * toteWidth, getHeight(), outlinePaint);
         }
     }
 

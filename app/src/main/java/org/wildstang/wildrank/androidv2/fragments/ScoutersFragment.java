@@ -189,7 +189,8 @@ public class ScoutersFragment extends Fragment {
                 LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 convertView = inflater.inflate(R.layout.list_item_scouter, parent, false);
             }
-            view = super.getView(position, convertView, parent);
+            //view = super.getView(position, convertView, parent);
+            view = convertView;
 
             Scouter scouter = getItem(position);
 
@@ -215,11 +216,12 @@ public class ScoutersFragment extends Fragment {
                 LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 convertView = inflater.inflate(R.layout.list_item_scouters, parent, false);
             }
-            view = super.getView(position, convertView, parent);
+            //view = super.getView(position, convertView, parent);
+            view = convertView;
 
             MatchModel match = getItem(position);
             TextView matchNum = (TextView) view.findViewById(R.id.match_number);
-            matchNum.setText(match.matchNumber);
+            matchNum.setText(Integer.toString(match.matchNumber));
 
             if (match.matchTeams.size() >= 1) {
                 TeamMatchModel tm = match.matchTeams.get(0);
