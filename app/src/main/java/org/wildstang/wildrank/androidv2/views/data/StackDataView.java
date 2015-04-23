@@ -6,8 +6,6 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.view.SurfaceHolder;
-import android.view.SurfaceView;
 import android.view.View;
 
 import com.couchbase.lite.Document;
@@ -27,7 +25,7 @@ public class StackDataView extends View {
     List<List<StackModel>> stacks = new ArrayList<>();
     int stackCount = 0;
 
-    Paint existingTotesPaint, newTotesPaint, binPaint, noodlePaint, outlinePoint, droppedPaint;
+    Paint existingTotesPaint, newTotesPaint, binPaint, noodlePaint, outlinePoint, droppedPaint, notScoredPaint;
 
     public StackDataView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -43,11 +41,13 @@ public class StackDataView extends View {
         outlinePoint.setColor(Color.BLACK);
         outlinePoint.setStyle(Paint.Style.STROKE);
         droppedPaint = new Paint();
-        droppedPaint.setColor(Color.argb(200, 255, 0, 0)); // Transparent red
+        droppedPaint.setColor(Color.argb(200, 255, 0, 0)); // Translucent red
+        notScoredPaint = new Paint();
+        notScoredPaint.setColor(Color.argb(200, 0, 0, 255)); // Translucent blue
     }
 
     public void acceptNewTeamData(List<Document> matchDocs) {
-        if(matchDocs == null || matchDocs.isEmpty()) {
+        if (matchDocs == null || matchDocs.isEmpty()) {
             return;
         }
         stacks = new ArrayList<>();
@@ -169,6 +169,12 @@ public class StackDataView extends View {
                     float bottom = getHeight();
                     float top = bottom - (toteHeight * totalStackHeight);
                     c.drawRect(left, top, right, bottom, droppedPaint);
+                } else if (stack.notScored) {
+                    float left = x;
+                    float right = x + toteWidth;
+                    float bottom = getHeight();
+                    float top = bottom - (toteHeight * totalStackHeight);
+                    c.drawRect(left, top, right, bottom, notScoredPaint);
                 }
 
                 stackCount++;
