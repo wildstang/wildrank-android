@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,8 +35,10 @@ import java.util.Map;
  */
 public class SyncActivity extends ActionBarActivity {
 
-    TextView internalDatabaseContents;
-    TextView externalDatabaseContents;
+    //TextView internalDatabaseContents;
+    //TextView externalDatabaseContents;
+    ProgressBar bar;
+    TextView text;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -43,8 +46,10 @@ public class SyncActivity extends ActionBarActivity {
 
         setContentView(R.layout.activity_sync);
 
-        internalDatabaseContents = (TextView) findViewById(R.id.internal_contents);
-        externalDatabaseContents = (TextView) findViewById(R.id.external_contents);
+        //internalDatabaseContents = (TextView) findViewById(R.id.internal_contents);
+        //externalDatabaseContents = (TextView) findViewById(R.id.external_contents);
+        bar = (ProgressBar) findViewById(R.id.progressBar);
+        text = (TextView) findViewById(R.id.textView);
 
         beginSync();
     }
@@ -87,12 +92,15 @@ public class SyncActivity extends ActionBarActivity {
         Query query = internalDatabase.createAllDocumentsQuery();
         query.setAllDocsMode(Query.AllDocsMode.ALL_DOCS);
         QueryEnumerator result = query.run();
-        Log.d("wildrank", "QueryEnumerator length: " + result.getCount());
-        for (Iterator<QueryRow> it = result; it.hasNext(); ) {
+        //Log.d("wildrank", "QueryEnumerator length: " + result.getCount());
+        int j = 0;
+        bar.setMax(result.getCount());
+        for (Iterator<QueryRow> it = result; it.hasNext(); j++) {
+            bar.setProgress(j);
             QueryRow row = it.next();
             Document doc = row.getDocument();
             String docId = doc.getId();
-            Log.d("wildrank", "current doc id: " + docId);
+            //Log.d("wildrank", "current doc id: " + docId);
             if (docId.equals(DatabaseManagerConstants.LAST_KNOWN_INTERNAL_DATABASE_STATE_DOCUMENT_ID) || docId.equals(DatabaseManagerConstants.LAST_KNOWN_EXTERNAL_DATABASE_STATE_DOCUMENT_ID)) {
                 // Skip the state tracking things
                 continue;
@@ -236,9 +244,12 @@ public class SyncActivity extends ActionBarActivity {
         query = externalDatabase.createAllDocumentsQuery();
         query.setAllDocsMode(Query.AllDocsMode.ALL_DOCS);
         result = query.run();
-        Log.d("wildrank", "QueryEnumerator length: " + result.getCount());
+        bar.setMax(result.getCount());
+        //Log.d("wildrank", "QueryEnumerator length: " + result.getCount());
         // Iterate through all the current records in the external database
-        for (Iterator<QueryRow> it = result; it.hasNext(); ) {
+        j = 0;
+        for (Iterator<QueryRow> it = result; it.hasNext(); j++) {
+            bar.setProgress(j);
             QueryRow row = it.next();
             Document doc = row.getDocument();
             String docId = doc.getId();
@@ -267,7 +278,7 @@ public class SyncActivity extends ActionBarActivity {
 
         externalDatabase.close();
     }
-
+/*
     private void readDatabases() {
         Log.d("wildrank", "reading databasees");
         try {
@@ -307,7 +318,7 @@ public class SyncActivity extends ActionBarActivity {
             e.printStackTrace();
             Toast.makeText(this, "Error reading!", Toast.LENGTH_SHORT).show();
         }
-    }
+    }*/
 
     private class SyncTask extends AsyncTask<Void, Void, SyncTask.SyncResult> {
 
@@ -332,6 +343,8 @@ public class SyncActivity extends ActionBarActivity {
             switch (result.result) {
                 case SyncResult.RESULT_SUCCESS:
                     startActivity(new Intent(android.provider.Settings.ACTION_INTERNAL_STORAGE_SETTINGS));
+                    bar.setEnabled(false);
+                    text.setText("Done!");
                     Toast.makeText(SyncActivity.this, "Scroll down, press \"Unmount\", press back button.", Toast.LENGTH_LONG).show();
                     break;
                 case SyncResult.RESULT_ERROR:

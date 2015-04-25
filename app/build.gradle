@@ -11,7 +11,7 @@ android {
         minSdkVersion 15
         targetSdkVersion 21
         versionCode 1
-        versionName "2015_CHAMPS_FRI_2"
+        versionName "2015_CHAMPS_POST"
     }
 
     compileOptions {

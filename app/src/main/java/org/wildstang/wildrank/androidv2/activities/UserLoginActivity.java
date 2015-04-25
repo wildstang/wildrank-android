@@ -37,7 +37,7 @@ public class UserLoginActivity extends ActionBarActivity implements View.OnClick
     private boolean createNewHome = true;
     Button sync;
 
-    private String APP_VERSION = "2015_CHAMPS_FRI_2";
+    private String APP_VERSION = "2015_CHAMPS_POST";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
