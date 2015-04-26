@@ -55,6 +55,12 @@
             android:layout_height="wrap_content"
             app:label="Bin Dropped" />
 
+        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingCheckboxView
+            android:id="@+id/not_scored"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            app:label="Not Scored" />
+
     </LinearLayout>
 
     <LinearLayout

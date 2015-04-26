@@ -37,6 +37,8 @@ public class UserLoginActivity extends ActionBarActivity implements View.OnClick
     private boolean createNewHome = true;
     Button sync;
 
+    private String APP_VERSION = "2015_CHAMPS_POST";
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +58,7 @@ public class UserLoginActivity extends ActionBarActivity implements View.OnClick
         loginContainer = findViewById(R.id.login_container);
         sync = (Button) findViewById(R.id.sync);
         sync.setOnClickListener(this);
+        ((TextView) findViewById(R.id.version)).setText(APP_VERSION);
 
         userLoginEditText.setOnEditorActionListener(this);
         updateAssignedTeam();

@@ -5,21 +5,17 @@
     android:orientation="horizontal"
     tools:context="org.wildstang.wildrank.androidv2.fragments.TeamSummariesMainFragment">
 
-    <LinearLayout
+    <ListView
+        android:id="@+id/teams_list"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="1">
-
-        <ListView
-            android:id="@+id/teams_list"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </LinearLayout>
+        android:layout_weight="1.5"
+        android:choiceMode="singleChoice"/>
 
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="3"
+        android:layout_weight="4"
         android:orientation="vertical">
 
         <org.wildstang.wildrank.androidv2.views.SlidingTabs
@@ -33,17 +29,6 @@
             android:layout_width="match_parent"
             android:layout_height="fill_parent" />
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1">
-
-        <ListView
-            android:id="@+id/pick_list"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
     </LinearLayout>
 
 </LinearLayout>

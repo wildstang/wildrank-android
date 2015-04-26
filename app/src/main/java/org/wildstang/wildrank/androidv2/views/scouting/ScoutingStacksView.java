@@ -26,6 +26,7 @@ public class ScoutingStacksView extends ScoutingView implements View.OnClickList
     private ScoutingCheckboxView hasNoodleCheckbox;
     private ScoutingCheckboxView stackDroppedCheckbox;
     private ScoutingCheckboxView binDroppedCheckbox;
+    private ScoutingCheckboxView notScoredCheckbox;
 
     public ScoutingStacksView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -40,8 +41,9 @@ public class ScoutingStacksView extends ScoutingView implements View.OnClickList
         hasNoodleCheckbox = (ScoutingCheckboxView) findViewById(R.id.includes_noodle);
         stackDroppedCheckbox = (ScoutingCheckboxView) findViewById(R.id.stack_dropped);
         binDroppedCheckbox = (ScoutingCheckboxView) findViewById(R.id.bin_dropped);
+        notScoredCheckbox = (ScoutingCheckboxView) findViewById(R.id.not_scored);
 
-        preexistingStackCheckbox.setOnValueChangedListener(newValue -> preexistingHeightSpinner.setEnabled(newValue));
+        preexistingStackCheckbox.setOnValueChangedListener(preexistingHeightSpinner::setEnabled);
 
         // Synchronize the state of the preexisting height spinner with the checkbox
         preexistingHeightSpinner.setEnabled(preexistingStackCheckbox.isChecked());
@@ -87,6 +89,7 @@ public class ScoutingStacksView extends ScoutingView implements View.OnClickList
             data.binDropped = binDroppedCheckbox.isChecked();
             data.stackDropped = stackDroppedCheckbox.isChecked();
             data.isPreexisting = preexistingStackCheckbox.isChecked();
+            data.notScored = notScoredCheckbox.isChecked();
             int preexistingHeight = Integer.parseInt(preexistingHeightSpinner.getSelectedItem());
             data.preexistingToteCount = preexistingHeight;
 
@@ -109,6 +112,7 @@ public class ScoutingStacksView extends ScoutingView implements View.OnClickList
         binDroppedCheckbox.setChecked(data.binDropped);
         stackDroppedCheckbox.setChecked(data.stackDropped);
         preexistingStackCheckbox.setChecked(data.isPreexisting);
+        notScoredCheckbox.setChecked(data.notScored);
         preexistingHeightSpinner.setSelectionBasedOnText(Integer.toString(data.preexistingToteCount));
     }
 }

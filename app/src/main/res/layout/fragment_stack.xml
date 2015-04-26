@@ -10,4 +10,12 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true" />
 
+    <Button
+        android:id="@+id/stack_view_help"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:text="Help"/>
+
 </RelativeLayout>

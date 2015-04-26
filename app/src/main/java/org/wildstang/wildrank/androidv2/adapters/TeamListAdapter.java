@@ -35,6 +35,7 @@ public class TeamListAdapter extends ArrayAdapter<QueryRow> {
             convertView = inflater.inflate(R.layout.list_item_team, null, false);
             holder = new ViewHolder();
             holder.teamNumber = (TextView) convertView.findViewById(R.id.team_number);
+            holder.teamName = (TextView) convertView.findViewById(R.id.team_name);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
@@ -54,6 +55,8 @@ public class TeamListAdapter extends ArrayAdapter<QueryRow> {
 
         holder.teamNumber.setText(properties.get("team_number").toString());
 
+        holder.teamName.setText(properties.get("nickname").toString());
+
         // Gray everything out if the team has already been scouted
         float alpha;
         if (isTeamScouted && greyOutScoutedTeams) {
@@ -62,6 +65,7 @@ public class TeamListAdapter extends ArrayAdapter<QueryRow> {
             alpha = 1f;
         }
         holder.teamNumber.setAlpha(alpha);
+        holder.teamName.setAlpha(alpha);
 
 
         return convertView;
@@ -69,5 +73,6 @@ public class TeamListAdapter extends ArrayAdapter<QueryRow> {
 
     private static class ViewHolder {
         TextView teamNumber;
+        TextView teamName;
     }
 }

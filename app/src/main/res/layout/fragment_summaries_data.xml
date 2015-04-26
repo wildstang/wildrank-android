@@ -72,6 +72,12 @@
         app:explanation="Sum of all coop totes contributed so far by the team."
         app:label="Total Coop Totes" />
 
+    <org.wildstang.wildrank.androidv2.views.data.MatchDataTotalMiddleBinsView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:explanation="The sum of all bins pulled from the middle by this team during auto."
+        app:label="Total Middle Bins" />
+
 </LinearLayout>
 
 </ScrollView>
