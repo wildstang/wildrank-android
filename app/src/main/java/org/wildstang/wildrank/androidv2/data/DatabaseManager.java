@@ -162,18 +162,14 @@ public class DatabaseManager {
      * Matches
      */
 
+    //Returns a query of all the matches
     public Query getAllMatches() {
         Query query = internalDatabase.getView(DatabaseManagerConstants.MATCH_LIST_VIEW_BY_NUMBER).createQuery();
         query.setDescending(false);
         return query;
     }
 
-    public Query getAllCompleteMatches() {
-        Query query = internalDatabase.getView(DatabaseManagerConstants.MATCH_RESULT_VIEW).createQuery();
-        query.setDescending(false);
-        return query;
-    }
-
+    //Returns a query of all match results for a specific match key
     public Document getMatchFromKey(String matchKey) throws CouchbaseLiteException {
         Query query = internalDatabase.getView(DatabaseManagerConstants.MATCH_LIST_VIEW_BY_KEY).createQuery();
         query.setDescending(false);
@@ -187,6 +183,7 @@ public class DatabaseManager {
         }
     }
 
+    //Returns a document for a team whose key is given
     public Document getTeamFromKey(String teamKey) throws CouchbaseLiteException {
         return internalDatabase.getExistingDocument("team:" + teamKey);
     }
@@ -229,6 +226,13 @@ public class DatabaseManager {
         }
     }
 
+    //Returns a query of all the match results
+    public Query getAllCompleteMatches() {
+        Query query = internalDatabase.getView(DatabaseManagerConstants.MATCH_RESULT_VIEW).createQuery();
+        query.setDescending(false);
+        return query;
+    }
+
     public boolean isMatchScouted(String matchKey, String teamKey) {
         return (internalDatabase.getExistingDocument(matchKey + ":" + teamKey) != null);
     }
@@ -248,6 +252,13 @@ public class DatabaseManager {
         Query query = internalDatabase.getView(DatabaseManagerConstants.TEAM_LIST_VIEW_BY_NUMBER).createQuery();
         query.setDescending(false);
         return query;
+    }
+
+    /*
+     * Team Images
+     */
+    public Document getTeamImagesDocument(String teamKey) {
+        return internalDatabase.getExistingDocument("images:" + teamKey);
     }
 
     /*

@@ -24,14 +24,14 @@ import java.util.List;
 /**
  * Created by Liam on 2/21/2015.
  */
-public class NotesSixFragment extends Fragment {
+public class MatchNotesFragment extends Fragment {
     public List<NoteBox> boxes = new ArrayList<>();
     String[] teams;
     boolean sixMode;
     View section;
 
-    public static NotesSixFragment newInstance(String[] teams) {
-        NotesSixFragment f = new NotesSixFragment();
+    public static MatchNotesFragment newInstance(String[] teams) {
+        MatchNotesFragment f = new MatchNotesFragment();
         Bundle b = new Bundle();
         b.putStringArray("teams", teams);
         f.setArguments(b);
@@ -48,13 +48,13 @@ public class NotesSixFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_notes_six, container, false);
-        boxes.add(new NoteBox(view.findViewById(R.id.one), Utilities.teamNumberFromTeamKey(teams[0])));
-        boxes.add(new NoteBox(view.findViewById(R.id.two), Utilities.teamNumberFromTeamKey(teams[1])));
-        boxes.add(new NoteBox(view.findViewById(R.id.three), Utilities.teamNumberFromTeamKey(teams[2])));
-        boxes.add(new NoteBox(view.findViewById(R.id.four), Utilities.teamNumberFromTeamKey(teams[3])));
-        boxes.add(new NoteBox(view.findViewById(R.id.five), Utilities.teamNumberFromTeamKey(teams[4])));
-        boxes.add(new NoteBox(view.findViewById(R.id.six), Utilities.teamNumberFromTeamKey(teams[5])));
+        View view = inflater.inflate(R.layout.fragment_match_notes, container, false);
+        boxes.add(new NoteBox(view.findViewById(R.id.one), Integer.toString(Utilities.teamNumberFromTeamKey(teams[0]))));
+        boxes.add(new NoteBox(view.findViewById(R.id.two), Integer.toString(Utilities.teamNumberFromTeamKey(teams[1]))));
+        boxes.add(new NoteBox(view.findViewById(R.id.three), Integer.toString(Utilities.teamNumberFromTeamKey(teams[2]))));
+        boxes.add(new NoteBox(view.findViewById(R.id.four), Integer.toString(Utilities.teamNumberFromTeamKey(teams[3]))));
+        boxes.add(new NoteBox(view.findViewById(R.id.five), Integer.toString(Utilities.teamNumberFromTeamKey(teams[4]))));
+        boxes.add(new NoteBox(view.findViewById(R.id.six), Integer.toString(Utilities.teamNumberFromTeamKey(teams[5]))));
         sixMode = true;
         for (int i = 0; i < 6; i++) {
             setupAnimation(i);

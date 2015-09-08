@@ -6,7 +6,7 @@
     <color name="white">#ffffff</color>
 
     <color name="material_red">#F44336</color>
-    <color name="material_blue">#3d5afe</color>
+    <color name="material_blue">#2196F3</color>
     <color name="material_red_dark">#D32F2F</color>
     <color name="material_blue_dark">#1976D2</color>
 </resources>

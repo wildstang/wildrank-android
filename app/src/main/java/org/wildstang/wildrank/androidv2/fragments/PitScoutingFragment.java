@@ -31,7 +31,7 @@ public class PitScoutingFragment extends ScoutingFragment implements View.OnClic
     @Override
     public void onResume() {
         super.onResume();
-        NoteFragment f = NoteFragment.newInstance(((ScoutPitActivity) getActivity()).teamKey);
+        ScoutingNoteFragment f = ScoutingNoteFragment.newInstance(((ScoutPitActivity) getActivity()).teamKey);
         getFragmentManager().beginTransaction().replace(R.id.notes_container, f, "notes").commit();
     }
 }

@@ -51,20 +51,20 @@
             app:label="Bins Moved"
             app:values="@array/auto_bins" />
 
-        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingSpinnerView
-            android:id="@+id/taken"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:key="auto-taken"
-            app:label="Bins Taken from Step"
-            app:values="@array/auto_step" />
-
         <org.wildstang.wildrank.androidv2.views.scouting.ScoutingNumberView
             android:id="@+id/time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:key="auto-time"
             app:label="Approx. Time Taken" />
+
+        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingSpinnerView
+            android:id="@+id/center_bins"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:key="auto-center_bins"
+            app:label="Bins from Step"
+            app:values="@array/auto_center_bins" />
 
     </LinearLayout>
 

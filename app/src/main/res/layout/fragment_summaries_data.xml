@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
 
     <org.wildstang.wildrank.androidv2.views.data.MatchDataTotalStacksContributedToView
         android:layout_width="match_parent"
@@ -59,4 +66,18 @@
         app:explanation="Simply the sum of all yellow/red cards received by the team."
         app:label="Total Yellow/Red Cards" />
 
+    <org.wildstang.wildrank.androidv2.views.data.MatchDataCoopContributionView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:explanation="Sum of all coop totes contributed so far by the team."
+        app:label="Total Coop Totes" />
+
+    <org.wildstang.wildrank.androidv2.views.data.MatchDataTotalMiddleBinsView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:explanation="The sum of all bins pulled from the middle by this team during auto."
+        app:label="Total Middle Bins" />
+
 </LinearLayout>
+
+</ScrollView>

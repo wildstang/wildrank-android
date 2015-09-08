@@ -1,5 +1,6 @@
 package org.wildstang.wildrank.androidv2.fragments;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +23,13 @@ public class TeamSummariesStackFragment extends TeamSummariesFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_stack, container, false);
         view = (StackDataView) v.findViewById(R.id.stackview);
+        v.findViewById(R.id.stack_view_help).setOnClickListener(view -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            builder.setTitle("Help");
+            builder.setMessage("Stacks highlighted in red were marked as \"Dropped\".\n\nStacks highlighted in blue were marked as \"Not scored\".\n\nEmpty columns represent matches where no data was recorded for this team.");
+            builder.setPositiveButton("OK", (dialog, which) -> dialog.dismiss());
+            builder.create().show();
+        });
         return v;
     }
 

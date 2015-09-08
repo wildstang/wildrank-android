@@ -15,6 +15,7 @@ public class StackModel {
     public static final String HAS_NOODLE_KEY = "has_noodle";
     public static final String STACK_DROPPED_KEY = "stack_dropped";
     public static final String BIN_DROPPED_KEY = "bin_dropped";
+    public static final String NOT_SCORED_KEY = "not_scored";
 
     public int toteCount;
     public int preexistingToteCount;
@@ -23,6 +24,7 @@ public class StackModel {
     public boolean isPreexisting;
     public boolean stackDropped;
     public boolean binDropped;
+    public boolean notScored;
 
     public StackModel() {
         // Initialize everything to zero/false
@@ -33,6 +35,7 @@ public class StackModel {
         preexistingToteCount = 1;
         stackDropped = false;
         binDropped = false;
+        notScored = false;
     }
 
     public static StackModel fromMap(Map<String, Object> map) {
@@ -44,6 +47,11 @@ public class StackModel {
         stack.hasNoodle = (Boolean) map.get(HAS_NOODLE_KEY);
         stack.stackDropped = (Boolean) map.get(STACK_DROPPED_KEY);
         stack.binDropped = (Boolean) map.get(BIN_DROPPED_KEY);
+        if(map.containsKey(NOT_SCORED_KEY)) {
+            stack.notScored = (Boolean) map.get(NOT_SCORED_KEY);
+        } else {
+            stack.notScored = false;
+        }
         return stack;
     }
 
@@ -56,6 +64,7 @@ public class StackModel {
         map.put(StackModel.HAS_NOODLE_KEY, this.hasNoodle);
         map.put(StackModel.STACK_DROPPED_KEY, this.stackDropped);
         map.put(StackModel.BIN_DROPPED_KEY, this.binDropped);
+        map.put(StackModel.NOT_SCORED_KEY, this.notScored);
         return map;
     }
 
@@ -76,6 +85,7 @@ public class StackModel {
         equals &= (comparing.hasNoodle == this.hasNoodle);
         equals &= (comparing.stackDropped == this.stackDropped);
         equals &= (comparing.binDropped == this.binDropped);
+        equals &= (comparing.notScored == this.notScored);
         return equals;
     }
 
