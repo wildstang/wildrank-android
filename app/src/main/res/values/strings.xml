@@ -8,6 +8,20 @@
     <string name="title_activity_settings">SettingsActivity</string>
     <string name="title_activity_scout_match">Scout Match</string>
 
+    <!-- General strings -->
+    <string name="red">Red</string>
+    <string name="blue">Blue</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+
+    <!-- Confirm Exit dialog strings -->
+    <string name="confirm_exit_title">Confirm Exit</string>
+    <string name="confirm_exit_message">"If you exit without saving, all data will be lost. Do you still want to exit?</string>
+
+    <!-- Match scouting strings -->
+    <string name="match_scouting_save_successful">Match results saved successfully</string>
+    <string name="match_scouting_save_unsuccessful">Error saving match results; check LogCat for more info</string>
+
     <string name="being_scouting">Begin scouting</string>
     <string name="rescout_match">Rescout match</string>
     <string name="rescout_team">Rescout team</string>

@@ -14,13 +14,13 @@ public class NoteBox {
     Button switchView;
     EditText noteBox;
     TextView oldNotes;
-    View mid;
+    View middleDivider;
 
     public NoteBox(View v, String team) {
         layout = (LinearLayout) v;
-        mid = v.findViewById(R.id.midborder);
-        mid.setVisibility(View.GONE);
-        oldNotes = (TextView) v.findViewById(R.id.oldnotes);
+        middleDivider = v.findViewById(R.id.middle_divider);
+        middleDivider.setVisibility(View.GONE);
+        oldNotes = (TextView) v.findViewById(R.id.old_notes);
         oldNotes.setMovementMethod(new ScrollingMovementMethod());
         switchView = (Button) v.findViewById(R.id.toSix);
         noteBox = (EditText) v.findViewById(R.id.note);
@@ -40,7 +40,7 @@ public class NoteBox {
     }
 
     public void setOldNotes(String[] notes, Context c) {
-        mid.setVisibility(View.VISIBLE);
+        middleDivider.setVisibility(View.VISIBLE);
         oldNotes.setVisibility(View.VISIBLE);
         oldNotes.setText("");
         Configuration configuration = c.getResources().getConfiguration();
@@ -52,7 +52,7 @@ public class NoteBox {
     }
 
     public void clearNotes() {
-        mid.setVisibility(View.GONE);
+        middleDivider.setVisibility(View.GONE);
         oldNotes.setVisibility(View.GONE);
         oldNotes.setText("");
     }

@@ -20,17 +20,17 @@ import java.util.Set;
 /**
  * Created by Nathan on 1/27/2015.
  */
-public class UserHelper {
+public class UserUtilities {
 
     public static final String LOGGED_IN_USER_PREFERENCE_KEY = "logged_in_user";
 
     public static boolean isUserLoggedIn(Context context) {
-        return !PreferenceManager.getDefaultSharedPreferences(context).getStringSet(LOGGED_IN_USER_PREFERENCE_KEY, new HashSet<String>()).isEmpty();
+        return !PreferenceManager.getDefaultSharedPreferences(context).getStringSet(LOGGED_IN_USER_PREFERENCE_KEY, new HashSet<>()).isEmpty();
     }
 
     public static void logInUser(Context context, String userId) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        Set<String> currentUsers = prefs.getStringSet(LOGGED_IN_USER_PREFERENCE_KEY, new HashSet<String>());
+        Set<String> currentUsers = prefs.getStringSet(LOGGED_IN_USER_PREFERENCE_KEY, new HashSet<>());
         currentUsers.add(userId);
         PreferenceManager.getDefaultSharedPreferences(context).edit().putStringSet(LOGGED_IN_USER_PREFERENCE_KEY, currentUsers).commit();
     }
@@ -48,11 +48,6 @@ public class UserHelper {
 
     public static Set<String> getLoggedInUsers(Context context) {
         return PreferenceManager.getDefaultSharedPreferences(context).getStringSet(LOGGED_IN_USER_PREFERENCE_KEY, new HashSet<>());
-    }
-
-    public static List<String> getLoggedInUsersAsList(Context context) {
-        Set<String> users = PreferenceManager.getDefaultSharedPreferences(context).getStringSet(LOGGED_IN_USER_PREFERENCE_KEY, new HashSet<>());
-        return new ArrayList<String>(users);
     }
 
     public static List<UserModel> getLoggedInUserModelsAsList(Context context) {

@@ -31,6 +31,13 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Activity that handles syncing the internal database and the flash drive database.
+ *
+ * Because Couchbase for Android does not support automatic local-to-local syncing, a manual syncing
+ * algorithm was implemented. The algorithm is described in detail in the comments of the
+ * method syncDatabases(). It's not the most efficient thing, but it works for what it needs to do.
+ */
 public class SyncActivity extends AppCompatActivity {
 
     //TextView internalDatabaseContents;

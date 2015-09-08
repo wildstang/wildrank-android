@@ -21,9 +21,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Liam on 2/21/2015.
- */
 public class MatchNotesFragment extends Fragment {
     public List<NoteBox> boxes = new ArrayList<>();
     String[] teams;
@@ -41,9 +38,7 @@ public class MatchNotesFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getActivity() != null) {
-            teams = getArguments().getStringArray("teams");
-        }
+        teams = getArguments().getStringArray("teams");
     }
 
     @Override
@@ -64,16 +59,16 @@ public class MatchNotesFragment extends Fragment {
 
     public void setupAnimation(final int i) {
         boxes.get(i).getButton().setOnClickListener(v -> {
-            final View main = getView();
+            final View activityView = getView();
             final View view = boxes.get(i).getLayout();
             if (i < 3) {
-                section = main.findViewById(R.id.top);
+                section = activityView.findViewById(R.id.top);
             } else {
-                section = main.findViewById(R.id.bottom);
+                section = activityView.findViewById(R.id.bottom);
             }
 
-            final int targetWidth = main.getWidth();
-            final int targetHeight = main.getHeight();
+            final int targetWidth = activityView.getWidth();
+            final int targetHeight = activityView.getHeight();
 
             Animation animate = new Animation() {
                 @Override

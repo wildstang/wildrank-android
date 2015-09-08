@@ -6,9 +6,7 @@ import android.util.Log;
 import com.couchbase.lite.CouchbaseLiteException;
 import com.couchbase.lite.Database;
 import com.couchbase.lite.Document;
-import com.couchbase.lite.Emitter;
 import com.couchbase.lite.Manager;
-import com.couchbase.lite.Mapper;
 import com.couchbase.lite.Query;
 import com.couchbase.lite.QueryEnumerator;
 import com.couchbase.lite.QueryRow;
@@ -16,7 +14,7 @@ import com.couchbase.lite.UnsavedRevision;
 import com.couchbase.lite.View;
 import com.couchbase.lite.android.AndroidContext;
 
-import org.wildstang.wildrank.androidv2.UserHelper;
+import org.wildstang.wildrank.androidv2.UserUtilities;
 import org.wildstang.wildrank.androidv2.Utilities;
 
 import java.io.File;
@@ -373,7 +371,7 @@ public class DatabaseManager {
 
             HashMap<String, Object> properties = new HashMap<>();
             properties.put("type", DatabaseManagerConstants.NOTES_RESULTS_TYPE);
-            properties.put("users", UserHelper.getLoggedInUsersAsArray(c));
+            properties.put("users", UserUtilities.getLoggedInUsersAsArray(c));
             properties.put("team_key", teamKey);
 
             List<String> notesList;

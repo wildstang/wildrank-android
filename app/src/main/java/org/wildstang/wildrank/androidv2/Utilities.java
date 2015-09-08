@@ -57,13 +57,18 @@ public class Utilities {
         return Integer.parseInt(teamKey.replace("frc", ""));
     }
 
+    /**
+     * Fetches which team this tablet is assigned to scout, such as red_1 or blue_3.
+     * @param context Context used to access SharedPreferences
+     * @return a String representing the assigned team
+     */
     public static String getAssignedTeam(Context context) {
-        return PreferenceManager.getDefaultSharedPreferences(context).getString("assignedTeam", "red_1");
+        return PreferenceManager.getDefaultSharedPreferences(context).getString(Constants.PREF_ASSIGNED_TEAM, "red_1");
     }
 
     public static String getAssignedTeamKeyFromMatchDocument(Context context, Document matchDocument) {
-        String assignedTeamType = PreferenceManager.getDefaultSharedPreferences(context).getString("assignedTeam", "red_1");
-        switch (assignedTeamType) {
+        String assignedTeam = getAssignedTeam(context);
+        switch (assignedTeam) {
             case "red_1":
                 return Utilities.getRedTeamsFromMatchDocument(matchDocument)[0].toString();
             case "red_2":

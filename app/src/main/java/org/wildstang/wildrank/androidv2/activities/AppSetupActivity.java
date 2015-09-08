@@ -35,6 +35,13 @@ import java.io.File;
 import java.util.Iterator;
 import java.util.Map;
 
+/**
+ * This activity is displayed when the app is launched for the first time. It provides a simple
+ * UI to set up the app from a connected flash drive. It simply copies the contents of the Couchbase
+ * database on the flash drive into the internal Couchbase database. If a flash drive is not
+ * connected, it will prompt the user to connect one.
+ *
+ */
 public class AppSetupActivity extends AppCompatActivity implements View.OnClickListener {
 
     public static final int RESULT_CODE_MOUNT = 34;

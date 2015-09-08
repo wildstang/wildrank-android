@@ -1,18 +1,15 @@
 package org.wildstang.wildrank.androidv2.fragments;
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -23,6 +20,7 @@ import com.couchbase.lite.Query;
 import com.couchbase.lite.QueryEnumerator;
 import com.couchbase.lite.QueryRow;
 
+import org.wildstang.wildrank.androidv2.Constants;
 import org.wildstang.wildrank.androidv2.R;
 import org.wildstang.wildrank.androidv2.Utilities;
 import org.wildstang.wildrank.androidv2.activities.ScoutMatchActivity;
@@ -35,7 +33,7 @@ import java.util.List;
 
 public class MatchScoutingMainFragment extends Fragment implements View.OnClickListener {
 
-    private ListView list;
+    private ListView matchList;
 
     private TextView scoutingTeam;
     private Button beginScouting;
@@ -46,7 +44,7 @@ public class MatchScoutingMainFragment extends Fragment implements View.OnClickL
 
     private MatchListAdapter adapter;
 
-    private SharedPreferences.OnSharedPreferenceChangeListener listener;
+    private SharedPreferences.OnSharedPreferenceChangeListener preferenceChangeListener;
 
     public MatchScoutingMainFragment() {
         // Required empty public constructor
@@ -56,16 +54,14 @@ public class MatchScoutingMainFragment extends Fragment implements View.OnClickL
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        listener = (sharedPreferences, key) -> {
+        preferenceChangeListener = (sharedPreferences, key) -> {
             if (key == null) {
                 return;
             }
-            if (key.equals("assignedTeam")) {
+            if (key.equals(Constants.PREF_ASSIGNED_TEAM)) {
                 if (MatchScoutingMainFragment.this.isAdded()) {
                     // Requery the list to update which matches are scouted or not
                     try {
-                        Log.d("wildrank", "Requerying match list!");
-
                         runQuery();
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -77,23 +73,16 @@ public class MatchScoutingMainFragment extends Fragment implements View.OnClickL
                     // Update the selected match view if it exists
                     if (selectedMatchKey != null) {
                         try {
-                            Log.d("wildrank", "Requerying match details!");
                             onMatchSelected(DatabaseManager.getInstance(MatchScoutingMainFragment.this.getActivity()).getMatchFromKey(selectedMatchKey));
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-                    } else {
-                        Log.d("wildrank", "You idiot, it's null!");
-
                     }
-                } else {
-                    Log.d("wildrank", "Fragment not added!");
                 }
             }
-
         };
 
-        PreferenceManager.getDefaultSharedPreferences(getActivity()).registerOnSharedPreferenceChangeListener(listener);
+        PreferenceManager.getDefaultSharedPreferences(getActivity()).registerOnSharedPreferenceChangeListener(preferenceChangeListener);
     }
 
     @Override
@@ -102,8 +91,8 @@ public class MatchScoutingMainFragment extends Fragment implements View.OnClickL
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_match_scouting_main, container, false);
 
-        list = (ListView) view.findViewById(R.id.match_list);
-        list.setOnItemClickListener((parent, view1, position, id) -> {
+        matchList = (ListView) view.findViewById(R.id.match_list);
+        matchList.setOnItemClickListener((parent, view1, position, id) -> {
             QueryRow row = (QueryRow) parent.getItemAtPosition(position);
             onMatchSelected(row.getDocument());
         });
@@ -118,6 +107,7 @@ public class MatchScoutingMainFragment extends Fragment implements View.OnClickL
         beginScouting = (Button) view.findViewById(R.id.begin_scouting);
         beginScouting.setOnClickListener(this);
         beginScouting.setEnabled(false);
+
         return view;
     }
 
@@ -138,7 +128,7 @@ public class MatchScoutingMainFragment extends Fragment implements View.OnClickL
     private void runQuery() throws Exception {
         Query query = DatabaseManager.getInstance(getActivity()).getAllMatches();
 
-        adapter = new MatchListAdapter(getActivity(), new ArrayList<QueryRow>());
+        adapter = new MatchListAdapter(getActivity(), new ArrayList<>());
 
         QueryEnumerator enumerator = query.run();
 
@@ -148,10 +138,10 @@ public class MatchScoutingMainFragment extends Fragment implements View.OnClickL
             queryRows.add(row);
         }
 
-        Parcelable state = list.onSaveInstanceState();
+        Parcelable state = matchList.onSaveInstanceState();
         adapter = new MatchListAdapter(getActivity(), queryRows);
-        list.setAdapter(adapter);
-        list.onRestoreInstanceState(state);
+        matchList.setAdapter(adapter);
+        matchList.onRestoreInstanceState(state);
     }
 
     private void onMatchSelected(Document matchDocument) {
@@ -183,14 +173,7 @@ public class MatchScoutingMainFragment extends Fragment implements View.OnClickL
         int id = v.getId();
         if (id == R.id.begin_scouting) {
             // Launch the scouting activity
-            String allianceColor;
-            String assignedTeamType = PreferenceManager.getDefaultSharedPreferences(getActivity()).getString("assignedTeams", "red_1");
-            if (assignedTeamType.contains("red")) {
-                allianceColor = ScoutMatchActivity.EXTRA_ALLIANCE_COLOR_RED;
-            } else {
-                allianceColor = ScoutMatchActivity.EXTRA_ALLIANCE_COLOR_BLUE;
-            }
-            final Intent intent = ScoutMatchActivity.createIntent(getActivity(), selectedMatchKey, selectedTeamToScout, allianceColor);
+            final Intent intent = ScoutMatchActivity.createIntent(getActivity(), selectedMatchKey, selectedTeamToScout);
             boolean isMatchScouted;
             try {
                 isMatchScouted = DatabaseManager.getInstance(getActivity()).isMatchScouted(selectedMatchKey, selectedTeamToScout);
@@ -215,7 +198,7 @@ public class MatchScoutingMainFragment extends Fragment implements View.OnClickL
     }
 
     public void updateAssignedTeam() {
-        String assignedTeamType = PreferenceManager.getDefaultSharedPreferences(getActivity()).getString("assignedTeam", "red_1");
-        ((TextView) getView().findViewById(R.id.assigned_team)).setText(assignedTeamType);
+        String assignedTeam = Utilities.getAssignedTeam(getActivity());
+        ((TextView) getView().findViewById(R.id.assigned_team)).setText(assignedTeam);
     }
 }

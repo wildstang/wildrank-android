@@ -2,12 +2,10 @@ package org.wildstang.wildrank.androidv2.activities;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -18,7 +16,7 @@ import android.widget.Toast;
 import com.couchbase.lite.Document;
 
 import org.wildstang.wildrank.androidv2.R;
-import org.wildstang.wildrank.androidv2.UserHelper;
+import org.wildstang.wildrank.androidv2.UserUtilities;
 import org.wildstang.wildrank.androidv2.Utilities;
 import org.wildstang.wildrank.androidv2.adapters.PitScoutFragmentPagerAdapter;
 import org.wildstang.wildrank.androidv2.data.DatabaseManager;
@@ -71,9 +69,9 @@ public class ScoutPitActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        String team = PreferenceManager.getDefaultSharedPreferences(this).getString("assignedTeam", "red_1");
+        String assignedTeam = Utilities.getAssignedTeam(this);
 
-        if (team.contains("red")) {
+        if (assignedTeam.contains("red")) {
             toolbar.setBackgroundColor(getResources().getColor(R.color.material_red));
             tabs.setBackgroundColor(getResources().getColor(R.color.material_red));
         } else {
@@ -105,7 +103,7 @@ public class ScoutPitActivity extends AppCompatActivity {
         }
 
         try {
-            PitResultsModel results = new PitResultsModel(UserHelper.getLoggedInUsersAsArray(this), teamKey, data);
+            PitResultsModel results = new PitResultsModel(UserUtilities.getLoggedInUsersAsArray(this), teamKey, data);
             DatabaseManager.getInstance(this).savePitResults(results);
             //Document doc = DatabaseManager.getInstance(this).ge(matchKey, teamKey);
             //Log.d("wildrank", doc.getProperties().toString());

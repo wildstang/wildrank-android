@@ -21,6 +21,7 @@ import com.couchbase.lite.Query;
 import com.couchbase.lite.QueryEnumerator;
 import com.couchbase.lite.QueryRow;
 
+import org.wildstang.wildrank.androidv2.Constants;
 import org.wildstang.wildrank.androidv2.R;
 import org.wildstang.wildrank.androidv2.Utilities;
 import org.wildstang.wildrank.androidv2.activities.TeamNotesActivity;
@@ -65,7 +66,7 @@ public class NotesMainFragment extends Fragment implements View.OnClickListener 
         super.onCreate(savedInstanceState);
 
         listener = (sharedPreferences, key) -> {
-            if (key.equals("assignedTeam")) {
+            if (key.equals(Constants.PREF_ASSIGNED_TEAM)) {
                 if (NotesMainFragment.this.isAdded()) {
                     // Requery the list to update which matches are scouted or not
                     try {

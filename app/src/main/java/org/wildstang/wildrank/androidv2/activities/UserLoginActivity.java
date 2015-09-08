@@ -6,10 +6,7 @@ import android.animation.AnimatorSet;
 import android.animation.ValueAnimator;
 import android.app.AlertDialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -22,8 +19,10 @@ import android.widget.Toast;
 
 import com.couchbase.lite.Document;
 
+import org.wildstang.wildrank.androidv2.BuildConfig;
 import org.wildstang.wildrank.androidv2.R;
-import org.wildstang.wildrank.androidv2.UserHelper;
+import org.wildstang.wildrank.androidv2.UserUtilities;
+import org.wildstang.wildrank.androidv2.Utilities;
 import org.wildstang.wildrank.androidv2.data.DatabaseManager;
 
 public class UserLoginActivity extends AppCompatActivity implements View.OnClickListener, TextView.OnEditorActionListener {
@@ -32,10 +31,7 @@ public class UserLoginActivity extends AppCompatActivity implements View.OnClick
     EditText userLoginEditText;
     TextView userWelcomeMessage;
     View loginContainer;
-    private boolean createNewHome = true;
-    Button sync;
-
-    private String APP_VERSION = "2015_CHAMPS_POST";
+    private boolean createNewHomeActivity = true;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -47,16 +43,16 @@ public class UserLoginActivity extends AppCompatActivity implements View.OnClick
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             if (extras.containsKey(EXTRA_CREATE_NEW_HOME)) {
-                createNewHome = extras.getBoolean(EXTRA_CREATE_NEW_HOME, true);
+                createNewHomeActivity = extras.getBoolean(EXTRA_CREATE_NEW_HOME, true);
             }
         }
 
         userLoginEditText = (EditText) findViewById(R.id.login_user_id);
         userWelcomeMessage = (TextView) findViewById(R.id.user_welcome_message);
         loginContainer = findViewById(R.id.login_container);
-        sync = (Button) findViewById(R.id.sync);
+        Button sync = (Button) findViewById(R.id.sync);
         sync.setOnClickListener(this);
-        ((TextView) findViewById(R.id.version)).setText(APP_VERSION);
+        ((TextView) findViewById(R.id.version)).setText(BuildConfig.VERSION_NAME);
 
         userLoginEditText.setOnEditorActionListener(this);
         updateAssignedTeam();
@@ -69,8 +65,8 @@ public class UserLoginActivity extends AppCompatActivity implements View.OnClick
             if (user != null) {
                 // Do login
                 String userName = (String) user.getProperty("name");
-                UserHelper.logInUser(this, userID);
-                String[] users = UserHelper.getLoggedInUsersAsArray(this);
+                UserUtilities.logInUser(this, userID);
+                String[] users = UserUtilities.getLoggedInUsersAsArray(this);
                 for (String userNumber : users) {
                     Log.d("wildrank", "Logged in user: " + userNumber);
                 }
@@ -93,13 +89,12 @@ public class UserLoginActivity extends AppCompatActivity implements View.OnClick
                 .show();
     }
 
+    // Smoothly fades out the login controls and fades in a welcome message
     private void doFancyAnimationsAndFinish(String userName) {
         userWelcomeMessage.setText("Welcome, " + userName);
 
-
         ValueAnimator fadeLoginOut = ValueAnimator.ofFloat(1, 0);
         fadeLoginOut.addUpdateListener(animation -> {
-            Log.d("wildrank", "alpha updated! " + animation.getAnimatedValue());
             loginContainer.setAlpha((float) animation.getAnimatedValue());
         });
         fadeLoginOut.setDuration(400);
@@ -123,7 +118,7 @@ public class UserLoginActivity extends AppCompatActivity implements View.OnClick
 
             @Override
             public void onAnimationEnd(Animator animation) {
-                if (createNewHome) {
+                if (createNewHomeActivity) {
                     startActivity(new Intent(UserLoginActivity.this, HomeActivity.class));
                 }
                 UserLoginActivity.this.finish();
@@ -145,9 +140,7 @@ public class UserLoginActivity extends AppCompatActivity implements View.OnClick
         int id = v.getId();
         if (id == R.id.login_button) {
             doLogin();
-        }
-        else if(v == sync)
-        {
+        } else if (id == R.id.sync) {
             startActivity(new Intent(this, SyncActivity.class));
         }
     }
@@ -155,7 +148,7 @@ public class UserLoginActivity extends AppCompatActivity implements View.OnClick
     @Override
     public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
         Log.d("wildrank", "Login button pressed! id: " + actionId);
-        if(event == null || event.getAction() == KeyEvent.ACTION_UP) {
+        if (event == null || event.getAction() == KeyEvent.ACTION_UP) {
             InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
             doLogin();
@@ -164,9 +157,8 @@ public class UserLoginActivity extends AppCompatActivity implements View.OnClick
         return false;
     }
 
-    public void updateAssignedTeam()
-    {
-        String assignedTeamType = PreferenceManager.getDefaultSharedPreferences(this).getString("assignedTeam", "red_1");
-        ((TextView) findViewById(R.id.position)).setText(assignedTeamType);
+    public void updateAssignedTeam() {
+        String assignedTeam = Utilities.getAssignedTeam(this);
+        ((TextView) findViewById(R.id.position)).setText(assignedTeam);
     }
 }

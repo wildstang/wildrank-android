@@ -11,12 +11,9 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,7 +22,8 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import org.wildstang.wildrank.androidv2.R;
-import org.wildstang.wildrank.androidv2.UserHelper;
+import org.wildstang.wildrank.androidv2.UserUtilities;
+import org.wildstang.wildrank.androidv2.Utilities;
 import org.wildstang.wildrank.androidv2.fragments.MatchScoutingMainFragment;
 import org.wildstang.wildrank.androidv2.fragments.NotesMainFragment;
 import org.wildstang.wildrank.androidv2.fragments.PitScoutingMainFragment;
@@ -47,6 +45,26 @@ import java.util.List;
 public class HomeActivity extends AppCompatActivity {
 
     public static final String PREF_IS_APP_CONFIGURED = "is_app_configured";
+
+    // Defines "modes" that can be switched to from the navigation drawer
+    private enum Mode {
+        MATCH_SCOUTING("Match scouting"),
+        PIT_SCOUTING("Pit scouting"),
+        NOTES("Notes"),
+        SCOUTERS("Scouters"),
+        WHITEBOARD("Whiteboard"),
+        TEAM_SUMMARIES("Team summaries");
+
+        private final String title;
+
+        Mode(String title) {
+            this.title = title;
+        }
+
+        public String getTitle() {
+            return this.title;
+        }
+    }
 
     private static final String[] MODE_NAMES;
 
@@ -80,9 +98,7 @@ public class HomeActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         boolean isAppConfigured = PreferenceManager.getDefaultSharedPreferences(this).getBoolean(PREF_IS_APP_CONFIGURED, false);
-        Log.d("wildrank", "isAppConfigured: " + isAppConfigured);
-
-        boolean isLoggedIn = UserHelper.isUserLoggedIn(this);
+        boolean isLoggedIn = UserUtilities.isUserLoggedIn(this);
 
         if (isAppConfigured) {
             // The app has been set up! Go ahead and display stuff.
@@ -90,7 +106,7 @@ public class HomeActivity extends AppCompatActivity {
                 // Default to match scouting mode
                 switchToMode(Mode.MATCH_SCOUTING);
             } else {
-                // A user needs to be looged in first before we can begin
+                // A user needs to be logged in before we can begin
                 startActivity(new Intent(this, UserLoginActivity.class));
                 finish();
             }
@@ -112,13 +128,16 @@ public class HomeActivity extends AppCompatActivity {
     private void setUpToolbar() {
         toolbar.setTitleTextColor(Color.WHITE);
 
-        String team = PreferenceManager.getDefaultSharedPreferences(this).getString("assignedTeam", "red_1");
-        if (team.contains("red")) {
+        String assignedTeam = Utilities.getAssignedTeam(this);
+        if (assignedTeam.contains("red")) {
             toolbar.setBackgroundColor(getResources().getColor(R.color.material_red));
 
         } else {
             toolbar.setBackgroundColor(getResources().getColor(R.color.material_blue));
         }
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
     }
 
     @Override
@@ -128,34 +147,21 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     public void setUpNavigationDrawer() {
-        // set a custom shadow that overlays the main content when the drawer opens
-        // drawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
-        // set up the drawer's list view with items and click listener
-
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setHomeButtonEnabled(true);
-
         // ActionBarDrawerToggle ties together the the proper interactions
         // between the navigation drawer and the action bar app icon.
-        drawerToggle = new ActionBarDrawerToggle(
-                this,                    /* host Activity */
-                drawerLayout,                    /* DrawerLayout object */
-                R.string.drawer_open,  /* "open drawer" description for accessibility */
-                R.string.drawer_close  /* "close drawer" description for accessibility */
-        ) {
+        drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.drawer_open, R.string.drawer_close) {
             @Override
             public void onDrawerClosed(View drawerView) {
                 super.onDrawerClosed(drawerView);
 
-                invalidateOptionsMenu(); // calls onPrepareOptionsMenu()
+                invalidateOptionsMenu();
             }
 
             @Override
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
 
-                invalidateOptionsMenu(); // calls onPrepareOptionsMenu()
+                invalidateOptionsMenu();
             }
         };
         drawerLayout.setDrawerListener(drawerToggle);
@@ -192,32 +198,32 @@ public class HomeActivity extends AppCompatActivity {
             case MATCH_SCOUTING:
                 //Match scouting
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new MatchScoutingMainFragment()).commit();
-                getSupportActionBar().setTitle(MODE_NAMES[0]);
+                getSupportActionBar().setTitle(Mode.MATCH_SCOUTING.getTitle());
                 break;
             case PIT_SCOUTING:
                 // Pit scouting
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PitScoutingMainFragment()).commit();
-                getSupportActionBar().setTitle(MODE_NAMES[1]);
+                getSupportActionBar().setTitle(Mode.PIT_SCOUTING.getTitle());
                 break;
             case NOTES:
                 // Notes
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new NotesMainFragment()).commit();
-                getSupportActionBar().setTitle(MODE_NAMES[2]);
+                getSupportActionBar().setTitle(Mode.NOTES.getTitle());
                 break;
             case SCOUTERS:
                 // Scouters
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ScoutersFragment()).commit();
-                getSupportActionBar().setTitle(MODE_NAMES[3]);
+                getSupportActionBar().setTitle(Mode.SCOUTERS.getTitle());
                 break;
             case WHITEBOARD:
                 // Whiteboard
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new WhiteboardFragment()).commit();
-                getSupportActionBar().setTitle(MODE_NAMES[4]);
+                getSupportActionBar().setTitle(Mode.WHITEBOARD.getTitle());
                 break;
             case TEAM_SUMMARIES:
                 // Team Summaries
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new TeamSummariesMainFragment()).commit();
-                getSupportActionBar().setTitle(MODE_NAMES[5]);
+                getSupportActionBar().setTitle(Mode.TEAM_SUMMARIES.getTitle());
                 break;
             default:
                 break;
@@ -259,33 +265,16 @@ public class HomeActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    // Defines "modes" that can be switched to from the navigation drawer
-    private enum Mode {
-        MATCH_SCOUTING("Match scouting"),
-        PIT_SCOUTING("Pit scouting"),
-        NOTES("Notes"),
-        SCOUTERS("Scouters"),
-        WHITEBOARD("Whiteboard"),
-        TEAM_SUMMARIES("Team summaries");
-
-        private final String title;
-
-        Mode(String title) {
-            this.title = title;
-        }
-
-        public String getTitle() {
-            return this.title;
-        }
-    }
-
     private void showUserDialog() {
         FragmentManager fm = getSupportFragmentManager();
         ManageUsersDialog usersDialog = new ManageUsersDialog();
         usersDialog.show(fm, "users_dialog");
     }
 
-    private class ManageUsersDialog extends DialogFragment {
+    /**
+     * A dialog that provides a way to manage the logged in users.
+     */
+    public static class ManageUsersDialog extends DialogFragment {
         private ListView usersList;
 
         public ManageUsersDialog() {
@@ -298,10 +287,10 @@ public class HomeActivity extends AppCompatActivity {
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity())
                     .setTitle("Manage Users")
                     .setPositiveButton("Done", (dialog, which) -> dialog.dismiss())
-                    .setNegativeButton("Log out all users", (dialog1, which) -> {
-                        UserHelper.logOutAllUsers(HomeActivity.this);
-                        startActivity(new Intent(HomeActivity.this, UserLoginActivity.class));
-                        HomeActivity.this.finish();
+                    .setNegativeButton("Log out all users", (dialog, which) -> {
+                        UserUtilities.logOutAllUsers(getActivity());
+                        startActivity(new Intent(getActivity(), UserLoginActivity.class));
+                        getActivity().finish();
                     })
                     .setNeutralButton("Add user", (dialog, which) -> {
                         Intent i = new Intent(getActivity(), UserLoginActivity.class);
@@ -319,7 +308,7 @@ public class HomeActivity extends AppCompatActivity {
         }
 
         void setupUsersList() {
-            List<UserModel> users = UserHelper.getLoggedInUserModelsAsList(getActivity());
+            List<UserModel> users = UserUtilities.getLoggedInUserModelsAsList(getActivity());
             final ArrayAdapter<UserModel> adapter = new ArrayAdapter<>(getActivity(), R.layout.list_item_user, users);
             usersList.setAdapter(adapter);
             usersList.setOnItemClickListener((parent, view1, position, id) -> {
@@ -327,17 +316,17 @@ public class HomeActivity extends AppCompatActivity {
                 builder.setTitle("Confirm logout");
                 builder.setMessage("Are you sure you want to log this user out?");
                 final UserModel user = (UserModel) parent.getAdapter().getItem(position);
-                builder.setPositiveButton("Yes", (dialog1, which) -> {
-                    UserHelper.logOutUser(getActivity(), user.userId);
+                builder.setPositiveButton("Yes", (dialog, which) -> {
+                    UserUtilities.logOutUser(getActivity(), user.userId);
                     adapter.remove(user);
                     adapter.notifyDataSetChanged();
-                    if (UserHelper.getLoggedInUsers(getActivity()).size() == 0) {
+                    if (UserUtilities.getLoggedInUsers(getActivity()).size() == 0) {
                         // No more users are logged in
                         // Prompt a new one to log in
                         startActivity(new Intent(getActivity(), UserLoginActivity.class));
-                        finish();
+                        getActivity().finish();
                     }
-                    dialog1.dismiss();
+                    dialog.dismiss();
                 });
                 builder.setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
                 builder.show();

@@ -60,9 +60,9 @@ public class TeamNotesActivity extends ActionBarActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //sets the color of the toolbar based on what alliance is selected in the settings
-        String team = PreferenceManager.getDefaultSharedPreferences(this).getString("assignedTeam", "red_1");
+        String assignedTeam = Utilities.getAssignedTeam(this);
         toolbar.setTitleTextColor(Color.WHITE);
-        if (team.contains("red")) {
+        if (assignedTeam.contains("red")) {
             toolbar.setBackgroundColor(getResources().getColor(R.color.material_red));
 
         } else {
@@ -76,7 +76,7 @@ public class TeamNotesActivity extends ActionBarActivity {
         frag = TeamNotesFragment.newInstance(teamKey); //passes in the team key to the fragment
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
-        ft.add(R.id.space, frag);
+        ft.add(R.id.fragment_container, frag);
         ft.commit();
     }
 

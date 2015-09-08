@@ -20,6 +20,7 @@ import com.couchbase.lite.QueryEnumerator;
 import com.couchbase.lite.QueryRow;
 
 import org.wildstang.wildrank.androidv2.R;
+import org.wildstang.wildrank.androidv2.Utilities;
 import org.wildstang.wildrank.androidv2.adapters.TeamListAdapter;
 import org.wildstang.wildrank.androidv2.adapters.TeamSummariesFragmentPagerAdapter;
 import org.wildstang.wildrank.androidv2.data.DatabaseManager;
@@ -60,13 +61,14 @@ public class TeamSummariesMainFragment extends Fragment {
         pager.setAdapter(new TeamSummariesFragmentPagerAdapter(getFragmentManager()));
         tabs.setViewPager(pager);
 
-        String team = PreferenceManager.getDefaultSharedPreferences(getActivity()).getString("assignedTeam", "red_1");
+        String assignedTeam = Utilities.getAssignedTeam(getActivity());
 
-        if (team.contains("red")) {
+        if (assignedTeam.contains("red")) {
             tabs.setBackgroundColor(getResources().getColor(R.color.material_red));
         } else {
             tabs.setBackgroundColor(getResources().getColor(R.color.material_blue));
         }
+
         return view;
     }
 
