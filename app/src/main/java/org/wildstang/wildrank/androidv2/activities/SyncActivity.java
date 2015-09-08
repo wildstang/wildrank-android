@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -30,10 +31,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by Nathan on 2/16/2015.
- */
-public class SyncActivity extends ActionBarActivity {
+public class SyncActivity extends AppCompatActivity {
 
     //TextView internalDatabaseContents;
     //TextView externalDatabaseContents;

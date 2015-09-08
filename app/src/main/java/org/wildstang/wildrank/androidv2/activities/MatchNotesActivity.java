@@ -9,6 +9,7 @@ import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -23,11 +24,9 @@ import org.wildstang.wildrank.androidv2.fragments.MatchNotesFragment;
 import java.io.IOException;
 
 /**
- * Created by Liam on 2/21/2015.
- *
  * For taking notes for all the teams in a specific match
  */
-public class MatchNotesActivity extends ActionBarActivity {
+public class MatchNotesActivity extends AppCompatActivity {
     private static String matchKey;
     private static String[] teamKeys;
     private static String[] notes;

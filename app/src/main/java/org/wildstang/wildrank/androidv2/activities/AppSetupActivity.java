@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -34,8 +35,7 @@ import java.io.File;
 import java.util.Iterator;
 import java.util.Map;
 
-
-public class AppSetupActivity extends ActionBarActivity implements View.OnClickListener {
+public class AppSetupActivity extends AppCompatActivity implements View.OnClickListener {
 
     public static final int RESULT_CODE_MOUNT = 34;
     public static final int RESULT_CODE_UNMOUNT = 45;
@@ -118,6 +118,7 @@ public class AppSetupActivity extends ActionBarActivity implements View.OnClickL
                 Database internalDatabase = internalManager.getDatabase(DatabaseManagerConstants.DB_NAME);
                 Database externalDatabase = externalManager.getExistingDatabase(DatabaseManagerConstants.DB_NAME);
 
+                // Use a transaction to ensure that the sync is an all-or-nothing operation
                 internalDatabase.beginTransaction();
 
                 // Copy everything into the internal database

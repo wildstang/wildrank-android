@@ -9,9 +9,6 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-/**
- * Created by Liam on 2/21/2015.
- */
 public class NoteBox {
     LinearLayout layout;
     Button switchView;

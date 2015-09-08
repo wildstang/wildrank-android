@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
@@ -29,10 +30,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by Nathan on 1/22/2015.
- */
-public class ScoutPitActivity extends ActionBarActivity {
+public class ScoutPitActivity extends AppCompatActivity {
 
     public static final String EXTRA_TEAM_KEY = "team_key";
     public String teamKey;

@@ -2,9 +2,6 @@ package org.wildstang.wildrank.androidv2;
 
 import android.view.animation.Interpolator;
 
-/**
- * Created by Liam on 2/24/2015.
- */
 public class ReverseInterpolator implements Interpolator {
     @Override
     public float getInterpolation(float paramFloat) {

@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -25,10 +26,7 @@ import org.wildstang.wildrank.androidv2.R;
 import org.wildstang.wildrank.androidv2.UserHelper;
 import org.wildstang.wildrank.androidv2.data.DatabaseManager;
 
-/**
- * Created by Nathan on 1/27/2015.
- */
-public class UserLoginActivity extends ActionBarActivity implements View.OnClickListener, TextView.OnEditorActionListener {
+public class UserLoginActivity extends AppCompatActivity implements View.OnClickListener, TextView.OnEditorActionListener {
 
     public static final String EXTRA_CREATE_NEW_HOME = "create_new_home";
     EditText userLoginEditText;

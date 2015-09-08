@@ -23,8 +23,6 @@ import org.wildstang.wildrank.androidv2.fragments.TeamNotesFragment;
 import java.io.IOException;
 
 /**
- * Created by Liam on 3/19/2015.
- *
  * For taking notes on a specific team
  */
 public class TeamNotesActivity extends ActionBarActivity {

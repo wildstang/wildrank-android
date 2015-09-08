@@ -14,6 +14,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -35,7 +36,6 @@ import org.wildstang.wildrank.androidv2.models.UserModel;
 
 import java.util.List;
 
-
 /**
  * Serves as the jumping-off point of the entire app. It utilizes a navigation drawer to jump
  * between various top-level screens, including match scouting, pit scouting, and data viewing.
@@ -44,7 +44,7 @@ import java.util.List;
  * modes are defined in the enum Mode; new modes should be added there, and any setup that should be
  * done when that mode is selected should be defined in switchToMode().
  */
-public class HomeActivity extends ActionBarActivity {
+public class HomeActivity extends AppCompatActivity {
 
     public static final String PREF_IS_APP_CONFIGURED = "is_app_configured";
 
