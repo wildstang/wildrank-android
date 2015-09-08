@@ -159,26 +159,25 @@ The setup for the pit summary is done in the layout file ```fragment_summaries_i
 #### Configuring the match data view
 Team Summary mode also provides basic data analysis in the Match Data tab. It uses subclasses of ```MatchDataView``` to display data. The implementation of these are specific to the data collected for a specific year, so no default implementations are offered by WildRank. However, it's very easy to build your own ```MatchDataView```. In general, subclasses should only have to override ```calculateFromDocuments(...)```. This method is given a list of all match results documents for the given team that are stored in the database. You can then extract the necessary information and use that to generate displayable text. For instance, here is an example that uses [RxJava](https://github.com/ReactiveX/RxJava) to compute the total number of fouls received by a team:
 
-```
-    @Override
-    public void calculateFromDocuments(List<Document> documents) {
-        if (documents == null) {
-            return;
-        } else if (documents.size() == 0) {
-            return;
-        }
-
-        Observable foulsObservable = Observable.from(documents)
-                .map(doc -> (Map<String, Object>) doc.getProperty("data"))
-                .map(data -> data.get("post_match-foul"))
-                .filter(fouls -> fouls != null)
-                .map(fouls -> (int) fouls);
-
-        MathObservable.sumInteger(foulsObservable)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(sum -> setValueText("" + sum), error -> Log.d("wildrank", this.getClass().getName()));
-
+```java
+@Override
+public void calculateFromDocuments(List<Document> documents) {
+    if (documents == null) {
+        return;
+    } else if (documents.size() == 0) {
+        return;
     }
+
+    Observable foulsObservable = Observable.from(documents)
+            .map(doc -> (Map<String, Object>) doc.getProperty("data"))
+            .map(data -> data.get("post_match-foul"))
+            .filter(fouls -> fouls != null)
+            .map(fouls -> (int) fouls);
+            
+    MathObservable.sumInteger(foulsObservable)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(sum -> setValueText("" + sum), error -> Log.d("wildrank", this.getClass().getName()));
+}
 ```
 
 When you include ```MatchDataView```s in the appropriate layout, they will automagically be given the list of appropriate documents, which you can use in your computations.
