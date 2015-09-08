@@ -157,15 +157,31 @@ Note that the ```text``` attribute is parsed as HTML, so you can use basic HTML 
 The setup for the pit summary is done in the layout file ```fragment_summaries_info.xml```
 
 #### Configuring the match data view
-Team Summary mode also provides basic data analysis in the Match Data tab. It uses subclasses of ```MatchDataView``` to display data. The implementation of these are specific to the data collected for a specific year, so no default implementations are offered by WildRank. However, it's very easy to build your own ```MatchDataViews~~~.
+Team Summary mode also provides basic data analysis in the Match Data tab. It uses subclasses of ```MatchDataView``` to display data. The implementation of these are specific to the data collected for a specific year, so no default implementations are offered by WildRank. However, it's very easy to build your own ```MatchDataView```. In general, subclasses should only have to override ```calculateFromDocuments(...)```. This method is given a list of all match results documents for the given team that are stored in the database. You can then extract the necessary information and use that to generate displayable text. For instance, here is an example that uses [RxJava](https://github.com/ReactiveX/RxJava) to compute the total number of fouls received by a team:
 
-For instance, take the following:
+```
+    @Override
+    public void calculateFromDocuments(List<Document> documents) {
+        if (documents == null) {
+            return;
+        } else if (documents.size() == 0) {
+            return;
+        }
 
-```xml
-custom:expression="AVERAGE(teleop-scored_low) + 10*AVERAGE(teleop-scored_high)"
+        Observable foulsObservable = Observable.from(documents)
+                .map(doc -> (Map<String, Object>) doc.getProperty("data"))
+                .map(data -> data.get("post_match-foul"))
+                .filter(fouls -> fouls != null)
+                .map(fouls -> (int) fouls);
+
+        MathObservable.sumInteger(foulsObservable)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(sum -> setValueText("" + sum), error -> Log.d("wildrank", this.getClass().getName()));
+
+    }
 ```
 
-This would evaluate to the average teleop low goals per match plus 10 times the average high goals per match, giving a very basic average score. Note that the key system is the same: a piece of data that was collected with the key ```teleop-scored_high``` is accessed via the same key.
+When you include ```MatchDataView```s in the appropriate layout, they will automagically be given the list of appropriate documents, which you can use in your computations.
 
 The setup for the data view is in the layout file ```fragment_team_data.xml```
  
