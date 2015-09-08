@@ -10,3 +10,6 @@ android:
     - android-22
     - extra-android-m2repository
     - extra-google-m2repository
+    
+before install:
+  - chmod +x gradlew
