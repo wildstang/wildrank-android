@@ -8,110 +8,18 @@
     <string name="title_activity_settings">SettingsActivity</string>
     <string name="title_activity_scout_match">Scout Match</string>
 
+    <!-- Mode titles -->
+    <string name="mode_match_scouting">Match Scouting</string>
+    <string name="mode_pit_scouting">Pit Scouting</string>
+    <string name="mode_notes">Notes</string>
+    <string name="mode_scouters">Scouters</string>
+    <string name="mode_whiteboard">Whiteboard</string>
+    <string name="mode_team_summaries">Team Summaries</string>
+
     <string name="being_scouting">Begin scouting</string>
     <string name="rescout_match">Rescout match</string>
     <string name="rescout_team">Rescout team</string>
     <string name="drawer_open">Drawer Open</string>
     <string name="drawer_close">Drawer Open</string>
-
-    <string-array name="auto_totes">
-        <item>0</item>
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-    </string-array>
-
-    <string-array name="auto_bins">
-        <item>0</item>
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-    </string-array>
-
-    <string-array name="auto_center_bins">
-        <item>0</item>
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-    </string-array>
-
-    <string-array name="auto_step">
-        <item>0</item>
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-    </string-array>
-
-    <string-array name="rankings">
-        <item>0</item>
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-        <item>5</item>
-    </string-array>
-
-    <string-array name="tote_stack">
-        <item>0</item>
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-        <item>5</item>
-        <item>6</item>
-    </string-array>
-
-    <string-array name="preexisting_heights">
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-        <item>5</item>
-        <item>6</item>
-    </string-array>
-
-    <string-array name="drives">
-        <item>Tank</item>
-        <item>Mechanum</item>
-        <item>H-Drive/Slide</item>
-        <item>Swerve</item>
-        <item>Holonomic</item>
-    </string-array>
-
-    <string-array name="tote">
-        <item>Upright</item>
-        <item>Upside-down</item>
-        <item>Both</item>
-        <item>No</item>
-    </string-array>
-
-    <string-array name="bin">
-        <item>Upright</item>
-        <item>Sideways</item>
-        <item>Both</item>
-        <item>No</item>
-    </string-array>
-
-    <string-array name="litter">
-        <item>Player Station</item>
-        <item>Ground</item>
-        <item>Both</item>
-        <item>No</item>
-    </string-array>
-
-    <string-array name="player_stations">
-        <item>Left</item>
-        <item>Right</item>
-        <item>Both</item>
-        <item>None</item>
-    </string-array>
-
-    <string-array name="locations">
-        <item>HP Station</item>
-        <item>Landfill</item>
-        <item>Other???</item>
-    </string-array>
 
 </resources>

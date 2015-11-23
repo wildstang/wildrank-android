@@ -2,12 +2,14 @@ package org.wildstang.wildrank.androidv2.activities;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
+import android.support.annotation.StringRes;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
@@ -46,16 +48,31 @@ import java.util.List;
  */
 public class HomeActivity extends AppCompatActivity {
 
-    public static final String PREF_IS_APP_CONFIGURED = "is_app_configured";
+    // Defines "modes" that can be switched to from the navigation drawer
+    private enum Mode {
+        MATCH_SCOUTING(R.string.mode_match_scouting),
+        PIT_SCOUTING(R.string.mode_pit_scouting),
+        NOTES(R.string.mode_notes),
+        SCOUTERS(R.string.mode_scouters),
+        WHITEBOARD(R.string.mode_whiteboard),
+        TEAM_SUMMARIES(R.string.mode_team_summaries);
 
-    private static final String[] MODE_NAMES;
+        private final int titleRes;
 
-    static {
-        MODE_NAMES = new String[Mode.values().length];
-        for (Mode mode : Mode.values()) {
-            MODE_NAMES[mode.ordinal()] = mode.getTitle();
+        Mode(@StringRes int titleRes) {
+            this.titleRes = titleRes;
+        }
+
+        public int getTitle() {
+            return this.titleRes;
+        }
+
+        public String getTitle(Context context) {
+            return context.getString(this.titleRes);
         }
     }
+
+    public static final String PREF_IS_APP_CONFIGURED = "is_app_configured";
 
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle drawerToggle;
@@ -80,8 +97,6 @@ public class HomeActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         boolean isAppConfigured = PreferenceManager.getDefaultSharedPreferences(this).getBoolean(PREF_IS_APP_CONFIGURED, false);
-        Log.d("wildrank", "isAppConfigured: " + isAppConfigured);
-
         boolean isLoggedIn = UserHelper.isUserLoggedIn(this);
 
         if (isAppConfigured) {
@@ -138,33 +153,19 @@ public class HomeActivity extends AppCompatActivity {
 
         // ActionBarDrawerToggle ties together the the proper interactions
         // between the navigation drawer and the action bar app icon.
-        drawerToggle = new ActionBarDrawerToggle(
-                this,                    /* host Activity */
-                drawerLayout,                    /* DrawerLayout object */
-                R.string.drawer_open,  /* "open drawer" description for accessibility */
-                R.string.drawer_close  /* "close drawer" description for accessibility */
-        ) {
-            @Override
-            public void onDrawerClosed(View drawerView) {
-                super.onDrawerClosed(drawerView);
-
-                invalidateOptionsMenu(); // calls onPrepareOptionsMenu()
-            }
-
-            @Override
-            public void onDrawerOpened(View drawerView) {
-                super.onDrawerOpened(drawerView);
-
-                invalidateOptionsMenu(); // calls onPrepareOptionsMenu()
-            }
-        };
+        drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.drawer_open, R.string.drawer_close);
         drawerLayout.setDrawerListener(drawerToggle);
         // Defer code dependent on restoration of previous instance state.
-        drawerLayout.post(() -> drawerToggle.syncState());
+        drawerLayout.post(drawerToggle::syncState);
+
+        // Create array of mode names for list adapter
+        String[] modeNames = new String[Mode.values().length];
+        for (Mode mode : Mode.values()) {
+            modeNames[mode.ordinal()] = mode.getTitle(this);
+        }
 
         navigationDrawerList.setOnItemClickListener((parent, view, position, id) -> onItemSelected(position));
-        ListAdapter adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, MODE_NAMES);
-        navigationDrawerList.setAdapter(adapter);
+        navigationDrawerList.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, modeNames));
     }
 
     /**
@@ -174,55 +175,55 @@ public class HomeActivity extends AppCompatActivity {
      *                 ordinal of the enum representing this mode.
      */
     private void onItemSelected(int position) {
-        if (position > Mode.values().length - 1) {
+        if (position < 0 || position > Mode.values().length - 1) {
             return;
         }
+
         Mode mode = Mode.values()[position];
         switchToMode(mode);
         drawerLayout.closeDrawers();
     }
 
+    /**
+     * Called when a mode is selected in the navigation drawer. This should insert the correct
+     * fragment into the main fragment container.
+     *
+     * @param mode The mode that was selected. May be the same as the current mode.
+     */
     private void switchToMode(Mode mode) {
-        if (currentMode != null) {
-            if (currentMode == mode) {
-                return;
-            }
+        if (currentMode != null && currentMode == mode) {
+            return;
         }
         switch (mode) {
             case MATCH_SCOUTING:
                 //Match scouting
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new MatchScoutingMainFragment()).commit();
-                getSupportActionBar().setTitle(MODE_NAMES[0]);
                 break;
             case PIT_SCOUTING:
                 // Pit scouting
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PitScoutingMainFragment()).commit();
-                getSupportActionBar().setTitle(MODE_NAMES[1]);
                 break;
             case NOTES:
                 // Notes
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new NotesMainFragment()).commit();
-                getSupportActionBar().setTitle(MODE_NAMES[2]);
                 break;
             case SCOUTERS:
                 // Scouters
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ScoutersFragment()).commit();
-                getSupportActionBar().setTitle(MODE_NAMES[3]);
                 break;
             case WHITEBOARD:
                 // Whiteboard
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new WhiteboardFragment()).commit();
-                getSupportActionBar().setTitle(MODE_NAMES[4]);
                 break;
             case TEAM_SUMMARIES:
                 // Team Summaries
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new TeamSummariesMainFragment()).commit();
-                getSupportActionBar().setTitle(MODE_NAMES[5]);
                 break;
             default:
                 break;
         }
         currentMode = mode;
+        getSupportActionBar().setTitle(currentMode.getTitle());
     }
 
     @Override
@@ -257,26 +258,6 @@ public class HomeActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    // Defines "modes" that can be switched to from the navigation drawer
-    private enum Mode {
-        MATCH_SCOUTING("Match scouting"),
-        PIT_SCOUTING("Pit scouting"),
-        NOTES("Notes"),
-        SCOUTERS("Scouters"),
-        WHITEBOARD("Whiteboard"),
-        TEAM_SUMMARIES("Team summaries");
-
-        private final String title;
-
-        Mode(String title) {
-            this.title = title;
-        }
-
-        public String getTitle() {
-            return this.title;
-        }
     }
 
     private void showUserDialog() {
