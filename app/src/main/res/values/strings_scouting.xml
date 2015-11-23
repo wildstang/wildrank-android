@@ -102,4 +102,9 @@
         <item>Other???</item>
     </string-array>
 
+    <string name="autonomous_explanation">Please only count totes and bins that have actually been scored.</string>
+    <string name="stack">Stack</string>
+    <string name="button_finish">Finish</string>
+    <string name="button_finish_stack">Finish stack</string>
+    <string name="stack_help">Help</string>
 </resources>

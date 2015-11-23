@@ -21,5 +21,18 @@
     <string name="rescout_team">Rescout team</string>
     <string name="drawer_open">Drawer Open</string>
     <string name="drawer_close">Drawer Open</string>
+    <string name="menu_title_users">Users</string>
+    <string name="menu_title_sync">Sync</string>
+    <string name="select_a_team">Select a team</string>
+    <string name="wildrank_login">WildRank Login</string>
+    <string name="login_prompt">Enter your user ID</string>
+    <string name="button_login">Login</string>
+    <string name="button_sync">Sync</string>
+    <string name="notes">Notes</string>
+    <string name="button_begin_noting">Begin Noting</string>
+    <string name="match_number">Match Number:</string>
+    <string name="team_number">Team Number:</string>
+    <string name="alliance">Alliance:</string>
+    <string name="button_begin_scouting">Begin Scouting</string>
 
 </resources>

@@ -15,7 +15,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:text="WildRank Login"
+            android:text="@string/wildrank_login"
             android:textSize="50sp" />
 
         <TextView
@@ -25,7 +25,7 @@
             android:layout_below="@id/login_title"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="100dp"
-            android:text="Enter your user ID"
+            android:text="@string/login_prompt"
             android:textSize="30sp" />
 
         <EditText
@@ -52,7 +52,7 @@
             android:layout_alignRight="@id/login_prompt"
             android:layout_below="@id/login_user_id"
             android:layout_centerHorizontal="true"
-            android:text="Login" />
+            android:text="@string/button_login" />
     </RelativeLayout>
 
     <TextView
@@ -66,8 +66,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="pos"
-        android:id="@+id/position"
+        android:id="@+id/assigned_team"
         android:layout_alignBaseline="@+id/sync"
         android:layout_alignBottom="@+id/sync"
         android:layout_alignParentRight="true"
@@ -77,7 +76,7 @@
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Sync"
+        android:text="@string/button_sync"
         android:id="@+id/sync"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
@@ -86,7 +85,6 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="version"
         android:id="@+id/version"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
