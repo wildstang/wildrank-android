@@ -2,7 +2,6 @@ package org.wildstang.wildrank.androidv2.fragments;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
@@ -12,21 +11,16 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.couchbase.lite.Attachment;
 import com.couchbase.lite.CouchbaseLiteException;
 import com.couchbase.lite.Document;
-import com.couchbase.lite.Revision;
 
 import org.wildstang.wildrank.androidv2.R;
 import org.wildstang.wildrank.androidv2.Utilities;
 import org.wildstang.wildrank.androidv2.data.DatabaseManager;
 import org.wildstang.wildrank.androidv2.views.TemplatedTextView;
 
-import java.io.BufferedInputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
 
@@ -58,8 +52,7 @@ public class TeamSummariesInfoFragment extends TeamSummariesFragment {
 
     @Override
     public void acceptNewTeamData(String teamKey, Document teamDoc, Document pitDoc, List<Document> matchDocs) {
-        if(bitmap != null && !bitmap.isRecycled())
-        {
+        if (bitmap != null && !bitmap.isRecycled()) {
             System.out.println("Recycling bitmap");
             bitmap.recycle();
         }
@@ -105,13 +98,10 @@ public class TeamSummariesInfoFragment extends TeamSummariesFragment {
                 }
             }*/
             File image = new File(Environment.getExternalStorageDirectory().getPath() + "/wildrank/" + teamNumber + ".jpg");
-            if(image.exists())
-            {
+            if (image.exists()) {
                 bitmap = BitmapFactory.decodeFile(image.toString());
                 loadTeamImageFromStream();
-            }
-            else
-            {
+            } else {
                 System.out.println("Image not found");
                 loadDefaultTeamImage();
             }
@@ -127,14 +117,12 @@ public class TeamSummariesInfoFragment extends TeamSummariesFragment {
     private void loadTeamImageFromStream() {
         double width = bitmap.getWidth();
         double height = bitmap.getHeight();
-        if(height > 750)
-        {
-            width = width*(750/height);
+        if (height > 750) {
+            width = width * (750 / height);
             height = 750;
         }
-        if(width > 1000)
-        {
-            height = height*(750/width);
+        if (width > 1000) {
+            height = height * (750 / width);
             width = 750;
         }
         System.out.println("Width " + width + " Height " + height);

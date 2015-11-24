@@ -1,83 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
-
-
-    <org.wildstang.wildrank.androidv2.views.data.MatchDataTotalStacksContributedToView
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:explanation="Calculated as the number of times the robot modified any stacks. This includes any additions to existing stacks. Stacks could count twice if, for example, they added totes to a stack that they made before."
-        app:label="Total Stacks Contributed To" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <org.wildstang.wildrank.androidv2.views.data.MatchDataMaxHeightView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:explanation="The max height of all stack that this robot contributed to. For additions to preexisting stacks, height is claculated as the height of the existing stack plus the number of added totes. For new stacks, height is simply the number of totes in the stack."
-        app:label="Max Stack Height" />
 
-    <org.wildstang.wildrank.androidv2.views.data.MatchDataPercentageStacksDroppedView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:explanation="Calculated as the percentage of all stack manipulation records that have been flagged as &quot;Stack Dropped&quot;. If scouters did their job right, this only counts stacks that were dropped during formation or transport. Scored stacks that were tipped are counted separately."
-        app:label="Percentage of Stacks Dropped" />
+        <org.wildstang.wildrank.androidv2.views.data.MatchDataTotalStacksContributedToView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:explanation="Calculated as the number of times the robot modified any stacks. This includes any additions to existing stacks. Stacks could count twice if, for example, they added totes to a stack that they made before."
+            app:label="Total Stacks Contributed To" />
 
-    <org.wildstang.wildrank.androidv2.views.data.MatchDataNumberStacksTippedView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:explanation="The total number of scored stacks that the robot has tipped over."
-        app:label="Number of Stacks Tipped" />
+        <org.wildstang.wildrank.androidv2.views.data.MatchDataMaxHeightView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:explanation="The max height of all stack that this robot contributed to. For additions to preexisting stacks, height is claculated as the height of the existing stack plus the number of added totes. For new stacks, height is simply the number of totes in the stack."
+            app:label="Max Stack Height" />
 
-    <org.wildstang.wildrank.androidv2.views.data.MatchDataNumberCappedStacksView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:explanation="Counts the number of stack records that are marked as including a bin that was not dropped."
-        app:label="Number of Capped Stacks" />
+        <org.wildstang.wildrank.androidv2.views.data.MatchDataPercentageStacksDroppedView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:explanation="Calculated as the percentage of all stack manipulation records that have been flagged as &quot;Stack Dropped&quot;. If scouters did their job right, this only counts stacks that were dropped during formation or transport. Scored stacks that were tipped are counted separately."
+            app:label="Percentage of Stacks Dropped" />
 
-    <org.wildstang.wildrank.androidv2.views.data.MatchDataAverageHumanPlayerRatingView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:explanation="Averages all non-zero human player rankings that have been given for this team."
-        app:label="Average Human Player Ranking" />
+        <org.wildstang.wildrank.androidv2.views.data.MatchDataNumberStacksTippedView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:explanation="The total number of scored stacks that the robot has tipped over."
+            app:label="Number of Stacks Tipped" />
 
-    <org.wildstang.wildrank.androidv2.views.data.MatchDataAverageStacksContributedToView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:explanation="Calculated as the total number of stacks contributed to divided by the total number of matches played in."
-        app:label="Average Stacks Contributed To Per Match" />
+        <org.wildstang.wildrank.androidv2.views.data.MatchDataNumberCappedStacksView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:explanation="Counts the number of stack records that are marked as including a bin that was not dropped."
+            app:label="Number of Capped Stacks" />
 
-    <org.wildstang.wildrank.androidv2.views.data.MatchDataTotalFoulsView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:explanation="The sum of all fouls received by this team."
-        app:label="Total Fouls" />
+        <org.wildstang.wildrank.androidv2.views.data.MatchDataAverageHumanPlayerRatingView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:explanation="Averages all non-zero human player rankings that have been given for this team."
+            app:label="Average Human Player Ranking" />
 
-    <org.wildstang.wildrank.androidv2.views.data.MatchDataTotalYellowRedCardsView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:explanation="Simply the sum of all yellow/red cards received by the team."
-        app:label="Total Yellow/Red Cards" />
+        <org.wildstang.wildrank.androidv2.views.data.MatchDataAverageStacksContributedToView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:explanation="Calculated as the total number of stacks contributed to divided by the total number of matches played in."
+            app:label="Average Stacks Contributed To Per Match" />
 
-    <org.wildstang.wildrank.androidv2.views.data.MatchDataCoopContributionView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:explanation="Sum of all coop totes contributed so far by the team."
-        app:label="Total Coop Totes" />
+        <org.wildstang.wildrank.androidv2.views.data.MatchDataTotalFoulsView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:explanation="The sum of all fouls received by this team."
+            app:label="Total Fouls" />
 
-    <org.wildstang.wildrank.androidv2.views.data.MatchDataTotalMiddleBinsView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:explanation="The sum of all bins pulled from the middle by this team during auto."
-        app:label="Total Middle Bins" />
+        <org.wildstang.wildrank.androidv2.views.data.MatchDataTotalYellowRedCardsView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:explanation="Simply the sum of all yellow/red cards received by the team."
+            app:label="Total Yellow/Red Cards" />
 
-</LinearLayout>
+        <org.wildstang.wildrank.androidv2.views.data.MatchDataCoopContributionView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:explanation="Sum of all coop totes contributed so far by the team."
+            app:label="Total Coop Totes" />
+
+        <org.wildstang.wildrank.androidv2.views.data.MatchDataTotalMiddleBinsView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:explanation="The sum of all bins pulled from the middle by this team during auto."
+            app:label="Total Middle Bins" />
+
+    </LinearLayout>
 
 </ScrollView>

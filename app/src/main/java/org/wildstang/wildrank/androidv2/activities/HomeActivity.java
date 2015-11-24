@@ -14,16 +14,13 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import org.wildstang.wildrank.androidv2.R;
@@ -48,32 +45,7 @@ import java.util.List;
  */
 public class HomeActivity extends AppCompatActivity {
 
-    // Defines "modes" that can be switched to from the navigation drawer
-    private enum Mode {
-        MATCH_SCOUTING(R.string.mode_match_scouting),
-        PIT_SCOUTING(R.string.mode_pit_scouting),
-        NOTES(R.string.mode_notes),
-        SCOUTERS(R.string.mode_scouters),
-        WHITEBOARD(R.string.mode_whiteboard),
-        TEAM_SUMMARIES(R.string.mode_team_summaries);
-
-        private final int titleRes;
-
-        Mode(@StringRes int titleRes) {
-            this.titleRes = titleRes;
-        }
-
-        public int getTitle() {
-            return this.titleRes;
-        }
-
-        public String getTitle(Context context) {
-            return context.getString(this.titleRes);
-        }
-    }
-
     public static final String PREF_IS_APP_CONFIGURED = "is_app_configured";
-
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle drawerToggle;
     private ListView navigationDrawerList;
@@ -264,6 +236,30 @@ public class HomeActivity extends AppCompatActivity {
         FragmentManager fm = getSupportFragmentManager();
         ManageUsersDialog usersDialog = new ManageUsersDialog();
         usersDialog.show(fm, "users_dialog");
+    }
+
+    // Defines "modes" that can be switched to from the navigation drawer
+    private enum Mode {
+        MATCH_SCOUTING(R.string.mode_match_scouting),
+        PIT_SCOUTING(R.string.mode_pit_scouting),
+        NOTES(R.string.mode_notes),
+        SCOUTERS(R.string.mode_scouters),
+        WHITEBOARD(R.string.mode_whiteboard),
+        TEAM_SUMMARIES(R.string.mode_team_summaries);
+
+        private final int titleRes;
+
+        Mode(@StringRes int titleRes) {
+            this.titleRes = titleRes;
+        }
+
+        public int getTitle() {
+            return this.titleRes;
+        }
+
+        public String getTitle(Context context) {
+            return context.getString(this.titleRes);
+        }
     }
 
     private class ManageUsersDialog extends DialogFragment {

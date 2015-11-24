@@ -7,22 +7,22 @@
         android:id="@+id/scouterName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
         android:paddingLeft="8dp"
         android:paddingRight="8dp"
-        android:textAppearance="?android:attr/textAppearanceListItem"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:textAppearance="?android:attr/textAppearanceListItem" />
 
     <TextView
         android:id="@+id/count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/scouterName"
         android:paddingLeft="8dp"
         android:paddingRight="8dp"
-        android:textAppearance="?android:attr/textAppearanceListItem"
-        android:layout_alignTop="@+id/scouterName"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:textAppearance="?android:attr/textAppearanceListItem" />
 
 </RelativeLayout>

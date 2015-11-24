@@ -2,7 +2,6 @@ package org.wildstang.wildrank.androidv2.views.data;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;

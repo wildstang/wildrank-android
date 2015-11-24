@@ -12,7 +12,6 @@ import java.util.List;
 import java.util.Map;
 
 import rx.Observable;
-import rx.android.lifecycle.LifecycleObservable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.observables.MathObservable;
 

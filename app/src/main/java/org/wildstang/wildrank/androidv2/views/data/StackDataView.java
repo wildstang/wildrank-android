@@ -89,7 +89,7 @@ public class StackDataView extends View {
 
     @Override
     public void onDraw(Canvas c) {
-        if(stacks.isEmpty()) {
+        if (stacks.isEmpty()) {
             c.drawText("No data exists for this team.", 100, 100, textPaint);
         }
         // First, compute the dimensions of our drawn items so that they're scaled properly

@@ -23,8 +23,7 @@ import java.util.List;
  * This will have to be remade for every years game. Find a picture of the field with game objects on
  * it and crop out the objects. Then put the field and the cropped objects in drawable.
  */
-public class WhiteboardView extends View
-{
+public class WhiteboardView extends View {
     //all the images
     Bitmap field;
     Bitmap bin;
@@ -60,8 +59,7 @@ public class WhiteboardView extends View
     List<List<Point>> points = new ArrayList<>();
 
     //this is a constructor, you better know what that is
-    public WhiteboardView(Context context, AttributeSet attrs)
-    {
+    public WhiteboardView(Context context, AttributeSet attrs) {
         super(context, attrs);
 
         //loads all the raw images
@@ -75,8 +73,7 @@ public class WhiteboardView extends View
 
     //this is run when the view is created
     //it initializes images and buttons
-    public void init()
-    {
+    public void init() {
         //setups field and scales
         magScale = ((double) getHeight() / (double) field.getHeight());
         field = Bitmap.createScaledBitmap(field, (int) (magScale * field.getWidth()), getHeight(), false);
@@ -106,11 +103,9 @@ public class WhiteboardView extends View
         buttons.add(new Button(width + 10, 2 * buttonWidth / 3 + 30, buttonWidth, 2 * buttonWidth / 3 + 10, "Pen On/Off", true));
 
         //listener for touching the screen
-        this.setOnTouchListener(new OnTouchListener()
-        {
+        this.setOnTouchListener(new OnTouchListener() {
             @Override
-            public boolean onTouch(View v, MotionEvent event)
-            {
+            public boolean onTouch(View v, MotionEvent event) {
                 //draws when touched
                 invalidate();
 
@@ -120,14 +115,11 @@ public class WhiteboardView extends View
 
                 //switch to check whether the screen was pressed on, dragged on, or let go
                 int action = event.getActionMasked();
-                switch (action)
-                {
+                switch (action) {
                     case MotionEvent.ACTION_DOWN:
                         //if pressed on
-                        if (!penOn)
-                        {
-                            for (int i = 0; i < pieces.size(); i++)
-                            {
+                        if (!penOn) {
+                            for (int i = 0; i < pieces.size(); i++) {
                                 pieces.get(i).checkPress(x, y);
                             }
                         }
@@ -135,19 +127,16 @@ public class WhiteboardView extends View
                         //otherwise
 
                         //if the pen is on add a new point
-                        if (penOn)
-                        {
+                        if (penOn) {
                             points.add(new ArrayList<Point>());
                             points.get(points.size() - 1).add(new Point(x, y));
                         }
 
                         //check if any magnets are being picked up
                         magnetHeld = false;
-                        for (int i = 0; i < magnets.size(); i++)
-                        {
+                        for (int i = 0; i < magnets.size(); i++) {
                             Magnet magnet = magnets.get(i);
-                            if (x >= magnet.x && x <= magnet.x + magnet.img.getWidth() && y >= magnet.y && y <= magnet.y + magnet.img.getHeight())
-                            {
+                            if (x >= magnet.x && x <= magnet.x + magnet.img.getWidth() && y >= magnet.y && y <= magnet.y + magnet.img.getHeight()) {
                                 currentMagnet = i;
                                 magnetHeld = true;
                                 xOffset = x - magnet.x;
@@ -156,26 +145,20 @@ public class WhiteboardView extends View
                         }
 
                         //check if either of the buttons are being pressed
-                        for (int i = 0; i < buttons.size(); i++)
-                        {
+                        for (int i = 0; i < buttons.size(); i++) {
                             Button button = buttons.get(i);
-                            if (x >= button.x && x <= button.x + button.width && y >= button.y && y <= button.y + button.height)
-                            {
+                            if (x >= button.x && x <= button.x + button.width && y >= button.y && y <= button.y + button.height) {
                                 //if its a toggle button toggle the state
-                                if (button.toggle)
-                                {
+                                if (button.toggle) {
                                     buttons.get(i).pushed = !buttons.get(i).pushed;
-                                    if (button.name.equals("Pen On/Off"))
-                                    {
+                                    if (button.name.equals("Pen On/Off")) {
                                         penOn = buttons.get(i).pushed;
                                     }
-                                } else
-                                {
+                                } else {
                                     //otherwise just set it pushed
                                     buttons.get(i).pushed = true;
                                 }
-                            } else if (!button.toggle)
-                            {
+                            } else if (!button.toggle) {
                                 //if you didn't press a button and its not a toggle depress it
                                 buttons.get(i).pushed = false;
                             }
@@ -186,14 +169,12 @@ public class WhiteboardView extends View
                         //if dragged on
 
                         //if you are holding a magnet move it
-                        if (magnetHeld)
-                        {
+                        if (magnetHeld) {
                             magnets.get(currentMagnet).update(x - xOffset, y - yOffset);
                         }
 
                         //if you are using the pen draw
-                        if (penOn && points.size() > 0)
-                        {
+                        if (penOn && points.size() > 0) {
                             points.get(points.size() - 1).add(new Point(x, y));
                         }
                         return true;
@@ -201,30 +182,24 @@ public class WhiteboardView extends View
                         //if let go of
 
                         //check if you are letting go of a button
-                        for (int i = 0; i < buttons.size(); i++)
-                        {
+                        for (int i = 0; i < buttons.size(); i++) {
                             Button button = buttons.get(i);
-                            if (x >= button.x && x <= button.x + button.width && y >= button.y && y <= button.y + button.height && button.pushed && !button.toggle)
-                            {
+                            if (x >= button.x && x <= button.x + button.width && y >= button.y && y <= button.y + button.height && button.pushed && !button.toggle) {
                                 //if its the clear button clear all magnets and drawing
-                                if (button.name.equals("Clear!"))
-                                {
+                                if (button.name.equals("Clear!")) {
                                     magnets = new ArrayList<>();
                                     points = new ArrayList<>();
                                 }
                             }
 
                             //if its not a toggle depress it
-                            if (!button.toggle)
-                            {
+                            if (!button.toggle) {
                                 buttons.get(i).pushed = false;
                             }
                         }
                         //check if you are letting go of a magnet on the left column
-                        for (int i = 0; i < magnets.size(); i++)
-                        {
-                            if (magnets.get(i).x < getWidth() / 6)
-                            {
+                        for (int i = 0; i < magnets.size(); i++) {
+                            if (magnets.get(i).x < getWidth() / 6) {
                                 //if it is left remove it
                                 magnets.remove(i);
                             }
@@ -239,11 +214,9 @@ public class WhiteboardView extends View
     //this is where everything is drawn
     //it is currently set to be run every time the screen is touched
     @Override
-    public void onDraw(Canvas canvas)
-    {
+    public void onDraw(Canvas canvas) {
         //if the fragment hasn't been initiated initiate it
-        if (!run)
-        {
+        if (!run) {
             init();
             run = true;
         }
@@ -255,31 +228,25 @@ public class WhiteboardView extends View
 
         //draws the field and all the image buttons
         canvas.drawBitmap(field, getWidth() / 6, 0, null);
-        for (int i = 0; i < pieces.size(); i++)
-        {
+        for (int i = 0; i < pieces.size(); i++) {
             pieces.get(i).draw(canvas);
         }
 
         //draws all the buttons
-        for (int i = 0; i < buttons.size(); i++)
-        {
+        for (int i = 0; i < buttons.size(); i++) {
             buttons.get(i).draw(canvas);
         }
 
         //draws all the magnets
-        for (int i = 0; i < magnets.size(); i++)
-        {
+        for (int i = 0; i < magnets.size(); i++) {
             magnets.get(i).draw(canvas);
         }
 
         //draws the pretty drawing you made
         paint.setColor(Color.BLUE);
-        for (int i = 0; i < points.size(); i++)
-        {
-            for (int j = 1; j < points.get(i).size(); j++)
-            {
-                if (j > 0)
-                {
+        for (int i = 0; i < points.size(); i++) {
+            for (int j = 1; j < points.get(i).size(); j++) {
+                if (j > 0) {
                     Point last = points.get(i).get(j - 1);
                     Point point = points.get(i).get(j);
                     canvas.drawLine(last.x, last.y, point.x, point.y, paint);
@@ -289,42 +256,36 @@ public class WhiteboardView extends View
     }
 
     //this is a object for the magnets that can be moved around
-    public class Magnet
-    {
+    public class Magnet {
         int x, y;
         Bitmap img;
 
-        public Magnet(int x, int y, Bitmap img)
-        {
+        public Magnet(int x, int y, Bitmap img) {
             this.x = x;
             this.y = y;
             this.img = img;
         }
 
         //updates the position of the magnet
-        public void update(int x, int y)
-        {
+        public void update(int x, int y) {
             this.x = x;
             this.y = y;
         }
 
         //draws the image on the canvas at its position
-        public void draw(Canvas c)
-        {
+        public void draw(Canvas c) {
             c.drawBitmap(img, x, y, null);
         }
     }
 
     //this is an object for the custom buttons on the right
-    public class Button
-    {
+    public class Button {
         int x, y, width, height;
         String name;
         boolean pushed;
         boolean toggle;
 
-        public Button(int x, int y, int width, int height, String name, boolean toggle)
-        {
+        public Button(int x, int y, int width, int height, String name, boolean toggle) {
             this.x = x;
             this.y = y;
             this.width = width;
@@ -335,15 +296,12 @@ public class WhiteboardView extends View
         }
 
         //draws my custom buttons
-        public void draw(Canvas c)
-        {
+        public void draw(Canvas c) {
             Paint paint = new Paint();
             //if its pressed it's dark
-            if (pushed)
-            {
+            if (pushed) {
                 paint.setColor(Color.DKGRAY);
-            } else
-            {
+            } else {
                 //otherwise it's light
                 paint.setColor(Color.LTGRAY);
             }
@@ -355,27 +313,23 @@ public class WhiteboardView extends View
 
     //this is a object for easily containing an x and y coordinate
     //it's specifically used for drawing
-    public class Point
-    {
+    public class Point {
         int x, y;
 
-        public Point(int x, int y)
-        {
+        public Point(int x, int y) {
             this.x = x;
             this.y = y;
         }
     }
 
     //this is the source of magnets on the left side of the screen
-    public class GamePiece
-    {
+    public class GamePiece {
         int x, y;
         Bitmap image;
         Bitmap magnetImage;
 
         //needs the x and y position the scaled up image and the magnet image
-        public GamePiece(int x, int y, Bitmap image, Bitmap magnetImage)
-        {
+        public GamePiece(int x, int y, Bitmap image, Bitmap magnetImage) {
             this.x = x;
             this.y = y;
             this.image = image;
@@ -383,10 +337,8 @@ public class WhiteboardView extends View
         }
 
         //used to check if it is pressed
-        public void checkPress(int tX, int tY)
-        {
-            if (tX > x && tX < x + image.getWidth() && tY > y && tY < y + image.getHeight())
-            {
+        public void checkPress(int tX, int tY) {
+            if (tX > x && tX < x + image.getWidth() && tY > y && tY < y + image.getHeight()) {
                 currentMagnet = magnets.size();
                 magnets.add(new Magnet(x, y, magnetImage));
                 magnetHeld = true;
@@ -394,28 +346,23 @@ public class WhiteboardView extends View
         }
 
         //draws the source
-        public void draw(Canvas c)
-        {
+        public void draw(Canvas c) {
             c.drawBitmap(image, x, y, null);
         }
 
-        public int getHeight()
-        {
+        public int getHeight() {
             return image.getHeight();
         }
 
-        public int getWidth()
-        {
+        public int getWidth() {
             return image.getWidth();
         }
 
-        public int getMagnetHeight()
-        {
+        public int getMagnetHeight() {
             return magnetImage.getHeight();
         }
 
-        public int getMagnetWidth()
-        {
+        public int getMagnetWidth() {
             return magnetImage.getWidth();
         }
     }

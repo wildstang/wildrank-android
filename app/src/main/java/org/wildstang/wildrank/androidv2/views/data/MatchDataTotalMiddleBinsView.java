@@ -18,8 +18,7 @@ import rx.observables.MathObservable;
 /**
  * Created by mail929 on 4/22/15.
  */
-public class MatchDataTotalMiddleBinsView extends MatchDataView implements IMatchDataView
-{
+public class MatchDataTotalMiddleBinsView extends MatchDataView implements IMatchDataView {
 
     public MatchDataTotalMiddleBinsView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -35,7 +34,7 @@ public class MatchDataTotalMiddleBinsView extends MatchDataView implements IMatc
 
         Observable foulsObservable = Observable.from(documents)
                 .map(doc -> (Map<String, Object>) doc.getProperty("data"))
-                .map(data -> Integer.parseInt((String)data.get("auto-center_bins")));
+                .map(data -> Integer.parseInt((String) data.get("auto-center_bins")));
 
         MathObservable.sumInteger(foulsObservable)
                 .observeOn(AndroidSchedulers.mainThread())

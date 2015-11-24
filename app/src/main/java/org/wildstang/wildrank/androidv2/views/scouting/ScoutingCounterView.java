@@ -5,7 +5,6 @@ import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.SoundEffectConstants;
-import android.view.View;
 import android.widget.TextView;
 
 import org.wildstang.wildrank.androidv2.R;

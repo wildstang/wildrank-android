@@ -14,7 +14,6 @@ import java.util.Map;
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.observables.MathObservable;
-import rx.schedulers.Schedulers;
 
 /**
  * Created by mail929 on 4/4/15.
