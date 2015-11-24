@@ -7,9 +7,6 @@ import android.widget.LinearLayout;
 
 import org.wildstang.wildrank.androidv2.R;
 
-/**
- * Created by Liam on 2/21/2015.
- */
 public class NoteView extends LinearLayout {
 
     public NoteView(Context context, AttributeSet attrs) {

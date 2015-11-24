@@ -13,9 +13,6 @@ import org.wildstang.wildrank.androidv2.fragments.TeamSummariesStackFragment;
 
 import java.util.List;
 
-/**
- * Created by Liam on 2/28/2015.
- */
 public class TeamSummariesFragmentPagerAdapter extends FragmentStatePagerAdapter {
 
     static final int NUM_FRAGMENTS = 4;

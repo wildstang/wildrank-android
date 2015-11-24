@@ -15,9 +15,6 @@ import org.wildstang.wildrank.androidv2.data.DatabaseManager;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by Nathan on 1/20/2015.
- */
 public class TeamListAdapter extends ArrayAdapter<QueryRow> {
 
     private boolean greyOutScoutedTeams;

@@ -15,9 +15,6 @@ import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.observables.MathObservable;
 
-/**
- * Created by Nathan on 3/18/2015.
- */
 public class MatchDataTotalStacksContributedToView extends MatchDataView implements IMatchDataView {
 
     public MatchDataTotalStacksContributedToView(Context context, AttributeSet attrs) {

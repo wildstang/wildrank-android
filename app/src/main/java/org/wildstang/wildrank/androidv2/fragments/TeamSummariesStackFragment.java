@@ -13,9 +13,6 @@ import org.wildstang.wildrank.androidv2.views.data.StackDataView;
 
 import java.util.List;
 
-/**
- * Created by Liam on 3/20/2015.
- */
 public class TeamSummariesStackFragment extends TeamSummariesFragment {
     StackDataView view;
 

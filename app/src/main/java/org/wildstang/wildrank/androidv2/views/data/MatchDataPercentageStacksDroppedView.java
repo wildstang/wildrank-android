@@ -14,9 +14,6 @@ import java.util.Map;
 import rx.Observable;
 import rx.observables.MathObservable;
 
-/**
- * Created by Nathan on 3/18/2015.
- */
 public class MatchDataPercentageStacksDroppedView extends MatchDataView implements IMatchDataView {
 
     public MatchDataPercentageStacksDroppedView(Context context, AttributeSet attrs) {

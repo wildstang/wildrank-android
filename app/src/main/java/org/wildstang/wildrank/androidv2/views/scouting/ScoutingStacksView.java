@@ -12,9 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by Nathan on 2/21/2015.
- */
 public class ScoutingStacksView extends ScoutingView implements View.OnClickListener {
 
     private List<StackModel> stacks = new ArrayList<>();

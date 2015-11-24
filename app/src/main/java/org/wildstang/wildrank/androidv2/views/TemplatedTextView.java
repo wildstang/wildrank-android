@@ -17,9 +17,6 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/**
- * Created by Nathan on 6/10/2014.
- */
 public class TemplatedTextView extends TextView {
 
     private String originalString;
