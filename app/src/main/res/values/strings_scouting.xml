@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Year-specific strings that are used in the scouting UI should go here -->
+    <string-array name="auto_totes">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+
+    <string-array name="auto_bins">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+
+    <string-array name="auto_center_bins">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+
+    <string-array name="auto_step">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+
+    <string-array name="rankings">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </string-array>
+
+    <string-array name="tote_stack">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+    </string-array>
+
+    <string-array name="preexisting_heights">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+    </string-array>
+
+    <string-array name="drives">
+        <item>Tank</item>
+        <item>Mechanum</item>
+        <item>H-Drive/Slide</item>
+        <item>Swerve</item>
+        <item>Holonomic</item>
+    </string-array>
+
+    <string-array name="tote">
+        <item>Upright</item>
+        <item>Upside-down</item>
+        <item>Both</item>
+        <item>No</item>
+    </string-array>
+
+    <string-array name="bin">
+        <item>Upright</item>
+        <item>Sideways</item>
+        <item>Both</item>
+        <item>No</item>
+    </string-array>
+
+    <string-array name="litter">
+        <item>Player Station</item>
+        <item>Ground</item>
+        <item>Both</item>
+        <item>No</item>
+    </string-array>
+
+    <string-array name="player_stations">
+        <item>Left</item>
+        <item>Right</item>
+        <item>Both</item>
+        <item>None</item>
+    </string-array>
+
+    <string-array name="locations">
+        <item>HP Station</item>
+        <item>Landfill</item>
+        <item>Other???</item>
+    </string-array>
+
+    <string name="autonomous_explanation">Please only count totes and bins that have actually been scored.</string>
+    <string name="stack">Stack</string>
+    <string name="button_finish">Finish</string>
+    <string name="button_finish_stack">Finish stack</string>
+    <string name="stack_help">Help</string>
+</resources>

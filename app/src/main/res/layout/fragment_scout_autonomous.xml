@@ -10,7 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="8dp"
-        android:text="Please only count totes and bins that have actually been scored."
+        android:text="@string/autonomous_explanation"
         android:textSize="15sp" />
 
     <LinearLayout

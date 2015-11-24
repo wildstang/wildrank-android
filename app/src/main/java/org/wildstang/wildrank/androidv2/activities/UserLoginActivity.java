@@ -167,6 +167,6 @@ public class UserLoginActivity extends AppCompatActivity implements View.OnClick
     public void updateAssignedTeam()
     {
         String assignedTeamType = PreferenceManager.getDefaultSharedPreferences(this).getString("assignedTeam", "red_1");
-        ((TextView) findViewById(R.id.position)).setText(assignedTeamType);
+        ((TextView) findViewById(R.id.assigned_team)).setText(assignedTeamType);
     }
 }
