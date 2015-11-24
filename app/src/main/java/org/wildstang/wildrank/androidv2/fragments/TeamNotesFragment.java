@@ -15,9 +15,6 @@ import org.wildstang.wildrank.androidv2.data.DatabaseManager;
 
 import java.io.IOException;
 
-/**
- * Created by Liam on 3/19/2015.
- */
 public class TeamNotesFragment extends Fragment {
     public NoteBox box;
     String team;

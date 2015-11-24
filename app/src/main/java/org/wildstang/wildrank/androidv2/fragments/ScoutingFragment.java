@@ -9,9 +9,6 @@ import org.wildstang.wildrank.androidv2.interfaces.IScoutingView;
 
 import java.util.Map;
 
-/**
- * Created by Nathan on 1/24/2015.
- */
 public abstract class ScoutingFragment extends Fragment {
 
     public ScoutingFragment() {

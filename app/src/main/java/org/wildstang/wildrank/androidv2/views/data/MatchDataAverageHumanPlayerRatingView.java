@@ -16,9 +16,6 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.observables.MathObservable;
 import rx.schedulers.Schedulers;
 
-/**
- * Created by Nathan on 3/18/2015.
- */
 public class MatchDataAverageHumanPlayerRatingView extends MatchDataView implements IMatchDataView {
 
     public MatchDataAverageHumanPlayerRatingView(Context context, AttributeSet attrs) {

@@ -8,9 +8,6 @@ import android.view.ViewGroup;
 import org.wildstang.wildrank.androidv2.R;
 import org.wildstang.wildrank.androidv2.activities.ScoutPitActivity;
 
-/**
- * Created by Nathan on 1/24/2015.
- */
 public class PitScoutingFragment extends ScoutingFragment implements View.OnClickListener {
 
     @Override

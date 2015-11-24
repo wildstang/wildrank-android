@@ -7,9 +7,6 @@ import android.view.ViewGroup;
 
 import org.wildstang.wildrank.androidv2.R;
 
-/**
- * Created by Nathan on 1/24/2015.
- */
 public class TeleopScoutingFragment extends ScoutingFragment {
 
     @Override

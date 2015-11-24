@@ -15,9 +15,6 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
-/**
- * Created by Nathan on 1/24/2015.
- */
 public class SerializableSpinnerAdapter extends BaseAdapter {
 
     private static final String NEW_CHOICE = "New choice...";

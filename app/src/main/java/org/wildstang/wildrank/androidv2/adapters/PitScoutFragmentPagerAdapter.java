@@ -14,9 +14,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by Nathan on 1/24/2015.
- */
 public class PitScoutFragmentPagerAdapter extends FragmentPagerAdapter {
     private final String[] TITLES = {"Basic Info"};
 

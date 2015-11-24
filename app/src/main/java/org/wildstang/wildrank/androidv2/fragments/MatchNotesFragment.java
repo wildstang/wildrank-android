@@ -21,9 +21,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Liam on 2/21/2015.
- */
 public class MatchNotesFragment extends Fragment {
     public List<NoteBox> boxes = new ArrayList<>();
     String[] teams;

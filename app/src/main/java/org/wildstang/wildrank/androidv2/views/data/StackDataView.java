@@ -18,9 +18,6 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by Liam on 3/20/2015.
- */
 public class StackDataView extends View {
     List<List<StackModel>> stacks = new ArrayList<>();
     int stackCount = 0;
