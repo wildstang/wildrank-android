@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import com.couchbase.lite.Document;
 
+import org.wildstang.wildrank.androidv2.BuildConfig;
 import org.wildstang.wildrank.androidv2.R;
 import org.wildstang.wildrank.androidv2.UserHelper;
 import org.wildstang.wildrank.androidv2.data.DatabaseManager;
@@ -34,8 +35,6 @@ public class UserLoginActivity extends AppCompatActivity implements View.OnClick
     View loginContainer;
     private boolean createNewHome = true;
     Button sync;
-
-    private String APP_VERSION = "2015_CHAMPS_POST";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -56,7 +55,7 @@ public class UserLoginActivity extends AppCompatActivity implements View.OnClick
         loginContainer = findViewById(R.id.login_container);
         sync = (Button) findViewById(R.id.sync);
         sync.setOnClickListener(this);
-        ((TextView) findViewById(R.id.version)).setText(APP_VERSION);
+        ((TextView) findViewById(R.id.version)).setText(BuildConfig.VERSION_NAME + " (" + BuildConfig.VERSION_CODE + ")");
 
         userLoginEditText.setOnEditorActionListener(this);
         updateAssignedTeam();
@@ -70,10 +69,6 @@ public class UserLoginActivity extends AppCompatActivity implements View.OnClick
                 // Do login
                 String userName = (String) user.getProperty("name");
                 UserHelper.logInUser(this, userID);
-                String[] users = UserHelper.getLoggedInUsersAsArray(this);
-                for (String userNumber : users) {
-                    Log.d("wildrank", "Logged in user: " + userNumber);
-                }
                 doFancyAnimationsAndFinish(userName);
             } else {
                 // User not found!
@@ -99,7 +94,6 @@ public class UserLoginActivity extends AppCompatActivity implements View.OnClick
 
         ValueAnimator fadeLoginOut = ValueAnimator.ofFloat(1, 0);
         fadeLoginOut.addUpdateListener(animation -> {
-            Log.d("wildrank", "alpha updated! " + animation.getAnimatedValue());
             loginContainer.setAlpha((float) animation.getAnimatedValue());
         });
         fadeLoginOut.setDuration(400);
@@ -154,7 +148,6 @@ public class UserLoginActivity extends AppCompatActivity implements View.OnClick
 
     @Override
     public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-        Log.d("wildrank", "Login button pressed! id: " + actionId);
         if(event == null || event.getAction() == KeyEvent.ACTION_UP) {
             InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
