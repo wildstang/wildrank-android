@@ -15,7 +15,6 @@
             android:layout_height="wrap_content"
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
-            android:text="0"
             android:textAppearance="?android:attr/textAppearanceListItem" />
     </LinearLayout>
 
@@ -36,8 +35,7 @@
             android:id="@+id/red1Scouter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingRight="8dp"
-            android:text="Scouter" />
+            android:paddingRight="8dp" />
     </LinearLayout>
 
     <LinearLayout
@@ -56,8 +54,7 @@
             android:id="@+id/red2Scouter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingRight="8dp"
-            android:text="Scouter" />
+            android:paddingRight="8dp" />
     </LinearLayout>
 
     <LinearLayout
@@ -76,8 +73,7 @@
             android:id="@+id/red3Scouter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingRight="8dp"
-            android:text="Scouter" />
+            android:paddingRight="8dp" />
     </LinearLayout>
 
 
@@ -97,8 +93,7 @@
             android:id="@+id/blue1Scouter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingRight="8dp"
-            android:text="Scouter" />
+            android:paddingRight="8dp" />
     </LinearLayout>
 
     <LinearLayout
@@ -117,8 +112,7 @@
             android:id="@+id/blue2Scouter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingRight="8dp"
-            android:text="Scouter" />
+            android:paddingRight="8dp" />
     </LinearLayout>
 
 
@@ -137,8 +131,7 @@
         <TextView
             android:id="@+id/blue3Scouter"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Scouter" />
+            android:layout_height="wrap_content" />
     </LinearLayout>
 
 </LinearLayout>

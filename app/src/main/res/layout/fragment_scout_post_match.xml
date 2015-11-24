@@ -168,7 +168,7 @@
             android:id="@+id/notes_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Notes"
+            android:text="@string/notes"
             android:textSize="30sp" />
 
         <FrameLayout
@@ -183,6 +183,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:text="Finish" />
+        android:text="@string/button_finish" />
 
 </RelativeLayout>
