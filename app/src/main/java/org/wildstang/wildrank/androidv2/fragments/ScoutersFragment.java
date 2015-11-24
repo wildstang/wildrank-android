@@ -27,10 +27,9 @@ import java.util.Map;
 
 public class ScoutersFragment extends Fragment {
 
+    List<Scouter> scoutCounter;
     private ListView list;
     private ListView scouters;
-
-    List<Scouter> scoutCounter;
 
     public ScoutersFragment() {
         // Required empty public constructor

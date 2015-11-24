@@ -2,7 +2,6 @@ package org.wildstang.wildrank.androidv2.activities;
 
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;

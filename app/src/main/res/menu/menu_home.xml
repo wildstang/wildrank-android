@@ -5,9 +5,9 @@
 
     <item
         android:id="@+id/action_users"
+        android:icon="@drawable/ic_people_white_24dp"
         android:orderInCategory="700"
         android:title="@string/menu_title_users"
-        android:icon="@drawable/ic_people_white_24dp"
         app:showAsAction="always" />
 
     <item

@@ -15,21 +15,21 @@
         android:textAppearance="?android:attr/textAppearanceListItem" />
 
     <Button
+        android:id="@+id/down"
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="v"
-        android:id="@+id/down"
+        android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:layout_alignParentRight="true" />
+        android:text="v" />
 
     <Button
+        android:id="@+id/up"
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="^"
-        android:id="@+id/up"
         android:layout_centerVertical="true"
-        android:layout_toLeftOf="@+id/down" />
+        android:layout_toLeftOf="@+id/down"
+        android:text="^" />
 
 </RelativeLayout>

@@ -44,7 +44,7 @@ public class StackModel {
         stack.hasNoodle = (Boolean) map.get(HAS_NOODLE_KEY);
         stack.stackDropped = (Boolean) map.get(STACK_DROPPED_KEY);
         stack.binDropped = (Boolean) map.get(BIN_DROPPED_KEY);
-        if(map.containsKey(NOT_SCORED_KEY)) {
+        if (map.containsKey(NOT_SCORED_KEY)) {
             stack.notScored = (Boolean) map.get(NOT_SCORED_KEY);
         } else {
             stack.notScored = false;
@@ -88,7 +88,7 @@ public class StackModel {
 
     /**
      * A meaningful stack is defined as one that indicates something actually happened.
-     * <p/>
+     * <p>
      * We will define a meaningful stack as one that has totes, a bin, or both.
      *
      * @return true if it is meaningful stack, false if otherwise

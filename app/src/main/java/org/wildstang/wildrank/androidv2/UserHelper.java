@@ -3,7 +3,6 @@ package org.wildstang.wildrank.androidv2;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import android.util.Log;
 
 import com.couchbase.lite.CouchbaseLiteException;
 import com.couchbase.lite.Document;
@@ -73,7 +72,7 @@ public class UserHelper {
             } else {
                 return "";
             }
-        } catch (CouchbaseLiteException|IOException e) {
+        } catch (CouchbaseLiteException | IOException e) {
             e.printStackTrace();
             return "";
         }

@@ -11,9 +11,6 @@ import org.wildstang.wildrank.androidv2.models.StackModel;
 import java.util.List;
 import java.util.Map;
 
-import rx.Observable;
-import rx.observables.MathObservable;
-
 public class MatchDataPercentageStacksDroppedView extends MatchDataView implements IMatchDataView {
 
     public MatchDataPercentageStacksDroppedView(Context context, AttributeSet attrs) {

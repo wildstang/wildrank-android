@@ -64,30 +64,30 @@
         android:visibility="invisible" />
 
     <TextView
+        android:id="@+id/assigned_team"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/assigned_team"
         android:layout_alignBaseline="@+id/sync"
         android:layout_alignBottom="@+id/sync"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"/>
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true" />
 
     <Button
+        android:id="@+id/sync"
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/button_sync"
-        android:id="@+id/sync"
-        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:text="@string/button_sync" />
 
     <TextView
+        android:id="@+id/version"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/version"
-        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"/>
+        android:layout_alignParentTop="true" />
 
 </RelativeLayout>

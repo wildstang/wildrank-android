@@ -24,12 +24,12 @@
         app:label="Tote Counter" />
 
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignTop="@id/tote_counter"
-        android:orientation="vertical"
-        android:id="@+id/linearLayout">
+        android:orientation="vertical">
 
         <org.wildstang.wildrank.androidv2.views.scouting.ScoutingCheckboxView
             android:id="@+id/includes_bin"
@@ -90,8 +90,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:text="@string/button_finish_stack"
-        android:layout_below="@+id/linearLayout"/>
+        android:layout_below="@+id/linearLayout"
+        android:text="@string/button_finish_stack" />
 
 
 </RelativeLayout>

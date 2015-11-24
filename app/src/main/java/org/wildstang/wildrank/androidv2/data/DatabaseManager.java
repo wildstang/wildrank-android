@@ -6,9 +6,7 @@ import android.util.Log;
 import com.couchbase.lite.CouchbaseLiteException;
 import com.couchbase.lite.Database;
 import com.couchbase.lite.Document;
-import com.couchbase.lite.Emitter;
 import com.couchbase.lite.Manager;
-import com.couchbase.lite.Mapper;
 import com.couchbase.lite.Query;
 import com.couchbase.lite.QueryEnumerator;
 import com.couchbase.lite.QueryRow;
@@ -286,7 +284,7 @@ public class DatabaseManager {
      * This method will take note of the current database state so we can reference it later when
      * syncing. If we know the state of the internal and external databases at the time of the last
      * sync, we can determine what's changed and act appropriately.
-     * <p/>
+     * <p>
      * Database state will be saved as a list of maps, with each map containing the following
      * properties: document_id: the id of the document (String) deleted: if this document is deleted
      * (boolean) document_revision: the last known revision of this document (String)

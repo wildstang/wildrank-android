@@ -6,12 +6,9 @@ import android.animation.AnimatorSet;
 import android.animation.ValueAnimator;
 import android.app.AlertDialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -33,8 +30,8 @@ public class UserLoginActivity extends AppCompatActivity implements View.OnClick
     EditText userLoginEditText;
     TextView userWelcomeMessage;
     View loginContainer;
-    private boolean createNewHome = true;
     Button sync;
+    private boolean createNewHome = true;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -139,16 +136,14 @@ public class UserLoginActivity extends AppCompatActivity implements View.OnClick
         int id = v.getId();
         if (id == R.id.login_button) {
             doLogin();
-        }
-        else if(v == sync)
-        {
+        } else if (v == sync) {
             startActivity(new Intent(this, SyncActivity.class));
         }
     }
 
     @Override
     public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-        if(event == null || event.getAction() == KeyEvent.ACTION_UP) {
+        if (event == null || event.getAction() == KeyEvent.ACTION_UP) {
             InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
             doLogin();
@@ -157,8 +152,7 @@ public class UserLoginActivity extends AppCompatActivity implements View.OnClick
         return false;
     }
 
-    public void updateAssignedTeam()
-    {
+    public void updateAssignedTeam() {
         String assignedTeamType = PreferenceManager.getDefaultSharedPreferences(this).getString("assignedTeam", "red_1");
         ((TextView) findViewById(R.id.assigned_team)).setText(assignedTeamType);
     }

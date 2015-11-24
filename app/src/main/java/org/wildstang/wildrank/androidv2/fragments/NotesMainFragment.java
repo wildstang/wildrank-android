@@ -23,8 +23,8 @@ import com.couchbase.lite.QueryRow;
 
 import org.wildstang.wildrank.androidv2.R;
 import org.wildstang.wildrank.androidv2.Utilities;
-import org.wildstang.wildrank.androidv2.activities.TeamNotesActivity;
 import org.wildstang.wildrank.androidv2.activities.MatchNotesActivity;
+import org.wildstang.wildrank.androidv2.activities.TeamNotesActivity;
 import org.wildstang.wildrank.androidv2.adapters.MatchListAdapter;
 import org.wildstang.wildrank.androidv2.adapters.TeamListAdapter;
 import org.wildstang.wildrank.androidv2.data.DatabaseManager;

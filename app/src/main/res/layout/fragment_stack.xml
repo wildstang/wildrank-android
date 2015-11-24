@@ -16,6 +16,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:text="@string/stack_help"/>
+        android:text="@string/stack_help" />
 
 </RelativeLayout>
