@@ -2,9 +2,6 @@ package org.wildstang.wildrank.androidv2.data;
 
 import java.util.Map;
 
-/**
- * Created by Nathan on 1/31/2015.
- */
 public class MatchResultsModel {
     private String[] userIds;
     private String matchKey;

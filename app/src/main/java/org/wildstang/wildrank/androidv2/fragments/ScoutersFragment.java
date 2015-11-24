@@ -25,9 +25,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by mail929 on 4/3/15.
- */
 public class ScoutersFragment extends Fragment {
 
     List<Scouter> scoutCounter;

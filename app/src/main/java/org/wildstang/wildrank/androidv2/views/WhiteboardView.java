@@ -16,8 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Liam on 1/24/2015.
- * <p>
  * This is a custom view that allows the user to manipulate game objects and robots (magnets) on a
  * field
  * This will have to be remade for every years game. Find a picture of the field with game objects on

@@ -15,9 +15,6 @@ import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.observables.MathObservable;
 
-/**
- * Created by Nathan on 3/18/2015.
- */
 public class MatchDataTotalFoulsView extends MatchDataView implements IMatchDataView {
 
     public MatchDataTotalFoulsView(Context context, AttributeSet attrs) {

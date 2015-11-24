@@ -24,9 +24,6 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by Liam on 2/28/2015.
- */
 public class TeamSummariesInfoFragment extends TeamSummariesFragment {
 
     private int teamNumber;

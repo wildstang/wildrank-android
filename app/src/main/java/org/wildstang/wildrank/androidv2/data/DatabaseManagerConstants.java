@@ -1,8 +1,5 @@
 package org.wildstang.wildrank.androidv2.data;
 
-/**
- * Created by Nathan on 1/20/2015.
- */
 public class DatabaseManagerConstants {
 
     // State tracking stuff

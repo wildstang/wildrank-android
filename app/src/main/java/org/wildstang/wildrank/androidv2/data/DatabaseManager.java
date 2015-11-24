@@ -25,9 +25,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by Nathan on 1/19/2015.
- */
 public class DatabaseManager {
 
     private static DatabaseManager instance;

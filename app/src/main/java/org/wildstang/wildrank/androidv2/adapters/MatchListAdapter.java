@@ -16,9 +16,6 @@ import org.wildstang.wildrank.androidv2.data.DatabaseManager;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by Nathan on 1/20/2015.
- */
 public class MatchListAdapter extends ArrayAdapter<QueryRow> {
 
     public MatchListAdapter(Context context, List<QueryRow> matches) {

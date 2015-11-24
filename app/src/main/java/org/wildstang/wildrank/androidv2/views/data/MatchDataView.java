@@ -19,9 +19,6 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.List;
 
-/**
- * Created by Nathan on 3/18/2015.
- */
 public abstract class MatchDataView extends RelativeLayout implements IMatchDataView {
 
     protected int format;

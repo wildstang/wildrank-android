@@ -34,9 +34,6 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
-/**
- * Created by Liam on 2/21/2015.
- */
 public class NotesMainFragment extends Fragment implements View.OnClickListener {
 
     private ListView list;

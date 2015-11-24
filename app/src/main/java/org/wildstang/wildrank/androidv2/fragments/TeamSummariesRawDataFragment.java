@@ -14,9 +14,6 @@ import org.wildstang.wildrank.androidv2.R;
 
 import java.util.List;
 
-/**
- * Created by Liam on 2/28/2015.
- */
 public class TeamSummariesRawDataFragment extends TeamSummariesFragment {
 
     @Override

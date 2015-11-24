@@ -3,9 +3,6 @@ package org.wildstang.wildrank.androidv2.models;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by Nathan on 3/24/2015.
- */
 public class StackModel {
 
     public static final String TOTE_COUNT_KEY = "tote_count";

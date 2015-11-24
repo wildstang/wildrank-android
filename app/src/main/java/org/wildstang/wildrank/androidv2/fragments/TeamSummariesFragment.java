@@ -6,9 +6,6 @@ import com.couchbase.lite.Document;
 
 import java.util.List;
 
-/**
- * Created by Liam on 2/28/2015.
- */
 public abstract class TeamSummariesFragment extends Fragment {
     Document document;
     String selectedTeamKey = "";

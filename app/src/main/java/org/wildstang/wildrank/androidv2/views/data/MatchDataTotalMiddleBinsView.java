@@ -15,9 +15,6 @@ import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.observables.MathObservable;
 
-/**
- * Created by mail929 on 4/22/15.
- */
 public class MatchDataTotalMiddleBinsView extends MatchDataView implements IMatchDataView {
 
     public MatchDataTotalMiddleBinsView(Context context, AttributeSet attrs) {

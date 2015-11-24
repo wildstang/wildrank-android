@@ -12,9 +12,6 @@ import org.wildstang.wildrank.androidv2.views.data.MatchDataView;
 
 import java.util.List;
 
-/**
- * Created by Liam on 2/28/2015.
- */
 public class TeamSummariesDataFragment extends TeamSummariesFragment {
 
     @Override

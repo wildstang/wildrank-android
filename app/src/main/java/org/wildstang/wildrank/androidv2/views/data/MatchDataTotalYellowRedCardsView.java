@@ -10,9 +10,6 @@ import org.wildstang.wildrank.androidv2.interfaces.IMatchDataView;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by Nathan on 3/18/2015.
- */
 public class MatchDataTotalYellowRedCardsView extends MatchDataView implements IMatchDataView {
 
     public MatchDataTotalYellowRedCardsView(Context context, AttributeSet attrs) {

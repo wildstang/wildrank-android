@@ -16,9 +16,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-/**
- * Created by Nathan on 1/27/2015.
- */
 public class UserHelper {
 
     public static final String LOGGED_IN_USER_PREFERENCE_KEY = "logged_in_user";
