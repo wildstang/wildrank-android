@@ -5,7 +5,7 @@ import com.couchbase.lite.Document;
 import java.util.List;
 
 public interface IMatchDataView {
-    public void calculateFromDocuments(List<Document> documents);
+    void updateDocuments(List<Document> documents);
 
-    public void clearValue();
+    void clearValue();
 }

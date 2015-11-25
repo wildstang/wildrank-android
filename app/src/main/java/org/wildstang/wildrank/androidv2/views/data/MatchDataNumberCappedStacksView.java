@@ -25,11 +25,7 @@ public class MatchDataNumberCappedStacksView extends MatchDataView implements IM
 
     @Override
     public void calculateFromDocuments(List<Document> documents) {
-        if (documents == null) {
-            return;
-        } else if (documents.size() == 0) {
-            return;
-        }
+
         Observable<Integer> o = Observable.from(documents)
                 .filter(doc -> (doc.getProperty("data") != null))
                 .map(doc -> (Map<String, Object>) doc.getProperty("data"))

@@ -25,11 +25,6 @@ public class MatchDataMaxHeightView extends MatchDataView implements IMatchDataV
 
     @Override
     public void calculateFromDocuments(List<Document> documents) {
-        if (documents == null) {
-            return;
-        } else if (documents.size() == 0) {
-            return;
-        }
 
         Observable heightsObservable = Observable.from(documents)
                 .map(doc -> (Map<String, Object>) doc.getProperty("data"))

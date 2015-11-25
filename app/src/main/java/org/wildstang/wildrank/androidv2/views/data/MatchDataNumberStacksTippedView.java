@@ -24,11 +24,7 @@ public class MatchDataNumberStacksTippedView extends MatchDataView implements IM
 
     @Override
     public void calculateFromDocuments(List<Document> documents) {
-        if (documents == null) {
-            return;
-        } else if (documents.size() == 0) {
-            return;
-        }
+
         Observable stacksTippedObservable = Observable.from(documents)
                 .map(doc -> (Map<String, Object>) doc.getProperty("data"))
                 .map(data -> data.get("stacks_tipped_over"))

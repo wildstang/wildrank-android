@@ -24,11 +24,6 @@ public class MatchDataTotalFoulsView extends MatchDataView implements IMatchData
 
     @Override
     public void calculateFromDocuments(List<Document> documents) {
-        if (documents == null) {
-            return;
-        } else if (documents.size() == 0) {
-            return;
-        }
 
         Observable foulsObservable = Observable.from(documents)
                 .map(doc -> (Map<String, Object>) doc.getProperty("data"))

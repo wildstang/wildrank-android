@@ -22,11 +22,6 @@ public class MatchDataPercentageStacksDroppedView extends MatchDataView implemen
 
     @Override
     public void calculateFromDocuments(List<Document> documents) {
-        if (documents == null) {
-            return;
-        } else if (documents.size() == 0) {
-            return;
-        }
 
         double totalStacks = 0;
         double droppedStacks = 0;

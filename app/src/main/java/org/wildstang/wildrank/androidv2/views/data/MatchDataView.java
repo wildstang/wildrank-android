@@ -22,10 +22,8 @@ import java.util.List;
 
 public abstract class MatchDataView extends RelativeLayout implements IMatchDataView {
 
-    protected int format;
     private TextView labelView;
     private TextView valueView;
-    private String expression;
     private String explanation;
 
     public MatchDataView(Context context, AttributeSet attrs) {
@@ -36,9 +34,7 @@ public abstract class MatchDataView extends RelativeLayout implements IMatchData
 
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.MatchDataView, 0, 0);
         String label = a.getString(R.styleable.MatchDataView_label);
-        expression = a.getString(R.styleable.MatchDataView_expression);
         // Default format is double
-        format = a.getInt(R.styleable.MatchDataView_format, 0);
         explanation = a.getString(R.styleable.MatchDataView_explanation);
         a.recycle();
 
@@ -60,6 +56,38 @@ public abstract class MatchDataView extends RelativeLayout implements IMatchData
         });
     }
 
+    protected void setValueText(String text) {
+        valueView.setText(text);
+    }
+
+    public void clearValue() {
+        valueView.setText("");
+    }
+
+    @Override
+    public void updateDocuments(List<Document> documents) {
+        if ((documents != null && documents.size() > 0) || shouldReceiveNullDocumentList()) {
+            calculateFromDocuments(documents);
+        } else {
+            // Default to clearing the displayed value for null or empty document lists
+            clearValue();
+        }
+    }
+
+    public abstract void calculateFromDocuments(List<Document> documents);
+
+    /**
+     * Child classes should override this to return true if they want to be passes null document
+     * lists. The default behavior is to not pass through a null or zero-length document list in
+     * order to avoid children having to do null-checking boilderplate.
+     *
+     * @return true if the child class should be passed the documents list even if null or empty,
+     * false if otherwise
+     */
+    public boolean shouldReceiveNullDocumentList() {
+        return false;
+    }
+
     public static void initializeViewsInViewGroupWithDocuments(ViewGroup v, List<Document> docs) {
         if (v == null) {
             return;
@@ -68,7 +96,7 @@ public abstract class MatchDataView extends RelativeLayout implements IMatchData
         for (int i = 0; i < childCount; i++) {
             View view = v.getChildAt(i);
             if (view instanceof IMatchDataView) {
-                ((IMatchDataView) view).calculateFromDocuments(docs);
+                ((IMatchDataView) view).updateDocuments(docs);
             } else if (view instanceof ViewGroup) {
                 initializeViewsInViewGroupWithDocuments((ViewGroup) view, docs);
             }
@@ -98,18 +126,6 @@ public abstract class MatchDataView extends RelativeLayout implements IMatchData
         NumberFormat format = NumberFormat.getPercentInstance();
         format.setMaximumFractionDigits(2);
         return format.format(percentage);
-    }
-
-    protected void setLabelText(String text) {
-        labelView.setText(text);
-    }
-
-    protected void setValueText(String text) {
-        valueView.setText(text);
-    }
-
-    public void clearValue() {
-        valueView.setText("");
     }
 
 }

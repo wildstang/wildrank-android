@@ -23,12 +23,6 @@ public class MatchDataTotalStacksContributedToView extends MatchDataView impleme
 
     @Override
     public void calculateFromDocuments(List<Document> documents) {
-        int totalStacks = 0;
-        if (documents == null) {
-            return;
-        } else if (documents.size() == 0) {
-            return;
-        }
 
         Observable stacksObservable = Observable.from(documents)
                 .map(doc -> (Map<String, Object>) doc.getProperty("data"))
