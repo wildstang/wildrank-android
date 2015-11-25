@@ -27,6 +27,7 @@ import org.wildstang.wildrank.androidv2.data.DatabaseManagerConstants;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -70,7 +71,7 @@ public class SyncActivity extends AppCompatActivity {
     }
 
     /**
-     * Syncs the internal and external databases
+     * Syncs the internal and external databases. This will be run from an AsyncTask.
      */
     private void syncDatabases() throws Exception {
         /* First, read the current states and last known states into memory */
@@ -86,11 +87,15 @@ public class SyncActivity extends AppCompatActivity {
         internalDatabase.beginTransaction();
         externalDatabase.beginTransaction();
 
+        // Build a list of documents that should be excluded from sync
+        HashSet<String> excludedDocuments = new HashSet<>();
+        excludedDocuments.add(DatabaseManagerConstants.LAST_KNOWN_INTERNAL_DATABASE_STATE_DOCUMENT_ID);
+        excludedDocuments.add(DatabaseManagerConstants.LAST_KNOWN_EXTERNAL_DATABASE_STATE_DOCUMENT_ID);
+
         // Now, iterate through all the current records in the internal database
         Query query = internalDatabase.createAllDocumentsQuery();
         query.setAllDocsMode(Query.AllDocsMode.ALL_DOCS);
         QueryEnumerator result = query.run();
-        //Log.d("wildrank", "QueryEnumerator length: " + result.getCount());
         int j = 0;
         bar.setMax(result.getCount());
         for (Iterator<QueryRow> it = result; it.hasNext(); j++) {
@@ -98,85 +103,84 @@ public class SyncActivity extends AppCompatActivity {
             QueryRow row = it.next();
             Document doc = row.getDocument();
             String docId = doc.getId();
-            //Log.d("wildrank", "current doc id: " + docId);
-            if (docId.equals(DatabaseManagerConstants.LAST_KNOWN_INTERNAL_DATABASE_STATE_DOCUMENT_ID) || docId.equals(DatabaseManagerConstants.LAST_KNOWN_EXTERNAL_DATABASE_STATE_DOCUMENT_ID)) {
-                // Skip the state tracking things
+
+            // Skip over documents that should be excluded
+            if (excludedDocuments.contains(docId)) {
                 continue;
             }
 
             // Notes are special, we have to manually sync them
-            if (doc.getProperty(DatabaseManagerConstants.DOC_TYPE) != null) {
-                if (doc.getProperty(DatabaseManagerConstants.DOC_TYPE).equals(DatabaseManagerConstants.NOTES_RESULTS_TYPE)) {
-                    if (externalDatabase.getExistingDocument(docId) == null) {
-                        // The notes don't exist externally. Copy over the internal document.
-                        Document document = externalDatabase.getDocument(docId);
-                        UnsavedRevision revision = document.createRevision();
-                        revision.setProperties(doc.getProperties());
-                        revision.save();
-                    } else {
-                        // These notes exist both internally and externally. Manual data merge time!
+            String docType = (String) doc.getProperty(DatabaseManagerConstants.DOC_TYPE);
+            if (docType != null && docType.equals(DatabaseManagerConstants.NOTES_RESULTS_TYPE)) {
+                if (externalDatabase.getExistingDocument(docId) == null) {
+                    // The notes don't exist externally. Copy over the internal document.
+                    Document document = externalDatabase.getDocument(docId);
+                    UnsavedRevision revision = document.createRevision();
+                    revision.setProperties(doc.getProperties());
+                    revision.save();
+                } else {
+                    // These notes exist both internally and externally. Manual data merge time!
 
-                        // Get each list of notes
-                        ArrayList<String> internalNotes = (ArrayList<String>) doc.getProperty("notes");
-                        if (internalNotes == null) {
-                            internalNotes = new ArrayList<>();
-                        }
-
-                        ArrayList<String> externalNotes = (ArrayList<String>) externalDatabase.getDocument(docId).getProperty("notes");
-                        if (externalNotes == null) {
-                            externalNotes = new ArrayList<>();
-                        }
-
-                        // Determine the last note that each list has in common
-                        int lastInCommonIndex = 0;
-                        for (int i = 0; i < internalNotes.size(); i++) {
-                            if (i >= externalNotes.size()) {
-                                // Current index is outside the bounds of the external notes array.
-                                // Go back to the last index and break out of here!
-                                lastInCommonIndex = i - 1;
-                                break;
-                            }
-                            if (externalNotes.get(i).equals(internalNotes.get(i))) {
-                                // The lists both have this note in common
-                                lastInCommonIndex = i;
-                            } else {
-                                // We've found the point at which the lists differ.
-                                break;
-                            }
-                        }
-
-                        // Add all the external notes past the last note in common to the internal notes
-                        for (int i = (lastInCommonIndex + 1); i < externalNotes.size(); i++) {
-                            internalNotes.add(externalNotes.get(i));
-                        }
-
-                        // Remove duplicates
-                        // We do it this way instead of using a set so we can sort of maintain chronological order
-                        List<String> newNotes = new ArrayList<>();
-                        for (String string : internalNotes) {
-                            if (!newNotes.contains(string)) {
-                                newNotes.add(string);
-                            }
-                        }
-
-                        // Create a new set of properties with these notes based on the existing internal properties
-                        Map<String, Object> newProps = new HashMap<>(doc.getProperties());
-                        newProps.remove("notes");
-                        newProps.put("notes", newNotes);
-
-                        // Save the documents both internally and externally
-                        Document document = internalDatabase.getDocument(docId);
-                        UnsavedRevision revision = document.createRevision();
-                        revision.setProperties(newProps);
-                        revision.save();
-
-                        document = externalDatabase.getDocument(docId);
-                        revision = document.createRevision();
-                        revision.setProperties(newProps);
-                        revision.save();
+                    // Get each list of notes
+                    ArrayList<String> internalNotes = (ArrayList<String>) doc.getProperty("notes");
+                    if (internalNotes == null) {
+                        internalNotes = new ArrayList<>();
                     }
-                    continue;
+
+                    ArrayList<String> externalNotes = (ArrayList<String>) externalDatabase.getDocument(docId).getProperty("notes");
+                    if (externalNotes == null) {
+                        externalNotes = new ArrayList<>();
+                    }
+
+                    // Determine the last note that each list has in common
+                    int lastInCommonIndex = 0;
+                    for (int i = 0; i < internalNotes.size(); i++) {
+                        if (i >= externalNotes.size()) {
+                            // Current index is outside the bounds of the external notes array.
+                            // Go back to the last index and break out of here!
+                            lastInCommonIndex = i - 1;
+                            break;
+                        }
+                        if (externalNotes.get(i).equals(internalNotes.get(i))) {
+                            // The lists both have this note in common
+                            lastInCommonIndex = i;
+                        } else {
+                            // We've found the point at which the lists differ.
+                            break;
+                        }
+                    }
+
+                    // Add all the external notes past the last note in common to the internal notes
+                    for (int i = (lastInCommonIndex + 1); i < externalNotes.size(); i++) {
+                        internalNotes.add(externalNotes.get(i));
+                    }
+
+                    // Remove duplicates
+                    // We do it this way instead of using a set so we can sort of maintain chronological order
+                    List<String> newNotes = new ArrayList<>();
+                    for (String string : internalNotes) {
+                        if (!newNotes.contains(string)) {
+                            newNotes.add(string);
+                        }
+                    }
+
+                    // Create a new set of properties with these notes based on the existing internal properties
+                    Map<String, Object> newProps = new HashMap<>(doc.getProperties());
+                    newProps.remove("notes");
+                    newProps.put("notes", newNotes);
+
+                    // Save the documents both internally and externally
+                    Document document = internalDatabase.getDocument(docId);
+                    UnsavedRevision revision = document.createRevision();
+                    revision.setProperties(newProps);
+                    revision.save();
+
+                    document = externalDatabase.getDocument(docId);
+                    revision = document.createRevision();
+                    revision.setProperties(newProps);
+                    revision.save();
                 }
+                continue;
             }
 
             // Check if the record exists in the external database
@@ -243,7 +247,6 @@ public class SyncActivity extends AppCompatActivity {
         query.setAllDocsMode(Query.AllDocsMode.ALL_DOCS);
         result = query.run();
         bar.setMax(result.getCount());
-        //Log.d("wildrank", "QueryEnumerator length: " + result.getCount());
         // Iterate through all the current records in the external database
         j = 0;
         for (Iterator<QueryRow> it = result; it.hasNext(); j++) {
@@ -264,7 +267,7 @@ public class SyncActivity extends AppCompatActivity {
                 revision.setProperties(doc.getProperties());
                 revision.save();
             } else {
-                // If the document exists internally, it woudl already have been handled during the first
+                // If the document exists internally, it would already have been handled during the first
                 // half of the sync process. Nothing to do here.
             }
 
@@ -318,45 +321,37 @@ public class SyncActivity extends AppCompatActivity {
         }
     }*/
 
-    private class SyncTask extends AsyncTask<Void, Void, SyncTask.SyncResult> {
+    private class SyncTask extends AsyncTask<Void, Void, Integer> {
+
+        public static final int RESULT_SUCCESS = 0;
+        public static final int RESULT_ERROR = 1;
 
         @Override
-        protected SyncTask.SyncResult doInBackground(Void... params) {
+        protected Integer doInBackground(Void... params) {
             try {
                 syncDatabases();
-                SyncResult r = new SyncResult();
-                r.result = SyncResult.RESULT_SUCCESS;
-                return r;
+                return RESULT_SUCCESS;
             } catch (Exception e) {
                 e.printStackTrace();
-                SyncResult r = new SyncResult();
-                r.result = SyncResult.RESULT_ERROR;
-                return r;
+                return RESULT_ERROR;
             }
         }
 
         @Override
-        protected void onPostExecute(SyncResult result) {
+        protected void onPostExecute(Integer result) {
             super.onPostExecute(result);
-            switch (result.result) {
-                case SyncResult.RESULT_SUCCESS:
+            switch (result) {
+                case RESULT_SUCCESS:
                     startActivity(new Intent(android.provider.Settings.ACTION_INTERNAL_STORAGE_SETTINGS));
                     bar.setEnabled(false);
                     text.setText("Done!");
                     Toast.makeText(SyncActivity.this, "Scroll down, press \"Unmount\", press back button.", Toast.LENGTH_LONG).show();
                     break;
-                case SyncResult.RESULT_ERROR:
+                case RESULT_ERROR:
                     Toast.makeText(SyncActivity.this, "Error syncing databases. Check logcat.", Toast.LENGTH_LONG).show();
                     break;
             }
             //readDatabases();
-        }
-
-        protected class SyncResult {
-            public static final int RESULT_SUCCESS = 0;
-            public static final int RESULT_ERROR = 1;
-
-            public int result;
         }
     }
 }

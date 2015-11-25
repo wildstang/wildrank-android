@@ -356,7 +356,7 @@ public class DatabaseManager {
             String id = (String) state.get(DatabaseManagerConstants.DOCUMENT_ID);
             String revisionId = (String) state.get(DatabaseManagerConstants.DOCUMENT_REVISION);
             boolean deleted = (Boolean) state.get(DatabaseManagerConstants.DELETED);
-            databaseState.addStateRecord(new DocumentState(docId, revisionId, deleted));
+            databaseState.addStateRecord(new DocumentState(id, revisionId, deleted));
         }
 
         return databaseState;
@@ -409,10 +409,6 @@ public class DatabaseManager {
 
         public void addStateRecord(DocumentState state) {
             states.put(state.docId, state);
-        }
-
-        public boolean documentExists(String docId) {
-            return states.containsKey(docId);
         }
 
         public DocumentState getDocStateForId(String docId) {
