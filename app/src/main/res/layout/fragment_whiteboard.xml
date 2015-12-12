@@ -1,14 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white">
+    android:background="@android:color/white"
+    android:orientation="horizontal">
 
-    <org.wildstang.wildrank.androidv2.views.WhiteboardView
-        android:id="@+id/whiteboard"
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:id="@+id/magnet_list"
+        android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true" />
+        android:layout_weight="1"
+        android:gravity="center_horizontal"
+        android:orientation="vertical" />
 
-</RelativeLayout>
+    <org.wildstang.wildrank.androidv2.views.whiteboard.WhiteboardView
+        android:id="@+id/whiteboard"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="5" />
+
+</LinearLayout>

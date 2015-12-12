@@ -78,15 +78,15 @@ public class HomeActivity extends AppCompatActivity {
                 switchToMode(Mode.MATCH_SCOUTING);
             } else {
                 // A user needs to be looged in first before we can begin
-                startActivity(new Intent(this, UserLoginActivity.class));
-                finish();
+                //startActivity(new Intent(this, UserLoginActivity.class));
+                //finish();
             }
         } else {
             /* The app hasn't been setup yet. Launch the setup activity and finish this one.
              * After setup is finished, we will relaunch this one.
              */
-            startActivity(new Intent(this, AppSetupActivity.class));
-            finish();
+            //startActivity(new Intent(this, AppSetupActivity.class));
+            //finish();
         }
 
         setUpToolbar();

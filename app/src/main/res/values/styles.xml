@@ -8,8 +8,9 @@
 
     <style name="AppThemeNoActionBar" parent="AppTheme">
         <item name="windowActionBar">false</item>
-        <item name="android:colorPrimary">@color/material_blue</item>
-        <item name="android:colorPrimaryDark">@color/material_blue_dark</item>
+        <item name="windowNoTitle">true</item>
+        <item name="colorPrimary">@color/material_blue</item>
+        <item name="colorPrimaryDark">@color/material_blue_dark</item>
     </style>
 
     <style name="ScoutingWidget">
