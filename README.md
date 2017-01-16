@@ -2,7 +2,7 @@
 An Android app for scouting at FIRST Robotics Competitions
 
 [![Build Status](https://travis-ci.org/wildstang/wildrank-android.png?branch=master)](https://travis-ci.org/wildstang/wildrank-android)
-[![Number of issues](https://img.shields.io/github/issues/wildstang/wildrank-android.svg)]
+[![Number of issues](https://img.shields.io/github/issues/wildstang/wildrank-android.svg)](https://github.com/wildstang/wildrank-android/issues)
 
 Created by Team 111 WildStang.
 
