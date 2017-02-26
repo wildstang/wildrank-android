@@ -11,7 +11,7 @@ android {
         minSdkVersion 15
         targetSdkVersion 23
         versionCode 1
-        versionName "2015_CHAMPS_POST"
+        versionName "2016_CHAMPS_POST"
     }
 
     compileOptions {
@@ -56,3 +56,4 @@ dependencies {
 
 
 }
+

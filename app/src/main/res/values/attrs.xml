@@ -12,6 +12,7 @@
         <attr name="values" format="reference" />
         <attr name="editable" format="boolean" />
         <attr name="defaultValue" format="string" />
+        <attr name="sortThis" format="boolean"/>
     </declare-styleable>
 
     <declare-styleable name="MatchDataView">

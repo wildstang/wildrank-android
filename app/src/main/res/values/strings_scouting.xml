@@ -2,34 +2,33 @@
 <resources>
 
     <!-- Year-specific strings that are used in the scouting UI should go here -->
-    <string-array name="auto_totes">
-        <item>0</item>
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
+    <string-array name="auto_gear">
+        <item>No Attempt</item>
+        <item>Unsuccessful Attempt</item>
+        <item>Success</item>
     </string-array>
 
-    <string-array name="auto_bins">
-        <item>0</item>
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-    </string-array>
-
-    <string-array name="auto_center_bins">
-        <item>0</item>
+    <string-array name="auto_high">
         <item>1</item>
         <item>2</item>
         <item>3</item>
         <item>4</item>
+        <item>5</item>
     </string-array>
 
-    <string-array name="auto_step">
-        <item>0</item>
+    <string-array name="auto_accuracy">
         <item>1</item>
         <item>2</item>
         <item>3</item>
         <item>4</item>
+        <item>5</item>
+    </string-array>
+
+    <string-array name="auto_rate">
+        <item>None</item>
+        <item>Low</item>
+        <item>Med</item>
+        <item>High</item>
     </string-array>
 
     <string-array name="rankings">
@@ -60,12 +59,30 @@
         <item>6</item>
     </string-array>
 
+    <string-array name="orientation">
+        <item>Wide</item>
+        <item>Tall</item>
+    </string-array>
+
     <string-array name="drives">
         <item>Tank</item>
         <item>Mechanum</item>
         <item>H-Drive/Slide</item>
         <item>Swerve</item>
         <item>Holonomic</item>
+    </string-array>
+
+    <string-array name="auto_position">
+        <item>Left</item>
+        <item>Center</item>
+        <item>Right</item>
+    </string-array>
+
+    <string-array name="auto_shoot">
+        <item>No</item>
+        <item>High</item>
+        <item>Low</item>
+        <item>Both</item>
     </string-array>
 
     <string-array name="tote">
@@ -102,7 +119,7 @@
         <item>Other???</item>
     </string-array>
 
-    <string name="autonomous_explanation">Please only count totes and bins that have actually been scored.</string>
+    <string name="autonomous_explanation">Please only count balls and gears that have actually been scored.</string>
     <string name="stack">Stack</string>
     <string name="button_finish">Finish</string>
     <string name="button_finish_stack">Finish stack</string>

@@ -2,6 +2,7 @@ package org.wildstang.wildrank.androidv2.adapters;
 
 import android.content.Context;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,21 +25,22 @@ public class SerializableSpinnerAdapter extends BaseAdapter {
     private Context context;
     private String preferencesKey;
     private boolean editable;
+    private boolean shouldSort = false;
 
-    public SerializableSpinnerAdapter(Context context, String key, int textArrayResId) {
-        init(context, key, textArrayResId, false);
+    public SerializableSpinnerAdapter(Context context, String key, int textArrayResId, boolean sortThis) {
+        init(context, key, textArrayResId, false, sortThis);
     }
 
-    public SerializableSpinnerAdapter(Context context, String key, int textArrayResId, boolean editable) {
-        init(context, key, textArrayResId, editable);
+    public SerializableSpinnerAdapter(Context context, String key, int textArrayResId, boolean editable, boolean sortThis) {
+        init(context, key, textArrayResId, editable, sortThis);
     }
 
-    private void init(Context context, String key, int textArrayResId, boolean editable) {
+    private void init(Context context, String key, int textArrayResId, boolean editable, boolean sortThis) {
         CharSequence[] strings = context.getResources().getTextArray(textArrayResId);
 
         String[] newStrings = new String[strings.length];
         System.arraycopy(strings, 0, newStrings, 0, strings.length);
-
+        this.shouldSort = sortThis;
         this.context = context;
         this.editable = editable;
         backingArray = new ArrayList<>(Arrays.asList(newStrings));
@@ -54,7 +56,10 @@ public class SerializableSpinnerAdapter extends BaseAdapter {
                 }
             }
         }
-        sortList();
+        Log.d("wildstang","Spinner key: " + key);
+        if (shouldSort) {
+            sortList();
+        }
     }
 
     @Override
@@ -89,7 +94,9 @@ public class SerializableSpinnerAdapter extends BaseAdapter {
                 }
             }
         }
-        sortList();
+        if (shouldSort) {
+            sortList();
+        }
         notifyDataSetChanged();
     }
 

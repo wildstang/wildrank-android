@@ -33,6 +33,7 @@ public class ScoutingSpinnerView extends ScoutingView implements OnItemSelectedL
     private int deletePosition = -1;
 
     private boolean editable;
+    private boolean sortThis;
     private String defaultValue;
 
     private String[] resourceStrings;
@@ -54,6 +55,7 @@ public class ScoutingSpinnerView extends ScoutingView implements OnItemSelectedL
         resourceStrings = new String[strings.length];
         System.arraycopy(strings, 0, resourceStrings, 0, strings.length);
         editable = a.getBoolean(R.styleable.ScoutingSpinnerView_editable, false);
+        sortThis = a.getBoolean(R.styleable.ScoutingSpinnerView_sortThis, true);
         defaultValue = a.getString(R.styleable.ScoutingSpinnerView_defaultValue);
         a.recycle();
 
@@ -64,7 +66,7 @@ public class ScoutingSpinnerView extends ScoutingView implements OnItemSelectedL
         // This conflicts with our custom state-saving
         spinner.setSaveEnabled(false);
 
-        SerializableSpinnerAdapter adapter = new SerializableSpinnerAdapter(getContext(), key, spinnerValuesId, editable);
+        SerializableSpinnerAdapter adapter = new SerializableSpinnerAdapter(getContext(), key, spinnerValuesId, editable, sortThis);
         spinner.setAdapter(adapter);
         if (defaultValue != null) {
             setSelectionBasedOnText(defaultValue);

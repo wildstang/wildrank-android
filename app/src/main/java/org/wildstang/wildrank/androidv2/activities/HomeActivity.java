@@ -1,6 +1,5 @@
 package org.wildstang.wildrank.androidv2.activities;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -242,11 +241,11 @@ public class HomeActivity extends AppCompatActivity {
     // Defines "modes" that can be switched to from the navigation drawer
     private enum Mode {
         MATCH_SCOUTING(R.string.mode_match_scouting),
-        PIT_SCOUTING(R.string.mode_pit_scouting),
-        NOTES(R.string.mode_notes),
-        SCOUTERS(R.string.mode_scouters),
-        WHITEBOARD(R.string.mode_whiteboard),
-        TEAM_SUMMARIES(R.string.mode_team_summaries);
+                PIT_SCOUTING(R.string.mode_pit_scouting),
+                NOTES(R.string.mode_notes),
+                SCOUTERS(R.string.mode_scouters),
+                WHITEBOARD(R.string.mode_whiteboard),
+                TEAM_SUMMARIES(R.string.mode_team_summaries);
 
         private final int titleRes;
 
@@ -254,71 +253,71 @@ public class HomeActivity extends AppCompatActivity {
             this.titleRes = titleRes;
         }
 
-        public int getTitle() {
-            return this.titleRes;
-        }
-
-        public String getTitle(Context context) {
-            return context.getString(this.titleRes);
-        }
+    public int getTitle() {
+        return this.titleRes;
     }
 
-    public static class ManageUsersDialog extends DialogFragment {
-        private ListView usersList;
+    public String getTitle(Context context) {
+        return context.getString(this.titleRes);
+    }
+}
 
-        public ManageUsersDialog() {
-        }
+public static class ManageUsersDialog extends DialogFragment {
+    private ListView usersList;
 
-        @NonNull
-        @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity())
-                    .setTitle("Manage Users")
-                    .setPositiveButton("Done", (dialog, which) -> dialog.dismiss())
-                    .setNegativeButton("Log out all users", (dialog1, which) -> {
-                        UserHelper.logOutAllUsers(getContext());
-                        startActivity(new Intent(getContext(), UserLoginActivity.class));
-                        getActivity().finish();
-                    })
-                    .setNeutralButton("Add user", (dialog, which) -> {
-                        Intent i = new Intent(getActivity(), UserLoginActivity.class);
-                        // Don't create a new Home activity after the user is logged in; simply return to this one.
-                        i.putExtra(UserLoginActivity.EXTRA_CREATE_NEW_HOME, false);
-                        startActivity(i);
-                    });
+    public ManageUsersDialog() {
+    }
 
-            View v = getActivity().getLayoutInflater().inflate(R.layout.users_dialog, null);
-            usersList = (ListView) v.findViewById(R.id.list);
-            setupUsersList();
-            builder.setView(v);
-
-            return builder.create();
-        }
-
-        void setupUsersList() {
-            List<UserModel> users = UserHelper.getLoggedInUserModelsAsList(getActivity());
-            final ArrayAdapter<UserModel> adapter = new ArrayAdapter<>(getActivity(), R.layout.list_item_user, users);
-            usersList.setAdapter(adapter);
-            usersList.setOnItemClickListener((parent, view1, position, id) -> {
-                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                builder.setTitle("Confirm logout");
-                builder.setMessage("Are you sure you want to log this user out?");
-                final UserModel user = (UserModel) parent.getAdapter().getItem(position);
-                builder.setPositiveButton("Yes", (dialog1, which) -> {
-                    UserHelper.logOutUser(getActivity(), user.userId);
-                    adapter.remove(user);
-                    adapter.notifyDataSetChanged();
-                    if (UserHelper.getLoggedInUsers(getActivity()).size() == 0) {
-                        // No more users are logged in
-                        // Prompt a new one to log in
-                        startActivity(new Intent(getActivity(), UserLoginActivity.class));
-                        getActivity().finish();
-                    }
-                    dialog1.dismiss();
+    @NonNull
+    @Override
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity())
+                .setTitle("Manage Users")
+                .setPositiveButton("Done", (dialog, which) -> dialog.dismiss())
+                .setNegativeButton("Log out all users", (dialog1, which) -> {
+                    UserHelper.logOutAllUsers(getContext());
+                    startActivity(new Intent(getContext(), UserLoginActivity.class));
+                    getActivity().finish();
+                })
+                .setNeutralButton("Add user", (dialog, which) -> {
+                    Intent i = new Intent(getActivity(), UserLoginActivity.class);
+                    // Don't create a new Home activity after the user is logged in; simply return to this one.
+                    i.putExtra(UserLoginActivity.EXTRA_CREATE_NEW_HOME, false);
+                    startActivity(i);
                 });
-                builder.setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
-                builder.show();
-            });
-        }
+
+        View v = getActivity().getLayoutInflater().inflate(R.layout.users_dialog, null);
+        usersList = (ListView) v.findViewById(R.id.list);
+        setupUsersList();
+        builder.setView(v);
+
+        return builder.create();
     }
+
+    void setupUsersList() {
+        List<UserModel> users = UserHelper.getLoggedInUserModelsAsList(getActivity());
+        final ArrayAdapter<UserModel> adapter = new ArrayAdapter<>(getActivity(), R.layout.list_item_user, users);
+        usersList.setAdapter(adapter);
+        usersList.setOnItemClickListener((parent, view1, position, id) -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            builder.setTitle("Confirm logout");
+            builder.setMessage("Are you sure you want to log this user out?");
+            final UserModel user = (UserModel) parent.getAdapter().getItem(position);
+            builder.setPositiveButton("Yes", (dialog1, which) -> {
+                UserHelper.logOutUser(getActivity(), user.userId);
+                adapter.remove(user);
+                adapter.notifyDataSetChanged();
+                if (UserHelper.getLoggedInUsers(getActivity()).size() == 0) {
+                    // No more users are logged in
+                    // Prompt a new one to log in
+                    startActivity(new Intent(getActivity(), UserLoginActivity.class));
+                    getActivity().finish();
+                }
+                dialog1.dismiss();
+            });
+            builder.setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
+            builder.show();
+        });
+    }
+}
 }

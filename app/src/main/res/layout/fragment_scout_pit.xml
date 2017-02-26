@@ -6,11 +6,12 @@
 
     <LinearLayout
         android:id="@+id/robot"
-        android:layout_width="250dp"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
         android:orientation="vertical">
 
         <TextView
@@ -20,41 +21,69 @@
             android:text="Robot Specs"
             android:textSize="30sp" />
 
-        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingNumberView
-            android:id="@+id/height"
+        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingSpinnerView
+            android:id="@+id/orientation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:key="height"
-            app:label="Height" />
+            app:key="orientation"
+            app:label="Orientation"
+            app:values="@array/orientation" />
 
         <org.wildstang.wildrank.androidv2.views.scouting.ScoutingNumberView
-            android:id="@+id/width"
+            android:id="@+id/hopper_volume"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:key="width"
-            app:label="Width" />
-
-        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingNumberView
-            android:id="@+id/length"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:key="length"
-            app:label="Length" />
-
-        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingCheckboxView
-            android:id="@+id/bumpers"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:key="bumpers"
-            app:label="Bumpers" />
+            app:key="hopper_volume"
+            app:label="Hopper Volume in Balls" />
 
         <org.wildstang.wildrank.androidv2.views.scouting.ScoutingSpinnerView
             android:id="@+id/drive"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:key="drivetrain"
-            app:label="Drivetrain"
+            app:label="Drive Train"
             app:values="@array/drives" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/auto"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/robot"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/auto_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Autonomous"
+            android:textSize="30sp" />
+
+        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingSpinnerView
+            android:id="@+id/auto_shoot"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:key="auto_shoot"
+            app:label="Shoots in auto"
+            app:values="@array/auto_shoot"
+            app:sortThis="false" />
+
+        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingCheckboxView
+            android:id="@+id/auto_pit_gear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:key="auto_pit_gear"
+            app:label="Gear capable" />
+
+        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingCheckboxView
+            android:id="@+id/auto_drives"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:key="auto_drives"
+            app:label="Baseline" />
 
     </LinearLayout>
 
@@ -172,62 +201,13 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/auto"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/match_perf"
-        android:layout_marginRight="10dp"
-        android:layout_toRightOf="@id/match"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/auto_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Autonomous"
-            android:textSize="30sp" />
-
-        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingSpinnerView
-            android:id="@+id/auto_bins"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:key="auto_bins"
-            app:label="Auto Bins"
-            app:values="@array/auto_bins" />
-
-        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingSpinnerView
-            android:id="@+id/auto_totes"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:key="auto_totes"
-            app:label="Auto Totes"
-            app:values="@array/auto_totes" />
-
-        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingSpinnerView
-            android:id="@+id/auto_step"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:key="auto_step"
-            app:label="Auto Bins (from Step)"
-            app:values="@array/auto_step" />
-
-        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingCheckboxView
-            android:id="@+id/auto_drives"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:key="auto_drives"
-            app:label="Drives to Auto Zone" />
-
-    </LinearLayout>
-
-    <LinearLayout
         android:id="@+id/notes"
-        android:layout_width="500dp"
+        android:layout_width="400dp"
         android:layout_height="match_parent"
         android:layout_above="@+id/finish"
         android:layout_alignParentRight="true"
         android:layout_marginRight="10dp"
-        android:layout_toRightOf="@id/auto"
+        android:layout_toRightOf="@id/match_perf"
         android:orientation="vertical">
 
         <TextView
