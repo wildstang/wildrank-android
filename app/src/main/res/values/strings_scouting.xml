@@ -8,7 +8,7 @@
         <item>Success</item>
     </string-array>
 
-    <string-array name="auto_high">
+    <string-array name="high">
         <item>1</item>
         <item>2</item>
         <item>3</item>
@@ -16,19 +16,20 @@
         <item>5</item>
     </string-array>
 
-    <string-array name="auto_accuracy">
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-        <item>5</item>
+    <string-array name="accuracy">
+        <item>0%</item>
+        <item>25%</item>
+        <item>50%</item>
+        <item>75%</item>
+        <item>100%</item>
     </string-array>
 
-    <string-array name="auto_rate">
+    <string-array name="fire_rate">
         <item>None</item>
-        <item>Low</item>
+        <item>Slow</item>
         <item>Med</item>
-        <item>High</item>
+        <item>Fast</item>
+        <item>Super-Fast</item>
     </string-array>
 
     <string-array name="rankings">
@@ -39,6 +40,20 @@
         <item>5</item>
     </string-array>
 
+    <string-array name="speed">
+        <item>Very Slow</item>
+        <item>Slow</item>
+        <item>Medium</item>
+        <item>Fast</item>
+        <item>Very Fast</item>
+    </string-array>
+
+    <string-array name="gear_intake">
+        <item>None</item>
+        <item>Floor</item>
+        <item>Player</item>
+        <item>Both</item>
+    </string-array>
     <string-array name="tote_stack">
         <item>0</item>
         <item>1</item>
@@ -71,7 +86,7 @@
         <item>Holonomic</item>
     </string-array>
 
-    <string-array name="auto_position">
+    <string-array name="position">
         <item>Left</item>
         <item>Center</item>
         <item>Right</item>
@@ -84,11 +99,13 @@
         <item>Both</item>
     </string-array>
 
-    <string-array name="tote">
-        <item>Upright</item>
-        <item>Upside-down</item>
-        <item>Both</item>
-        <item>No</item>
+    <string-array name="hopper">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
     </string-array>
 
     <string-array name="bin">

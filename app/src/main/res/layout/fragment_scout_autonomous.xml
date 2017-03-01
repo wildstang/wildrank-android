@@ -27,12 +27,13 @@
             app:key="auto-drive"
             app:label="Reaches Baseline" />
 
-        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingCheckboxView
+        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingSpinnerView
             android:id="@+id/auto_hopper"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:key="auto-hopper"
-            app:label="Released Hopper" />
+            app:label="Heppers Released"
+            app:values="@array/hopper" />
 
         <org.wildstang.wildrank.androidv2.views.scouting.ScoutingSpinnerView
             android:id="@+id/auto_high_accuracy"
@@ -40,7 +41,8 @@
             android:layout_height="wrap_content"
             app:key="auto-high_accuracy"
             app:label="High Goal Accuracy"
-            app:values="@array/auto_accuracy" />
+            app:values="@array/accuracy"
+            app:sortThis="false"/>
 
         <org.wildstang.wildrank.androidv2.views.scouting.ScoutingSpinnerView
             android:id="@+id/auto_low_accuracy"
@@ -48,7 +50,8 @@
             android:layout_height="wrap_content"
             app:key="auto-low_accuracy"
             app:label="Low Goal Accuracy"
-            app:values="@array/auto_accuracy" />
+            app:values="@array/accuracy"
+            app:sortThis="false"/>
 
         <org.wildstang.wildrank.androidv2.views.scouting.ScoutingSpinnerView
             android:id="@+id/start_position"
@@ -56,7 +59,7 @@
             android:layout_height="wrap_content"
             app:key="auto_start_position"
             app:label="Starting Position"
-            app:values="@array/auto_position"
+            app:values="@array/position"
             app:sortThis="false" />
 
     </LinearLayout>
@@ -78,12 +81,13 @@
             app:values="@array/auto_gear"
             app:sortThis="false" />
 
-        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingNumberView
-            android:id="@+id/auto_time2"
+        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingSpinnerView
+            android:id="@+id/auto_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:key="auto-time"
-            app:label="Approx. Time Taken" />
+            app:label="Gear Speed"
+            app:values="@array/speed"/>
 
         <org.wildstang.wildrank.androidv2.views.scouting.ScoutingSpinnerView
             android:id="@+id/auto_high_rate"
@@ -91,7 +95,7 @@
             android:layout_height="wrap_content"
             app:key="auto-high_rate"
             app:label="High Goal Rate"
-            app:values="@array/auto_rate"
+            app:values="@array/fire_rate"
             app:sortThis="false" />
 
         <org.wildstang.wildrank.androidv2.views.scouting.ScoutingSpinnerView
@@ -100,7 +104,7 @@
             android:layout_height="wrap_content"
             app:key="auto-low_rate"
             app:label="Low Goal Rate"
-            app:values="@array/auto_rate"
+            app:values="@array/fire_rate"
             app:sortThis="false" />
 
     </LinearLayout>

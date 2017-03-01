@@ -43,7 +43,7 @@
             android:layout_height="match_parent"
             app:key="teleop-center_bins"
             app:label="Bins from Step"
-            app:values="@array/auto_accuracy" />
+            app:values="@array/accuracy" />
 
     </LinearLayout>
 
