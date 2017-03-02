@@ -108,7 +108,6 @@
         android:id="@+id/end_game"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
         android:layout_marginRight="10dp"
         android:layout_toRightOf="@+id/general"
         android:layout_below="@+id/fouls"
@@ -138,6 +137,7 @@
             app:sortThis="false" />
 
     </LinearLayout>
+
     <LinearLayout
         android:id="@+id/ranking"
         android:layout_width="275dp"

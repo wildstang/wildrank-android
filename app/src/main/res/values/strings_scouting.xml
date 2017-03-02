@@ -8,6 +8,13 @@
         <item>Success</item>
     </string-array>
 
+    <string-array name="gears_in_auto">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+
     <string-array name="high">
         <item>1</item>
         <item>2</item>
@@ -84,6 +91,7 @@
         <item>H-Drive/Slide</item>
         <item>Swerve</item>
         <item>Holonomic</item>
+        <item>Other</item>
     </string-array>
 
     <string-array name="position">
