@@ -15,14 +15,6 @@
         <item>3</item>
     </string-array>
 
-    <string-array name="high">
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-        <item>5</item>
-    </string-array>
-
     <string-array name="accuracy">
         <item>0%</item>
         <item>25%</item>
@@ -55,12 +47,22 @@
         <item>Very Fast</item>
     </string-array>
 
+    <string-array name="gear_speed">
+        <item>2</item>
+        <item>4</item>
+        <item>6</item>
+        <item>8</item>
+        <item>10</item>
+        <item>15</item>
+    </string-array>
+
     <string-array name="gear_intake">
         <item>None</item>
         <item>Floor</item>
         <item>Player</item>
         <item>Both</item>
     </string-array>
+
     <string-array name="tote_stack">
         <item>0</item>
         <item>1</item>
@@ -81,7 +83,7 @@
     </string-array>
 
     <string-array name="orientation">
-        <item>Wide</item>
+        <item>Short</item>
         <item>Tall</item>
     </string-array>
 
@@ -116,6 +118,18 @@
         <item>5</item>
     </string-array>
 
+    <string-array name="gear_pickup">
+        <item>Player Station</item>
+        <item>Ground</item>
+        <item>Other robot</item>
+    </string-array>
+
+    <string-array name="gear_end">
+        <item>On peg</item>
+        <item>Dropped</item>
+        <item>Passed on</item>
+    </string-array>
+
     <string-array name="bin">
         <item>Upright</item>
         <item>Sideways</item>
@@ -144,8 +158,10 @@
     </string-array>
 
     <string name="autonomous_explanation">Please only count balls and gears that have actually been scored.</string>
-    <string name="stack">Stack</string>
+    <string name="gear">Gear</string>
+    <string name="balls">Balls</string>
     <string name="button_finish">Finish</string>
-    <string name="button_finish_stack">Finish stack</string>
+    <string name="button_finish_gear">Finish gear</string>
+    <string name="button_finish_balls">Finish balls</string>
     <string name="stack_help">Help</string>
 </resources>

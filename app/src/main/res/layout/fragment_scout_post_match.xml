@@ -179,11 +179,11 @@
             app:values="@array/rankings" />
 
         <org.wildstang.wildrank.androidv2.views.scouting.ScoutingSpinnerView
-            android:id="@+id/hp_rating"
+            android:id="@+id/pilot_rating"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:key="post_match-hp_rating"
-            app:label="Human Player Rating"
+            app:key="post_match-pilot_rating"
+            app:label="Pilot Rating"
             app:values="@array/rankings" />
 
     </LinearLayout>

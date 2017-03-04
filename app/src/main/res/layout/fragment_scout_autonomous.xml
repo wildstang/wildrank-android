@@ -32,7 +32,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:key="auto-hopper"
-            app:label="Heppers Released"
+            app:label="Hoppers Released"
             app:values="@array/hopper" />
 
         <org.wildstang.wildrank.androidv2.views.scouting.ScoutingSpinnerView
@@ -57,7 +57,7 @@
             android:id="@+id/start_position"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:key="auto_start_position"
+            app:key="auto-start_position"
             app:label="Starting Position"
             app:values="@array/position"
             app:sortThis="false" />
