@@ -69,7 +69,9 @@ public class ScoutingBallsView extends ScoutingView implements View.OnClickListe
         if (id == R.id.finish_balls) {
             BallsModel data = new BallsModel();
             data.fireRate = fireRateSpinner.getSelectedItem();
-            data.fireAccuracy = fireAccuracySpinner.getSelectedItem();
+            double fireAccNumber = Double.parseDouble(fireAccuracySpinner.getSelectedItem().substring(0,fireAccuracySpinner.getSelectedItem().length()-1))/100;
+            if(fireRateSpinner.getSelectedItem()=="None"){fireAccNumber = -1.0;}
+            data.fireAccuracy = fireAccNumber;
 
             // If the stack was not marked as preexisting, set the preexisting height to 0
 

@@ -10,19 +10,19 @@ public class BallsModel {
     public static final String FIRE_ACCURACY = "fire_accuracy";
 
     public String fireRate;
-    public String fireAccuracy;
+    public double fireAccuracy;
     public String ballLocation;
 
     public BallsModel() {
         // Initialize everything to zero/false
         fireRate = "Very Slow";
-        fireAccuracy = "0%";
+        fireAccuracy = 0.0;
     }
 
     public static BallsModel fromMap(Map<String, Object> map) {
         BallsModel balls = new BallsModel();
         balls.fireRate = (String) map.get(FIRE_ACCURACY);
-        balls.fireAccuracy = (String) map.get(FIRE_ACCURACY);
+        balls.fireAccuracy = (double) map.get(FIRE_ACCURACY);
         balls.ballLocation = (String) map.get(BALL_LOCATION);
         return balls;
     }

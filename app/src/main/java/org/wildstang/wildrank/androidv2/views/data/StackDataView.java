@@ -59,27 +59,6 @@ public class StackDataView extends View {
             Map<String, Object> data = (Map<String, Object>) doc.getProperty("data");
             List<Map<String, Object>> stackData = (List<Map<String, Object>>) data.get("stacks");
             List<StackModel> matchStacks = new ArrayList<>();
-            if (stackData.size() == 0) {
-                // For a team that scored no stacks during a match, we should display a blank space.
-                // Increment the stack count to account for this blank space
-                // Add a "blank stack" record to the list
-                matchStacks.add(new BlankStack());
-                stackCount++;
-                Log.d("wildrank", "blank stack for match " + (String) doc.getProperty("match_key"));
-            } else {
-                for (int j = 0; j < stackData.size(); j++) {
-                    Log.d("wildrank", "stack for match " + (String) doc.getProperty("match_key") + ": " + stackData.get(j));
-                    StackModel stack = StackModel.fromMap(stackData.get(j));
-                    if (stack.isMeaningfulStack()) {
-                        matchStacks.add(stack);
-                        stackCount++;
-                    } else {
-                        Log.d("wildrank", "meaningless stack!");
-                        continue;
-                    }
-                }
-            }
-            stacks.add(matchStacks);
         }
         invalidate();
     }

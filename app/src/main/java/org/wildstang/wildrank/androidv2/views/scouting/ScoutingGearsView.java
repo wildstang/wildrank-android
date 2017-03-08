@@ -71,9 +71,11 @@ public class ScoutingGearsView extends ScoutingView implements View.OnClickListe
         int id = v.getId();
         if (id == R.id.finish_gear) {
             GearModel data = new GearModel();
-            data.pickupType = gearPickupTypeSpinner.getSelectedItem();;
-            data.pickupSpeed = gearPickupSpeedSpinner.getSelectedItem();
-            data.dropoffSpeed = gearDropoffSpeedSpinner.getSelectedItem();
+            data.pickupType = gearPickupTypeSpinner.getSelectedItem();
+            int pickupSpeedNum = Integer.parseInt(gearPickupSpeedSpinner.getSelectedItem());
+            data.pickupSpeed = pickupSpeedNum;
+            int dropoffSpeedNum = Integer.parseInt(gearDropoffSpeedSpinner.getSelectedItem());
+            data.dropoffSpeed = dropoffSpeedNum;
             data.gearEnd = gearEndSpinner.getSelectedItem();
 
             // If the stack was not marked as preexisting, set the preexisting height to 0

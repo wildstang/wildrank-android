@@ -11,24 +11,24 @@ public class GearModel {
     public static final String GEAR_END = "gear_end_location";
 
     public String pickupType;
-    public String pickupSpeed;
-    public String dropoffSpeed;
+    public int pickupSpeed;
+    public int dropoffSpeed;
     public String gearEnd;
 
     public GearModel() {
         // Initialize everything to zero/false
         pickupType = "Player Station";
-        pickupSpeed = "Very Slow";
-        dropoffSpeed = "Very Slow";
+        pickupSpeed = 15;
+        dropoffSpeed = 15;
         gearEnd = "On peg";
     }
 
     public static GearModel fromMap(Map<String, Object> map) {
         GearModel gear = new GearModel();
         gear.pickupType = (String) map.get(PICKUP_TYPE_KEY);
-        gear.pickupSpeed = (String) map.get(PICKUP_SPEED_KEY);
-        gear.pickupSpeed = (String) map.get(DROPOFF_SPEED_KEY);
-        gear.pickupSpeed = (String) map.get(GEAR_END);
+        gear.pickupSpeed = (int) map.get(PICKUP_SPEED_KEY);
+        gear.pickupSpeed = (int) map.get(DROPOFF_SPEED_KEY);
+        gear.gearEnd = (String) map.get(GEAR_END);
         return gear;
     }
 

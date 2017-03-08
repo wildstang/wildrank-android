@@ -20,7 +20,6 @@ public class TeamSummariesFragmentPagerAdapter extends FragmentStatePagerAdapter
     private TeamSummariesInfoFragment infoFragment;
     private TeamSummariesDataFragment dataFragment;
     private TeamSummariesStackFragment stackFragment;
-    //private TeamSummariesMatchFragment matchFragment;
     private TeamSummariesRawDataFragment rawDataFragment;
 
     public TeamSummariesFragmentPagerAdapter(FragmentManager fm) {
