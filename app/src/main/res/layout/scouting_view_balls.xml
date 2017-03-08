@@ -12,14 +12,14 @@
         android:layout_alignParentLeft="true"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="wrap_content"
+        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingSpinnerView
+            android:id="@+id/ball_location"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:text="@string/balls"
-            android:textSize="20dp" />
+            app:key="teleop-ball_location"
+            app:label="Gathered at..."
+            app:values="@array/ball_collection"
+            app:sortThis="false" />
 
         <org.wildstang.wildrank.androidv2.views.scouting.ScoutingSpinnerView
             android:id="@+id/fire_rate"

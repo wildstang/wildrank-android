@@ -5,11 +5,13 @@ import java.util.Map;
 
 public class BallsModel {
 
+    public static final String BALL_LOCATION = "ball_location";
     public static final String FIRE_RATE = "fire_rate";
     public static final String FIRE_ACCURACY = "fire_accuracy";
 
     public String fireRate;
     public String fireAccuracy;
+    public String ballLocation;
 
     public BallsModel() {
         // Initialize everything to zero/false
@@ -21,6 +23,7 @@ public class BallsModel {
         BallsModel balls = new BallsModel();
         balls.fireRate = (String) map.get(FIRE_ACCURACY);
         balls.fireAccuracy = (String) map.get(FIRE_ACCURACY);
+        balls.ballLocation = (String) map.get(BALL_LOCATION);
         return balls;
     }
 
@@ -28,6 +31,7 @@ public class BallsModel {
         Map<String, Object> map = new HashMap<>();
         map.put(BallsModel.FIRE_RATE, this.fireRate);
         map.put(BallsModel.FIRE_ACCURACY, this.fireAccuracy);
+        map.put(BallsModel.BALL_LOCATION, this.ballLocation);
         return map;
     }
 
@@ -43,6 +47,7 @@ public class BallsModel {
         boolean equals = true;
         equals &= (comparing.fireRate == this.fireRate);
         equals &= (comparing.fireAccuracy == this.fireAccuracy);
+        equals &= (comparing.ballLocation == this.ballLocation);
         return equals;
     }
 

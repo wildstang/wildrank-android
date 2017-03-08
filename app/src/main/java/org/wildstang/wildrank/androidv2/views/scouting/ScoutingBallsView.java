@@ -18,6 +18,7 @@ public class ScoutingBallsView extends ScoutingView implements View.OnClickListe
 
     private ScoutingSpinnerView fireRateSpinner;
     private ScoutingSpinnerView fireAccuracySpinner;
+    private ScoutingSpinnerView ballLocationSpinner;
 
     public ScoutingBallsView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -27,6 +28,7 @@ public class ScoutingBallsView extends ScoutingView implements View.OnClickListe
 
         fireRateSpinner = (ScoutingSpinnerView) findViewById(R.id.fire_rate);
         fireAccuracySpinner = (ScoutingSpinnerView) findViewById(R.id.fire_accuracy);
+        ballLocationSpinner = (ScoutingSpinnerView) findViewById(R.id.ball_location);
 
 
         // Synchronize the state of the preexisting height spinner with the checkbox
@@ -66,7 +68,7 @@ public class ScoutingBallsView extends ScoutingView implements View.OnClickListe
         int id = v.getId();
         if (id == R.id.finish_balls) {
             BallsModel data = new BallsModel();
-            data.fireRate = fireRateSpinner.getSelectedItem();;
+            data.fireRate = fireRateSpinner.getSelectedItem();
             data.fireAccuracy = fireAccuracySpinner.getSelectedItem();
 
             // If the stack was not marked as preexisting, set the preexisting height to 0
@@ -79,7 +81,8 @@ public class ScoutingBallsView extends ScoutingView implements View.OnClickListe
     }
 
     private void updateViewsFromData(BallsModel data) {
-        fireRateSpinner.setSelectionBasedOnText("Very Slow");
+        fireRateSpinner.setSelectionBasedOnText("None");
         fireAccuracySpinner.setSelectionBasedOnText("0%");
+        ballLocationSpinner.setSelectionBasedOnText("Player Station");
     }
 }

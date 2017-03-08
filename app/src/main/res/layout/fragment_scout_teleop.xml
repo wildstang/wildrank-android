@@ -5,21 +5,39 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <TextView
+        android:id="@+id/high_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:text="High Shooting"
+        android:textSize="20dp" />
+
     <org.wildstang.wildrank.androidv2.views.scouting.ScoutingBallsView
         android:id="@+id/high_view"
         android:layout_width="400dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:layout_below="@+id/high_title"
         android:layout_alignParentLeft="true"
         android:layout_above="@+id/other"
         app:key="high" />
+
+    <TextView
+        android:id="@+id/low_title"
+        android:layout_width="380dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:text="Low Shooting"
+        android:textSize="20dp" />
 
     <org.wildstang.wildrank.androidv2.views.scouting.ScoutingBallsView
         android:id="@+id/low_view"
         android:layout_width="400dp"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_alignParentTop="true"
+        android:layout_below="@+id/low_title"
         android:layout_above="@+id/other"
         app:key="low" />
 
@@ -31,7 +49,6 @@
         android:layout_alignParentRight="true"
         android:layout_above="@+id/other"
         app:key="gear" />
-
 
     <LinearLayout
         android:id="@id/other"
@@ -45,26 +62,6 @@
             android:layout_height="wrap_content"
             app:key="hoppers_released_teleop"
             app:label="Hoppers Released" />
-
-        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingCounterView
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            app:key="coop"
-            app:label="Totes added to coop" />
-
-        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingCounterView
-            android:layout_width="350dp"
-            android:layout_height="wrap_content"
-            app:key="coop_height"
-            app:label="Pre-existing Co-op Height" />
-
-        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingSpinnerView
-            android:id="@+id/center_bins"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:key="teleop-center_bins"
-            app:label="Bins from Step"
-            app:values="@array/accuracy" />
 
     </LinearLayout>
 

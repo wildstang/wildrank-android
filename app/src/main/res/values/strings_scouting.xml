@@ -137,11 +137,10 @@
         <item>No</item>
     </string-array>
 
-    <string-array name="litter">
+    <string-array name="ball_collection">
         <item>Player Station</item>
         <item>Ground</item>
-        <item>Both</item>
-        <item>No</item>
+        <item>Hopper</item>
     </string-array>
 
     <string-array name="player_stations">

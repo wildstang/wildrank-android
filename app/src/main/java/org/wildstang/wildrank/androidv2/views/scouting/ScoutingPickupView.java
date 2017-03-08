@@ -7,26 +7,27 @@ import android.view.View;
 
 import org.wildstang.wildrank.androidv2.R;
 import org.wildstang.wildrank.androidv2.models.GearModel;
+import org.wildstang.wildrank.androidv2.models.PickupModel;
 import org.wildstang.wildrank.androidv2.models.StackModel;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class ScoutingGearsView extends ScoutingView implements View.OnClickListener {
+public class ScoutingPickupView extends ScoutingView implements View.OnClickListener {
 
-    private List<GearModel> stacks = new ArrayList<>();
+    private List<PickupModel> stacks = new ArrayList<>();
 
     private ScoutingSpinnerView gearPickupTypeSpinner;
     private ScoutingSpinnerView gearPickupSpeedSpinner;
     private ScoutingSpinnerView gearDropoffSpeedSpinner;
     private ScoutingSpinnerView gearEndSpinner;
 
-    public ScoutingGearsView(Context context, AttributeSet attrs) {
+    public ScoutingPickupView(Context context, AttributeSet attrs) {
         super(context, attrs);
 
         LayoutInflater inflater = LayoutInflater.from(context);
-        inflater.inflate(R.layout.scouting_view_gears, this, true);
+        inflater.inflate(R.layout.scouting_view_pickup, this, true);
 
         gearPickupTypeSpinner = (ScoutingSpinnerView) findViewById(R.id.gear_pickup_type);
         gearPickupSpeedSpinner = (ScoutingSpinnerView) findViewById(R.id.gear_pickup_speed);
@@ -42,7 +43,7 @@ public class ScoutingGearsView extends ScoutingView implements View.OnClickListe
     @Override
     public void writeContentsToMap(Map<String, Object> map) {
         List<Map<String, Object>> mappedDataList = new ArrayList<>();
-        for (GearModel stack : stacks) {
+        for (PickupModel stack : stacks) {
             mappedDataList.add(stack.toMap());
         }
         map.put(key, mappedDataList);
@@ -61,7 +62,7 @@ public class ScoutingGearsView extends ScoutingView implements View.OnClickListe
         if (mappedDataList != null) {
             stacks.clear();
             for (Map<String, Object> dataMap : mappedDataList) {
-                stacks.add(GearModel.fromMap(dataMap));
+                stacks.add(PickupModel.fromMap(dataMap));
             }
         }
     }
@@ -70,7 +71,7 @@ public class ScoutingGearsView extends ScoutingView implements View.OnClickListe
     public void onClick(View v) {
         int id = v.getId();
         if (id == R.id.finish_gear) {
-            GearModel data = new GearModel();
+            PickupModel data = new PickupModel();
             data.pickupType = gearPickupTypeSpinner.getSelectedItem();;
             data.pickupSpeed = gearPickupSpeedSpinner.getSelectedItem();
             data.dropoffSpeed = gearDropoffSpeedSpinner.getSelectedItem();
@@ -81,14 +82,14 @@ public class ScoutingGearsView extends ScoutingView implements View.OnClickListe
             stacks.add(data);
 
             // Reset all the views by creating a default StackData
-            updateViewsFromData(new GearModel());
+            updateViewsFromData(new PickupModel());
         }
     }
 
-    private void updateViewsFromData(GearModel data) {
+    private void updateViewsFromData(PickupModel data) {
         gearPickupTypeSpinner.setSelectionBasedOnText("Player Station");
-        gearPickupSpeedSpinner.setSelectionBasedOnText("2");
-        gearDropoffSpeedSpinner.setSelectionBasedOnText("2");
+        gearPickupSpeedSpinner.setSelectionBasedOnText("Very Slow");
+        gearDropoffSpeedSpinner.setSelectionBasedOnText("Very Slow");
         gearEndSpinner.setSelectionBasedOnText("On peg");
     }
 }
