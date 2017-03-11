@@ -68,7 +68,7 @@ public class TeamSummariesFragmentPagerAdapter extends FragmentStatePagerAdapter
             case 1:
                 return "Data";
             case 2:
-                return "Stacks";
+                return "Match Data";
             case 3:
                 return "Raw Data";
             default:

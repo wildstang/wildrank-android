@@ -120,12 +120,14 @@
             android:text="End Positions"
             android:textSize="30sp" />
 
-        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingCheckboxView
+        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingSpinnerView
             android:id="@+id/did_climb"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:key="post_match-did_climb"
-            app:label="Robot Climbed" />
+            app:label="Robot Climbed"
+            app:values="@array/climb"
+            app:sortThis="false"/>
 
         <org.wildstang.wildrank.androidv2.views.scouting.ScoutingSpinnerView
             android:id="@+id/climb_speed"

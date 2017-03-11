@@ -124,6 +124,12 @@
         <item>Other robot</item>
     </string-array>
 
+    <string-array name="climb">
+        <item>No Attempt</item>
+        <item>Unsuccessful Attempt</item>
+        <item>Successful</item>
+    </string-array>
+
     <string-array name="gear_end">
         <item>On peg</item>
         <item>Dropped</item>

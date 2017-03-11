@@ -29,7 +29,7 @@ public class TeamSummariesRawDataFragment extends TeamSummariesFragment {
         TextView rawData = ((TextView) getView().findViewById(R.id.raw_data));
         try {
             if (matchDocs == null) {
-                rawData.setText("No match results found.");
+                rawData.setText("Match results are null");
                 return;
             } else if (matchDocs.size() == 0) {
                 rawData.setText("No match results found.");

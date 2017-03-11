@@ -81,13 +81,12 @@
             app:values="@array/auto_gear"
             app:sortThis="false" />
 
-        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingSpinnerView
+        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingNumberView
             android:id="@+id/auto_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:key="auto-time"
-            app:label="Gear Speed"
-            app:values="@array/speed"/>
+            app:label="Gear Speed"/>
 
         <org.wildstang.wildrank.androidv2.views.scouting.ScoutingSpinnerView
             android:id="@+id/auto_high_rate"

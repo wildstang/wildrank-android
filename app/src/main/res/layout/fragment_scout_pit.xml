@@ -37,7 +37,7 @@
             app:label="Hopper Volume in Balls" />
 
         <org.wildstang.wildrank.androidv2.views.scouting.ScoutingSpinnerView
-            android:id="@+id/rate_of_fire"
+            android:id="@+id/fire_rate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:key="fire_rate"
@@ -46,7 +46,7 @@
             app:sortThis="false"/>
 
         <org.wildstang.wildrank.androidv2.views.scouting.ScoutingSpinnerView
-            android:id="@+id/drive"
+            android:id="@+id/drivetrain"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:key="drivetrain"
@@ -92,14 +92,14 @@
             android:id="@+id/pit_climb_speed"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:key="pit_movement_speed"
+            app:key="pit_climb_speed"
             app:label="Climb Speed (secs)"/>
 
         <org.wildstang.wildrank.androidv2.views.scouting.ScoutingSpinnerView
             android:id="@+id/gear_intake"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:key="post_match-gear_intake"
+            app:key="gear_intake"
             app:label="Gear Intake"
             app:values="@array/gear_intake"
             app:sortThis="false" />
@@ -126,7 +126,7 @@
             android:id="@+id/pref_start_position"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:key="pref_start_pos"
+            app:key="pref_start_position"
             app:label="Starting Position"
             app:values="@array/position"
             app:sortThis="false"/>

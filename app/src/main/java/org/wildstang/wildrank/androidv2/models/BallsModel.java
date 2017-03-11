@@ -21,7 +21,7 @@ public class BallsModel {
 
     public static BallsModel fromMap(Map<String, Object> map) {
         BallsModel balls = new BallsModel();
-        balls.fireRate = (String) map.get(FIRE_ACCURACY);
+        balls.fireRate = (String) map.get(FIRE_RATE);
         balls.fireAccuracy = (double) map.get(FIRE_ACCURACY);
         balls.ballLocation = (String) map.get(BALL_LOCATION);
         return balls;

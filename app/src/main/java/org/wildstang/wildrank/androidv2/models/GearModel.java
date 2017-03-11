@@ -27,7 +27,7 @@ public class GearModel {
         GearModel gear = new GearModel();
         gear.pickupType = (String) map.get(PICKUP_TYPE_KEY);
         gear.pickupSpeed = (int) map.get(PICKUP_SPEED_KEY);
-        gear.pickupSpeed = (int) map.get(DROPOFF_SPEED_KEY);
+        gear.dropoffSpeed = (int) map.get(DROPOFF_SPEED_KEY);
         gear.gearEnd = (String) map.get(GEAR_END);
         return gear;
     }
