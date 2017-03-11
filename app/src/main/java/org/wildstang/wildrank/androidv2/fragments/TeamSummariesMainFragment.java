@@ -100,10 +100,12 @@ public class TeamSummariesMainFragment extends Fragment {
 
     private void onTeamSelected(Document doc) {
         loadInfoForTeam((String) doc.getProperty("key"));
+
     }
 
     private void loadInfoForTeam(String teamKey) {
         try {
+            Log.d("Test", teamKey);
             DatabaseManager db = DatabaseManager.getInstance(getActivity());
             Document teamDocument = db.getTeamFromKey(teamKey);
             Document pitDocument = db.getInternalDatabase().getExistingDocument("pit:" + teamKey);
