@@ -49,17 +49,17 @@ public class StackDataView extends View {
         climbSuccessful = new Paint();
         climbSuccessful.setColor(Color.GREEN);
         highPaint = new Paint();
-        highPaint.setColor(Color.argb(255, 32, 32, 192));
+        highPaint.setColor(Color.argb(255, 32, 32, 255));
         lowPaint = new Paint();
-        lowPaint.setColor(Color.argb(255, 64, 64, 128));
+        lowPaint.setColor(Color.argb(255, 0, 0, 128));
         pickupPaint = new Paint();
-        pickupPaint.setColor(Color.argb(255, 32, 192, 32));
+        pickupPaint.setColor(Color.argb(255, 32, 255, 32));
         dropoffPaint = new Paint();
-        dropoffPaint.setColor(Color.argb(255, 64, 128, 64));
+        dropoffPaint.setColor(Color.argb(255, 0, 128, 0));
         attemptPaint = new Paint();
-        attemptPaint.setColor(Color.argb(255, 192, 32, 32));
+        attemptPaint.setColor(Color.argb(255, 255, 32, 32));
         successPaint = new Paint();
-        successPaint.setColor(Color.RED);
+        successPaint.setColor(Color.argb(255, 128, 0, 0));
         outlinePaint = new Paint();
         outlinePaint.setColor(Color.BLACK);
         outlinePaint.setStyle(Paint.Style.STROKE);
@@ -272,25 +272,25 @@ public class StackDataView extends View {
 
             c.drawLine(150*(i+1), 100, 150*(i+1), 300, outlinePaint);
             c.drawLine(150*(i+1), 300, 150*(i+1), 300, outlinePaint);
-            c.drawText("Match "+(i+1), 150*i+50, 30, textPaint);
+            c.drawText("Match "+(i+1), 150*i+50, 40, textPaint);
             //climb Data
-            c.drawText("Climb: "+climb, 150*i+15, 330, textPaint);
-            c.drawCircle(150*i+75, 60, 15, climbPaint);
+            c.drawRect(150*i+5, 75, 150*i+145, 95, climbPaint);
+            c.drawText("Climb: "+climb, 150*i+15, 90, textPaint);
             //shooting Data
-            c.drawText("High accuracy: " + highAcc +"%", 150*i+15, 360, textPaint);
-            c.drawText("Low accuracy: " + lowAcc +"%", 150*i+15, 390, textPaint);
+            c.drawText("High accuracy: " + highAcc +"%", 150*i+15, 330, highPaint);
+            c.drawText("Low accuracy: " + lowAcc +"%", 150*i+15, 360, lowPaint);
             c.drawRect((float) (150*i+3), (float) (300-lowAcc), (float) (150*i+48), 300, lowPaint);
 //            c.drawLine((float) (150*i+2), (float) (300-lowAcc), (float) (150*i+47), (float) (300-lowAcc), outlinePaint);
             c.drawRect((float) (150*i+5), (float) (300-lowAcc-highAcc), (float) (150*i+45), (float) (300-lowAcc), highPaint);
             //gear time data
-            c.drawText("Pickup: " + pickup, 150*i+15, 420, textPaint);
-            c.drawText("Dropoff: " + dropoff, 150*i+15, 450, textPaint);
-            c.drawRect((float) (150*i+52), (float) (300-10*dropoff), (float) (150*i+98), 300, dropoffPaint);
+            c.drawText("Pickup: " + pickup, 150*i+15, 390, pickupPaint);
+            c.drawText("Dropoff: " + dropoff, 150*i+15, 420, dropoffPaint);
+            c.drawRect((float) (150*i+52), (float) (300-6*dropoff), (float) (150*i+98), 300, dropoffPaint);
 //            c.drawLine((float) (150*i+52), (float) (300-10*dropoff), (float) (150*i+98), (float) (300-10*dropoff), outlinePaint);
-            c.drawRect((float) (150*i+55), (float) (300-10*pickup-10*dropoff), (float) (150*i+95), (float) ((300-10*dropoff)) , pickupPaint);
+            c.drawRect((float) (150*i+55), (float) (300-6*pickup-6*dropoff), (float) (150*i+95), (float) ((300-6*dropoff)) , pickupPaint);
             //gear number data
-            c.drawText("Attempted Gears: " + gearsAttempted, 150*i+15, 480, textPaint);
-            c.drawText("Successful Gears: " + gearsSuccessful, 150*i+15, 510, textPaint);
+            c.drawText("Attempted Gears: " + gearsAttempted, 150*i+15, 450, attemptPaint);
+            c.drawText("Successful Gears: " + gearsSuccessful, 150*i+15, 480, successPaint);
             c.drawRect((float) (150*i+105), 300-(15*gearsAttempted), (float) (150*i+145), 300, attemptPaint);
             c.drawRect((float) (150*i+102), 300-(15*gearsSuccessful), (float) (150*i+147), 300, successPaint);
 //            c.drawLine((float) (150*i+102), 300-(15*gearsSuccessful), (float) (150*i+147), 300-(15*gearsSuccessful), outlinePaint);
