@@ -35,6 +35,8 @@ public class StackDataView extends View {
     List<String> climbStatus = new ArrayList<>();
 
     int matchCount = 0;
+    int matchWidth;
+    int columnWidth;
 
     Paint textPaint, climbSuccessful, climbAttempted, climbNoAttempt, lowPaint, outlinePaint, highPaint, pickupPaint, dropoffPaint, attemptPaint, successPaint, notScoredPaint;
 
@@ -213,88 +215,90 @@ public class StackDataView extends View {
     @Override
     public void onDraw(Canvas c) {
         super.onDraw(c);
-//        c.drawRect(0,0,c.getWidth(), c.getHeight(), clearColor);
         if (matchCount == 0) {
             c.drawText("No data exists for this team.", 100, 100, textPaint);
         } else {
 
+            matchWidth = 150;
+            columnWidth = 50;
+            // First, compute the dimensions of our drawn items so that they're scaled properly
+            if (matchCount * matchWidth > c.getWidth()){
+                Log.d("wallace", ""+c.getWidth());
+                columnWidth = c.getWidth()/matchCount/3;
+                matchWidth = columnWidth*3;
+            }
+            //resize font for different amounts of data
+            if (matchCount>7){
+                textPaint.setTextSize(19f-matchCount);
+                highPaint.setTextSize(19f-matchCount);
+                lowPaint.setTextSize(19f-matchCount);
+                successPaint.setTextSize(19f-matchCount);
+                attemptPaint.setTextSize(19f-matchCount);
+                pickupPaint.setTextSize(19f-matchCount);
+                dropoffPaint.setTextSize(19f-matchCount);
 
-        // First, compute the dimensions of our drawn items so that they're scaled properly
-        float toteWidthToHeightRatio = 0.7f;
-        // Default tote width is calculated so that the stacks will completely fill the screen horizontally
-        float toteWidth = (float) getWidth() / (float) matchCount;
-        // Default height is calculated based on the width
-        float toteHeight = toteWidth * toteWidthToHeightRatio;
-        // If this would result in a complete stack (7 elements) overflowing the screen, we'll calculate the stack height
-        // so that a complete stack would completely fill the screen vertically
-        if (toteHeight * 7 > getHeight()) {
-            toteHeight = (float) getHeight() / 7f; // gives equal vertical space to 6 totes and 1 bin
-            toteWidth = toteHeight / toteWidthToHeightRatio;
-        }
-        //Double.parseDouble(((String) data.get("auto-low_accuracy")).substring(0,((String) data.get("auto-low_accuracy")).length()-1))/100;
-        String climb;
-        Paint climbPaint;
-        double highAcc;
-        double lowAcc;
-        double pickup;
-        double dropoff;
-        int gearsAttempted;
-        int gearsSuccessful;
-        for (int i = 0; i<matchCount; i++) {
-            climb = climbStatus.get(i);
-            if (climb.equals("Unsuccessful Attempt")) climb = "Unsuccessful";
-            highAcc = (double) Math.round(averageHighAcc.get(i)*10000)/100;
-            if (averageHighAcc.get(i)==-1.0){
-                highAcc = 0;
             }
-            lowAcc = (double) Math.round(averageLowAcc.get(i)*10000)/100;
-            if (averageLowAcc.get(i)==-1.0){
-                lowAcc = 0;
-            }
-            pickup = (double) Math.round(averagePickupTimes.get(i)*100)/100;
-            if (averagePickupTimes.get(i)==-1.0){
-                pickup = 0;
-            }
-            dropoff = (double) Math.round(averageDropoffTimes.get(i)*100)/100;
-            if (averageDropoffTimes.get(i)==-1.0){
-                dropoff = 0;
-            }
-            climbPaint = climbNoAttempt;
-            if (!climb.equals("No Attempt")){
-                climbPaint = climbAttempted;
-                if (climb.equals("Successful")){
-                    climbPaint = climbSuccessful;
+            String climb;
+            Paint climbPaint;
+            double highAcc;
+            double lowAcc;
+            double pickup;
+            double dropoff;
+            int gearsAttempted;
+            int gearsSuccessful;
+            for (int i = 0; i<matchCount; i++) {
+                climb = climbStatus.get(i);
+                if (climb.equals("Unsuccessful Attempt")) climb = "Unsuccessful";
+                highAcc = (double) Math.round(averageHighAcc.get(i)*10000)/100;
+                if (averageHighAcc.get(i)==-1.0){
+                    highAcc = 0;
                 }
+                lowAcc = (double) Math.round(averageLowAcc.get(i)*10000)/100;
+                if (averageLowAcc.get(i)==-1.0){
+                    lowAcc = 0;
+                }
+                pickup = (double) Math.round(averagePickupTimes.get(i)*100)/100;
+                if (averagePickupTimes.get(i)==-1.0){
+                    pickup = 0;
+                }
+                dropoff = (double) Math.round(averageDropoffTimes.get(i)*100)/100;
+                if (averageDropoffTimes.get(i)==-1.0){
+                    dropoff = 0;
+                }
+                climbPaint = climbNoAttempt;
+                if (!climb.equals("No Attempt")){
+                    climbPaint = climbAttempted;
+                    if (climb.equals("Successful")){
+                        climbPaint = climbSuccessful;
+                    }
+                }
+                gearsAttempted = GearsAttemptedArray.get(i);
+                gearsSuccessful = GearsSuccessfulArray.get(i);
+
+
+                c.drawLine(matchWidth*(i+1), 100, matchWidth*(i+1), 300, outlinePaint);
+                c.drawLine(matchWidth*(i+1), 300, matchWidth*(i+1), 300, outlinePaint);
+                c.drawText("Match "+(i+1), matchWidth*i+columnWidth, 40, textPaint);
+                //climb Data
+                c.drawRect(matchWidth*i+5, 75, matchWidth*(i+1)-5, 95, climbPaint);
+                c.drawText("Climb: "+climb, matchWidth*i+(textPaint.getTextSize()+3), 90, textPaint);
+                //shooting Data
+                c.drawText("High accuracy: " + highAcc +"%", matchWidth*i+5, 330, highPaint);
+                c.drawText("Low accuracy: " + lowAcc +"%", matchWidth*i+5, 360, lowPaint);
+                c.drawRect((float) (matchWidth*i+3), (float) (300-lowAcc), (float) (matchWidth*i+columnWidth-2), 300, lowPaint);
+                c.drawLine((float) (matchWidth*i+2), (float) (200), (float) (matchWidth*i+columnWidth-3), (float) (200), outlinePaint);
+                c.drawRect((float) (matchWidth*i+5), (float) (200-highAcc), (float) (matchWidth*i+columnWidth-5), (float) (200), highPaint);
+                //gear time data
+                c.drawText("Pickup: " + pickup, matchWidth*i+5, 390, pickupPaint);
+                c.drawText("Dropoff: " + dropoff, matchWidth*i+5, 420, dropoffPaint);
+                c.drawRect((float) (matchWidth*i+columnWidth+2), (float) (300-6*dropoff), (float) (matchWidth*i+2*columnWidth-2), 300, dropoffPaint);
+                c.drawRect((float) (matchWidth*i+columnWidth+5), (float) (300-6*pickup-6*dropoff), (float) (matchWidth*i+2*columnWidth-5), (float) ((300-6*dropoff)) , pickupPaint);
+                //gear number data
+                c.drawText("Attempted Gears: " + gearsAttempted, matchWidth*i+5, 450, attemptPaint);
+                c.drawText("Successful Gears: " + gearsSuccessful, matchWidth*i+5, 480, successPaint);
+                c.drawRect((float) (matchWidth*i+2*columnWidth+2), 300-(15*gearsAttempted), (float) (matchWidth*i+3*columnWidth-3), 300, successPaint);
+                c.drawRect((float) (matchWidth*i+2*columnWidth+5), 300-(15*gearsSuccessful), (float) (matchWidth*i+3*columnWidth-5), 300, attemptPaint);
             }
-            gearsAttempted = GearsAttemptedArray.get(i);
-            gearsSuccessful = GearsSuccessfulArray.get(i);
-
-
-            c.drawLine(150*(i+1), 100, 150*(i+1), 300, outlinePaint);
-            c.drawLine(150*(i+1), 300, 150*(i+1), 300, outlinePaint);
-            c.drawText("Match "+(i+1), 150*i+50, 40, textPaint);
-            //climb Data
-            c.drawRect(150*i+5, 75, 150*i+145, 95, climbPaint);
-            c.drawText("Climb: "+climb, 150*i+15, 90, textPaint);
-            //shooting Data
-            c.drawText("High accuracy: " + highAcc +"%", 150*i+15, 330, highPaint);
-            c.drawText("Low accuracy: " + lowAcc +"%", 150*i+15, 360, lowPaint);
-            c.drawRect((float) (150*i+3), (float) (300-lowAcc), (float) (150*i+48), 300, lowPaint);
-            c.drawLine((float) (150*i+2), (float) (200), (float) (150*i+47), (float) (200), outlinePaint);
-            c.drawRect((float) (150*i+5), (float) (200-highAcc), (float) (150*i+45), (float) (200), highPaint);
-            //gear time data
-            c.drawText("Pickup: " + pickup, 150*i+15, 390, pickupPaint);
-            c.drawText("Dropoff: " + dropoff, 150*i+15, 420, dropoffPaint);
-            c.drawRect((float) (150*i+52), (float) (300-6*dropoff), (float) (150*i+98), 300, dropoffPaint);
-//            c.drawLine((float) (150*i+52), (float) (300-10*dropoff), (float) (150*i+98), (float) (300-10*dropoff), outlinePaint);
-            c.drawRect((float) (150*i+55), (float) (300-6*pickup-6*dropoff), (float) (150*i+95), (float) ((300-6*dropoff)) , pickupPaint);
-            //gear number data
-            c.drawText("Attempted Gears: " + gearsAttempted, 150*i+15, 450, attemptPaint);
-            c.drawText("Successful Gears: " + gearsSuccessful, 150*i+15, 480, successPaint);
-            c.drawRect((float) (150*i+102), 300-(15*gearsAttempted), (float) (150*i+147), 300, successPaint);
-            c.drawRect((float) (150*i+105), 300-(15*gearsSuccessful), (float) (150*i+145), 300, attemptPaint);
-//            c.drawLine((float) (150*i+102), 300-(15*gearsSuccessful), (float) (150*i+147), 300-(15*gearsSuccessful), outlinePaint);
-        }
         }
     }
 
