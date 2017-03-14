@@ -203,6 +203,7 @@ public class StackDataView extends View {
                 climbStatus.add((String) data.get("post_match-did_climb"));
 
 
+
                 matchCount++;
             }
         } else {
@@ -294,8 +295,8 @@ public class StackDataView extends View {
                 c.drawRect((float) (matchWidth*i+columnWidth+2), (float) (300-6*dropoff), (float) (matchWidth*i+2*columnWidth-2), 300, dropoffPaint);
                 c.drawRect((float) (matchWidth*i+columnWidth+5), (float) (300-6*pickup-6*dropoff), (float) (matchWidth*i+2*columnWidth-5), (float) ((300-6*dropoff)) , pickupPaint);
                 //gear number data
-                c.drawText("Attempted Gears: " + gearsAttempted, matchWidth*i+5, 450, attemptPaint);
-                c.drawText("Successful Gears: " + gearsSuccessful, matchWidth*i+5, 480, successPaint);
+                c.drawText("Attempted Gears: " + gearsAttempted, matchWidth*i+5, 450, successPaint);
+                c.drawText("Successful Gears: " + gearsSuccessful, matchWidth*i+5, 480, attemptPaint);
                 c.drawRect((float) (matchWidth*i+2*columnWidth+2), 300-(15*gearsAttempted), (float) (matchWidth*i+3*columnWidth-3), 300, successPaint);
                 c.drawRect((float) (matchWidth*i+2*columnWidth+5), 300-(15*gearsSuccessful), (float) (matchWidth*i+3*columnWidth-5), 300, attemptPaint);
             }
