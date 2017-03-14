@@ -114,7 +114,7 @@ public class StackDataView extends View {
                 if (!data.get("auto-gear").equals("No Attempt")) {
                     matchGearsAttempted++;
                     if (data.get("auto-gear").equals("Success")) {
-                        totalDropoffTime += (int) data.get("auto-time");
+                        totalDropoffTime += Math.floor((double) data.get("auto-time"));
                         matchGearsSuccessful++;
                     }
                 }
@@ -280,8 +280,8 @@ public class StackDataView extends View {
             c.drawText("High accuracy: " + highAcc +"%", 150*i+15, 330, highPaint);
             c.drawText("Low accuracy: " + lowAcc +"%", 150*i+15, 360, lowPaint);
             c.drawRect((float) (150*i+3), (float) (300-lowAcc), (float) (150*i+48), 300, lowPaint);
-//            c.drawLine((float) (150*i+2), (float) (300-lowAcc), (float) (150*i+47), (float) (300-lowAcc), outlinePaint);
-            c.drawRect((float) (150*i+5), (float) (300-lowAcc-highAcc), (float) (150*i+45), (float) (300-lowAcc), highPaint);
+            c.drawLine((float) (150*i+2), (float) (200), (float) (150*i+47), (float) (200), outlinePaint);
+            c.drawRect((float) (150*i+5), (float) (200-highAcc), (float) (150*i+45), (float) (200), highPaint);
             //gear time data
             c.drawText("Pickup: " + pickup, 150*i+15, 390, pickupPaint);
             c.drawText("Dropoff: " + dropoff, 150*i+15, 420, dropoffPaint);
@@ -291,8 +291,8 @@ public class StackDataView extends View {
             //gear number data
             c.drawText("Attempted Gears: " + gearsAttempted, 150*i+15, 450, attemptPaint);
             c.drawText("Successful Gears: " + gearsSuccessful, 150*i+15, 480, successPaint);
-            c.drawRect((float) (150*i+105), 300-(15*gearsAttempted), (float) (150*i+145), 300, attemptPaint);
-            c.drawRect((float) (150*i+102), 300-(15*gearsSuccessful), (float) (150*i+147), 300, successPaint);
+            c.drawRect((float) (150*i+102), 300-(15*gearsAttempted), (float) (150*i+147), 300, successPaint);
+            c.drawRect((float) (150*i+105), 300-(15*gearsSuccessful), (float) (150*i+145), 300, attemptPaint);
 //            c.drawLine((float) (150*i+102), 300-(15*gearsSuccessful), (float) (150*i+147), 300-(15*gearsSuccessful), outlinePaint);
         }
         }

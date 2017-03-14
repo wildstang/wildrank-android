@@ -26,6 +26,7 @@ import android.widget.ListView;
 import org.wildstang.wildrank.androidv2.R;
 import org.wildstang.wildrank.androidv2.UserHelper;
 import org.wildstang.wildrank.androidv2.fragments.MatchScoutingMainFragment;
+import org.wildstang.wildrank.androidv2.fragments.MatchStrategyMainFragment;
 import org.wildstang.wildrank.androidv2.fragments.NotesMainFragment;
 import org.wildstang.wildrank.androidv2.fragments.PitScoutingMainFragment;
 import org.wildstang.wildrank.androidv2.fragments.ScoutersFragment;
@@ -183,6 +184,10 @@ public class HomeActivity extends AppCompatActivity {
                 // Scouters
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ScoutersFragment()).commit();
                 break;
+            case STRATEGY:
+                //Strategy
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new MatchStrategyMainFragment()).commit();
+                break;
             case WHITEBOARD:
                 // Whiteboard
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new WhiteboardFragment()).commit();
@@ -244,6 +249,7 @@ public class HomeActivity extends AppCompatActivity {
                 PIT_SCOUTING(R.string.mode_pit_scouting),
                 NOTES(R.string.mode_notes),
                 SCOUTERS(R.string.mode_scouters),
+                STRATEGY(R.string.mode_strategy),
                 WHITEBOARD(R.string.mode_whiteboard),
                 TEAM_SUMMARIES(R.string.mode_team_summaries);
 

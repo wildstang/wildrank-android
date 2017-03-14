@@ -67,7 +67,7 @@
 
     <LinearLayout
         android:id="@+id/fouls"
-        android:layout_width="250dp"
+        android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_marginRight="10dp"
@@ -106,7 +106,7 @@
 
     <LinearLayout
         android:id="@+id/end_game"
-        android:layout_width="250dp"
+        android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:layout_marginRight="10dp"
         android:layout_toRightOf="@+id/general"

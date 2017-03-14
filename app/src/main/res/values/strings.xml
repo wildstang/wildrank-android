@@ -13,6 +13,7 @@
     <string name="mode_pit_scouting">Pit Scouting</string>
     <string name="mode_notes">Notes</string>
     <string name="mode_scouters">Scouters</string>
+    <string name="mode_strategy">Match Strategy</string>
     <string name="mode_whiteboard">Whiteboard</string>
     <string name="mode_team_summaries">Team Summaries</string>
 
@@ -34,5 +35,5 @@
     <string name="team_number">Team Number:</string>
     <string name="alliance">Alliance:</string>
     <string name="button_begin_scouting">Begin Scouting</string>
-
+    <string name="button_match_strategy"> Match Strategy Sheet</string>
 </resources>

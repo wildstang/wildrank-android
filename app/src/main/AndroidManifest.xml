@@ -58,6 +58,11 @@
             android:theme="@style/AppThemeNoActionBar" />
 
         <activity
+            android:name=".activities.MatchStrategyActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/AppThemeNoActionBar" />
+
+        <activity
             android:name=".activities.SettingsActivity"
             android:screenOrientation="landscape" />
     </application>
