@@ -26,7 +26,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:key="orientation"
-            app:label="orientation"
+            app:label="Orientation"
             app:values="@array/orientation" />
 
         <org.wildstang.wildrank.androidv2.views.scouting.ScoutingNumberView
@@ -34,16 +34,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:key="hopper_volume"
-            app:label="Hopper Volume in Balls" />
+            app:label="Hopper Volume (Balls)" />
 
-        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingSpinnerView
+        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingNumberView
             android:id="@+id/fire_rate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:key="fire_rate"
-            app:label="Fire Rate"
-            app:values="@array/fire_rate"
-            app:sortThis="false"/>
+            app:label="Fire Rate (Balls / Sec)"/>
 
         <org.wildstang.wildrank.androidv2.views.scouting.ScoutingSpinnerView
             android:id="@+id/drivetrain"
@@ -86,7 +84,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:key="can_climb"
-            app:label="Climb capable" />
+            app:label="Climb Capable" />
 
         <org.wildstang.wildrank.androidv2.views.scouting.ScoutingNumberView
             android:id="@+id/pit_climb_speed"
@@ -131,6 +129,13 @@
             app:values="@array/position"
             app:sortThis="false"/>
 
+        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingCheckboxView
+            android:id="@+id/plays_defence"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:key="plays_defence"
+            app:label="Plays Defence"/>
+
     </LinearLayout>
 
     <LinearLayout
@@ -155,9 +160,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:key="auto_shoot"
-            app:label="Shoots in auto"
+            app:label="Shoots in Auto"
             app:values="@array/auto_shoot"
             app:sortThis="false" />
+
+        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingNumberView
+            android:id="@+id/auto_shoot_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:key="auto_shoot_number"
+            app:label="Max Number of Balls"/>
 
         <org.wildstang.wildrank.androidv2.views.scouting.ScoutingSpinnerView
             android:id="@+id/auto_pit_gear"

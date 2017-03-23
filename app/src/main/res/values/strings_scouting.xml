@@ -97,9 +97,16 @@
     </string-array>
 
     <string-array name="position">
-        <item>Left</item>
+        <item>Boiler</item>
         <item>Center</item>
-        <item>Right</item>
+        <item>Retrieval</item>
+        <item>Any</item>
+    </string-array>
+
+    <string-array name="position_match">
+        <item>Boiler</item>
+        <item>Center</item>
+        <item>Retrieval</item>
     </string-array>
 
     <string-array name="auto_shoot">
@@ -122,6 +129,7 @@
         <item>Player Station</item>
         <item>Ground</item>
         <item>Other robot</item>
+        <item>From Auto</item>
     </string-array>
 
     <string-array name="climb">

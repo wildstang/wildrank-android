@@ -17,6 +17,7 @@ import java.util.Map;
 public class ScoutingNumberView extends ScoutingView {
 
     private TextView labelView;
+    private Number number;
     private EditText valueView;
 
     public ScoutingNumberView(Context context, AttributeSet attrs) {
@@ -57,8 +58,16 @@ public class ScoutingNumberView extends ScoutingView {
         }
     }
 
+    public int getValue() {
+        return Integer.parseInt(valueView.getText().toString());
+    }
+
     public void setValue(double value) {
         valueView.setText(formatDouble(value));
+    }
+
+    public void setNullValue() {
+        valueView.setText("");
     }
 
     @Override

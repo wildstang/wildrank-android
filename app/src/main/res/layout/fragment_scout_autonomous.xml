@@ -27,31 +27,19 @@
             app:key="auto-drive"
             app:label="Reaches Baseline" />
 
-        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingSpinnerView
-            android:id="@+id/auto_hopper"
+        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingNumberView
+            android:id="@+id/auto_high_shots"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:key="auto-hopper"
-            app:label="Hoppers Released"
-            app:values="@array/hopper" />
+            app:key="auto-high_shots"
+            app:label="High Shots Made"/>
 
-        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingSpinnerView
-            android:id="@+id/auto_high_accuracy"
+        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingNumberView
+            android:id="@+id/auto_low_shots"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:key="auto-high_accuracy"
-            app:label="High Goal Accuracy"
-            app:values="@array/accuracy"
-            app:sortThis="false"/>
-
-        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingSpinnerView
-            android:id="@+id/auto_low_accuracy"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:key="auto-low_accuracy"
-            app:label="Low Goal Accuracy"
-            app:values="@array/accuracy"
-            app:sortThis="false"/>
+            app:key="auto-low_shots"
+            app:label="Low Shots Made"/>
 
         <org.wildstang.wildrank.androidv2.views.scouting.ScoutingSpinnerView
             android:id="@+id/start_position"
@@ -59,8 +47,15 @@
             android:layout_height="wrap_content"
             app:key="auto-start_position"
             app:label="Starting Position"
-            app:values="@array/position"
+            app:values="@array/position_match"
             app:sortThis="false" />
+
+        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingCounterView
+            android:id="@+id/auto_hopper"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:key="auto-hopper"
+            app:label="Hoppers Released" />
 
     </LinearLayout>
 
@@ -82,29 +77,25 @@
             app:sortThis="false" />
 
         <org.wildstang.wildrank.androidv2.views.scouting.ScoutingNumberView
+            android:id="@+id/auto_high_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:key="auto-high_time"
+            app:label="High Goal Time" />
+
+        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingNumberView
+            android:id="@+id/auto_low_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:key="auto-low_time"
+            app:label="Low Goal Time" />
+
+        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingNumberView
             android:id="@+id/auto_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:key="auto-time"
             app:label="Gear Speed"/>
-
-        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingSpinnerView
-            android:id="@+id/auto_high_rate"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:key="auto-high_rate"
-            app:label="High Goal Rate"
-            app:values="@array/fire_rate"
-            app:sortThis="false" />
-
-        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingSpinnerView
-            android:id="@+id/auto_low_rate"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:key="auto-low_rate"
-            app:label="Low Goal Rate"
-            app:values="@array/fire_rate"
-            app:sortThis="false" />
 
     </LinearLayout>
 

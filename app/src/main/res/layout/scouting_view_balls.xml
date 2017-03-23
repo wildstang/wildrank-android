@@ -21,23 +21,19 @@
             app:values="@array/ball_collection"
             app:sortThis="false" />
 
-        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingSpinnerView
-            android:id="@+id/fire_rate"
+        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingNumberView
+            android:id="@+id/shots_made"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            app:key="teleop-fire_rate"
-            app:label="Fire Rate"
-            app:values="@array/fire_rate"
-            app:sortThis="false" />
+            app:key="teleop-shots_made"
+            app:label="Shots Made"/>
 
-        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingSpinnerView
-            android:id="@+id/fire_accuracy"
+        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingNumberView
+            android:id="@+id/time_taken"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            app:key="teleop-fire_accuracy"
-            app:label="Accuracy"
-            app:values="@array/accuracy"
-            app:sortThis="false"/>
+            app:key="teleop-time_taken"
+            app:label="Time Taken"/>
 
         <Button
             android:id="@+id/finish_balls"

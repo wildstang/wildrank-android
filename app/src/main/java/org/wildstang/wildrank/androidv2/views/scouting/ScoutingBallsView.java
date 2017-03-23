@@ -16,8 +16,8 @@ public class ScoutingBallsView extends ScoutingView implements View.OnClickListe
 
     private List<BallsModel> stacks = new ArrayList<>();
 
-    private ScoutingSpinnerView fireRateSpinner;
-    private ScoutingSpinnerView fireAccuracySpinner;
+    private ScoutingNumberView timeTakenNumber;
+    private ScoutingNumberView shotsMadeNumber;
     private ScoutingSpinnerView ballLocationSpinner;
 
     public ScoutingBallsView(Context context, AttributeSet attrs) {
@@ -26,8 +26,8 @@ public class ScoutingBallsView extends ScoutingView implements View.OnClickListe
         LayoutInflater inflater = LayoutInflater.from(context);
         inflater.inflate(R.layout.scouting_view_balls, this, true);
 
-        fireRateSpinner = (ScoutingSpinnerView) findViewById(R.id.fire_rate);
-        fireAccuracySpinner = (ScoutingSpinnerView) findViewById(R.id.fire_accuracy);
+        timeTakenNumber = (ScoutingNumberView) findViewById(R.id.time_taken);
+        shotsMadeNumber = (ScoutingNumberView) findViewById(R.id.shots_made);
         ballLocationSpinner = (ScoutingSpinnerView) findViewById(R.id.ball_location);
 
 
@@ -68,10 +68,8 @@ public class ScoutingBallsView extends ScoutingView implements View.OnClickListe
         int id = v.getId();
         if (id == R.id.finish_balls) {
             BallsModel data = new BallsModel();
-            data.fireRate = fireRateSpinner.getSelectedItem();
-            double fireAccNumber = Double.parseDouble(fireAccuracySpinner.getSelectedItem().substring(0,fireAccuracySpinner.getSelectedItem().length()-1))/100;
-            if(fireRateSpinner.getSelectedItem()=="None"){fireAccNumber = -1.0;}
-            data.fireAccuracy = fireAccNumber;
+            data.timeTaken = timeTakenNumber.getValue();
+            data.shotsMade = shotsMadeNumber.getValue();
 
             // If the stack was not marked as preexisting, set the preexisting height to 0
 
@@ -83,8 +81,8 @@ public class ScoutingBallsView extends ScoutingView implements View.OnClickListe
     }
 
     private void updateViewsFromData(BallsModel data) {
-        fireRateSpinner.setSelectionBasedOnText("None");
-        fireAccuracySpinner.setSelectionBasedOnText("0%");
+        timeTakenNumber.setNullValue();
+        shotsMadeNumber.setNullValue();
         ballLocationSpinner.setSelectionBasedOnText("Player Station");
     }
 }

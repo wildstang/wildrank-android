@@ -6,31 +6,31 @@ import java.util.Map;
 public class BallsModel {
 
     public static final String BALL_LOCATION = "ball_location";
-    public static final String FIRE_RATE = "fire_rate";
-    public static final String FIRE_ACCURACY = "fire_accuracy";
+    public static final String TIME_TAKEN = "time_taken";
+    public static final String SHOTS_MADE = "shots_made";
 
-    public String fireRate;
-    public double fireAccuracy;
+    public int timeTaken;
+    public int shotsMade;
     public String ballLocation;
 
     public BallsModel() {
         // Initialize everything to zero/false
-        fireRate = "Very Slow";
-        fireAccuracy = 0.0;
+        timeTaken = 0;
+        shotsMade = 0;
     }
 
     public static BallsModel fromMap(Map<String, Object> map) {
         BallsModel balls = new BallsModel();
-        balls.fireRate = (String) map.get(FIRE_RATE);
-        balls.fireAccuracy = (double) map.get(FIRE_ACCURACY);
+        balls.timeTaken = (int) map.get(TIME_TAKEN);
+        balls.shotsMade = (int) map.get(SHOTS_MADE);
         balls.ballLocation = (String) map.get(BALL_LOCATION);
         return balls;
     }
 
     public Map<String, Object> toMap() {
         Map<String, Object> map = new HashMap<>();
-        map.put(BallsModel.FIRE_RATE, this.fireRate);
-        map.put(BallsModel.FIRE_ACCURACY, this.fireAccuracy);
+        map.put(BallsModel.TIME_TAKEN, this.timeTaken);
+        map.put(BallsModel.SHOTS_MADE, this.shotsMade);
         map.put(BallsModel.BALL_LOCATION, this.ballLocation);
         return map;
     }
@@ -45,8 +45,8 @@ public class BallsModel {
         }
         BallsModel comparing = (BallsModel) o;
         boolean equals = true;
-        equals &= (comparing.fireRate == this.fireRate);
-        equals &= (comparing.fireAccuracy == this.fireAccuracy);
+        equals &= (comparing.timeTaken == this.timeTaken);
+        equals &= (comparing.shotsMade == this.shotsMade);
         equals &= (comparing.ballLocation == this.ballLocation);
         return equals;
     }

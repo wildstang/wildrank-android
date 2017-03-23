@@ -102,7 +102,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="20sp"
-                        app:text="&lt;b>Fire Rate:&lt;/b> {{fire_rate}}" />
+                        app:text="&lt;b>Fire Rate:&lt;/b> {{fire_rate}} balls/second" />
 
                     <org.wildstang.wildrank.androidv2.views.TemplatedTextView
                         android:layout_width="wrap_content"
@@ -148,6 +148,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="20sp"
+                        app:text="&lt;b>Max shots in auto:&lt;/b> {{auto_shoot_number}}" />
+
+                    <org.wildstang.wildrank.androidv2.views.TemplatedTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="20sp"
                         app:text="&lt;b>Gears in auto:&lt;/b> {{auto_pit_gear}}" />
 
                     <org.wildstang.wildrank.androidv2.views.TemplatedTextView
@@ -156,6 +162,14 @@
                         android:textSize="20sp"
                         app:falseString="no"
                         app:text="&lt;b>Drives in auto:&lt;/b> {{auto_drives}}"
+                        app:trueString="yes"/>
+
+                    <org.wildstang.wildrank.androidv2.views.TemplatedTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="20sp"
+                        app:falseString="no"
+                        app:text="&lt;b>Plays defence:&lt;/b> {{plays_defence}}"
                         app:trueString="yes"/>
 
                     <TextView

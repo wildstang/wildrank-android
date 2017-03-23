@@ -36,7 +36,7 @@ public class GearModel {
         Map<String, Object> map = new HashMap<>();
         map.put(GearModel.PICKUP_TYPE_KEY, this.pickupType);
         map.put(GearModel.PICKUP_SPEED_KEY, this.pickupSpeed);
-        map.put(GearModel.DROPOFF_SPEED_KEY, this.pickupSpeed);
+        map.put(GearModel.DROPOFF_SPEED_KEY, this.dropoffSpeed);
         map.put(GearModel.GEAR_END, this.gearEnd);
         return map;
     }
