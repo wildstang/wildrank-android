@@ -1,6 +1,8 @@
 package org.wildstang.wildrank.androidv2.fragments;
 
 import android.app.AlertDialog;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -77,7 +79,12 @@ public class MatchStrategyFragment extends Fragment {
         mStrategyViews.add((TeamStrategyView) view.findViewById(R.id.four));
         mStrategyViews.add((TeamStrategyView) view.findViewById(R.id.five));
         mStrategyViews.add((TeamStrategyView) view.findViewById(R.id.six));
-
+//        mStrategyViews.get(0).setBackgroundColor(Color.WHITE);
+//        mStrategyViews.get(1).setBackgroundColor(Color.WHITE);
+//        mStrategyViews.get(2).setBackgroundColor(Color.WHITE);
+//        mStrategyViews.get(3).setBackgroundColor(Color.WHITE);
+//        mStrategyViews.get(4).setBackgroundColor(Color.WHITE);
+//        mStrategyViews.get(5).setBackgroundColor(Color.WHITE);
         try {
             Document matchDoc = DatabaseManager.getInstance(getContext()).getMatchFromKey(mMatchKey);
             Object[] teamObjects = Utilities.getTeamsFromMatchDocument(matchDoc);
