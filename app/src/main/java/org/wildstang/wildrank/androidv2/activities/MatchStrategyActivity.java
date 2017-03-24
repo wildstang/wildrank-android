@@ -49,7 +49,6 @@ public class MatchStrategyActivity extends AppCompatActivity {
         } else {
             toolbar.setBackgroundColor(getResources().getColor(R.color.material_blue));
         }
-
         ((TextView) findViewById(R.id.match_number)).setText("" + Utilities.matchNumberFromMatchKey(matchKey));
 
         Fragment fragment = MatchStrategyFragment.newInstance(matchKey);

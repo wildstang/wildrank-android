@@ -177,4 +177,5 @@
     <string name="button_finish_gear">Finish gear</string>
     <string name="button_finish_balls">Finish balls</string>
     <string name="stack_help">Help</string>
+    <string name="exit_focus">Exit Focus</string>
 </resources>

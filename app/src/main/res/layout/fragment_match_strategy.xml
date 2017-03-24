@@ -80,7 +80,30 @@
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_weight="1" />
-
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/focus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/exit_team_focus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:text="@string/exit_focus" />
+
+        <org.wildstang.wildrank.androidv2.views.data.StackDataView
+            android:id="@+id/stackviewstrategy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true" />
+    </LinearLayout>
+
+
 </LinearLayout>
+

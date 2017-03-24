@@ -76,6 +76,8 @@ public class StackDataView extends View {
             GearsAttemptedArray = new ArrayList<>();
             GearsSuccessfulArray = new ArrayList<>();
             climbStatus = new ArrayList<>();
+            matchCount = 0;
+            invalidate();
             return;
         }
         averagePickupTimes = new ArrayList<>();
@@ -85,15 +87,14 @@ public class StackDataView extends View {
         GearsAttemptedArray = new ArrayList<>();
         GearsSuccessfulArray = new ArrayList<>();
         climbStatus = new ArrayList<>();
+        matchCount = 0;
         // Sorts the matches by match number
         Collections.sort(matchDocs, new MatchDocumentComparator());
-        matchCount = 0;
         // Default, empty StackModel to compare to
         if (matchDocs.size() != 0) {
             for (Document doc : matchDocs) {
                 Map<String, Object> data = (Map<String, Object>) doc.getProperty("data");
 
-                Log.d("Test", (String) data.get("post_match-did_climb"));
                 int totalShotsHigh = 0;
                 int totalTimeHigh = 0;
                 int totalShotsLow = 0;
@@ -202,6 +203,7 @@ public class StackDataView extends View {
     @Override
     public void onDraw(Canvas c) {
         super.onDraw(c);
+        Log.d("wildrank", ""+matchCount);
         if (matchCount == 0) {
             c.drawText("No data exists for this team.", 100, 100, textPaint);
         } else {

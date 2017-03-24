@@ -10,6 +10,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -27,7 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class TeamStrategyView extends View {
+public class TeamStrategyView extends Button {
 
     private Integer teamNumber;
 
@@ -58,12 +59,14 @@ public class TeamStrategyView extends View {
     private List<Document> matchDocs;
     private  Document pitDocs;
 
-    Paint textPaint, titlePaint, dataPaint, climbSuccessful, climbAttempted, climbNoAttempt, lowPaint, outlinePaint, highPaint, pickupPaint, dropoffPaint, attemptPaint, successPaint, borderPaint;
+    Paint coverPaint, textPaint, titlePaint, dataPaint, climbSuccessful, climbAttempted, climbNoAttempt, lowPaint, outlinePaint, highPaint, pickupPaint, dropoffPaint, attemptPaint, successPaint, borderPaint;
 
 
 
     public TeamStrategyView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        coverPaint = new Paint();
+        coverPaint.setColor(Color.WHITE);
         textPaint = new Paint();
         textPaint.setColor(Color.BLACK);
         textPaint.setTextSize(24);
@@ -200,7 +203,9 @@ public class TeamStrategyView extends View {
         invalidate();
     }
 
+
     public void onDraw(Canvas c) {
+//        c.drawRect(0,0,c.getWidth(), c.getHeight(), coverPaint);
         if (matchCount==1){
             c.drawText(teamNumber+" (1 match)", c.getWidth()/4, 30, titlePaint);
         } else {
