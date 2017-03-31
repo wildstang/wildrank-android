@@ -53,6 +53,7 @@ public class TeamStrategyView extends Button {
 
 
     private int climbData[] = {0,0,0};
+    private int winData[] = {0,0,0};
 
     int matchCount = 0;
 
@@ -189,6 +190,17 @@ public class TeamStrategyView extends Button {
                 } else {
                     climbData[0] += 1;
                 }
+
+                if (!data.get("post_match-did_win").equals("Won")) {
+                    if (data.get("post_match-did_win").equals("Lost")){
+                        winData[1] += 1;
+                    } else {
+                        winData[2] += 1;
+                    }
+                } else {
+                    winData[0] += 1;
+                }
+
                 matchCount++;
             }
             averageHighRate = (double) totalShotsHigh / totalTimeHigh;
@@ -206,57 +218,68 @@ public class TeamStrategyView extends Button {
 
     public void onDraw(Canvas c) {
 //        c.drawRect(0,0,c.getWidth(), c.getHeight(), coverPaint);
-        if (matchCount==1){
-            c.drawText(teamNumber+" (1 match)", c.getWidth()/4, 30, titlePaint);
-        } else {
-            c.drawText(teamNumber+" ("+matchCount+" matches)", c.getWidth()/4, 30, titlePaint);
-        }
+        c.drawText(teamNumber+" record: "+winData[0]+"-"+winData[1]+"-"+winData[2], c.getWidth()/4, 30, titlePaint);
         if (matchCount!= 0) {
             //Draw borders and frame
             c.drawLine(10, 175, c.getWidth()-10, 175, borderPaint);
             c.drawLine(145, 50, 145, 175, borderPaint);
-            c.drawLine(230, 175, 230, c.getHeight()-10, borderPaint);
+            c.drawLine(220, 175, 220, c.getHeight()-10, borderPaint);
             //All climb drawing done here
-            c.drawText("Climb:", 30, 70, textPaint);
+            c.drawText("Climb:", 20, 70, textPaint);
             RectF climb = new RectF();
-            climb.set(40, 80, 120, 160);
+            climb.set(30, 80, 110, 160);
             c.drawOval(climb, climbNoAttempt);
             c.drawArc(climb, -90f, (float) (360 * (climbData[1] + climbData[2]) / matchCount), true, climbAttempted);
             c.drawArc(climb, -90f, (float) (360 * climbData[2] / matchCount), true, climbSuccessful);
             if (climbData[0]*climbData[1]+climbData[1]*climbData[2]+climbData[2]*climbData[0]==0) {
                 if (climbData[2] != 0)
-                    c.drawText(climbData[2] + "", 77f, 125f, dataPaint);
+                    c.drawText(climbData[2] + "", 67f, 125f, dataPaint);
                 if (climbData[1] != 0)
-                    c.drawText(climbData[1] + "", 77f, 125f, dataPaint);
+                    c.drawText(climbData[1] + "", 67f, 125f, dataPaint);
                 if (climbData[0] != 0)
-                    c.drawText(climbData[0] + "", 77f, 125f, dataPaint);
+                    c.drawText(climbData[0] + "", 67f, 125f, dataPaint);
             } else {
                 double angle = 0.0;
                 angle = Math.PI / 2 - (2 * Math.PI * (double) climbData[2] / matchCount / 2);
                 if (climbData[2] != 0)
-                    c.drawText(climbData[2] + "", (float) (77 + 20 * Math.cos(angle)), (float) (125 - 20 * Math.sin(angle)), dataPaint);
+                    c.drawText(climbData[2] + "", (float) (67 + 20 * Math.cos(angle)), (float) (125 - 20 * Math.sin(angle)), dataPaint);
                 angle = Math.PI / 2 - (2 * Math.PI * climbData[2] / matchCount) - (2 * Math.PI * climbData[1] / matchCount / 2);
                 if (climbData[1] != 0)
-                    c.drawText(climbData[1] + "", (float) (77 + 20 * Math.cos(angle)), (float) (125 - 20 * Math.sin(angle)), dataPaint);
+                    c.drawText(climbData[1] + "", (float) (67 + 20 * Math.cos(angle)), (float) (125 - 20 * Math.sin(angle)), dataPaint);
                 angle = Math.PI / 2 - (2 * Math.PI * (climbData[2] + climbData[1]) / matchCount) - (2 * Math.PI * climbData[0] / matchCount / 2);
                 if (climbData[0] != 0)
-                    c.drawText(climbData[0] + "", (float) (77 + 20 * Math.cos(angle)), (float) (125 - 20 * Math.sin(angle)), dataPaint);
+                    c.drawText(climbData[0] + "", (float) (67 + 20 * Math.cos(angle)), (float) (125 - 20 * Math.sin(angle)), dataPaint);
             }
             //All firing drawing done here
             String fireText = "Fire Rate";
             if (hopperSize!=0)
                 fireText = fireText +" (hopper: "+ hopperSize+")";
             c.drawText(fireText, 170, 70, textPaint);
-            c.drawText("High goal: "+(Math.floor(averageHighRate*100)/100)+" b/s", 180, 110, textPaint);
-            c.drawText("Low goal: "+(Math.floor(averageLowRate*100)/100)+" b/s", 180, 150, textPaint);
+            if (totalTimeHigh!=0) {
+                c.drawText("High goal: "+(Math.floor(averageHighRate*100)/100)+" b/s", 180, 110, textPaint);
+            } else {
+                c.drawText("High goal: No data", 180, 110, textPaint);
+            }
+            if(totalTimeLow!=0){
+                c.drawText("Low goal: "+(Math.floor(averageLowRate*100)/100)+" b/s", 180, 150, textPaint);
+            } else {
+                c.drawText("Low goal: No data", 180, 150, textPaint);
+            }
             //All gear numbers done here
-            c.drawText("Gears per match", 30, 210, textPaint);
-            c.drawText("Attempted: "+(Math.floor(averageGearsAttempted*100)/100), 40, 250, textPaint);
-            c.drawText("Successful: "+(Math.floor(averageGearsSuccessful*100)/100), 40, 290, textPaint);
+            c.drawText("Gears per match", 20, 210, textPaint);
+            c.drawText("Attempted: "+(Math.floor(averageGearsAttempted*100)/100), 30, 250, textPaint);
+            c.drawText("Successful: "+(Math.floor(averageGearsSuccessful*100)/100), 30, 290, textPaint);
             //All gear times done here
-            c.drawText("Gear Speeds", 240, 210, textPaint);
-            c.drawText("Pickup: "+(Math.floor(averagePickupTimes*100)/100)+"s", 250, 250, textPaint);
-            c.drawText("Dropoff: "+(Math.floor(averageDropoffTimes*100)/100)+"s", 250, 290, textPaint);
-        }
+            c.drawText("Gear Speeds", 230, 210, textPaint);
+            if (gearsAcquired!=0){
+                c.drawText("Pickup: "+(Math.floor(averagePickupTimes*100)/100)+" s", 240, 250, textPaint);
+            } else {
+                c.drawText("Pickup: No data", 240, 250, textPaint);
+            }
+            if (gearsSuccessful!=0){
+                c.drawText("Dropoff: "+(Math.floor(averageDropoffTimes*100)/100)+" s", 240, 290, textPaint);
+            } else {
+                c.drawText("Dropoff: No data", 240, 290, textPaint);
+            }        }
     }
 }

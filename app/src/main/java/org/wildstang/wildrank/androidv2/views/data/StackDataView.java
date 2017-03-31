@@ -13,14 +13,12 @@ import com.couchbase.lite.Document;
 import org.wildstang.wildrank.androidv2.R;
 import org.wildstang.wildrank.androidv2.models.BallsModel;
 import org.wildstang.wildrank.androidv2.models.GearModel;
-import org.wildstang.wildrank.androidv2.models.StackModel;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 public class StackDataView extends View {
 
@@ -28,26 +26,24 @@ public class StackDataView extends View {
     List<Double> averageDropoffTimes = new ArrayList<>();
     List<Double> averageLowRate = new ArrayList<>();
     List<Double> averageHighRate = new ArrayList<>();
-    List<Integer> GearsAttemptedArray = new ArrayList<>();
-    List<Integer> GearsSuccessfulArray = new ArrayList<>();
+    List<Integer> gearsAttemptedArray = new ArrayList<>();
+    List<Integer> gearsSuccessfulArray = new ArrayList<>();
     List<String> climbStatus = new ArrayList<>();
+    List<String> winStatus = new ArrayList<>();
 
     int matchCount = 0;
     int matchWidth;
-    int columnWidth;
 
-    Paint textPaint, climbSuccessful, climbAttempted, climbNoAttempt, lowPaint, outlinePaint, highPaint, pickupPaint, dropoffPaint, attemptPaint, successPaint, notScoredPaint;
+    Paint textPaint, climbPaint, winPaint, lowPaint, outlinePaint, highPaint, pickupPaint, dropoffPaint, attemptPaint, successPaint, notScoredPaint;
 
     public StackDataView(Context context, AttributeSet attrs) {
         super(context, attrs);
         textPaint = new Paint();
         textPaint.setColor(Color.BLACK);
-        climbNoAttempt = new Paint();
-        climbNoAttempt.setColor(Color.GRAY);
-        climbAttempted = new Paint();
-        climbAttempted.setColor(Color.RED);
-        climbSuccessful = new Paint();
-        climbSuccessful.setColor(Color.GREEN);
+        climbPaint = new Paint();
+        climbPaint.setColor(Color.GRAY);
+        winPaint = new Paint();
+        winPaint.setColor(Color.GREEN);
         highPaint = new Paint();
         highPaint.setColor(Color.argb(255, 128, 0, 128));
         lowPaint = new Paint();
@@ -73,9 +69,10 @@ public class StackDataView extends View {
             averageDropoffTimes = new ArrayList<>();
             averageLowRate = new ArrayList<>();
             averageHighRate = new ArrayList<>();
-            GearsAttemptedArray = new ArrayList<>();
-            GearsSuccessfulArray = new ArrayList<>();
+            gearsAttemptedArray = new ArrayList<>();
+            gearsSuccessfulArray = new ArrayList<>();
             climbStatus = new ArrayList<>();
+            winStatus = new ArrayList<>();
             matchCount = 0;
             invalidate();
             return;
@@ -84,9 +81,10 @@ public class StackDataView extends View {
         averageDropoffTimes = new ArrayList<>();
         averageLowRate = new ArrayList<>();
         averageHighRate = new ArrayList<>();
-        GearsAttemptedArray = new ArrayList<>();
-        GearsSuccessfulArray = new ArrayList<>();
+        gearsAttemptedArray = new ArrayList<>();
+        gearsSuccessfulArray = new ArrayList<>();
         climbStatus = new ArrayList<>();
+        winStatus = new ArrayList<>();
         matchCount = 0;
         // Sorts the matches by match number
         Collections.sort(matchDocs, new MatchDocumentComparator());
@@ -150,10 +148,10 @@ public class StackDataView extends View {
 
                 //manually find fire accuracy for low goal in auto
                 if ((Math.floor((double) data.get("auto-low_shots")))!=0) {
-                    totalTimeHigh += (Math.floor((double) data.get("auto-low_time")));
-                    totalShotsHigh += (Math.floor((double) data.get("auto-low_shots")));
+                    totalTimeLow += (Math.floor((double) data.get("auto-low_time")));
+                    totalShotsLow += (Math.floor((double) data.get("auto-low_shots")));
                 }
-                List<Map<String, Object>> lowData = (List<Map<String, Object>>) data.get("high");
+                List<Map<String, Object>> lowData = (List<Map<String, Object>>) data.get("low");
                 List<BallsModel> matchLow = new ArrayList<>();
                 for (int j = 0; j < lowData.size(); j++) {
                     //Log.d("wildrank", "Low goal for match " + (String) doc.getProperty("match_key") + ": " + gearData.get(j));
@@ -168,8 +166,8 @@ public class StackDataView extends View {
 
 
                 //adds all temporary data to longer term lists
-                GearsAttemptedArray.add(matchGearsAttempted);
-                GearsSuccessfulArray.add(matchGearsSuccessful);
+                gearsAttemptedArray.add(matchGearsAttempted);
+                gearsSuccessfulArray.add(matchGearsSuccessful);
                 if (matchGearsAttempted > 0) {
                     averagePickupTimes.add(totalPickupTime / (double) gearsAcquired);
                 } else {
@@ -191,7 +189,7 @@ public class StackDataView extends View {
                     averageLowRate.add(-1.0);
                 }
                 climbStatus.add((String) data.get("post_match-did_climb"));
-
+                winStatus.add((String) data.get("post_match-did_win"));
 
 
                 matchCount++;
@@ -209,26 +207,11 @@ public class StackDataView extends View {
         } else {
 
             matchWidth = 150;
-            columnWidth = 50;
             // First, compute the dimensions of our drawn items so that they're scaled properly
-            if (matchCount * matchWidth > c.getWidth()){
+            if ((matchCount * matchWidth + 45) > c.getWidth()){
                 Log.d("wallace", ""+c.getWidth());
-                columnWidth = c.getWidth()/matchCount/3;
-                matchWidth = columnWidth*3;
+                matchWidth = (c.getWidth() - 45)/matchCount;
             }
-            //resize font for different amounts of data
-            if (matchCount>7){
-                textPaint.setTextSize(19f-matchCount);
-                highPaint.setTextSize(19f-matchCount);
-                lowPaint.setTextSize(19f-matchCount);
-                successPaint.setTextSize(19f-matchCount);
-                attemptPaint.setTextSize(19f-matchCount);
-                pickupPaint.setTextSize(19f-matchCount);
-                dropoffPaint.setTextSize(19f-matchCount);
-
-            }
-            String climb;
-            Paint climbPaint;
             double highRate;
             double lowRate;
             double pickup;
@@ -236,40 +219,33 @@ public class StackDataView extends View {
             int gearsAttempted;
             int gearsSuccessful;
             for (int i = 0; i<matchCount; i++) {
-                climb = climbStatus.get(i);
-                if (climb.equals("Unsuccessful Attempt")) climb = "Unsuccessful";
-                highRate = (double) Math.round(averageHighRate.get(i));
-                if (averageHighRate.get(i)==-1.0){
-                    highRate = 0;
-                }
-                lowRate = (double) Math.round(averageLowRate.get(i));
-                if (averageLowRate.get(i)==-1.0){
-                    lowRate = 0;
-                }
-                pickup = (double) Math.round(averagePickupTimes.get(i)*100)/100;
-                if (averagePickupTimes.get(i)==-1.0){
-                    pickup = 0;
-                }
-                dropoff = (double) Math.round(averageDropoffTimes.get(i)*100)/100;
-                if (averageDropoffTimes.get(i)==-1.0){
-                    dropoff = 0;
-                }
-                climbPaint = climbNoAttempt;
-                if (!climb.equals("No Attempt")){
-                    climbPaint = climbAttempted;
-                    if (climb.equals("Successful")){
-                        climbPaint = climbSuccessful;
+                highRate = (averageHighRate.get(i));
+                lowRate = (averageLowRate.get(i));
+                pickup = (averagePickupTimes.get(i));
+                dropoff = (averageDropoffTimes.get(i));
+                winPaint.setColor(Color.GREEN);
+                if (!winStatus.get(i).equals("Won")){
+                    winPaint.setColor(Color.RED);
+                    if (winStatus.get(i).equals("Tied")){
+                        winPaint.setColor(Color.BLUE);
                     }
                 }
-                gearsAttempted = GearsAttemptedArray.get(i);
-                gearsSuccessful = GearsSuccessfulArray.get(i);
+                climbPaint.setColor(Color.GRAY);
+                if (!climbStatus.get(i).equals("No Attempt")){
+                    climbPaint.setColor(Color.RED);
+                    if (climbStatus.get(i).equals("Successful")){
+                        climbPaint.setColor(Color.GREEN);
+                    }
+                }
+                gearsAttempted = gearsAttemptedArray.get(i);
+                gearsSuccessful = gearsSuccessfulArray.get(i);
 
 
                 //Match Number
-                c.drawText("Match "+(i+1), matchWidth*i+columnWidth, 40, textPaint);
+                c.drawText("Match "+(i+1), (float) (matchWidth*(i+.5)-25), 30, winPaint);
                 //climb Data
-                c.drawRect(matchWidth*i+5, 55, matchWidth*(i+1)-5, 75, climbPaint);
-                c.drawText("Climb: "+climb, matchWidth*i+(textPaint.getTextSize()+3), 70, textPaint);
+                c.drawRect(matchWidth*i+5, 45, matchWidth*(i+1)-5, 65, climbPaint);
+                c.drawText("Climb", (float) (matchWidth*(i+.5)-15), 60, textPaint);
                 //gear Fire Rate graph
                 c.drawLine(matchWidth*i, 200, matchWidth*(i+1), 200, outlinePaint);
                 c.drawLine(matchWidth*(i+1), 200, matchWidth*(i+1), 100, outlinePaint);
@@ -278,21 +254,33 @@ public class StackDataView extends View {
                 c.drawLine(matchWidth*(i+1)-3, 140, matchWidth*(i+1)+3, 140, outlinePaint);
                 c.drawLine(matchWidth*(i+1)-3, 120, matchWidth*(i+1)+3, 120, outlinePaint);
                 c.drawLine(matchWidth*(i+1)-3, 100, matchWidth*(i+1)+3, 100, outlinePaint);
-                c.drawCircle((float) (matchWidth*(i+.5)),(float) (200-5*highRate), 3, highPaint);
-                c.drawCircle((float) (matchWidth*(i+.5)),(float) (200-5*lowRate), 3, lowPaint);
-                if (i>0){
-                    double prevHigh = 0;
-                    double prevLow = 0;
-                    prevHigh = (double) Math.round(averageHighRate.get(i-1));
-                    if (averageHighRate.get(i-1)==-1.0){
-                        prevHigh = 0;
+                if (averageHighRate.get(i)!=-1) {
+                    c.drawCircle((float) (matchWidth * (i + .5)), (float) (200 - 5 * highRate), 4, highPaint);
+                    if (i > 0) {
+                        int prev = 1;
+                        while ((prev<i)&&(averageHighRate.get(i-prev)==-1)){
+                            prev++;
+                        }
+                        if (prev<=i) {
+                            double prevValue;
+                            prevValue = averageHighRate.get(i - prev);
+                            c.drawLine((float) (matchWidth * (i - prev + .5)), (float) (200 - 5 * prevValue), (float) (matchWidth * (i + .5)), (float) (200 - 5 * highRate), highPaint);
+                        }
                     }
-                    prevLow = (double) Math.round(averageLowRate.get(i-1));
-                    if (averageLowRate.get(i-1)==-1.0){
-                        prevLow = 0;
+                }
+                if (averageLowRate.get(i)!=-1) {
+                    c.drawCircle((float) (matchWidth * (i + .5)), (float) (200 - 5 * lowRate), 3, lowPaint);
+                    if (i > 0) {
+                        int prev = 1;
+                        while ((prev<=i)&&(averageLowRate.get(i-prev)==-1)){
+                            prev++;
+                        }
+                        if (prev<=i) {
+                            double prevValue;
+                            prevValue = averageLowRate.get(i - prev);
+                            c.drawLine((float) (matchWidth * (i - prev + .5)), (float) (200 - 5 * prevValue), (float) (matchWidth * (i + .5)), (float) (200 - 5 * lowRate), lowPaint);
+                        }
                     }
-                    c.drawLine((float) (matchWidth*(i-.5)), (float) (200-5*prevHigh), (float) (matchWidth*(i+.5)),(float) (200-5*highRate), highPaint);
-                    c.drawLine((float) (matchWidth*(i-.5)), (float) (200-5*prevLow), (float) (matchWidth*(i+.5)),(float) (200-5*lowRate), lowPaint);
                 }
                 //gear Gear Time graph
                 c.drawLine(matchWidth*i, 350, matchWidth*(i+1), 350, outlinePaint);
@@ -302,21 +290,34 @@ public class StackDataView extends View {
                 c.drawLine(matchWidth*(i+1)-3, 305, matchWidth*(i+1)+3, 305, outlinePaint);
                 c.drawLine(matchWidth*(i+1)-3, 290, matchWidth*(i+1)+3, 290, outlinePaint);
                 c.drawLine(matchWidth*(i+1)-3, 275, matchWidth*(i+1)+3, 275, outlinePaint);
-                c.drawCircle((float) (matchWidth*(i+.5)),(float) (350-5*pickup), 3, pickupPaint);
-                c.drawCircle((float) (matchWidth*(i+.5)),(float) (350-5*dropoff), 3, dropoffPaint);
-                if (i>0){
-                    double prevPickup = 0;
-                    double prevDropoff = 0;
-                    prevPickup = (double) Math.round(averagePickupTimes.get(i-1));
-                    if (averagePickupTimes.get(i-1)==-1.0){
-                        prevPickup = 0;
+                c.drawLine(matchWidth*(i+1)-3, 260, matchWidth*(i+1)+3, 260, outlinePaint);
+                if (averagePickupTimes.get(i)!=-1) {
+                    c.drawCircle((float) (matchWidth*(i+.5)),(float) (350-5*pickup), 4, pickupPaint);
+                    if (i > 0) {
+                        int prev = 1;
+                        while ((prev<=i)&&(averagePickupTimes.get(i-prev)==-1)){
+                            prev++;
+                        }
+                        if (prev<=i) {
+                            double prevValue;
+                            prevValue = averagePickupTimes.get(i - prev);
+                            c.drawLine((float) (matchWidth * (i - prev + .5)), (float) (350 - 5 * prevValue), (float) (matchWidth * (i + .5)), (float) (350 - 5 * pickup), pickupPaint);
+                        }
                     }
-                    prevDropoff = (double) Math.round(averageDropoffTimes.get(i-1));
-                    if (averageDropoffTimes.get(i-1)==-1.0){
-                        prevDropoff = 0;
+                }
+                if (averageDropoffTimes.get(i)!=-1) {
+                    c.drawCircle((float) (matchWidth*(i+.5)),(float) (350-5*dropoff), 3, dropoffPaint);
+                    if (i > 0) {
+                        int prev = 1;
+                        while ((prev<=i)&&(averageDropoffTimes.get(i-prev)==-1)){
+                            prev++;
+                        }
+                        if (prev<=i) {
+                            double prevValue;
+                            prevValue = averageDropoffTimes.get(i - prev);
+                            c.drawLine((float) (matchWidth * (i - prev + .5)), (float) (350 - 5 * prevValue), (float) (matchWidth * (i + .5)), (float) (350 - 5 * dropoff), dropoffPaint);
+                        }
                     }
-                    c.drawLine((float) (matchWidth*(i-.5)), (float) (350-5*prevPickup), (float) (matchWidth*(i+.5)),(float) (350-5*pickup), pickupPaint);
-                    c.drawLine((float) (matchWidth*(i-.5)), (float) (350-5*prevDropoff), (float) (matchWidth*(i+.5)),(float) (350-5*dropoff), dropoffPaint);
                 }
                 //gear Gear Numbers graph
                 c.drawLine(matchWidth*i, 500, matchWidth*(i+1), 500, outlinePaint);
@@ -326,17 +327,17 @@ public class StackDataView extends View {
                 c.drawLine(matchWidth*(i+1)-3, 440, matchWidth*(i+1)+3, 440, outlinePaint);
                 c.drawLine(matchWidth*(i+1)-3, 420, matchWidth*(i+1)+3, 420, outlinePaint);
                 c.drawLine(matchWidth*(i+1)-3, 400, matchWidth*(i+1)+3, 400, outlinePaint);
-                c.drawCircle((float) (matchWidth*(i+.5)),(float) (500-10*gearsAttempted), 3, attemptPaint);
+                c.drawCircle((float) (matchWidth*(i+.5)),(float) (500-10*gearsAttempted), 4, attemptPaint);
                 c.drawCircle((float) (matchWidth*(i+.5)),(float) (500-10*gearsSuccessful), 3, successPaint);
                 if (i>0){
                     double prevAttempt = 0;
                     double prevSuccess = 0;
-                    prevAttempt = (double) Math.round(GearsAttemptedArray.get(i-1));
-                    if (GearsAttemptedArray.get(i-1)==-1.0){
+                    prevAttempt = (double) gearsAttemptedArray.get(i-1);
+                    if (gearsAttemptedArray.get(i-1)==-1.0){
                         prevAttempt = 0;
                     }
-                    prevSuccess = (double) Math.round(GearsSuccessfulArray.get(i-1));
-                    if (GearsSuccessfulArray.get(i-1)==-1.0){
+                    prevSuccess = (double) gearsSuccessfulArray.get(i-1);
+                    if (gearsSuccessfulArray.get(i-1)==-1.0){
                         prevSuccess = 0;
                     }
                     c.drawLine((float) (matchWidth*(i-.5)), (float) (500-10*prevAttempt), (float) (matchWidth*(i+.5)),(float) (500-10*gearsAttempted), attemptPaint);
@@ -345,34 +346,35 @@ public class StackDataView extends View {
             }
             // Fire Rate Info
             c.drawText("Fire Rates (balls/second)", 15, 90, textPaint);
-            c.drawText("High goal rate", matchWidth, 90, highPaint);
-            c.drawText("Low goal rate", matchWidth+80, 90, lowPaint);
-            c.drawText("0 b/s", matchWidth*matchCount+3, 200, textPaint);
-            c.drawText("4 b/s", matchWidth*matchCount+3, 180, textPaint);
-            c.drawText("8 b/s", matchWidth*matchCount+3, 160, textPaint);
-            c.drawText("12 b/s", matchWidth*matchCount+3, 140, textPaint);
-            c.drawText("16 b/s", matchWidth*matchCount+3, 120, textPaint);
-            c.drawText("20 b/s", matchWidth*matchCount+3, 100, textPaint);
+            c.drawText("High goal rate", 155, 90, highPaint);
+            c.drawText("Low goal rate", 235, 90, lowPaint);
+            c.drawText("0 b/s", matchWidth*matchCount+3, 205, textPaint);
+            c.drawText("4 b/s", matchWidth*matchCount+3, 185, textPaint);
+            c.drawText("8 b/s", matchWidth*matchCount+3, 165, textPaint);
+            c.drawText("12 b/s", matchWidth*matchCount+3, 145, textPaint);
+            c.drawText("16 b/s", matchWidth*matchCount+3, 125, textPaint);
+            c.drawText("20 b/s", matchWidth*matchCount+3, 105, textPaint);
             // Gear Time Info
             c.drawText("Gear times (seconds)", 15, 240, textPaint);
-            c.drawText("Pickup time", matchWidth, 240, dropoffPaint);
-            c.drawText("Dropoff time", matchWidth+80, 240, pickupPaint);
-            c.drawText("0 s", matchWidth*matchCount+3, 350, textPaint);
-            c.drawText("3 s", matchWidth*matchCount+3, 335, textPaint);
-            c.drawText("6 s", matchWidth*matchCount+3, 320, textPaint);
-            c.drawText("9 s", matchWidth*matchCount+3, 305, textPaint);
-            c.drawText("12 s", matchWidth*matchCount+3, 290, textPaint);
-            c.drawText("15 s", matchWidth*matchCount+3, 275, textPaint);
+            c.drawText("Pickup time", 150, 240, pickupPaint);
+            c.drawText("Dropoff time", 230, 240, dropoffPaint);
+            c.drawText("0 s", matchWidth*matchCount+3, 355, textPaint);
+            c.drawText("3 s", matchWidth*matchCount+3, 340, textPaint);
+            c.drawText("6 s", matchWidth*matchCount+3, 325, textPaint);
+            c.drawText("9 s", matchWidth*matchCount+3, 310, textPaint);
+            c.drawText("12 s", matchWidth*matchCount+3, 295, textPaint);
+            c.drawText("15 s", matchWidth*matchCount+3, 280, textPaint);
+            c.drawText("18 s", matchWidth*matchCount+3, 265, textPaint);
             // Gear Number Info
             c.drawText("Gears in a Match (gears)", 15, 390, textPaint);
-            c.drawText("Attempted gears", matchWidth, 390, attemptPaint);
-            c.drawText("Successful gears", matchWidth+90, 390, successPaint);
-            c.drawText("0", matchWidth*matchCount+3, 500, textPaint);
-            c.drawText("2", matchWidth*matchCount+3, 480, textPaint);
-            c.drawText("4", matchWidth*matchCount+3, 460, textPaint);
-            c.drawText("6", matchWidth*matchCount+3, 440, textPaint);
-            c.drawText("8", matchWidth*matchCount+3, 420, textPaint);
-            c.drawText("10", matchWidth*matchCount+3, 400, textPaint);
+            c.drawText("Attempted gears", 150, 390, attemptPaint);
+            c.drawText("Successful gears", 240, 390, successPaint);
+            c.drawText("0", matchWidth*matchCount+3, 505, textPaint);
+            c.drawText("2", matchWidth*matchCount+3, 485, textPaint);
+            c.drawText("4", matchWidth*matchCount+3, 465, textPaint);
+            c.drawText("6", matchWidth*matchCount+3, 445, textPaint);
+            c.drawText("8", matchWidth*matchCount+3, 425, textPaint);
+            c.drawText("10", matchWidth*matchCount+3, 405, textPaint);
         }
     }
 

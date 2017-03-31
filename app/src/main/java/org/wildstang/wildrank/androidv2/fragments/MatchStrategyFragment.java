@@ -70,8 +70,6 @@ public class MatchStrategyFragment extends Fragment {
                 toggleTeamFocused();
             }
         });
-//        stackView.setVisibility(View.GONE);
-//        exitFocusButton.setVisibility(View.GONE);
         focusLayout.setVisibility(View.GONE);
         mStrategyViews.add((TeamStrategyView) view.findViewById(R.id.one));
         mStrategyViews.add((TeamStrategyView) view.findViewById(R.id.two));
@@ -79,12 +77,6 @@ public class MatchStrategyFragment extends Fragment {
         mStrategyViews.add((TeamStrategyView) view.findViewById(R.id.four));
         mStrategyViews.add((TeamStrategyView) view.findViewById(R.id.five));
         mStrategyViews.add((TeamStrategyView) view.findViewById(R.id.six));
-//        mStrategyViews.get(0).setBackgroundColor(Color.WHITE);
-//        mStrategyViews.get(1).setBackgroundColor(Color.WHITE);
-//        mStrategyViews.get(2).setBackgroundColor(Color.WHITE);
-//        mStrategyViews.get(3).setBackgroundColor(Color.WHITE);
-//        mStrategyViews.get(4).setBackgroundColor(Color.WHITE);
-//        mStrategyViews.get(5).setBackgroundColor(Color.WHITE);
         try {
             Document matchDoc = DatabaseManager.getInstance(getContext()).getMatchFromKey(mMatchKey);
             Object[] teamObjects = Utilities.getTeamsFromMatchDocument(matchDoc);
@@ -152,12 +144,6 @@ public class MatchStrategyFragment extends Fragment {
 
     private void loadInfoForTeam(String teamKey) {
         try {
-//            View view = (StackDataView)
-//            tabs = (SlidingTabs) view.findViewById(R.id.tabs);
-//            pager = (ViewPager) view.findViewById(R.id.view_pager);
-//            pager.setAdapter(new TeamSummariesFragmentPagerAdapter(getFragmentManager()));
-//            tabs.setViewPager(pager);
-//            Log.d("Test", teamKey);
             currentTeamDocs = new ArrayList<Document>();
             DatabaseManager db = DatabaseManager.getInstance(getActivity());
             currentTeamDocs = db.getMatchResultsForTeam(teamKey);
@@ -194,12 +180,8 @@ public class MatchStrategyFragment extends Fragment {
 
     public void toggleTeamFocused() {
         if (isTeamFocus()) {
-//            stackView.setVisibility(View.GONE);
-//            exitFocusButton.setVisibility(View.GONE);
             focusLayout.setVisibility(View.GONE);
         } else {
-//            stackView.setVisibility(View.VISIBLE);
-//            exitFocusButton.setVisibility(View.VISIBLE);
             focusLayout.setVisibility(View.VISIBLE);
         }
     }

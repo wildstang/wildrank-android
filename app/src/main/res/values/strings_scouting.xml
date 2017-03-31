@@ -23,6 +23,12 @@
         <item>100%</item>
     </string-array>
 
+    <string-array name="victory">
+        <item>Won</item>
+        <item>Lost</item>
+        <item>Tied</item>
+    </string-array>
+
     <string-array name="fire_rate">
         <item>None</item>
         <item>Slow</item>

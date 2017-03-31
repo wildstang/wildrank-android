@@ -23,7 +23,7 @@ public class TeamSummariesStackFragment extends TeamSummariesFragment {
         v.findViewById(R.id.stack_view_help).setOnClickListener(view -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             builder.setTitle("Help");
-            builder.setMessage("Stacks highlighted in red were marked as \"Dropped\".\n\nStacks highlighted in blue were marked as \"Not scored\".\n\nEmpty columns represent matches where no data was recorded for this team.");
+            builder.setMessage("Matches with missing points had no data recorded for those categories");
             builder.setPositiveButton("OK", (dialog, which) -> dialog.dismiss());
             builder.create().show();
         });

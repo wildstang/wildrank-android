@@ -16,7 +16,7 @@
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_weight="1"
-            android:background="@drawable/fragment_focus" />
+            android:background="@drawable/fragment_match_strategy_focus" />
 
         <View
             android:layout_width="3dp"
@@ -28,7 +28,7 @@
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_weight="1"
-            android:background="@drawable/fragment_focus" />
+            android:background="@drawable/fragment_match_strategy_focus" />
 
         <View
             android:layout_width="3dp"
@@ -40,7 +40,7 @@
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_weight="1"
-            android:background="@drawable/fragment_focus" />
+            android:background="@drawable/fragment_match_strategy_focus" />
 
     </LinearLayout>
 
@@ -61,7 +61,7 @@
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_weight="1"
-            android:background="@drawable/fragment_focus" />
+            android:background="@drawable/fragment_match_strategy_focus" />
 
         <View
             android:layout_width="3dp"
@@ -73,7 +73,7 @@
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_weight="1"
-            android:background="@drawable/fragment_focus" />
+            android:background="@drawable/fragment_match_strategy_focus" />
 
         <View
             android:layout_width="3dp"
@@ -85,13 +85,13 @@
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_weight="1"
-            android:background="@drawable/fragment_focus" />
+            android:background="@drawable/fragment_match_strategy_focus" />
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/focus"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
         android:orientation="vertical">
 
         <Button
@@ -99,6 +99,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
             android:text="@string/exit_focus"/>
 
         <org.wildstang.wildrank.androidv2.views.data.StackDataView

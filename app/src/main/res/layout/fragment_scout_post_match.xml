@@ -138,6 +138,16 @@
             app:values="@array/speed"
             app:sortThis="false" />
 
+        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingSpinnerView
+            android:id="@+id/did_win"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:key="post_match-did_win"
+            app:label="This team:"
+            app:values="@array/victory"
+            app:sortThis="false" />
+
+
     </LinearLayout>
 
     <LinearLayout
