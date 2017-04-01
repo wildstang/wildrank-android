@@ -95,7 +95,7 @@
 
     <string-array name="drives">
         <item>Tank</item>
-        <item>Mechanum</item>
+        <item>Mecanum</item>
         <item>H-Drive/Slide</item>
         <item>Swerve</item>
         <item>Holonomic</item>

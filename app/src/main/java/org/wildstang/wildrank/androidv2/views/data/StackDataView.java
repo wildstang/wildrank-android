@@ -129,8 +129,8 @@ public class StackDataView extends View {
                     }
                 }
 
-                //manually find fire accuracy for high goal in auto
-                if ((Math.floor((double) data.get("auto-high_shots")))!=0) {
+                //manually find fire rate for high goal in auto
+                if ((Math.floor((double) data.get("auto-high_time")))!=0) {
                     totalTimeHigh += (Math.floor((double) data.get("auto-high_time")));
                     totalShotsHigh += (Math.floor((double) data.get("auto-high_shots")));
                 }
@@ -140,14 +140,14 @@ public class StackDataView extends View {
                     //Log.d("wildrank", "High goal for match " + (String) doc.getProperty("match_key") + ": " + highData.get(j));
                     BallsModel high = BallsModel.fromMap(highData.get(j));
                     matchHigh.add(high);
-                    if (high.shotsMade!=0) {
+                    if (high.timeTaken!=0) {
                         totalShotsHigh += high.shotsMade;
-                        totalTimeHigh++;
+                        totalTimeHigh += high.timeTaken;
                     }
                 }
 
-                //manually find fire accuracy for low goal in auto
-                if ((Math.floor((double) data.get("auto-low_shots")))!=0) {
+                //manually find fire rate for low goal in auto
+                if ((Math.floor((double) data.get("auto-low_time")))!=0) {
                     totalTimeLow += (Math.floor((double) data.get("auto-low_time")));
                     totalShotsLow += (Math.floor((double) data.get("auto-low_shots")));
                 }
@@ -157,7 +157,7 @@ public class StackDataView extends View {
                     //Log.d("wildrank", "Low goal for match " + (String) doc.getProperty("match_key") + ": " + gearData.get(j));
                     BallsModel low = BallsModel.fromMap(lowData.get(j));
                     matchLow.add(low);
-                    if (low.shotsMade!=0) {
+                    if (low.timeTaken!=0) {
                         totalShotsLow += low.shotsMade;
                         totalTimeLow+= low.timeTaken;
                     }
@@ -168,7 +168,7 @@ public class StackDataView extends View {
                 //adds all temporary data to longer term lists
                 gearsAttemptedArray.add(matchGearsAttempted);
                 gearsSuccessfulArray.add(matchGearsSuccessful);
-                if (matchGearsAttempted > 0) {
+                if (gearsAcquired > 0) {
                     averagePickupTimes.add(totalPickupTime / (double) gearsAcquired);
                 } else {
                     averagePickupTimes.add(-1.0);
@@ -258,7 +258,7 @@ public class StackDataView extends View {
                     c.drawCircle((float) (matchWidth * (i + .5)), (float) (200 - 5 * highRate), 4, highPaint);
                     if (i > 0) {
                         int prev = 1;
-                        while ((prev<i)&&(averageHighRate.get(i-prev)==-1)){
+                        while ((prev<=i)&&(averageHighRate.get(i-prev)==-1)){
                             prev++;
                         }
                         if (prev<=i) {

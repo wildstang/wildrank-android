@@ -58,8 +58,8 @@ public class ScoutingNumberView extends ScoutingView {
         }
     }
 
-    public int getValue() {
-        return Integer.parseInt(valueView.getText().toString());
+    public String getValue() {
+        return valueView.getText().toString();
     }
 
     public void setValue(double value) {

@@ -68,8 +68,16 @@ public class ScoutingBallsView extends ScoutingView implements View.OnClickListe
         int id = v.getId();
         if (id == R.id.finish_balls) {
             BallsModel data = new BallsModel();
-            data.timeTaken = timeTakenNumber.getValue();
-            data.shotsMade = shotsMadeNumber.getValue();
+            if (!timeTakenNumber.getValue().equals("")) {
+                data.timeTaken = Integer.parseInt(timeTakenNumber.getValue());
+            } else {
+                data.timeTaken = 0;
+            }
+            if (!shotsMadeNumber.getValue().equals("")) {
+                data.shotsMade = Integer.parseInt(shotsMadeNumber.getValue());
+            } else {
+                data.shotsMade = 0;
+            }
 
             // If the stack was not marked as preexisting, set the preexisting height to 0
 

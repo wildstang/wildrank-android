@@ -17,7 +17,7 @@ public class GearModel {
 
     public GearModel() {
         // Initialize everything to zero/false
-        pickupType = "Player Station";
+        pickupType = "From Auto";
         pickupSpeed = 15;
         dropoffSpeed = 15;
         gearEnd = "On peg";
