@@ -60,7 +60,7 @@ public class TeamStrategyView extends Button {
     private List<Document> matchDocs;
     private  Document pitDocs;
 
-    Paint coverPaint, textPaint, titlePaint, dataPaint, climbSuccessful, climbAttempted, climbNoAttempt, lowPaint, outlinePaint, highPaint, pickupPaint, dropoffPaint, attemptPaint, successPaint, borderPaint;
+    Paint coverPaint, textPaint, titlePaint, dataPaint, climbSuccessful, climbAttempted, climbNoAttempt, outlinePaint, borderPaint;
 
 
 
@@ -85,18 +85,6 @@ public class TeamStrategyView extends Button {
         climbAttempted.setColor(Color.RED);
         climbSuccessful = new Paint();
         climbSuccessful.setColor(Color.GREEN);
-        highPaint = new Paint();
-        highPaint.setColor(Color.argb(255, 32, 32, 255));
-        lowPaint = new Paint();
-        lowPaint.setColor(Color.argb(255, 0, 0, 128));
-        pickupPaint = new Paint();
-        pickupPaint.setColor(Color.argb(255, 32, 255, 32));
-        dropoffPaint = new Paint();
-        dropoffPaint.setColor(Color.argb(255, 0, 128, 0));
-        attemptPaint = new Paint();
-        attemptPaint.setColor(Color.argb(255, 255, 32, 32));
-        successPaint = new Paint();
-        successPaint.setColor(Color.argb(255, 128, 0, 0));
         outlinePaint = new Paint();
         outlinePaint.setColor(Color.BLACK);
         outlinePaint.setStyle(Paint.Style.STROKE);
@@ -168,7 +156,7 @@ public class TeamStrategyView extends Button {
                     totalTimeHigh += (Math.floor((double) data.get("auto-low_time")));
                     totalShotsHigh += (Math.floor((double) data.get("auto-low_shots")));
                 }
-                List<Map<String, Object>> lowData = (List<Map<String, Object>>) data.get("high");
+                List<Map<String, Object>> lowData = (List<Map<String, Object>>) data.get("low");
                 List<BallsModel> matchLow = new ArrayList<>();
                 for (int j = 0; j < lowData.size(); j++) {
                     //Log.d("wildrank", "Low goal for match " + (String) doc.getProperty("match_key") + ": " + gearData.get(j));

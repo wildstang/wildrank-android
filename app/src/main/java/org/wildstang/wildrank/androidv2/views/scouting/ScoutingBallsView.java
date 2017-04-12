@@ -91,6 +91,6 @@ public class ScoutingBallsView extends ScoutingView implements View.OnClickListe
     private void updateViewsFromData(BallsModel data) {
         timeTakenNumber.setNullValue();
         shotsMadeNumber.setNullValue();
-        ballLocationSpinner.setSelectionBasedOnText("Player Station");
+        ballLocationSpinner.setSelectionBasedOnText("Hopper");
     }
 }

@@ -63,6 +63,13 @@
             app:key="post_match-damaged"
             app:label="Damaged" />
 
+        <org.wildstang.wildrank.androidv2.views.scouting.ScoutingCheckboxView
+            android:id="@+id/froze"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:key="post_match-froze"
+            app:label="Froze" />
+
     </LinearLayout>
 
     <LinearLayout

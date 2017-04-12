@@ -46,11 +46,11 @@
     </string-array>
 
     <string-array name="speed">
-        <item>Very Slow</item>
-        <item>Slow</item>
-        <item>Medium</item>
-        <item>Fast</item>
         <item>Very Fast</item>
+        <item>Fast</item>
+        <item>Medium</item>
+        <item>Slow</item>
+        <item>Very Slow</item>
     </string-array>
 
     <string-array name="gear_speed">
@@ -110,9 +110,9 @@
     </string-array>
 
     <string-array name="position_match">
-        <item>Boiler</item>
-        <item>Center</item>
         <item>Retrieval</item>
+        <item>Center</item>
+        <item>Boiler</item>
     </string-array>
 
     <string-array name="auto_shoot">
@@ -132,10 +132,10 @@
     </string-array>
 
     <string-array name="gear_pickup">
+        <item>From Auto</item>
         <item>Player Station</item>
         <item>Ground</item>
         <item>Other robot</item>
-        <item>From Auto</item>
     </string-array>
 
     <string-array name="climb">
@@ -158,9 +158,9 @@
     </string-array>
 
     <string-array name="ball_collection">
+        <item>Hopper</item>
         <item>Player Station</item>
         <item>Ground</item>
-        <item>Hopper</item>
     </string-array>
 
     <string-array name="player_stations">
@@ -168,12 +168,6 @@
         <item>Right</item>
         <item>Both</item>
         <item>None</item>
-    </string-array>
-
-    <string-array name="locations">
-        <item>HP Station</item>
-        <item>Landfill</item>
-        <item>Other???</item>
     </string-array>
 
     <string name="autonomous_explanation">Please only count balls and gears that have actually been scored.</string>

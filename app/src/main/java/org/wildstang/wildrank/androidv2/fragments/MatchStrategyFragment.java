@@ -42,6 +42,7 @@ public class MatchStrategyFragment extends Fragment {
     Button exitFocusButton;
     LinearLayout focusLayout;
     List<Document> currentTeamDocs;
+    Document currentPitDoc;
     public static MatchStrategyFragment newInstance(String matchKey) {
         MatchStrategyFragment f = new MatchStrategyFragment();
         Bundle b = new Bundle();
@@ -146,6 +147,7 @@ public class MatchStrategyFragment extends Fragment {
         try {
             currentTeamDocs = new ArrayList<Document>();
             DatabaseManager db = DatabaseManager.getInstance(getActivity());
+//            currentPitDocs = db.getInternalDatabase().getExistingDocument("pit:" + teamKey);
             currentTeamDocs = db.getMatchResultsForTeam(teamKey);
 
         } catch (CouchbaseLiteException | IOException e) {
