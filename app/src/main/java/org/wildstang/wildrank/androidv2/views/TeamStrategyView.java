@@ -34,20 +34,18 @@ public class TeamStrategyView extends Button {
 
     private double totalPickupTimes = 0.0;
     private double totalDropoffTimes = 0.0;
-    private double totalTimeHigh = 0.0;
-    private double totalTimeLow = 0.0;
+    private double lowBallsTeleopMatch = 0.0;
+    private double totalLowBallsTeleop = 0.0;
     private int gearsAttempted = 0;
     private int gearsSuccessful = 0;
-    private int totalShotsHigh = 0;
-    private int totalShotsLow = 0;
     int gearsAcquired = 0;
     private int hopperSize = 0;
 
 
     private double averagePickupTimes = 0.0;
     private double averageDropoffTimes = 0.0;
-    private double averageLowRate = 0.0;
-    private double averageHighRate = 0.0;
+    private double averagePointsPerMatch = 0.0;
+    private double maximumPointsPerMatch = 0.0;
     private double averageGearsAttempted = 0.0;
     private double averageGearsSuccessful = 0.0;
 
@@ -70,7 +68,7 @@ public class TeamStrategyView extends Button {
         coverPaint.setColor(Color.WHITE);
         textPaint = new Paint();
         textPaint.setColor(Color.BLACK);
-        textPaint.setTextSize(24);
+        textPaint.setTextSize(23);
         titlePaint = new Paint();
         titlePaint.setColor(Color.BLACK);
         titlePaint.setTextSize(28);
@@ -135,9 +133,8 @@ public class TeamStrategyView extends Button {
                 }
 
                 //manually find fire accuracy for high goal in auto
-                if ((Math.floor((double) data.get("auto-high_shots")))!=0) {
-                    totalTimeHigh += (Math.floor((double) data.get("auto-high_time")));
-                    totalShotsHigh += (Math.floor((double) data.get("auto-high_shots")));
+                if ((Math.floor((double) data.get("auto-high_time")))!=0) {
+                    lowBallsTeleopMatch += 9*(Math.floor((double) data.get("auto-high_shots")));
                 }
                 List<Map<String, Object>> highData = (List<Map<String, Object>>) data.get("high");
                 List<BallsModel> matchHigh = new ArrayList<>();
@@ -145,16 +142,14 @@ public class TeamStrategyView extends Button {
                     //Log.d("wildrank", "High goal for match " + (String) doc.getProperty("match_key") + ": " + highData.get(j));
                     BallsModel high = BallsModel.fromMap(highData.get(j));
                     matchHigh.add(high);
-                    if (high.shotsMade!=0) {
-                        totalShotsHigh += high.shotsMade;
-                        totalTimeHigh++;
+                    if (high.timeTaken!=0) {
+                        lowBallsTeleopMatch += 3*high.shotsMade;
                     }
                 }
 
                 //manually find fire accuracy for low goal in auto
-                if ((Math.floor((double) data.get("auto-low_shots")))!=0) {
-                    totalTimeHigh += (Math.floor((double) data.get("auto-low_time")));
-                    totalShotsHigh += (Math.floor((double) data.get("auto-low_shots")));
+                if ((Math.floor((double) data.get("auto-low_time")))!=0) {
+                    lowBallsTeleopMatch += 3*(Math.floor((double) data.get("auto-low_shots")));
                 }
                 List<Map<String, Object>> lowData = (List<Map<String, Object>>) data.get("low");
                 List<BallsModel> matchLow = new ArrayList<>();
@@ -162,9 +157,8 @@ public class TeamStrategyView extends Button {
                     //Log.d("wildrank", "Low goal for match " + (String) doc.getProperty("match_key") + ": " + gearData.get(j));
                     BallsModel low = BallsModel.fromMap(lowData.get(j));
                     matchLow.add(low);
-                    if (low.shotsMade!=0) {
-                        totalShotsLow += low.shotsMade;
-                        totalTimeLow+= low.timeTaken;
+                    if (low.timeTaken!=0) {
+                        lowBallsTeleopMatch += low.shotsMade;
                     }
 
                 }
@@ -188,11 +182,12 @@ public class TeamStrategyView extends Button {
                 } else {
                     winData[0] += 1;
                 }
-
+                totalLowBallsTeleop += lowBallsTeleopMatch;
+                if (lowBallsTeleopMatch>maximumPointsPerMatch) maximumPointsPerMatch = lowBallsTeleopMatch;
+                lowBallsTeleopMatch = 0.0;
                 matchCount++;
             }
-            averageHighRate = (double) totalShotsHigh / totalTimeHigh;
-            averageLowRate = (double) totalShotsLow / totalTimeLow;
+            averagePointsPerMatch = (double) totalLowBallsTeleop / matchCount;
             averageDropoffTimes = totalDropoffTimes / gearsSuccessful;
             averagePickupTimes = totalPickupTimes / gearsAcquired;
             averageGearsAttempted = (double) gearsAttempted / matchCount;
@@ -210,7 +205,7 @@ public class TeamStrategyView extends Button {
         if (matchCount!= 0) {
             //Draw borders and frame
             c.drawLine(10, 175, c.getWidth()-10, 175, borderPaint);
-            c.drawLine(145, 50, 145, 175, borderPaint);
+            c.drawLine(125, 50, 125, 175, borderPaint);
             c.drawLine(220, 175, 220, c.getHeight()-10, borderPaint);
             //All climb drawing done here
             c.drawText("Climb:", 20, 70, textPaint);
@@ -239,20 +234,12 @@ public class TeamStrategyView extends Button {
                     c.drawText(climbData[0] + "", (float) (67 + 20 * Math.cos(angle)), (float) (125 - 20 * Math.sin(angle)), dataPaint);
             }
             //All firing drawing done here
-            String fireText = "Fire Rate";
+            String fireText = "Boiler Points";
             if (hopperSize!=0)
                 fireText = fireText +" (hopper: "+ hopperSize+")";
-            c.drawText(fireText, 170, 70, textPaint);
-            if (totalTimeHigh!=0) {
-                c.drawText("High goal: "+(Math.floor(averageHighRate*100)/100)+" b/s", 180, 110, textPaint);
-            } else {
-                c.drawText("High goal: No data", 180, 110, textPaint);
-            }
-            if(totalTimeLow!=0){
-                c.drawText("Low goal: "+(Math.floor(averageLowRate*100)/100)+" b/s", 180, 150, textPaint);
-            } else {
-                c.drawText("Low goal: No data", 180, 150, textPaint);
-            }
+            c.drawText(fireText, 140, 70, textPaint);
+            c.drawText("Average: "+(Math.floor(averagePointsPerMatch*100/9)/100), 150, 110, textPaint);
+            c.drawText("Maximum: "+(Math.floor(maximumPointsPerMatch*100/9)/100), 150, 150, textPaint);
             //All gear numbers done here
             c.drawText("Gears per match", 20, 210, textPaint);
             c.drawText("Attempted: "+(Math.floor(averageGearsAttempted*100)/100), 30, 250, textPaint);

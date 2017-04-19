@@ -72,12 +72,12 @@ public class MatchStrategyFragment extends Fragment {
             }
         });
         focusLayout.setVisibility(View.GONE);
-        mStrategyViews.add((TeamStrategyView) view.findViewById(R.id.one));
-        mStrategyViews.add((TeamStrategyView) view.findViewById(R.id.two));
-        mStrategyViews.add((TeamStrategyView) view.findViewById(R.id.three));
         mStrategyViews.add((TeamStrategyView) view.findViewById(R.id.four));
         mStrategyViews.add((TeamStrategyView) view.findViewById(R.id.five));
         mStrategyViews.add((TeamStrategyView) view.findViewById(R.id.six));
+        mStrategyViews.add((TeamStrategyView) view.findViewById(R.id.one));
+        mStrategyViews.add((TeamStrategyView) view.findViewById(R.id.two));
+        mStrategyViews.add((TeamStrategyView) view.findViewById(R.id.three));
         try {
             Document matchDoc = DatabaseManager.getInstance(getContext()).getMatchFromKey(mMatchKey);
             Object[] teamObjects = Utilities.getTeamsFromMatchDocument(matchDoc);
